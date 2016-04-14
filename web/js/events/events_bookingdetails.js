@@ -33,13 +33,9 @@ function intialiseDateTimePicker(bookignDate, bookingTime){
 		  defaultDate:bookignDate + ' 00:00',
 		  defaultTime:bookingTime,
 		  format:'d.m.Y H:i',
-
 		  inline:true,
-
 		  lang:'ru',
-
-		  minDate:0,
-		  maxDate: '+30D',
+		  minDate:'0',
 
 		  allowTimes:[
 

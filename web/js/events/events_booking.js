@@ -89,7 +89,7 @@ function intialiseDateTimePicker(bookignDate, bookingTime){
 		  lang:'ru',
 
 		  minDate:0,
-		  maxDate: '+30D',
+
 
 		  allowTimes:[
 
