@@ -76,7 +76,11 @@ function updateBooking(){
 			 "client_name":input_client_name.value,
 			 "client_surname":input_client_surname.value,
 			 "client_email_address":input_client_email_address.value,
-			 "client_mobile_number":input_client_mobile_number.value}, 
+			 "client_mobile_number":input_client_mobile_number.value,
+			 "seletedBookingDate":sessionStorage.mobileops_seletedBookingDate,
+			 "seletedBookingTime":sessionStorage.mobileops_seletedBookingTime,
+		
+	},
 		 dataType : "json",
 		success : function(response) {
 			var message = response.message;
@@ -119,7 +123,7 @@ function addServicesRows(services){
 	$('.serviceRow').remove();
 	var pricesString = "";
 	var totalPrice = 0;
-	var rowNum = 3;
+	var rowNum = 4;
 	var table = document.getElementById("invoice_table");
 	
 	for (i = 0; i < services.length; i++){

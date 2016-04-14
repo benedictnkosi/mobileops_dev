@@ -129,8 +129,19 @@ function updateBooking($entityManager){
 				$BookingUserProfile->setPhoneNumber($_POST ['client_mobile_number']);
 				$BookingUserProfile->setSurname($_POST ['client_surname']);
 				$BookingUserProfile->setDateCreated($date);
-				
 				$entityManager->persist($BookingUserProfile);
+			}
+			
+			$BookingSummaryView =  $entityManager->getRepository('BookingSummaryView')->findOneBy(array('bookingId' => $_POST ['updateBooking']));
+			if($BookingSummaryView){
+				$format = 'Y/m/d H:i';
+				$dateStartTime = DateTime::createFromFormat($format, $_POST ['seletedBookingDate'] . ' ' . $_POST ['seletedBookingTime'] );
+				$dateEndTime = DateTime::createFromFormat($format, $_POST ['seletedBookingDate'] . ' ' . $_POST ['seletedBookingTime'] );
+				
+				$BookingSummaryView->setBookingStartTime($dateStartTime);
+				$BookingSummaryView->setBookingEndTime($dateEndTime);
+				
+				$entityManager->persist($BookingSummaryView);
 				$entityManager->flush();
 				
 				$response['status'] = 1;
@@ -138,7 +149,7 @@ function updateBooking($entityManager){
 				echo json_encode($response);
 				return;
 			}
-
+			
 		}
 		$response['status'] = 2;
 		$response['message'] = 'Failed To Update Booking Details';

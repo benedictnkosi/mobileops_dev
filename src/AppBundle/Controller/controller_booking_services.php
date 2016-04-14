@@ -265,7 +265,7 @@ function updateBookingViewFromBookingSummaryView($entityManager,$bookingSummaryV
 	  $bookingSummaryView->setRegion($regionServicePriceDTO->getRegion());
 	  
 	  $entityManager->persist($bookingSummaryView);
-	  $entityManager->flush();	  
+	  $entityManager->flush();
 	  
 	} catch (Exception $e) {
 	  echo $e->getTrace();		

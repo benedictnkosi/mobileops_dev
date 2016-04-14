@@ -144,7 +144,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                              <div class="field"><input id="datetimepicker" type="text"> <span
+                              <div class="field " ><input id="datetimepicker" type="text"> <span
 	class="error"></span></div>
                             </td>
                             
