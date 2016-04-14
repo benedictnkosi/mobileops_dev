@@ -7,7 +7,6 @@ $(document).ready(function() {
 		}else{
 			saveCookieToSession();
 		}
-		
 	}
 	
 	var isClientloggedIn = true;
@@ -17,8 +16,38 @@ $(document).ready(function() {
 	    event.preventDefault();
 	    cancelBooking();
 });
+	
+	$('#updateBooking').click(function(event){
+	    event.preventDefault();
+	    updateBooking();
+});
+	
 });
 
+
+function updateBooking(){
+	$.ajax({
+		type : 'POST',
+		url : 'src/AppBundle/Controller/controller_booking.php',
+		 data: {"updateBooking" : getUrlParameter("bookingdetails"),
+			 "client_name":input_client_name.value,
+			 "client_surname":input_client_surname.value,
+			 "client_email_address":input_client_email_address.value,
+			 "client_mobile_number":input_client_mobile_number.value}, 
+		 dataType : "json",
+		success : function(response) {
+			var message = response.message;
+			if(message.indexOf("Successfully ") > -1){
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+			}else{
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+			}
+			$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+	},
+	});
+}
 
 
 
@@ -97,21 +126,27 @@ function getBookingDetails(){
 			element.appendChild(h);
 			element.appendChild(document.createElement("br"));
 			
+			
+			var input_client_name= document.createElement("input");
+			input_client_name.type = "text";
+			input_client_name.value = data['client_name'];
+			input_client_name.id = "input_client_name";
+			element.appendChild(input_client_name);
+			element.appendChild(document.createElement("br"));
+			
+			
 			var input_client_surname = document.createElement("input");
 			input_client_surname.type = "text";
-			input_client_surname.value = data['client_name'] + " " + data['client_surname'];
+			input_client_surname.value =  data['client_surname'];
+			input_client_surname.id = "input_client_surname";
 			element.appendChild(input_client_surname);
 			element.appendChild(document.createElement("br"));
-			
-			var input_booking_complex = document.createElement("input");
-			input_booking_complex.type = "text";
-			input_booking_complex.value = data['booking_complex'];
-			element.appendChild(input_booking_complex);
-			element.appendChild(document.createElement("br"));
-			
+
+		
 			var input_client_email_address = document.createElement("input");
 			input_client_email_address.type = "text";
 			input_client_email_address.value = data['client_email_address'];
+			input_client_email_address.id = "input_client_email_address";
 			element.appendChild(input_client_email_address);
 			element.appendChild(document.createElement("br"));
 			
@@ -119,6 +154,7 @@ function getBookingDetails(){
 			var input_client_mobile_number = document.createElement("input");
 			input_client_mobile_number.type = "text";
 			input_client_mobile_number.value = data['client_mobile_number'];
+			input_client_mobile_number.id = "input_client_mobile_number";
 			element.appendChild(input_client_mobile_number);
 			element.appendChild(document.createElement("br"));
 
@@ -127,10 +163,11 @@ function getBookingDetails(){
 			h.appendChild(t);      
 			element.appendChild(h);      
 			element.appendChild(document.createElement("br"));
+			element.appendChild(document.createTextNode(data['booking_complex']));
 			element.appendChild(document.createTextNode(data['booking_address']));
 			element.appendChild(document.createElement("br"));
 			
-
+			
 			
 			$("#booking_ref_label" ).empty();
 			var element = document.getElementById("booking_ref_label");

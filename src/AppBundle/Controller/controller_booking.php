@@ -108,6 +108,49 @@ if (isset ( $_GET ['getBookingDetails'] )) {
 	endif;
 }
 
+
+if (isset ( $_POST ['updateBooking'] )) {
+	if ($_POST ['updateBooking']) :
+	updateBooking($entityManager);
+	endif;
+}
+
+
+function updateBooking($entityManager){
+	try {
+		$booking =  $entityManager->getRepository('Booking')->findOneBy(array('bookingId' => $_POST ['updateBooking']));
+		if($booking){
+			
+			$BookingUserProfile =  $booking->getUser();
+			if($BookingUserProfile){
+				$date = new DateTime();
+				$BookingUserProfile->setEmailAddress($_POST ['client_email_address']);
+				$BookingUserProfile->setFirstName($_POST ['client_name']);
+				$BookingUserProfile->setPhoneNumber($_POST ['client_mobile_number']);
+				$BookingUserProfile->setSurname($_POST ['client_surname']);
+				$BookingUserProfile->setDateCreated($date);
+				
+				$entityManager->persist($BookingUserProfile);
+				$entityManager->flush();
+				
+				$response['status'] = 1;
+				$response['message'] = 'Successfully Updated Booking Details';
+				echo json_encode($response);
+				return;
+			}
+
+		}
+		$response['status'] = 2;
+		$response['message'] = 'Failed To Update Booking Details';
+		echo json_encode($response);
+	} catch (Exception $e) {
+		$response['status'] = 2;
+		$response['message'] = 'Failed To Update Booking Details';
+		echo json_encode($response);
+	}
+}
+
+
 function getBookingDetails($entityManager){
 	try {
 		$bookingDetailsArray = array ();
