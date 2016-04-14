@@ -8,6 +8,11 @@
       <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
       
       <style>
+      
+      input[type="text"]{
+    background: white;
+}
+
     .invoice-box{
         max-width:800px;
         margin:auto;
@@ -117,8 +122,11 @@
                             </td>
                             
                             <td style="text-align:right;">
-                                Booking Ref #: <label id="booking_ref_label"></label><br>
-                                <p id="lbl_date"></p><br>
+                                Booking Ref: <label id="booking_ref_label"></label><br>
+                                Booking Status: <label id="lbl_status"></label><br>
+                                Booking Date: <label id="lbl_date"></label><br>
+                                
+                                
                             </td>
                         </tr>
                     </table>
@@ -174,7 +182,7 @@
              <tr style="border: none;background-color:white;">
                 <td>
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
-<a id="editBooking" href="#" class="button">Edit Booking</a>
+				   <a id="updateBooking" href="#" class="button">Update Booking</a>
                 </td>
             </tr>
             

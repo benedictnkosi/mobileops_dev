@@ -229,7 +229,7 @@
   </div></div>
                   </div>
                   
-                  <div class="row uniform">
+                  <div class="row uniform display-none">
 <div class="6u 12u(3)">
 <div class="field"><input name="lat" type="text" value=""
 	class="googleResults" id="input_Latitude"> <span class="error"></span>

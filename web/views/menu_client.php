@@ -66,15 +66,18 @@
 <nav id="nav">
 
 <ul>
+	
 	<li><a href="index.php?booking">BOOK NOW</a></li>
+	
+	<li><a href="index.php?mybookings">MY BOOKINGS</a></li>
 
 	<li><a href="index.php?pricelist">PRICES</a></li>
 
-	<li><a href="" class="icon fa-angle-down">PROFILE</a>
-	<ul>
+
+	
 		<li><a href="index.php?clientprofile">MY PROFILE</a></li>
-		<li><a href="index.php?mybookings">MY BOOKINGS</a></li>
-	</ul>
+		
+	
 	</li>
 
 	<li><a href="index.php?logout=true">LOGOUT</a></li>

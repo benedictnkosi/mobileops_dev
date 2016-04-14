@@ -385,7 +385,6 @@ function getBookingsInCalender($entityManager){
 
 	$bookings_times_array = array ();
 
-
 	foreach ($user_bookings as &$value) {
 
 		$booking_time 	= $entityManager->getRepository('BookingTime')->findOneBy(array('booking' => $value, 'active' => TRUE));
@@ -398,7 +397,6 @@ function getBookingsInCalender($entityManager){
          'url' 		=> "/index.php?bookingdetails=1" 
          ));
 	}
-
 	echo json_encode($bookings_times_array);
 }
 

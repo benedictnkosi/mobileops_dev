@@ -97,34 +97,66 @@ function getBookingDetails(){
 			element.appendChild(h);
 			element.appendChild(document.createElement("br"));
 			
-			
-			element.appendChild(document.createTextNode(data['client_name'] + " " + data['client_surname']));
+			var input_client_surname = document.createElement("input");
+			input_client_surname.type = "text";
+			input_client_surname.value = data['client_name'] + " " + data['client_surname'];
+			element.appendChild(input_client_surname);
 			element.appendChild(document.createElement("br"));
 			
-			element.appendChild(document.createTextNode(data['booking_complex']));
+			var input_booking_complex = document.createElement("input");
+			input_booking_complex.type = "text";
+			input_booking_complex.value = data['booking_complex'];
+			element.appendChild(input_booking_complex);
 			element.appendChild(document.createElement("br"));
 			
-			element.appendChild(document.createTextNode(data['client_email_address']));
+			var input_client_email_address = document.createElement("input");
+			input_client_email_address.type = "text";
+			input_client_email_address.value = data['client_email_address'];
+			element.appendChild(input_client_email_address);
 			element.appendChild(document.createElement("br"));
 			
 			
-			element.appendChild(document.createTextNode(data['client_mobile_number']));
+			var input_client_mobile_number = document.createElement("input");
+			input_client_mobile_number.type = "text";
+			input_client_mobile_number.value = data['client_mobile_number'];
+			element.appendChild(input_client_mobile_number);
 			element.appendChild(document.createElement("br"));
-			
+
+			h = document.createElement("H3")
+			t = document.createTextNode("APPOINTMENT ADDRESS"); 
+			h.appendChild(t);      
+			element.appendChild(h);      
+			element.appendChild(document.createElement("br"));
 			element.appendChild(document.createTextNode(data['booking_address']));
 			element.appendChild(document.createElement("br"));
 			
 
 			
-			$( "#booking_ref_label" ).empty();
-			var element = document.getElementById("booking_ref");
+			$("#booking_ref_label" ).empty();
+			var element = document.getElementById("booking_ref_label");
 			element.appendChild(document.createTextNode(data['booking_ref']));
 			
 			//selected date
 			$( "#lbl_date" ).empty();
 			var element = document.getElementById("lbl_date");
 			element.appendChild(document.createTextNode(data['booking_date']));
-			//element.appendChild(document.createElement("br"));
+			element.appendChild(document.createElement("br"));
+			
+			var bookingStatus = "";
+			switch(data['booking_status']) {
+		    case "BOOKING_ACTIVE":
+		    	bookingStatus = "Active";
+		        break;
+		    case "BOOKING_CANCELLED":
+		    	bookingStatus = "Cancelled";
+		        break;
+		    default:
+		    	bookingStatus =  "Error";
+			}
+			
+			$("#lbl_status" ).empty();
+			var element = document.getElementById("lbl_status");
+			element.appendChild(document.createTextNode(bookingStatus));
 			
 			//selected services
 			var servicesArray = data['booking_services'];
