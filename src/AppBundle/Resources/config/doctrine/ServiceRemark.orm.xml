@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ServiceRemark" table="service_remark">
+    <indexes>
+      <index name="remark_booking_type_id_idx" columns="remark_type_id"/>
+      <index name="remark_booking_service_id_idx" columns="booking_service_id"/>
+    </indexes>
+    <id name="serviceRemarkId" type="integer" column="service_remark_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="active" type="boolean" column="active" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="addedBy" type="string" column="added_by" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="remark" type="text" column="remark" length="65535" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="dateAdded" type="datetime" column="date_added" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <many-to-one field="remarkType" target-entity="LuRemark" fetch="LAZY">
+      <join-columns>
+        <join-column name="remark_type_id" referenced-column-name="name"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="bookingService" target-entity="BookingServiceRegion" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_service_id" referenced-column-name="booking_service_region_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+

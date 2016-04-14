@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="BookingTime" table="booking_time">
+    <indexes>
+      <index name="booking_id_idx" columns="booking_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="booking_reference_UNIQUE" columns="booking_reference"/>
+    </unique-constraints>
+    <id name="bookingTimeId" type="integer" column="booking_time_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="bookingStartTime" type="datetime" column="booking_start_time" nullable="true"/>
+    <field name="bookingEndTime" type="datetime" column="booking_end_time" nullable="true"/>
+    <field name="bookingLastChangeUser" type="string" column="booking_last_change_user" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="bookingReference" type="string" column="booking_reference" length="45" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_id" referenced-column-name="booking_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="PartnerImages" table="partner_images">
+    <indexes>
+      <index name="partner_images_user_id_idx" columns="user_id"/>
+    </indexes>
+    <id name="imageId" type="integer" column="image_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="imageName" type="string" column="image_name" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="active" type="integer" column="active" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <many-to-one field="user" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="user_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+

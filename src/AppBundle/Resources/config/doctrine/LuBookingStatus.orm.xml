@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LuBookingStatus" table="lu_booking_status">
+    <unique-constraints>
+      <unique-constraint name="booking_description_UNIQUE" columns="date_added"/>
+    </unique-constraints>
+    <id name="name" type="string" column="name" length="45">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="active" type="boolean" column="active" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="dateAdded" type="datetime" column="date_added" nullable="false">
+      <options>
+        <option name="comment">Contains the booking status e.g 
+"PENDING","CANCELLED_BY_CLIENT","ACCEPTED_BY_PARTNER","CANCELLED_BY_PARTNER"</option>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="addedBy" type="string" column="added_by" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>
+

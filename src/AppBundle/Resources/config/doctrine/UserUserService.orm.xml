@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UserUserService" table="user_user_service">
+    <indexes>
+      <index name="user_user_service_profile_id_idx" columns="user_user_service_profile_id"/>
+      <index name="user_user_service_name_fk_idx" columns="user_user_service_name"/>
+    </indexes>
+    <id name="userUserServiceId" type="integer" column="user_user_service_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="active" type="boolean" column="active" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="dateAdded" type="datetime" column="date_added" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="addedBy" type="string" column="added_by" length="250" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="userUserServiceProfile" target-entity="UserProfile" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_user_service_profile_id" referenced-column-name="user_profile_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="userUserServiceName" target-entity="LuService" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_user_service_name" referenced-column-name="name"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+

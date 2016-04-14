@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="BookingBookingStatus" table="booking_booking_status">
+    <indexes>
+      <index name="booking_booking_status_idx" columns="booking_booking_status"/>
+      <index name="booking_booking_status_fk_idx" columns="booking_id"/>
+    </indexes>
+    <id name="bookingBookingStatusId" type="integer" column="booking_booking_status_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="startTime" type="datetime" column="start_time" nullable="true"/>
+    <field name="endTime" type="datetime" column="end_time" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_id" referenced-column-name="booking_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="bookingBookingStatus" target-entity="LuBookingStatus" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_booking_status" referenced-column-name="name"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+

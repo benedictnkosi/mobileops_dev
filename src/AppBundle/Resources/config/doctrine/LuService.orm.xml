@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LuService" table="lu_service">
+    <indexes>
+      <index name="lu_service_type" columns="service_type_name"/>
+    </indexes>
+    <id name="name" type="string" column="name" length="45">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="active" type="boolean" column="active" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="addedBy" type="string" column="added_by" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="serviceTypeName" target-entity="LuServiceType" fetch="LAZY">
+      <join-columns>
+        <join-column name="service_type_name" referenced-column-name="name"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+

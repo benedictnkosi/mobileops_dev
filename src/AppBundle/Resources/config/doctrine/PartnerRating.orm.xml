@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="PartnerRating" table="partner_rating">
+    <indexes>
+      <index name="partner_rating_user_userid_idx" columns="user_id"/>
+      <index name="partner_rating_booking_bookingid_idx" columns="booking_id"/>
+    </indexes>
+    <id name="partnerRatingId" type="integer" column="partner_rating_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="rating" type="integer" column="rating" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="dateAdded" type="datetime" column="date_added" nullable="true"/>
+    <many-to-one field="user" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="user_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_id" referenced-column-name="booking_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+

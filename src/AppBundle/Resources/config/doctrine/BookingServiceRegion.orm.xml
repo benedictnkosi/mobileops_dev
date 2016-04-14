@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="BookingServiceRegion" table="booking_service_region">
+    <indexes>
+      <index name="booking_id_idx" columns="booking_id"/>
+      <index name="region_service_id_idx" columns="region_service_id"/>
+    </indexes>
+    <id name="bookingServiceRegionId" type="integer" column="booking_service_region_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="active" type="boolean" column="active" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="comments" type="text" column="comments" length="65535" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="rating" type="boolean" column="rating" nullable="true"/>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <many-to-one field="regionService" target-entity="RegionService" fetch="LAZY">
+      <join-columns>
+        <join-column name="region_service_id" referenced-column-name="region_service_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_id" referenced-column-name="booking_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+
