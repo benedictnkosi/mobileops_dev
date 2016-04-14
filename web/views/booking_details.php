@@ -7,6 +7,12 @@
 	
       <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
       
+      <link rel="stylesheet" type="text/css"
+	href="web/css/jquery.datetimepicker.css"/ >
+
+<script src="web/js/jquery.datetimepicker.full.min.js"></script>
+      
+      
       <style>
       
       input[type="text"]{
@@ -128,6 +134,21 @@
                                 
                                 
                             </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+             <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                              <div class="field"><input id="datetimepicker" type="text"> <span
+	class="error"></span></div>
+                            </td>
+                            
+                            
                         </tr>
                     </table>
                 </td>

@@ -194,7 +194,7 @@ function getBookingDetails($entityManager){
 		$bookingDetailsArray['provider_name'] = 'Mbali Sfebe';
 		$bookingDetailsArray['provider_id'] = '2';
 		$bookingDetailsArray['booking_ref'] = '569a4b4fdc28f';
-		$bookingDetailsArray['booking_status'] = $BookingSummaryView->getLatestBookingStatus();;
+		$bookingDetailsArray['booking_status'] = $BookingSummaryView->getLatestBookingStatus();
 	
 	
 		print json_encode ( $bookingDetailsArray );

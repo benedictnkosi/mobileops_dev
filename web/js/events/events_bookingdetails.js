@@ -25,6 +25,53 @@ $(document).ready(function() {
 });
 
 
+function intialiseDateTimePicker(bookignDate, bookingTime){
+	$('#datetimepicker').datetimepicker({
+
+		
+		  //value:'19.10.2015 09:00',
+		  defaultDate:bookignDate + ' 00:00',
+		  defaultTime:bookingTime,
+		  format:'d.m.Y H:i',
+
+		  inline:true,
+
+		  lang:'ru',
+
+		  minDate:0,
+		  maxDate: '+30D',
+
+		  allowTimes:[
+
+		              '07:00', '07:30', '08:00', '08:30','09:00', '09:30','10:00', '10:30','11:00', '11:30','12:00', '12:30','13:00', '13:30',
+
+		              '14:00', '14:30','15:00', '15:30','16:00', '16:30','17:00', '17:30','18:00', '18:30','19:00', '19:30','20:00', '20:30',
+
+		              '21:00',
+
+		             ],
+		             onSelectTime: function(dp, $input) {
+			 			 sessionStorage.mobileops_seletedBookingTime = dp.dateFormat('H:i');
+			 			$('#booking_time').val(dp.dateFormat('H:i'));
+		            	 },
+
+		  			onSelectDate: function(dp, $input) {
+		            		 sessionStorage.mobileops_seletedBookingDate = dp.dateFormat('Y/m/d');
+		            		 $('#booking_date').val(dp.dateFormat('Y/m/d'));
+		 	            	 },
+
+		            	 onGenerate: function(dp, $input) {
+		 		            	 //alert(dp.dateFormat('Y/m/d'));
+			            		 sessionStorage.mobileops_seletedBookingDate = dp.dateFormat('Y/m/d');
+			            		 sessionStorage.mobileops_seletedBookingTime = dp.dateFormat('H:i');
+			            		 $('#booking_time').val(dp.dateFormat('H:i'));
+			            		 $('#booking_date').val(dp.dateFormat('Y/m/d'));
+			 	            	 },
+
+		});
+}
+
+
 function updateBooking(){
 	$.ajax({
 		type : 'POST',
@@ -112,8 +159,18 @@ function getBookingDetails(){
 		data : 'bookingId=' + getUrlParameter("bookingdetails"),
 		dataType : "json",
 		success : function(data) {
-			$('#name').val(data['name']);
+			//initialise calandar
 			
+			//2016-04-15 09:00
+			//15.4.2016
+			var dateTimeParts = data['booking_date'].split(" ");
+			var dateOnlyParts = dateTimeParts[0].split("-");
+			var d = new Date();
+			var dateHolder = dateOnlyParts[2] + '.' + dateOnlyParts[1] + '.' + dateOnlyParts[0];
+			intialiseDateTimePicker(dateHolder.toString(), dateTimeParts[1]);
+			
+			
+			$('#name').val(data['name']);
 			$( "#personalDetails" ).empty();
 			
 			var element = document.getElementById("personalDetails");
