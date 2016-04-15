@@ -169,14 +169,15 @@ function getBookingService($entityManager,$bookingServiceRegionId){
 	return NULL;
 }
 
-function updateBookingServiceStatus($entityManager,$bookingServiceRegionObject,$newStatus){
+function updateBookingServiceStatus($entityManager,$bookingStatusObject,$newStatus){
 
 	try {
-		$bookingServiceRegion->setActive($newStatus);
-		$entityManager->persist($bookingServiceRegionObject);
+		$bookingStatusObject->setActive($newStatus);
+		$entityManager->persist($bookingStatusObject);
 		$entityManager->flush();
 
 	} catch (Exception $e) {
+		echo $e->getMessage();
 	}
 }
 
@@ -184,7 +185,7 @@ function updateBookingServiceRating($entityManager,$bookingServiceRegionObject,$
 
 	try {
 
-		$bookingServiceRegion->setRating($newRating);
+		$bookingServiceRegionObject->setRating($newRating);
 
 		$entityManager->persist($bookingServiceRegionObject);
 		$entityManager->flush();

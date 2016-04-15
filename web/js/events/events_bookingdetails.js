@@ -243,9 +243,12 @@ function getBookingDetails(){
 		        break;
 		    case "BOOKING_CANCELLED":
 		    	bookingStatus = "Cancelled";
+		    	$('#tr_buttons').addClass('display-none')
 		        break;
 		    default:
 		    	bookingStatus =  "Error";
+		    	$('#tr_buttons').addClass('display-none')
+		    	
 			}
 			
 			$("#lbl_status" ).empty();

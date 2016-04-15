@@ -127,7 +127,7 @@
                                 <img src="web/images/logo.png" style="width:100%; max-width:300px;border-radius: 5px;">
                             </td>
                             
-                            <td style="text-align:right;">
+                            <td style="text-align:left;">
                                 Booking Ref: <label id="booking_ref_label"></label><br>
                                 Booking Status: <label id="lbl_status"></label><br>
                                 Booking Date: <label id="lbl_date"></label><br>
@@ -139,7 +139,7 @@
                 </td>
             </tr>
             
-             <tr class="top">
+             <tr class="top display-none" >
                 <td colspan="2">
                     <table>
                         <tr>
@@ -200,7 +200,7 @@
             <tr>
                
             </tr>
-             <tr style="border: none;background-color:white;">
+             <tr style="border: none;background-color:white;" id="tr_buttons">
                 <td>
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
 				   <a id="updateBooking" href="#" class="button">Update Booking</a>

@@ -943,11 +943,11 @@ function changeBookingStatus($entityManager,$booking,$newStatus){
 		if($currentBookingStatus!=NULL){
 			//Change the old status
 			$currentBookingStatus->setActive(0);
-			$enntityManager->persist($currentBookingStatus);
+			$entityManager->persist($currentBookingStatus);
 			$entityManager->flush();
 		}
 		//Now add the new status
-		$newBookingStatus = createBookingBookingStatus($entityManager,$booking,$startTime,$endTime,$newStatus);
+		$newBookingStatus = createBookingBookingStatus($entityManager,$booking,$newStatus);
 
 		if($newBookingStatus!=NULL)
 		return 'SUCCESS';
