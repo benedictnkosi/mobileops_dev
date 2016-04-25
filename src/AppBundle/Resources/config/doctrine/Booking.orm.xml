@@ -25,9 +25,9 @@
         <option name="fixed"/>
       </options>
     </field>
-    <many-to-one field="user" target-entity="BookingUserProfile" fetch="LAZY">
+    <many-to-one field="user" target-entity="User" fetch="LAZY">
       <join-columns>
-        <join-column name="user_id" referenced-column-name="booking_user_profile_id"/>
+        <join-column name="user_id" referenced-column-name="user_id"/>
       </join-columns>
     </many-to-one>
   </entity>

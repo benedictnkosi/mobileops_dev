@@ -39,6 +39,8 @@
 
 <script src="web/js/init.js"></script>
 
+<script src="web/js/checkBrowserSessionData.js" type="text/javascript"></script>
+
 <noscript>
 
 <link rel="stylesheet" href="web/css/skel.css" />

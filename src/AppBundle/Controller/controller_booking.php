@@ -2,6 +2,8 @@
 
 require_once(__DIR__.'/../../../bootstrap.php');
 require_once(__DIR__.'/../../../app/application.php');
+require_once(__DIR__.'/../Logic/Email_template.php');
+require_once (__DIR__."/../Logic/Mail.php");
 
 /*required entities*/
 require_once(__DIR__.'/../Entity/LuFee.php');
@@ -34,15 +36,7 @@ require_once('controller_booking_services.php');
 //Logger
 //require_once('../logger/php/Logger.php');
 
-if (isset ( $_GET ['getAllUserBookingsWithTime1'] )) {
-	if ($_GET ['getAllUserBookingsWithTime1']) :
-	try {
-		session_start ();
-	} catch (Exception $e) {
-	}
-	getAllUserBookingsWithTime($entityManager);
-	endif;
-}
+
 
 
 if (isset ( $_GET ['getBestPartners'] )) {
@@ -113,6 +107,19 @@ if (isset ( $_POST ['updateBooking'] )) {
 	if ($_POST ['updateBooking']) :
 	updateBooking($entityManager);
 	endif;
+}
+
+
+function getBookingsByUserId($entityManager,$userObject){
+	$booking_object     = $entityManager->getRepository('Booking')->findBy(array('active' => TRUE,'user' => $userObject));
+	$activeBookingsArray = array ();
+
+	foreach ($booking_object as &$value) {
+		array_push($activeBookingsArray,$value);
+	}
+	$_SESSION['user_bookings'] = $activeBookingsArray;
+	
+	return $activeBookingsArray;
 }
 
 
@@ -290,7 +297,13 @@ function completeBooking($entityManager){
 
 		$entityManager->flush();
 
-		$booking = createMasterBooking($entityManager,$booking_user_profile);
+	
+		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
+		if($user_object){
+			$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
+			$booking = createMasterBooking($entityManager,$user_object);
+		}
+		
 		
 		if(!$booking){
 			$response['status'] = 2;
@@ -316,7 +329,6 @@ function completeBooking($entityManager){
 			return;
 		}
 
-		//echo "test";
 		$format = 'Y/m/d H:i';
 		$dateStartTime = DateTime::createFromFormat($format, $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] );
 		$dateEndTime = DateTime::createFromFormat($format, $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] );
@@ -353,13 +365,26 @@ function completeBooking($entityManager){
 			echo json_encode($response);
 			return;
 		}
+		
+		//update user booking in the session for the calendar view
+		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
+		if($user_object){
+			$user_bookings = getBookingsByUserId($entityManager,$user_object);
+		}
 
+		//send booking confirmation email to client
+		if(send_booking_confirmation_message($entityManager, $booking->getBookingId())){
+			$response['status'] = 1;
+			$response['message'] = 'Your Booking Was Successful';
+			$response['bookingid'] = $booking->getBookingId();
+			echo json_encode($response);
+		}else{
+			$response['status'] = 1;
+			$response['message'] = 'Your Booking Was Successful. Confirmation email failed to send, please contact aministrator';
+			$response['bookingid'] = $booking->getBookingId();
+			echo json_encode($response);
+		}
 		
-		
-		$response['status'] = 1;
-		$response['message'] = 'Your Booking Was Successful';
-		$response['bookingid'] = $booking->getBookingId();
-		echo json_encode($response);
 	} catch (Exception $e) {
 		$response['status'] = 2;
 		$response['message'] = 'Failed To Submit Your Booking';
@@ -427,6 +452,7 @@ function getServicePrices($entityManager){
 
 function getBookingsInCalender($entityManager){
 
+
 	$user_bookings = null;
 	if (isset($_SESSION['user_bookings']))
 	{
@@ -434,9 +460,13 @@ function getBookingsInCalender($entityManager){
 	}
 
 	if($user_bookings==null){
-		$user_bookings = getAllUserBookings($entityManager);
+		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
+		if($user_object){
+			$user_bookings = getBookingsByUserId($entityManager,$user_object);
+		}
 	}
 
+	
 	$bookings_times_array = array ();
 
 	foreach ($user_bookings as &$value) {
@@ -445,10 +475,10 @@ function getBookingsInCalender($entityManager){
 			
 		array_push ($bookings_times_array, array(
          'id' 		=> $value->getBookingId(), 
-         'title' 	=> "Event". $value->getBookingId(), 
+         'title' 	=> "Booking Ref: ". $value->getBookingId() . "\n Services: Hair Wash, Relax ....", 
          'start' 	=> $booking_time->getBookingStartTime()->format('Y-m-d\TH:i:s'),
          'end'      => $booking_time->getBookingEndTime()->format('Y-m-d\TH:i:s'), 
-         'url' 		=> "/index.php?bookingdetails=1" 
+         'url' 		=> "/index.php?bookingdetails=" . $value->getBookingId() 
          ));
 	}
 	echo json_encode($bookings_times_array);
@@ -485,7 +515,7 @@ function getAllUserBookingsWithTime($entityManager){
 
 
 function getAllUserBookings($entityManager){
-	$user = $entityManager->getRepository('User')->findOneBy(array('userId' => $_SESSION['user_id']));
+	$user = $_SESSION ['user_object'];
 
 	//echo "getAllUserBookings";
 	if($user){
@@ -799,23 +829,24 @@ function getBookingAllBookingDetails($entityManager,$booking_id){
 }
 
 
-function createOrUpdateBookingSummary($entityManager,$booking,$bookingTime,$address,$emailAdrres,$mobileNumber,$bookingStatus,$userProfile){
+function createOrUpdateBookingSummary($entityManager,$booking,$bookingTime,$address,$emailAdress,$mobileNumber,$bookingStatus,$userProfile){
 
-	$bookingId	 = $booking->getBookingId();
-	$addressId	 = $address->getAddressId();
+	$bookingId  = $booking->getBookingId();
+	$addressId  = $address->getAddressId();
 	//$userProfile = $booking->getUser();
 
 	$bookingView = $entityManager->getRepository('BookingSummaryView')->findOneBy(array('active' => TRUE,'bookingId' => $bookingId));
 
 	if($bookingView==null){
-		$bookingView	= new BookingSummaryView();
+		$bookingView   = new BookingSummaryView();
 	}
 
 	$bookingView->setActive(true);
+	$bookingView->setUserId($_SESSION ['user_id']);
 
 	$firstname = $userProfile->getFirstName();
 	$surname   = $userProfile->getSurname();
-	$email	   = $emailAdrres;
+	$email    = $emailAdress;
 
 	$bookingView->setFirstName($firstname);
 	$bookingView->setSurname($surname);
@@ -837,6 +868,7 @@ function createOrUpdateBookingSummary($entityManager,$booking,$bookingTime,$addr
 	return $bookingView;
 
 }
+
 
 
 function getBookingAddress($entityManager,$booking_object){
@@ -870,14 +902,15 @@ function addressToString($address){
  * @param $booking_user_profile
  * @return Booking|null
  */
-function createMasterBooking($entityManager, $booking_user_profile){
+function createMasterBooking($entityManager, $booking_user){
 
 	try {
-
+		
+		
 		$booking = new Booking();
 
 		$booking->setActive(1);
-		$booking->setUser($booking_user_profile);
+		$booking->setUser($booking_user);
 		$booking->setUserBooked($_SESSION['booking_user']);
 		$booking->setTimeBooked(new DateTime());
 
@@ -1276,3 +1309,87 @@ function changeBookingUserProfileStatus($entityManager,$currentBookingUserProfil
 
 	return 'SUCCESS';
 }
+
+
+
+
+function send_booking_confirmation_message($entityManager, $booking_id){
+	try {
+		$name = $_POST ['name'];
+		$surname = $_POST ['surname'];
+		$email = $_POST ['email'];
+		$phone_number = $_POST ['mobile_number'];
+		$message_type = "booking_confirmation";
+		$message = "test";
+
+		$personalDetails = $_POST['name'] . " " . $_POST['surname'] . "<br/>" 
+		.  $_POST ['email'] . "<br/>" . 
+		$_POST ['mobile_number']. "<br/>
+		<h4>APPOINTMENT ADDRESS</h4>". "<p>"
+		. $_POST['complex'] . "<br/>"
+		. $_POST['street_number']. "<br/>"
+		.$_POST['route']. "<br/>"
+		. $_POST['sublocality'] . "<br/>"
+		. $_POST['locality'];
+		
+		$Parameters = array(
+				"first_name" => $_POST['name'],
+				"last_name" => $_POST['surname'],
+				"mobile_number" => $_POST['mobile_number'],
+				"personal_details" => $personalDetails,
+				"provider_name" => $_POST['provider_name'],
+				"booking_notes" => $_POST['bookingNotes'],
+				"appointment_date" => $_POST['booking_date'],
+				"appointment_time" => $_POST['booking_time'],
+				"booking_reference" => $booking_id,
+				"booking_status" => 'Active',
+				"tr_service_price" => '<tr class="serviceRow"><td>Bonding</td><td>R200.00</td></tr>
+				<tr class="serviceRow"><td>Face Wash</td><td>R550.00</td></tr>
+				<tr class="serviceRow"><td></td><td>Total: R550.00</td></tr>'
+		);
+		
+		if(emailMessage($entityManager,$Parameters,$message_type)){
+			$messages[] = "Successfully sent message to MobileOps" ;
+		}else{
+			$errors[] = "Failed to send message to MobileOps, please try again" ;
+		}
+
+		return true;
+	}catch (Exception $e) {
+		return false;
+	}
+}
+
+
+//send email to user for password with link/url
+function emailMessage($entityManager, $Parameters, $messageType){
+	try{
+		$errors = array ();
+		$messages = array ();
+
+
+		$body = generate_email_body($messageType, $Parameters);
+			
+		$body = wordwrap($body,70);
+
+		echo $body;
+
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: ' .SYSTEM_EMAIL_ADDRESS. "\r\n";
+		$headers .= 'Reply-To: ' .$_POST['email']. "\r\n";
+
+		$headers .= 'X-Mailer: PHP/' . phpversion () . "\r\n";
+
+
+		if (mail ( SYSTEM_EMAIL_ADDRESS , "MobileOps - " . $messageType, $body, $headers )) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}catch (Exception $e) {
+		return false;
+	}
+}
+

@@ -162,6 +162,8 @@ class FB_Login {
 
 				//default user_role to 'CLIENT' as only clients are allowed to login with social media
 
+				$_SESSION ['user_object'] = $user;
+				
 				$_SESSION ['user_role'] = 'CLIENT';
 
 				$_SESSION ['email_address'] = $user->getEmailAddress();
@@ -306,7 +308,8 @@ class FB_Login {
 					$this->messages[] = "Your account has been created successfully.";
 
 
-
+					$_SESSION ['user_object'] = $user;
+					
 					//default user_role to 'CLIENT' as only clients are allowed to login with social media
 
 					$_SESSION ['user_role'] = 'CLIENT';

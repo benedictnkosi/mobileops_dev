@@ -70,6 +70,11 @@ class BookingSummaryView
     /**
      * @var integer
      */
+    private $userId;
+
+    /**
+     * @var integer
+     */
     private $bookingSummaryViewId;
 
 
@@ -359,6 +364,30 @@ class BookingSummaryView
     public function getLastUpdated()
     {
         return $this->lastUpdated;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return BookingSummaryView
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 
     /**

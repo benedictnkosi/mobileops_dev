@@ -28,7 +28,7 @@ class Booking
     private $bookingId;
 
     /**
-     * @var \BookingUserProfile
+     * @var \User
      */
     private $user;
 
@@ -118,11 +118,11 @@ class Booking
     /**
      * Set user
      *
-     * @param \BookingUserProfile $user
+     * @param \User $user
      *
      * @return Booking
      */
-    public function setUser(\BookingUserProfile $user = null)
+    public function setUser(\User $user = null)
     {
         $this->user = $user;
 
@@ -132,7 +132,7 @@ class Booking
     /**
      * Get user
      *
-     * @return \BookingUserProfile
+     * @return \User
      */
     public function getUser()
     {

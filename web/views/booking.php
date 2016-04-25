@@ -241,6 +241,9 @@
 </div>
 </div>
 
+
+
+
 <div class="6u 12u(3)">
 <div class="field"><input name="administrative_area_level_1" type="text" value=""
 	class="googleResults" id="input_province"> <span class="error"></span>
@@ -273,9 +276,13 @@
 </div>
 </div>
 
+<div class="6u 12u(3)">
+<div class="field"><input name="provider_name" type="text" id="input_providername"> <span class="error"></span>
+</div>
 </div>
 
 
+</div>
 <div class="field buttons">
 <button  class="next">Next</button>
 </div>
@@ -368,7 +375,7 @@
                             
                             <td>
                                <p id="lbl_providername"></p>
-
+                               
                             </td>
                         </tr>
                     </table>

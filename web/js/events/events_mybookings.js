@@ -24,7 +24,7 @@ $(document).ready(function() {
 	minTime: "07:00:00",
 	maxTime: "23:59:00",
 	events: 'src/AppBundle/Controller/controller_booking.php?getAllUserBookingsWithTime=true',
-	timeFormat: 'H(:mm)',
+	timeFormat: 'H:mm',
 	});
 	//getCalendarEvents();
 });

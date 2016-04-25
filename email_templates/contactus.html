@@ -5,37 +5,148 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <style>
-
-body{
-font-family: arial,sans-serif;
-    font-size: 11pt;
+body {
+	font-family: arial, sans-serif;
+	font-size: 11pt;
+	color: #646464;
+	font-family: "Lato", Helvetica, sans-serif;
 }
 
+
+
+.div_heading {
+	text-align: center;
+	width: auto;
+	border: 1px;
+	margin-bottom: 4%;
+	background-color: #D26A6A;
+	min-height: 100px;
+	border-radius: 5px;
+	color: white;
+}
+
+.div_footer {
+	text-align: center;
+	width: auto;
+	border: 1px;
+	margin-bottom: 4%;
+	background-color: #9A8B8B;
+	min-height: 25px;
+	border-radius: 5px;
+	color: white;
+}
+
+@media all and (max-width: 1201px) {
+	.email-body {
+		width: 50%;
+		margin: auto;
+		border: 1px solid black;
+		border-radius: 5px;
+	}
+	h2 {
+	font-size: 3.25em;
+	line-height: 1.25em;
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+}
+
+/* desktop */
+@media all and (min-width: 1200px) {
+    .email-body {
+		width: 50%;
+		margin: auto;
+		border: 1px solid black;
+		border-radius: 5px;
+	}
+	h2 {
+	font-size: 3.25em;
+	line-height: 1.25em;
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+}
+
+
+/* small desktop */
+@media all and (max-width: 1200px) {
+    .email-body {
+		width: 50%;
+		margin: auto;
+		border: 1px solid black;
+		border-radius: 5px;
+	}
+	h2 {
+	font-size: 3.25em;
+	line-height: 1.25em;
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+
+}
+
+/* tablet */
+@media all and (max-width: 1024px) {
+   .email-body {
+		width: 70%;
+		margin: auto;
+		border: 1px solid black;
+		border-radius: 5px;
+	}
+	h2 {
+	font-size: 3.25em;
+	line-height: 1.25em;
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+}
+
+/* mobile phone */
+@media all and (max-width: 768px) {
+    .email-body {
+		width: 100%;
+		margin: auto;
+		border: 1px solid black;
+		border-radius: 5px;
+	}
+	
+	h2 {
+	font-size: 2m;
+	line-height: 1.25em;
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+}
 
 </style>
 </head>
 <body>
 
-<div style="width:auto;border:1px;margin-bottom: 4%;">
-<h2 style="display: inline;">MOBILE OPS</h2>
-<h4 style="display: inline;">services</h4>
-<p style="margin-top: 1px;margin-left: 3%;">we come to you</p>
-</div>
+	<div class="div_heading">
+		<h2 style="display: inline;">MOBILE OPS</h2>
+		<h4 style="display: inline;">services</h4>
+		<p style="margin-top: 1px; margin-left: 3%;">we come to you</p>
+	</div>
 
-
-<p>Hi Administrator</p>
-
-<br/>
-
-<p><<message>></p>
+	<div class="email-body">
+		<p>Hi Administrator</p>
 
 <br/>
-<br/>
 
-<div style="margin-top: 2%;">
-<p>kind Regards</p>
-<p><<first_name>> <<last_name>></p>
-<p><<mobile_number>></p>
-</div>
+<p><<message>></p> <br /> <br />
+
+		<div style="margin-top: 2%;">
+			<p>Thank you for doing business with us</p>
+			<p>The Mobile Ops Team</p>
+			<p>
+				Email: info@mobileops.co.za <br /> Tel: 011 123 4785 <br /> Website:
+				<a href="http://www.mobileops.co.za">www.mobileops.co.za</a> <br />
+		</div>
+	</div>
+	<div class="div_footer">
+		<p style="margin-top: 5px;">Email: info@mobileops.co.za | Tel:
+			(011) 789 5698 | Address: 340 Kent Avenue, Randburg</p>
+	</div>
+
 </body>
 </html>

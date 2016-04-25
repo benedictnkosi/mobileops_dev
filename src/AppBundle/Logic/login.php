@@ -104,7 +104,8 @@ class Login {
 								$this->messages[] = "successfully authenticated";
 								$UserProfile = $user->getUserProfile();
 
-								
+								$serializeUser = serialize($user);
+								$_SESSION ['user_object'] = $serializeUser;
 								$_SESSION ['email_address'] = $user->getEmailAddress();
 								$_SESSION ['user_login_status'] = 1;
 								$_SESSION ['user_role'] = $user->getUserUserRole()->getName();
@@ -218,6 +219,8 @@ class Login {
 					$user = $entityManager->getRepository('User')->findOneBy(array('emailAddress' => $savedUserDetailsArray['email_address']));
 					if($user){
 						$UserProfile = $user->getUserProfile();
+						$serializeUser = serialize($user);
+								$_SESSION ['user_object'] = $serializeUser;
 						$_SESSION ['email_address'] = $user->getEmailAddress();
 						$_SESSION ['user_login_status'] = 1;
 						$_SESSION ['user_role'] = $user->getUserUserRole()->getName();

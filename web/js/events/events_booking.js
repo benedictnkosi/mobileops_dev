@@ -277,7 +277,7 @@ function getAllServices(){
 					    		$( "#lbl_providername" ).empty();
 					    		var element = document.getElementById("lbl_providername");
 					    		element.appendChild(document.createTextNode("Your service provider is " + $('#lblpartner' + sessionStorage.mobileops_providerSelected).text()));
-					    		//$('#selectedProviderImage').attr("src", "images/partner_profile/profile_" + sessionStorage.mobileops_providerSelected + ".jpg");
+					    		$('#input_providername').val($('#lblpartner' + sessionStorage.mobileops_providerSelected).text())
 
 					    	}
 					    	
