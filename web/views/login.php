@@ -40,8 +40,8 @@ width:100%;
       <section id="one" class="wrapper style1">
          <div class="login-container">
             <header class="major">
-						<h2>LOGIN</h2>
-						<h3>--------------USING--------------</h3>
+						
+						<h3>--------------LOGIN USING--------------</h3>
 						<fb:login-button size="large" scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 						  

@@ -13,6 +13,11 @@ class BookingServiceRegion
     private $active = '1';
 
     /**
+     * @var integer
+     */
+    private $regionServiceId;
+
+    /**
      * @var string
      */
     private $comments;
@@ -28,14 +33,29 @@ class BookingServiceRegion
     private $dateCreated = 'CURRENT_TIMESTAMP';
 
     /**
+     * @var float
+     */
+    private $serviceAmount = '0';
+
+    /**
+     * @var float
+     */
+    private $discountPercentagediscountPercentage = '0';
+
+    /**
+     * @var float
+     */
+    private $actualAmountToPay = '0';
+
+    /**
+     * @var string
+     */
+    private $serviceName;
+
+    /**
      * @var integer
      */
     private $bookingServiceRegionId;
-
-    /**
-     * @var \RegionService
-     */
-    private $regionService;
 
     /**
      * @var \Booking
@@ -65,6 +85,30 @@ class BookingServiceRegion
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set regionServiceId
+     *
+     * @param integer $regionServiceId
+     *
+     * @return BookingServiceRegion
+     */
+    public function setRegionServiceId($regionServiceId)
+    {
+        $this->regionServiceId = $regionServiceId;
+
+        return $this;
+    }
+
+    /**
+     * Get regionServiceId
+     *
+     * @return integer
+     */
+    public function getRegionServiceId()
+    {
+        return $this->regionServiceId;
     }
 
     /**
@@ -140,6 +184,102 @@ class BookingServiceRegion
     }
 
     /**
+     * Set serviceAmount
+     *
+     * @param float $serviceAmount
+     *
+     * @return BookingServiceRegion
+     */
+    public function setServiceAmount($serviceAmount)
+    {
+        $this->serviceAmount = $serviceAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceAmount
+     *
+     * @return float
+     */
+    public function getServiceAmount()
+    {
+        return $this->serviceAmount;
+    }
+
+    /**
+     * Set discountPercentagediscountPercentage
+     *
+     * @param float $discountPercentagediscountPercentage
+     *
+     * @return BookingServiceRegion
+     */
+    public function setDiscountPercentagediscountPercentage($discountPercentagediscountPercentage)
+    {
+        $this->discountPercentagediscountPercentage = $discountPercentagediscountPercentage;
+
+        return $this;
+    }
+
+    /**
+     * Get discountPercentagediscountPercentage
+     *
+     * @return float
+     */
+    public function getDiscountPercentagediscountPercentage()
+    {
+        return $this->discountPercentagediscountPercentage;
+    }
+
+    /**
+     * Set actualAmountToPay
+     *
+     * @param float $actualAmountToPay
+     *
+     * @return BookingServiceRegion
+     */
+    public function setActualAmountToPay($actualAmountToPay)
+    {
+        $this->actualAmountToPay = $actualAmountToPay;
+
+        return $this;
+    }
+
+    /**
+     * Get actualAmountToPay
+     *
+     * @return float
+     */
+    public function getActualAmountToPay()
+    {
+        return $this->actualAmountToPay;
+    }
+
+    /**
+     * Set serviceName
+     *
+     * @param string $serviceName
+     *
+     * @return BookingServiceRegion
+     */
+    public function setServiceName($serviceName)
+    {
+        $this->serviceName = $serviceName;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceName
+     *
+     * @return string
+     */
+    public function getServiceName()
+    {
+        return $this->serviceName;
+    }
+
+    /**
      * Get bookingServiceRegionId
      *
      * @return integer
@@ -147,30 +287,6 @@ class BookingServiceRegion
     public function getBookingServiceRegionId()
     {
         return $this->bookingServiceRegionId;
-    }
-
-    /**
-     * Set regionService
-     *
-     * @param \RegionService $regionService
-     *
-     * @return BookingServiceRegion
-     */
-    public function setRegionService(\RegionService $regionService = null)
-    {
-        $this->regionService = $regionService;
-
-        return $this;
-    }
-
-    /**
-     * Get regionService
-     *
-     * @return \RegionService
-     */
-    public function getRegionService()
-    {
-        return $this->regionService;
     }
 
     /**

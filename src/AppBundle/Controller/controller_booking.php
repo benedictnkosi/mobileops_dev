@@ -110,6 +110,88 @@ if (isset ( $_POST ['updateBooking'] )) {
 }
 
 
+function getBookingRegionServiceByBooking($entityManager,$booking){
+
+	if($booking==NULL){
+		echo 'booking is NULL';
+		return NULL;
+	}
+	try {
+
+		$bookingServiceRegion     = $entityManager->getRepository('BookingServiceRegion')->findBy(array('booking' => $booking,'active' => TRUE));
+		$bookingServiceRegionArray = array ();
+
+		foreach ($bookingServiceRegion as $value) {
+			array_push($bookingServiceRegionArray,$value);
+		}
+
+		return $bookingServiceRegionArray;
+
+	} catch (Exception $e) {
+		echo $e->getTraceAsString();
+	}
+
+	return NULL;
+}
+
+
+function changeBookingRegionServiceStatus($entityManager,$bookingRegionServiceStatus,$newBoolStatus){
+	try {
+
+		$bookingRegionServiceStatus->setActive($newBoolStatus);
+
+		$entityManager->persist($bookingRegionServiceStatus);
+		$entityManager->flush();
+
+	} catch (Exception $e) {
+		echo $e->getTraceAsString();
+	}
+}
+
+
+/*comments can be null, rating can be null - cant remember why these two were part of this table*/
+
+function addBookingRegionServiceRegionService($entityManager,$regionServicePriceDTO,$bookingObject,$comments,$rating){
+
+	try{
+		$bookingServiceRegion = regionServiceDTOtoBookingServiceRegionService($regionServicePriceDTO,$bookingObject,$comments,$rating);
+
+		$entityManager->persist($bookingServiceRegion);
+		$entityManager->flush();
+
+		return $bookingServiceRegion;
+
+	}catch (Exception $e){
+		echo $e->getTraceAsString();
+	}
+
+	return NULL;
+
+}
+
+
+function regionServiceDTOtoBookingServiceRegionService($regionServicePriceDTO,$bookingObject,$comments,$rating){
+
+	$bookingServiceRegion = new BookingServiceRegion();
+
+	$bookingServiceRegion->setActive(1);
+	$bookingServiceRegion->setBooking($bookingObject);
+	$bookingServiceRegion->setComments($comments);
+	$bookingServiceRegion->setDiscountPercentagediscountPercentage($regionServicePriceDTO->getDiscountPercentage());
+	$bookingServiceRegion->setRating($rating);
+	$bookingServiceRegion->setActualAmountToPay($regionServicePriceDTO->getAmountToPay());
+	$bookingServiceRegion->setServiceAmount($regionServicePriceDTO->getServiceAmount());
+	$bookingServiceRegion->setDateCreated(new DateTime());
+	$bookingServiceRegion->setRegionServiceId($regionServicePriceDTO->getRegionServiceId());
+	$bookingServiceRegion->setServiceName($regionServicePriceDTO->getServiceName());
+	
+	
+
+	return $bookingServiceRegion;
+
+}
+
+
 function getBookingsByUserId($entityManager,$userObject){
 	$booking_object     = $entityManager->getRepository('Booking')->findBy(array('active' => TRUE,'user' => $userObject));
 	$activeBookingsArray = array ();
@@ -171,6 +253,7 @@ function updateBooking($entityManager){
 
 function getBookingDetails($entityManager){
 	try {
+		$bookingServiceRegionArray = array ();
 		$bookingDetailsArray = array ();
 	
 		$BookingSummaryView =  $entityManager->getRepository('BookingSummaryView')->findOneBy(array('bookingId' => $_GET ['getBookingDetails']));
@@ -178,19 +261,7 @@ function getBookingDetails($entityManager){
 		$booking 	 = getBookingByID($entityManager,$_GET ['getBookingDetails']);
 		$bookingComments = getBookingCommentsForBooking($entityManager,$booking);
 		$BookingAddress = $entityManager->getRepository('Address')->findOneBy(array('addressId' => $BookingSummaryView->getAddressId()));
-	
-	
-		$servicesArray = array ();
-		$serviceArray = array ();
-		array_push ( $serviceArray, "Bonding" );
-		array_push ( $serviceArray, "200.00" );
-		array_push ( $servicesArray, $serviceArray);
-	
-		$serviceArray = array ();
-		array_push ( $serviceArray, "Wash With Organic" );
-		array_push ( $serviceArray, "350.00" );
-		array_push ( $servicesArray, $serviceArray);
-	
+
 	
 		$bookingDetailsArray['client_name'] = $BookingSummaryView->getFirstName();
 		$bookingDetailsArray['client_surname'] = $BookingSummaryView->getSurname();
@@ -207,14 +278,22 @@ function getBookingDetails($entityManager){
 		$bookingDetailsArray['sublocality'] = $BookingAddress->getSuburbName();
 		$bookingDetailsArray['locality'] = $BookingAddress->getCityName();
 		$bookingDetailsArray['booking_date'] =  $BookingSummaryView->getBookingStartTime()->format('Y-m-d H:i');
-		$bookingDetailsArray['booking_services'] = $servicesArray;
 		$bookingDetailsArray['booking_notes'] = $bookingComments->getBookingComments();
 		$bookingDetailsArray['provider_name'] = 'Mbali Sfebe';
 		$bookingDetailsArray['provider_id'] = '2';
 		$bookingDetailsArray['booking_ref'] = '569a4b4fdc28f';
 		$bookingDetailsArray['booking_status'] = $BookingSummaryView->getLatestBookingStatus();
-	
-	
+		$bookingRegionServices = getBookingRegionServiceByBooking($entityManager,$booking);
+		
+		foreach ($bookingRegionServices as $bookingRegionService) {
+			$serviceArray = array ();
+			array_push ( $serviceArray, $bookingRegionService->getServiceName() );
+			array_push ( $serviceArray, $bookingRegionService->getServiceAmount() );
+			array_push($bookingServiceRegionArray,$serviceArray);
+		}
+		
+		$bookingDetailsArray['booking_services'] = $bookingServiceRegionArray;
+		
 		print json_encode ( $bookingDetailsArray );
 	} catch (Exception $e) {
 		$response['status'] = 2;
@@ -366,12 +445,16 @@ function completeBooking($entityManager){
 			return;
 		}
 		
+		//write all services to the booking_service_region table
+		writeServicesToDB($entityManager, $booking);
+		
 		//update user booking in the session for the calendar view
 		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
 		if($user_object){
 			$user_bookings = getBookingsByUserId($entityManager,$user_object);
 		}
 
+		
 		//send booking confirmation email to client
 		if(send_booking_confirmation_message($entityManager, $booking->getBookingId())){
 			$response['status'] = 1;
@@ -393,6 +476,48 @@ function completeBooking($entityManager){
 
 }
 
+function writeServicesToDB($entityManager, $bookingObject){
+	try {
+		
+	
+	$bookingServices = json_decode($_GET ['completeBooking']);
+	
+	foreach ($bookingServices as $bookingServiceArray) {
+		
+		$LuRegion = $entityManager->getRepository('LuRegion')->findOneBy(array('active' => TRUE, 'name' => $_POST ['locality']));
+
+		$LuService = $entityManager->getRepository('LuService')->findOneBy(array('active' => TRUE, 'name' => $bookingServiceArray[0]));
+
+		if($LuRegion && $LuService){
+			$RegionService = $entityManager->getRepository('RegionService')->findOneBy(array('active' => TRUE, 'service' => $LuService, 'region' => $LuRegion));
+			if($RegionService){
+				$regionServicePrice = $entityManager->getRepository('RegionServicePrice')->findOneBy(array('active' => TRUE,'regionService' => $RegionService));
+				if($regionServicePrice){
+					$regionServicePriceDTO = new RegionServicePriceDTO();
+					
+					$regionServicePriceDTO->setDiscountPercentage($regionServicePrice->getDiscountPercentage());
+					$regionServicePriceDTO->setServiceAmount($regionServicePrice->getAmount());
+					
+					$regionServicePriceDTO->setRegion($RegionService->getRegion()->getName());
+					$regionServicePriceDTO->setServiceName($RegionService->getService()->getName());
+					
+					$regionServicePriceDTO->setRegionServiceId($RegionService->getRegionServiceId());
+					$regionServicePriceDTO->setRegionServicePriceId($regionServicePrice->getRegionServicePriceId());
+						
+					addBookingRegionServiceRegionService($entityManager,$regionServicePriceDTO,$bookingObject, null, null);
+				}
+			}
+		}
+		
+	}
+	}
+	catch (Exception $e) {
+		$response['status'] = 2;
+		$response['message'] = $e->getMessage();
+		echo $e->getMessage();
+		echo json_encode($response);
+	}
+}
 
 /*
  * No error checking yet, I am yet to learn. I will put more controlls later.
@@ -1372,7 +1497,7 @@ function emailMessage($entityManager, $Parameters, $messageType){
 			
 		$body = wordwrap($body,70);
 
-		echo $body;
+		//echo $body;
 
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";

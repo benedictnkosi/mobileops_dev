@@ -3,6 +3,7 @@
 $(document).ready(function() {
 	sessionStorage.mobileops_seletedBookingDate = "null";
 	sessionStorage.mobileops_seletedBookingTime = "null";
+	sessionStorage.mobileops_servicesArray = "null";
 	sessionStorage.mobileops_providerSelected = "false";
 	
 	if (!sessionStorage.mobileops_email_address) {
@@ -320,7 +321,8 @@ function getAllServices(){
 			  	      var selectedStep = $( ".idealsteps-step-active"); 
 			  	      if(("Step 5".localeCompare(selectedStep[0].firstChild.firstChild.data) == 0) ){
 			  	    	  if("Complete Booking".localeCompare(e.originalEvent.explicitOriginalTarget.innerHTML) == 0){
-			  	    		 $.post('src/AppBundle/Controller/controller_booking.php?completeBooking=true', this.$form.serialize(), function(response) {  
+			  	    		
+			  	    		  $.post('src/AppBundle/Controller/controller_booking.php?completeBooking=' + sessionStorage.mobileops_servicesArray, this.$form.serialize(), function(response) {  
 					  	    		if(response.message.indexOf("Successful") > -1){
 					  	    			window.location.href = "/index.php?bookingdetails=" + response.bookingid;
 					  	    		}else{
@@ -451,6 +453,8 @@ function getTotalAmountDue(formdata){
 		success : function(response) {
 			$('.serviceRow').remove();
 			var services = response.message;
+			var ServicesArray = new Array()   
+			var ServiceArray = new Array()  
 			var pricesString = "";
 			var totalPrice = 0;
 			var rowNum = 3;
@@ -468,8 +472,13 @@ function getTotalAmountDue(formdata){
 				
 				//pricesString = pricesString + response.message[i][0] + ": R" + parseFloat(Math.round(response.message[i][1] * 100) / 100).toFixed(2) + "<br/>";
 				totalPrice = totalPrice + parseInt(response.message[i][1]);
+				
+				//add to servicesArray
+				ServiceArray = [response.message[i][0], response.message[i][1]];
+				ServicesArray.push(ServiceArray);
 			}
-			//$("#totalAmountDueDiv").html(pricesString + "<br/>Tatal : R" + parseFloat(Math.round(totalPrice * 100) / 100).toFixed(2));
+			sessionStorage.setItem("mobileops_servicesArray", JSON.stringify(ServicesArray));
+			
 			var row = table.insertRow(rowNum);
 			row.className = "serviceRow";
 			var cell1 = row.insertCell(0);

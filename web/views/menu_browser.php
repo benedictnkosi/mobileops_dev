@@ -62,7 +62,7 @@
 <header id="header" class="alt skel-layers-fixed">
 
 <h1>
-<a href="index.php?home">MOBILE OPS</a>
+<a href="index.php?home">MOBILE BEAUTY SALON</a>
 <br>
 </h1>
 
@@ -98,8 +98,8 @@
 <section id="banner">
 <div class="inner">
 
-<h2 style="display: inline;">MOBILE OPS</h2>
-<h4 style="display: inline;">services</h4>
+<h2 style="display: inline;">MOBILE BEAUTY SALON</h2>
+
 
 <p>we come to you</p>
 </div>
