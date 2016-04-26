@@ -41,7 +41,7 @@ require_once('controller_booking_services.php');
 
 if (isset ( $_GET ['getBestPartners'] )) {
 	if ($_GET ['getBestPartners']) :
-	//echo "we are here";
+	
 	try {
 		session_start ();
 	} catch (Exception $e) {
@@ -58,7 +58,7 @@ if (isset ( $_GET ['getServicePrices'] )) {
 		session_start ();
 	} catch (Exception $e) {
 	}
-	//echo "we are here";
+	
 	getServicePrices($entityManager);
 	endif;
 }
@@ -81,7 +81,7 @@ if (isset ( $_GET ['completeBooking'] )) {
 		session_start ();
 	} catch (Exception $e) {
 	}
-	//echo "we are here";
+	
 	completeBooking($entityManager);
 	endif;
 }
@@ -89,7 +89,7 @@ if (isset ( $_GET ['completeBooking'] )) {
 
 if (isset ( $_POST ['cancelBooking'] )) {
 	if ($_POST ['cancelBooking']) :
-	//echo "we are here";
+	
 	cancelBooking($entityManager);
 	endif;
 }
@@ -210,7 +210,7 @@ function updateBooking($entityManager){
 		$booking =  $entityManager->getRepository('Booking')->findOneBy(array('bookingId' => $_POST ['updateBooking']));
 		if($booking){
 			
-			$BookingUserProfile =  $booking->getUser();
+			$BookingUserProfile =  $entityManager->getRepository('BookingUserProfile')->findOneBy(array('booking' => $booking));
 			if($BookingUserProfile){
 				$date = new DateTime();
 				$BookingUserProfile->setEmailAddress($_POST ['client_email_address']);
@@ -229,6 +229,10 @@ function updateBooking($entityManager){
 				
 				$BookingSummaryView->setBookingStartTime($dateStartTime);
 				$BookingSummaryView->setBookingEndTime($dateEndTime);
+				$BookingSummaryView->setMobileNumber($_POST ['client_mobile_number']);
+				$BookingSummaryView->setFirstName($_POST ['client_name']);
+				$BookingSummaryView->setSurname($_POST ['client_surname']);
+				$BookingSummaryView->setUserEmailAddress($_POST ['client_email_address']);
 				
 				$entityManager->persist($BookingSummaryView);
 				$entityManager->flush();
@@ -281,8 +285,10 @@ function getBookingDetails($entityManager){
 		$bookingDetailsArray['booking_notes'] = $bookingComments->getBookingComments();
 		$bookingDetailsArray['provider_name'] = 'Mbali Sfebe';
 		$bookingDetailsArray['provider_id'] = '2';
-		$bookingDetailsArray['booking_ref'] = '569a4b4fdc28f';
-		$bookingDetailsArray['booking_status'] = $BookingSummaryView->getLatestBookingStatus();
+		$bookingDetailsArray['booking_ref'] = 'sln' . $booking->getBookingId();
+		$bookingStatus = getActiveBookingStatus($entityManager,$booking);
+		$bookingDetailsArray['booking_status'] = $bookingStatus->getBookingBookingStatus()->getName();
+		
 		$bookingRegionServices = getBookingRegionServiceByBooking($entityManager,$booking);
 		
 		foreach ($bookingRegionServices as $bookingRegionService) {
@@ -352,14 +358,6 @@ function completeBooking($entityManager){
 
 		$date = new DateTime();
 
-		$booking_user_profile  = new BookingUserProfile();
-		$booking_user_profile->setEmailAddress($_POST ['email']);
-		$booking_user_profile->setFirstName($_POST ['name']);
-		$booking_user_profile->setPhoneNumber($_POST ['mobile_number']);
-		$booking_user_profile->setSurname($_POST ['surname']);
-		$booking_user_profile->setDateCreated($date);
-
-
 		$Address = new Address();
 		$Address->setStreetName($street_name);
 		$Address->setStreetNumber($street_number);
@@ -371,7 +369,7 @@ function completeBooking($entityManager){
 		$Address->setComplexName($complex);
 		$Address->setDateAdded($date);
 
-		$entityManager->persist($booking_user_profile);
+		
 		$entityManager->persist($Address);
 
 		$entityManager->flush();
@@ -381,21 +379,34 @@ function completeBooking($entityManager){
 		if($user_object){
 			$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
 			$booking = createMasterBooking($entityManager,$user_object);
+		}else{
+			$booking = createMasterBookingNoUser($entityManager);
 		}
 		
 		
 		if(!$booking){
 			$response['status'] = 2;
-			$response['message'] = 'Failed To Submit Your Booking';
+			$response['message'] = 'Failed To Submit Your Booking1';
 			echo json_encode($response);
 			return;
 		}
+		
+		$booking_user_profile  = new BookingUserProfile();
+		$booking_user_profile->setEmailAddress($_POST ['email']);
+		$booking_user_profile->setFirstName($_POST ['name']);
+		$booking_user_profile->setPhoneNumber($_POST ['mobile_number']);
+		$booking_user_profile->setSurname($_POST ['surname']);
+		$booking_user_profile->setDateCreated($date);
+		$booking_user_profile->setBooking($booking);
+		
+		$entityManager->persist($booking_user_profile);
+		$entityManager->flush();
 		
 		$bookingBookingStatus 	= createBookingBookingStatus($entityManager,$booking,'BOOKING_ACTIVE');
 		
 		if(!$bookingBookingStatus){
 			$response['status'] = 2;
-			$response['message'] = 'Failed To Submit Your Booking';
+			$response['message'] = 'Failed To Submit Your Booking2';
 			echo json_encode($response);
 			return;
 		}
@@ -403,7 +414,7 @@ function completeBooking($entityManager){
 		$bookingAddress	= createBookingAddress($entityManager,$booking,$Address);
 		if(!$bookingAddress){
 			$response['status'] = 2;
-			$response['message'] = 'Failed To Submit Your Booking';
+			$response['message'] = 'Failed To Submit Your Booking3';
 			echo json_encode($response);
 			return;
 		}
@@ -470,7 +481,7 @@ function completeBooking($entityManager){
 		
 	} catch (Exception $e) {
 		$response['status'] = 2;
-		$response['message'] = 'Failed To Submit Your Booking';
+		$response['message'] = $e->getMessage();
 		echo json_encode($response);
 	}
 
@@ -1050,6 +1061,29 @@ function createMasterBooking($entityManager, $booking_user){
 
 }
 
+function createMasterBookingNoUser($entityManager){
+
+	try {
+
+
+		$booking = new Booking();
+
+		$booking->setActive(1);
+		$booking->setUserBooked($_SESSION['booking_user']);
+		$booking->setTimeBooked(new DateTime());
+
+		$entityManager->persist($booking);
+		$entityManager->flush(); // I'll remove this later
+
+		return $booking;
+	} catch (Exception $e) {
+		echo $e->getTraceAsString();
+		return NULL;
+	}
+
+}
+
+
 function createBookingBookingStatus($entityManager,$booking,$status){
 
 	if($booking==NULL){
@@ -1083,7 +1117,7 @@ function getActiveBookingStatus($entityManager,$booking){
 		return NULL;
 	}
 	try {
-		return $entityManager->getRepository('BookingBookingStatus')->findBy(array('booking' => $booking,'active' => TRUE));
+		return $entityManager->getRepository('BookingBookingStatus')->findOneBy(array('booking' => $booking,'active' => TRUE));
 	} catch (Exception $e) {
 		return NULL;
 	}
@@ -1099,7 +1133,7 @@ function changeBookingStatus($entityManager,$booking,$newStatus){
 		$currentBookingStatus = getActiveBookingStatus($entityManager,$booking);
 			
 		if($currentBookingStatus!=NULL){
-			//Change the old status
+			
 			$currentBookingStatus->setActive(0);
 			$entityManager->persist($currentBookingStatus);
 			$entityManager->flush();

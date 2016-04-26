@@ -47,6 +47,11 @@ class BookingUserProfile
      */
     private $bookingUserProfileId;
 
+    /**
+     * @var \Booking
+     */
+    private $booking;
+
 
     /**
      * Set active
@@ -224,6 +229,30 @@ class BookingUserProfile
     public function getBookingUserProfileId()
     {
         return $this->bookingUserProfileId;
+    }
+
+    /**
+     * Set booking
+     *
+     * @param \Booking $booking
+     *
+     * @return BookingUserProfile
+     */
+    public function setBooking(\Booking $booking = null)
+    {
+        $this->booking = $booking;
+
+        return $this;
+    }
+
+    /**
+     * Get booking
+     *
+     * @return \Booking
+     */
+    public function getBooking()
+    {
+        return $this->booking;
     }
 }
 

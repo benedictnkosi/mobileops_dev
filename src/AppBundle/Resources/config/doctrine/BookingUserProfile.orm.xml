@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="BookingUserProfile" table="booking_user_profile">
+    <indexes>
+      <index name="booking_user_profile_booking_fk_idx" columns="booking_id"/>
+    </indexes>
     <id name="bookingUserProfileId" type="integer" column="booking_user_profile_id">
       <generator strategy="IDENTITY"/>
     </id>
@@ -39,6 +42,11 @@
         <option name="fixed"/>
       </options>
     </field>
+    <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_id" referenced-column-name="booking_id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
 

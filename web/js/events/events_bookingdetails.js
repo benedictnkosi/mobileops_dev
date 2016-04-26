@@ -109,6 +109,11 @@ function cancelBooking(){
 			if(message.indexOf("Successfully ") > -1){
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+				
+				$("#lbl_status" ).empty();
+				var element = document.getElementById("lbl_status");
+				element.appendChild(document.createTextNode("Cancelled"));
+				
 			}else{
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
