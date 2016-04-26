@@ -26,7 +26,7 @@ require_once(__DIR__.'/../Entity/BookingServiceRegion.php');
 require_once(__DIR__.'/../Entity/RegionService.php');
 require_once(__DIR__.'/../Entity/BookingUserProfile.php');
 require_once(__DIR__.'/../Entity/PartnerRating.php');
-//require_once(__DIR__.'/../Entity/BookingService.php');
+require_once(__DIR__.'/../Entity/BookingPartner.php');
 
 
 
@@ -274,7 +274,7 @@ function getBookingDetails($entityManager){
 	
 	
 		$bookingDetailsArray['booking_complex'] = $BookingAddress->getComplexName();
-		$bookingDetailsArray['booking_address'] = $BookingAddress->getStreetNumber() . ' ' . $BookingAddress->getStreetName() . ' ' .  $BookingAddress->getSuburbName(). ' ' .  $BookingAddress->getCityName();
+		$bookingDetailsArray['booking_address'] = $BookingAddress->getStreetNumber() . ' ' . $BookingAddress->getStreetName() . ', ' .  $BookingAddress->getSuburbName(). ', ' .  $BookingAddress->getCityName();
 		$bookingDetailsArray['lat'] = $BookingAddress->getLatitude();
 		$bookingDetailsArray['lng'] = $BookingAddress->getLongitude();
 		$bookingDetailsArray['administrative_area_level_1'] = $BookingAddress->getProvinceName();
@@ -283,12 +283,15 @@ function getBookingDetails($entityManager){
 		$bookingDetailsArray['locality'] = $BookingAddress->getCityName();
 		$bookingDetailsArray['booking_date'] =  $BookingSummaryView->getBookingStartTime()->format('Y-m-d H:i');
 		$bookingDetailsArray['booking_notes'] = $bookingComments->getBookingComments();
-		$bookingDetailsArray['provider_name'] = 'Mbali Sfebe';
+		
 		$bookingDetailsArray['provider_id'] = '2';
 		$bookingDetailsArray['booking_ref'] = 'sln' . $booking->getBookingId();
+		
+		//booking status
 		$bookingStatus = getActiveBookingStatus($entityManager,$booking);
 		$bookingDetailsArray['booking_status'] = $bookingStatus->getBookingBookingStatus()->getName();
 		
+		//booking services
 		$bookingRegionServices = getBookingRegionServiceByBooking($entityManager,$booking);
 		
 		foreach ($bookingRegionServices as $bookingRegionService) {
@@ -299,6 +302,14 @@ function getBookingDetails($entityManager){
 		}
 		
 		$bookingDetailsArray['booking_services'] = $bookingServiceRegionArray;
+		
+		
+		//booking Partner
+		$BookingPartner =  $entityManager->getRepository('BookingPartner')->findOneBy(array('booking' => $booking));
+		if($BookingPartner){
+			$bookingDetailsArray['provider_name'] = $BookingPartner->getUser()->getUserProfile()->getFirstName() . " " . $BookingPartner->getUser()->getUserProfile()->getSurname();
+		}
+		
 		
 		print json_encode ( $bookingDetailsArray );
 	} catch (Exception $e) {
@@ -383,6 +394,7 @@ function completeBooking($entityManager){
 			$booking = createMasterBookingNoUser($entityManager);
 		}
 		
+		echo "we herer";
 		
 		if(!$booking){
 			$response['status'] = 2;
@@ -435,8 +447,6 @@ function completeBooking($entityManager){
 		}
 		
 		
-		
-		//$entityManager,$booking,$bookingTime,$address,$emailAdrres,$bookingStatus,$userProfile
 		$BookingSummary = createOrUpdateBookingSummary($entityManager,$booking,$newBookingTime,$Address,$_SESSION['email_address'], $_POST['mobile_number'], 'BOOKING_ACTIVE',$booking_user_profile);
 
 		if(!$BookingSummary){
@@ -450,6 +460,16 @@ function completeBooking($entityManager){
 
 		
 		if(!$bookingComments){
+			$response['status'] = 2;
+			$response['message'] = 'Failed To Submit Your Booking';
+			echo json_encode($response);
+			return;
+		}
+		
+		
+		$bookingPartner = addBookingPartner($entityManager,$booking,$_GET['partner_id']);
+		
+		if(!$bookingPartner){
 			$response['status'] = 2;
 			$response['message'] = 'Failed To Submit Your Booking';
 			echo json_encode($response);
@@ -1316,6 +1336,34 @@ function changeBookingTime($entityManager,$booking,$bookingStartTime,$bookingEnd
 		return createNewBookingTime($entityManager,$booking,$bookingStartTime,$bookingEndTime);
 	}
 }
+
+
+
+function addBookingPartner($entityManager,$booking,$user_id){
+
+	if($booking==NULL || $user_id ==NULL){
+		echo 'booking or user is NULL';
+		return NULL;
+	}
+
+	try {
+		$user = $entityManager->getRepository('User')->findOneBy(array('userId' => $user_id));
+		if($user){
+			$bookingPartner = new BookingPartner();
+			$bookingPartner->setUser($user);
+			$bookingPartner->setBooking($booking);
+			
+			$entityManager->persist($bookingPartner);
+			$entityManager->flush();
+			return $bookingPartner;
+		}
+		
+	} catch (Exception $e) {
+		echo $e->getMessage();
+	}
+	return NULL;
+}
+
 
 //Max 500, validation will happen at UI level
 function addBookingComments($entityManager,$booking,$comments,$addedBy){

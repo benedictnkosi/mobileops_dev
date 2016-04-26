@@ -114,6 +114,8 @@ function cancelBooking(){
 				var element = document.getElementById("lbl_status");
 				element.appendChild(document.createTextNode("Cancelled"));
 				
+				$('#tr_buttons').addClass('display-none')
+				
 			}else{
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
@@ -226,6 +228,7 @@ function getBookingDetails(){
 			element.appendChild(h);      
 			element.appendChild(document.createElement("br"));
 			element.appendChild(document.createTextNode(data['booking_complex']));
+			element.appendChild(document.createElement("br"));
 			element.appendChild(document.createTextNode(data['booking_address']));
 			element.appendChild(document.createElement("br"));
 			

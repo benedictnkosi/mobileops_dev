@@ -141,7 +141,7 @@ function getAllServices(){
 		var data = response.message;
 		for (i = 0; i < data.length; i++) { 
 		    var arraySkills = data[i];
-		    var test = "asas";
+		    
 		    
 		    var categoryDiv = document.createElement("div"); //  <div>
 		    var fieldDiv = document.createElement("div"); // <div class="field">
@@ -322,7 +322,7 @@ function getAllServices(){
 			  	      if(("Step 5".localeCompare(selectedStep[0].firstChild.firstChild.data) == 0) ){
 			  	    	  if("Complete Booking".localeCompare(e.originalEvent.explicitOriginalTarget.innerHTML) == 0){
 			  	    		
-			  	    		  $.post('src/AppBundle/Controller/controller_booking.php?completeBooking=' + sessionStorage.mobileops_servicesArray, this.$form.serialize(), function(response) {  
+			  	    		  $.post('src/AppBundle/Controller/controller_booking.php?completeBooking=' + sessionStorage.mobileops_servicesArray + "&partner_id=" + sessionStorage.mobileops_providerSelected, this.$form.serialize(), function(response) {  
 					  	    		if(response.message.indexOf("Successful") > -1){
 					  	    			window.location.href = "/index.php?bookingdetails=" + response.bookingid;
 					  	    		}else{
