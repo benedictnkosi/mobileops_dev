@@ -166,10 +166,15 @@ function getBookingDetails(){
 		data : 'bookingId=' + getUrlParameter("bookingdetails"),
 		dataType : "json",
 		success : function(data) {
-			//initialise calandar
+			//check if booking id found
 			
-			//2016-04-15 09:00
-			//15.4.2016
+			if(data.status == 2){
+				$('#lbl_message').text(data.message);
+				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+				$('#invoice_table').addClass('display-none')
+				return;
+			}
+			//initialise calandar
 			var dateTimeParts = data['booking_date'].split(" ");
 			var dateOnlyParts = dateTimeParts[0].split("-");
 			var d = new Date();
@@ -256,7 +261,11 @@ function getBookingDetails(){
 		    default:
 		    	bookingStatus =  "Error";
 		    	$('#tr_buttons').addClass('display-none')
-		    	
+			}
+			
+			//remove the buttons for partner
+			if(sessionStorage.mobileops_user_role.localeCompare("PARTNER") == 0 ){
+				$('#tr_buttons').addClass('display-none')
 			}
 			
 			$("#lbl_status" ).empty();

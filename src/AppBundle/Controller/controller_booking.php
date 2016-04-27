@@ -64,8 +64,8 @@ if (isset ( $_GET ['getServicePrices'] )) {
 }
 
 
-if (isset ( $_GET ['getAllUserBookingsWithTime'] )) {
-	if ($_GET ['getAllUserBookingsWithTime']) :
+if (isset ( $_GET ['getBookingsInCalender'] )) {
+	if ($_GET ['getBookingsInCalender']) :
 	try {
 		session_start ();
 	} catch (Exception $e) {
@@ -205,6 +205,22 @@ function getBookingsByUserId($entityManager,$userObject){
 }
 
 
+
+function getBookingsByPartnerId($entityManager,$userObject){
+	$bookingPartner = $entityManager->getRepository('BookingPartner')->findBy(array('user' => $userObject));
+	$activeBookingsArray = array ();
+
+	foreach ($bookingPartner as &$value) {
+		$booking_object = $value->getBooking();
+		array_push($activeBookingsArray,$booking_object);
+	}
+	$_SESSION['user_bookings'] = $activeBookingsArray;
+
+	
+	return $activeBookingsArray;
+}
+
+
 function updateBooking($entityManager){
 	try {
 		$booking =  $entityManager->getRepository('Booking')->findOneBy(array('bookingId' => $_POST ['updateBooking']));
@@ -262,6 +278,13 @@ function getBookingDetails($entityManager){
 	
 		$BookingSummaryView =  $entityManager->getRepository('BookingSummaryView')->findOneBy(array('bookingId' => $_GET ['getBookingDetails']));
 	
+		if(!$BookingSummaryView){
+			$response['status'] = 2;
+			$response['message'] = 'Failed To Retrieve Booking Details';
+			echo json_encode($response);
+			return;
+		}
+		
 		$booking 	 = getBookingByID($entityManager,$_GET ['getBookingDetails']);
 		$bookingComments = getBookingCommentsForBooking($entityManager,$booking);
 		$BookingAddress = $entityManager->getRepository('Address')->findOneBy(array('addressId' => $BookingSummaryView->getAddressId()));
@@ -385,16 +408,16 @@ function completeBooking($entityManager){
 
 		$entityManager->flush();
 
-	
-		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
-		if($user_object){
+		if (isset ( $_SESSION ['user_id'] )) {
 			$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
-			$booking = createMasterBooking($entityManager,$user_object);
+			if($user_object){
+				$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
+				$booking = createMasterBooking($entityManager,$user_object);
+			}
 		}else{
 			$booking = createMasterBookingNoUser($entityManager);
 		}
 		
-		echo "we herer";
 		
 		if(!$booking){
 			$response['status'] = 2;
@@ -447,7 +470,7 @@ function completeBooking($entityManager){
 		}
 		
 		
-		$BookingSummary = createOrUpdateBookingSummary($entityManager,$booking,$newBookingTime,$Address,$_SESSION['email_address'], $_POST['mobile_number'], 'BOOKING_ACTIVE',$booking_user_profile);
+		$BookingSummary = createOrUpdateBookingSummary($entityManager,$booking,$newBookingTime,$Address,$_POST['email'], $_POST['mobile_number'], 'BOOKING_ACTIVE',$booking_user_profile);
 
 		if(!$BookingSummary){
 			$response['status'] = 2;
@@ -456,7 +479,7 @@ function completeBooking($entityManager){
 			return;
 		}
 
-		$bookingComments = addBookingComments($entityManager,$booking,$_POST['bookingNotes'],$_SESSION ['firstname']);
+		$bookingComments = addBookingComments($entityManager,$booking,$_POST['bookingNotes'],$_POST ['name']);
 
 		
 		if(!$bookingComments){
@@ -480,12 +503,13 @@ function completeBooking($entityManager){
 		writeServicesToDB($entityManager, $booking);
 		
 		//update user booking in the session for the calendar view
-		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
-		if($user_object){
-			$user_bookings = getBookingsByUserId($entityManager,$user_object);
+		if (isset ( $_SESSION ['user_id'] )) {
+			$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
+			if($user_object){
+				$user_bookings = getBookingsByUserId($entityManager,$user_object);
+			}
 		}
-
-		
+	
 		//send booking confirmation email to client
 		if(send_booking_confirmation_message($entityManager, $booking->getBookingId())){
 			$response['status'] = 1;
@@ -601,37 +625,37 @@ function getServicePrices($entityManager){
 	}
 }
 
-
-
-
-
-
 function getBookingsInCalender($entityManager){
-
-
 	$user_bookings = null;
 	if (isset($_SESSION['user_bookings']))
 	{
-		$user_bookings = $_SESSION['user_bookings'];
+		//$user_bookings = $_SESSION['user_bookings'];
 	}
 
 	if($user_bookings==null){
 		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
-		if($user_object){
+		if($user_object && strcmp($_GET['getBookingsInCalender'], "CLIENT") == 0 ){
 			$user_bookings = getBookingsByUserId($entityManager,$user_object);
+		}elseif ($user_object && strcmp($_GET['getBookingsInCalender'], "PARTNER") == 0 ){
+			$user_bookings = getBookingsByPartnerId($entityManager,$user_object);
 		}
 	}
-
-	
 	$bookings_times_array = array ();
 
 	foreach ($user_bookings as &$value) {
 
 		$booking_time 	= $entityManager->getRepository('BookingTime')->findOneBy(array('booking' => $value, 'active' => TRUE));
 			
+		$bookingRegionServices = getBookingRegionServiceByBooking($entityManager,$value);
+		$servicesString = "";
+		
+		foreach ($bookingRegionServices as $bookingRegionService) {
+			$servicesString .= $bookingRegionService->getServiceName() . ", ";
+		}
+		
 		array_push ($bookings_times_array, array(
          'id' 		=> $value->getBookingId(), 
-         'title' 	=> "Booking Ref: ". $value->getBookingId() . "\n Services: Hair Wash, Relax ....", 
+         'title' 	=> "Booking Ref: ". $value->getBookingId() . "\n Services: " . substr($servicesString,0,strlen($servicesString) - 2), 
          'start' 	=> $booking_time->getBookingStartTime()->format('Y-m-d\TH:i:s'),
          'end'      => $booking_time->getBookingEndTime()->format('Y-m-d\TH:i:s'), 
          'url' 		=> "/index.php?bookingdetails=" . $value->getBookingId() 
@@ -641,33 +665,6 @@ function getBookingsInCalender($entityManager){
 }
 
 
-
-
-function getAllUserBookingsWithTime($entityManager){
-
-	$user = $entityManager->getRepository('User')->findOneBy(array('userId' => $_SESSION ['user_id']));
-
-	if($user!=null){
-		$user_bookings  = $entityManager->getRepository('Booking')->findBy(array('user' => $user));
-		$bookings_array = array ();
-
-		foreach ($user_bookings as &$value) {
-			$year = date('Y');
-			$month = date('m');
-			$booking_time 	= $entityManager->getRepository('BookingTime')->findBy(array('booking' => $value, 'active' => TRUE));
-			array_push ($bookings_array, array("title"=>"Mobile Ops Appointment", "start"=>"$year-$month-30T14:30:00", "end"=>"$year-$month-30T15:30:00" , "url"=>"/index.php?bookingdetails=" . $value->getBookingId()));
-		}
-
-		$response['status'] = 1;
-		$response['message'] = $bookings_array;
-		echo json_encode($response);
-	}else{
-		$response['status'] = 2;
-		$response['message'] = 'NO BOOKINGS FOUND';
-		echo json_encode($response);
-	}
-
-}
 
 
 function getAllUserBookings($entityManager){
@@ -849,6 +846,11 @@ function getBestPartners($entityManager){
 		foreach ($partners as $partner) {
 			$ServiceFoundOnPartner = true;
 			$services = $entityManager->getRepository('UserUserService')->findBy(array('userUserServiceProfile' => $partner->getUserProfile()));
+			
+			if(!$services){
+				break;
+			}
+			
 			foreach ($selectedServicesArray as $selectedService) {
 				foreach ($services as $partnerService) {
 					if (strcmp($selectedService, $partnerService->getUserUserServiceName()->getName()) !== 0) {
@@ -863,6 +865,7 @@ function getBestPartners($entityManager){
 					break;
 				}
 			}
+			
 			if($ServiceFoundOnPartner == true){
 				$partnerFound = true;
 				//get partner rating
@@ -889,7 +892,7 @@ function getBestPartners($entityManager){
 			}
 		}
 		if(!$partnerFound){
-			if(sizeof($selectedServicesArray) > 2 ){
+			if(sizeof($selectedServicesArray) > 1 ){
 				echo 'No partners providing the services requested found near the provided address. Please select fewer services';
 			}
 			else{
@@ -998,7 +1001,11 @@ function createOrUpdateBookingSummary($entityManager,$booking,$bookingTime,$addr
 	}
 
 	$bookingView->setActive(true);
-	$bookingView->setUserId($_SESSION ['user_id']);
+	
+	if (isset ( $_SESSION ['user_id'] )) {
+		$bookingView->setUserId($_SESSION ['user_id']);
+	}
+	
 
 	$firstname = $userProfile->getFirstName();
 	$surname   = $userProfile->getSurname();
@@ -1120,6 +1127,8 @@ function createBookingBookingStatus($entityManager,$booking,$status){
 		$bookingBookingStatus->setActive(1);
 		$bookingBookingStatus->setBooking($booking);
 		$bookingBookingStatus->setBookingBookingStatus($booking_status);
+		$date = new DateTime();
+		$bookingBookingStatus->setTimestamp($date);
 
 		$entityManager->persist($bookingBookingStatus);
 		$entityManager->flush(); // I'll remove this later
@@ -1155,6 +1164,10 @@ function changeBookingStatus($entityManager,$booking,$newStatus){
 		if($currentBookingStatus!=NULL){
 			
 			$currentBookingStatus->setActive(0);
+			
+			$date = new DateTime();
+			$currentBookingStatus->setTimestamp($date);
+			
 			$entityManager->persist($currentBookingStatus);
 			$entityManager->flush();
 		}

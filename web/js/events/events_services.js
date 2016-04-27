@@ -47,7 +47,7 @@ function saveServices(){
 					$('#lbl_message').text("Error, Failed to update service. Please try again.");
 					$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
 				}
-			$$("html, body").animate({ scrollTop: $("#lbl_message").offset().top}, "slow");
+			$("html, body").animate({ scrollTop: $("#lbl_message").offset().top}, "slow");
 			
 	},
 	

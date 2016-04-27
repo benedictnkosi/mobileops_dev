@@ -8,9 +8,17 @@
     <id name="bookingBookingStatusId" type="integer" column="booking_booking_status_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="startTime" type="datetime" column="start_time" nullable="true"/>
-    <field name="endTime" type="datetime" column="end_time" nullable="true"/>
     <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="bookingBookingStatuscol" type="string" column="booking_booking_statuscol" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="timestamp" type="datetime" column="timestamp" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
     <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
       <join-columns>
         <join-column name="booking_id" referenced-column-name="booking_id"/>

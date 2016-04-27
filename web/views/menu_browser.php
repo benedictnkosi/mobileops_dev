@@ -23,6 +23,10 @@
 
 <script src="web/js/commons.js" type="text/javascript"></script>
 
+
+
+
+
 <script src="web/js/jquery.min.js"></script>
 
 <script src="web/js/jquery.dropotron.min.js"></script>
@@ -38,6 +42,8 @@
 <script src="web/js/skel-layers.min.js"></script>
 
 <script src="web/js/init.js"></script>
+
+<script src="web/js/checkBrowserSessionData.js" type="text/javascript"></script>
 
 <noscript>
 

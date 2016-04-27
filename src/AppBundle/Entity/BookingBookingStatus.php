@@ -8,19 +8,19 @@
 class BookingBookingStatus
 {
     /**
-     * @var \DateTime
-     */
-    private $startTime;
-
-    /**
-     * @var \DateTime
-     */
-    private $endTime;
-
-    /**
      * @var boolean
      */
     private $active;
+
+    /**
+     * @var string
+     */
+    private $bookingBookingStatuscol;
+
+    /**
+     * @var \DateTime
+     */
+    private $timestamp = 'CURRENT_TIMESTAMP';
 
     /**
      * @var integer
@@ -37,54 +37,6 @@ class BookingBookingStatus
      */
     private $bookingBookingStatus;
 
-
-    /**
-     * Set startTime
-     *
-     * @param \DateTime $startTime
-     *
-     * @return BookingBookingStatus
-     */
-    public function setStartTime($startTime)
-    {
-        $this->startTime = $startTime;
-
-        return $this;
-    }
-
-    /**
-     * Get startTime
-     *
-     * @return \DateTime
-     */
-    public function getStartTime()
-    {
-        return $this->startTime;
-    }
-
-    /**
-     * Set endTime
-     *
-     * @param \DateTime $endTime
-     *
-     * @return BookingBookingStatus
-     */
-    public function setEndTime($endTime)
-    {
-        $this->endTime = $endTime;
-
-        return $this;
-    }
-
-    /**
-     * Get endTime
-     *
-     * @return \DateTime
-     */
-    public function getEndTime()
-    {
-        return $this->endTime;
-    }
 
     /**
      * Set active
@@ -108,6 +60,54 @@ class BookingBookingStatus
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set bookingBookingStatuscol
+     *
+     * @param string $bookingBookingStatuscol
+     *
+     * @return BookingBookingStatus
+     */
+    public function setBookingBookingStatuscol($bookingBookingStatuscol)
+    {
+        $this->bookingBookingStatuscol = $bookingBookingStatuscol;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingBookingStatuscol
+     *
+     * @return string
+     */
+    public function getBookingBookingStatuscol()
+    {
+        return $this->bookingBookingStatuscol;
+    }
+
+    /**
+     * Set timestamp
+     *
+     * @param \DateTime $timestamp
+     *
+     * @return BookingBookingStatus
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->timestamp = $timestamp;
+
+        return $this;
+    }
+
+    /**
+     * Get timestamp
+     *
+     * @return \DateTime
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
     }
 
     /**

@@ -23,7 +23,7 @@ $(document).ready(function() {
 	defaultView: 'agendaDay',
 	minTime: "07:00:00",
 	maxTime: "23:59:00",
-	events: 'src/AppBundle/Controller/controller_booking.php?getAllUserBookingsWithTime=true',
+	events: 'src/AppBundle/Controller/controller_booking.php?getBookingsInCalender=' + sessionStorage.mobileops_user_role,
 	timeFormat: 'H:mm',
 	});
 	//getCalendarEvents();
