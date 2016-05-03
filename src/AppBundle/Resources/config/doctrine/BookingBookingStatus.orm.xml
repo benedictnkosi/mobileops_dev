@@ -9,11 +9,6 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="active" type="boolean" column="active" nullable="true"/>
-    <field name="bookingBookingStatuscol" type="string" column="booking_booking_statuscol" length="45" nullable="true">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
     <field name="timestamp" type="datetime" column="timestamp" nullable="true">
       <options>
         <option name="default">CURRENT_TIMESTAMP</option>

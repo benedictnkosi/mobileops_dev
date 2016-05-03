@@ -25,7 +25,7 @@ require_once(__DIR__.'/../Entity/BookingServiceRegion.php');
 require_once(__DIR__.'/../Entity/RegionService.php');
 require_once(__DIR__.'/../Entity/BookingUserProfile.php');
 require_once(__DIR__.'/../Entity/RegionServicePrice.php');
-require_once(__DIR__.'/../DTO/RegionServicePriceDTO.php');
+require_once(__DIR__.'/../Dto/RegionServicePriceDTO.php');
 //require_once(__DIR__.'/../Entity/BookingService.php');
 
 

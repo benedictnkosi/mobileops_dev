@@ -3,7 +3,7 @@
 $(document).ready(function() {
 	if (!sessionStorage.mobileops_email_address) {
 		if(getCookie("mobileops") == null){
-			window.location.href = "/index.php?logout";
+			//window.location.href = "/index.php?logout";
 		}else{
 			saveCookieToSession();
 		}
@@ -106,7 +106,7 @@ function cancelBooking(){
 		 dataType : "json",
 		success : function(response) {
 			var message = response.message;
-			if(message.indexOf("Successfully ") > -1){
+			if(message.indexOf("Successfully") > -1){
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
 				
@@ -227,11 +227,20 @@ function getBookingDetails(){
 			element.appendChild(input_client_mobile_number);
 			element.appendChild(document.createElement("br"));
 
+			
+			h = document.createElement("H3")
+			t = document.createTextNode("SERVICE PROVIDER DETAILS"); 
+			h.appendChild(t);      
+			element.appendChild(h);      
+			
+			element.appendChild(document.createTextNode("Name: " + data['provider_name']));
+			element.appendChild(document.createElement("br"));
+			
 			h = document.createElement("H3")
 			t = document.createTextNode("APPOINTMENT ADDRESS"); 
 			h.appendChild(t);      
-			element.appendChild(h);      
-			element.appendChild(document.createElement("br"));
+			element.appendChild(h);
+			
 			element.appendChild(document.createTextNode(data['booking_complex']));
 			element.appendChild(document.createElement("br"));
 			element.appendChild(document.createTextNode(data['booking_address']));
@@ -264,9 +273,14 @@ function getBookingDetails(){
 			}
 			
 			//remove the buttons for partner
-			if(sessionStorage.mobileops_user_role.localeCompare("PARTNER") == 0 ){
-				$('#tr_buttons').addClass('display-none')
+			if(sessionStorage.mobileops_user_role){
+				if(sessionStorage.mobileops_user_role.localeCompare("PARTNER") == 0 ){
+					$('#tr_buttons').addClass('display-none');
+				}
+			}else{
+				$('#tr_buttons').addClass('display-none');
 			}
+			
 			
 			$("#lbl_status" ).empty();
 			var element = document.getElementById("lbl_status");
@@ -281,19 +295,6 @@ function getBookingDetails(){
 			var element = document.getElementById("bookingnotes");
 			element.appendChild(document.createTextNode(data['booking_notes']));
 			
-			//selected provider
-			
-			$( "#partnerDetails" ).empty();
-			
-			var element = document.getElementById("lbl_providername");
-			
-			var h = document.createElement("H3")                // Create a <h1> element
-			var t = document.createTextNode("SERVICE PROVIDER"); 
-			h.appendChild(t);      
-			
-			
-			element.appendChild(h);
-			element.appendChild(document.createTextNode(data['provider_name']));
 
 			
 			$( "#bookingref" ).text("REF: " + data['booking_ref']);

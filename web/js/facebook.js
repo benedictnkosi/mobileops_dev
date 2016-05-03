@@ -35,8 +35,8 @@ function checkLoginState() {
 
 window.fbAsyncInit = function() {
 	FB.init( {
-		// appId : '773233792802919',
-		appId : '773239122802386',
+		appId : '773233792802919',
+		//appId : '773239122802386',
 		xfbml : true,
 		cookie : true,
 		version : 'v2.5',
@@ -81,7 +81,7 @@ function loadFacebookUser() {
 				+ fb_userid + "&first_name=" + first_name + "&last_name="
 				+ last_name;
 
-		$.post('src/controller/controller_security.php', param, function(
+		$.post('src/AppBundle/Controller/controller_security.php', param, function(
 				response) {
 			var message = response.message;
 

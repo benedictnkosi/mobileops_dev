@@ -116,7 +116,7 @@
 		.reg-container {
     margin-left: auto;
     margin-right: auto;
-    width:100%;
+    width:80%;
 }
 
 
@@ -129,3 +129,58 @@
 #partner_gallery_container{
 	width:100%;
 	}
+	
+	.fc-toolbar .fc-center {
+    display: block !important;
+}
+
+
+
+.fc-toolbar .fc-right {
+    float: left !important;
+     display: block !important;
+}
+
+
+.booking-details-container {
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
+}
+
+
+.invoice-box {
+    width: 100%;
+    margin: auto;
+    padding: 1px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+}
+
+
+#booking-details-buttons{
+    width: 100% !important;
+
+}
+
+table td {
+    padding: 0em 0em !important;
+}
+
+
+.selectPartner {
+    margin-left: 0.5em;
+}
+
+
+.booking-container{
+	    padding-left: 1px !important;
+}
+
+#div_Hair{
+	padding: 0em 0em !important;
+}

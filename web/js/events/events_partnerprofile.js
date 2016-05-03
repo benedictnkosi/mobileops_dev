@@ -39,7 +39,7 @@ $(document).ready(function() {
                         size: value.size
                     };
                     thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "images/partner_gallery/" + value.name);
+                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "web/images/partner_gallery/" + value.name);
                     $( ".dz-details" ).remove();
                     $( ".dz-progress" ).remove();
                 });
@@ -109,10 +109,6 @@ $(document).ready(function() {
             
         }
     });
-
-
- 
-
     getPartnerProfile();
     getPartnerServices();
 });
@@ -128,10 +124,10 @@ function getPartnerProfile() {
             var data = response.message;
             $('#firstname').val(data['name']);
             $('#surname').val(data['surname']);
-            $('#idnumber').val(data['idnumber']);
+           
             $('#email').val(data['email']);
             $('#mobile_number').val(data['mobile_number']);
-            $("#gender").val(data['gender']);
+            
             $('#address').val(data['address']);
             $('#complex').val(data['complex']);
             $('#input_Latitude').val(data['latitude']);
@@ -165,7 +161,7 @@ function getPartnerServices() {
                 if (serviceType.indexOf(data[i][0]) < 0) {
                     ul = document.createElement("ul")
                     ul.id = data[i][0];
-                    var h = document.createElement("H3")
+                    var h = document.createElement("H4")
                     var t = document.createTextNode(data[i][0]);
                     h.appendChild(t);
                     partnerServicesDiv.appendChild(h);

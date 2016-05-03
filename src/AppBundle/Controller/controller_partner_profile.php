@@ -52,7 +52,7 @@ if (isset ( $_GET ['getPartnerImages'] )) {
 
 function deleteImages($entityManager){
 	try {
-		$userDir = '../../images/products/';
+		$userDir =  __DIR__. '/../../../web/images/partner_gallery/';
 		$image = $userDir . $_GET ['deleteimage'];
 		if(!unlink ( str_replace("thumb_","",$image)  )){
 			$response['status'] = 2;
@@ -115,8 +115,7 @@ function savePersonalDetails($entityManager){
 		$street_number = $_POST['street_number'];
 		$suburb = $_POST['sublocality'];
 		$city = $_POST['locality'];
-		$gender = $_POST['gender'];
-		$idnumber = $_POST['idnumber'];
+		
 		$bookingNotes = $_POST['personalNote'];
 
 		$user = $entityManager->getRepository('User')->findOneBy(array('emailAddress' => $_SESSION ['email_address']));
@@ -139,8 +138,7 @@ function savePersonalDetails($entityManager){
 			$UserProfile->setFirstName($name);
 			$UserProfile->setSurname($surname);
 			$UserProfile->setPhoneNumber($phone_number);
-			$UserProfile->setGender($gender);
-			$UserProfile->setIdnumberOrPassport($idnumber);
+			
 			$UserProfile->setDateCreated($date);
 			$UserProfile->setPersonalNote($bookingNotes);
 
@@ -229,11 +227,11 @@ function getPartnerProfile($entityManager){
 
 			$profileArray['name'] = $UserProfile->getFirstName();
 			$profileArray['surname'] = $UserProfile->getSurname();
-			$profileArray['idnumber'] = $UserProfile->getIdnumberOrPassport();
+			
 			$profileArray['personalNote'] = $UserProfile->getPersonalNote();
 			$profileArray['email'] = $user->getEmailAddress();
 			$profileArray['mobile_number'] = $UserProfile->getPhoneNumber();
-			$profileArray['gender'] = $UserProfile->getGender();
+			
 			$Adresss = $UserProfile->getAddress();
 			if($Adresss){
 				$profileArray['address'] =  $Adresss->getStreetNumber() . " " .$Adresss->getStreetName() .", " . $Adresss->getCityName() . ", " . COUNTRY;
@@ -286,7 +284,7 @@ function getPartnerImages($entityManager){
 		if($partnerImages){
 			foreach ($partnerImages as &$file) {
 				$obj['name'] = $file->getImageName();
-				echo '<div class="slide1"><img src="images/partner_gallery/' . $file->getImageName() . '" alt="" /></div>';
+				echo '<div class="slide1"><img src="web/images/partner_gallery/' . $file->getImageName() . '" alt="" /></div>';
 			}
 		}else{
 			echo "failed to get images";

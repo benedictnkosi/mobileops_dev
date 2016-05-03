@@ -65,16 +65,9 @@ class Registration
 			$city = $_POST['locality'];
 			$suburb = $_POST['sublocality'];
 
-			$idnumber = "";  $userole = ""; $gender = "";
-
+			 $userole = "";
 			//get partner field values
 			if (strcasecmp ( $_POST["register"], "partner" ) == 0) {
-				$idnumber = $_POST['idnumber'];
-					
-				if (isset($_POST["gender"])) {
-					$gender = $_POST['gender'];
-				}
-
 				$userole = "PARTNER";
 			}elseif(strcasecmp ( $_POST["register"], "client" ) == 0) {
 				$userole = "CLIENT";
@@ -123,8 +116,6 @@ class Registration
 				$UserProfile->setFirstName($name);
 				$UserProfile->setSurname($surname);
 				$UserProfile->setPhoneNumber($phone_number);
-				$UserProfile->setGender($gender);
-				$UserProfile->setIdnumberOrPassport($idnumber);
 				$UserProfile->setDateCreated($date);
 					
 				$user->setUserProfile ($UserProfile);

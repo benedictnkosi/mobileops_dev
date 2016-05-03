@@ -75,17 +75,6 @@
 </style>
 
 <style>
-    .invoice-box{
-        max-width:800px;
-        margin:auto;
-        padding:30px;
-        border:1px solid #eee;
-        box-shadow:0 0 10px rgba(0, 0, 0, .15);
-        font-size:16px;
-        line-height:24px;
-        font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color:#555;
-    }
     
     .invoice-box table{
         width:100%;
@@ -93,10 +82,7 @@
         text-align:left;
     }
     
-    .invoice-box table td{
-        padding:5px;
-        vertical-align:top;
-    }
+
     
     .invoice-box table tr td:nth-child(2){
         text-align:right;
@@ -166,7 +152,7 @@
 
 <section id="two" class="wrapper style2">
 
-<div class="container"><header class="major">
+<div class="container booking-container"><header class="major">
 
 <h2>BOOK YOUR APPOINTMENT</h2>
 
@@ -342,12 +328,14 @@
 
 <section class="idealsteps-step">
 
+
+
+<div class="invoice-box">
  <div class="row uniform">
    <div class="12u">
                   <div id="lbl_booking_message" class="alert display-none alert-danger"  ></div>
 </div></div>
 
-<div class="invoice-box">
         <table id="invoice_table" cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
@@ -370,10 +358,12 @@
                     <table>
                         <tr>
                             <td>
+                            <h3>CLIENT DETAILS</h3>
                                 <p id="personalDetails"></p>
                             </td>
                             
                             <td>
+                            <h3>SERVICE PROVIDER DETAILS</h3>
                                <p id="lbl_providername"></p>
                                
                             </td>
@@ -417,7 +407,7 @@
             </tr>
              <tr style="border: none;">
                 <td>
-                    <button  class="prev">Back</button>
+                    
 <button type="submit" class="submit">Complete Booking</button>
                 </td>
             </tr>

@@ -16,7 +16,7 @@ require_once(__DIR__.'/../Entity/LuAccountStatus.php');
 require_once(__DIR__.'/../Entity/User.php');
 require_once(__DIR__.'/../Entity/UserProfile.php');
 
-//require_once(__DIR__.'/../../twitteroauth/autoload.php');
+require_once(__DIR__.'/../../twitteroauth/autoload.php');
 
 use Symfony\Bundle\TwigBundle\TwigBundle;
 

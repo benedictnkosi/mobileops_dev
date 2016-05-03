@@ -3,7 +3,7 @@
    <head>
    <link rel="stylesheet"href="http://necolas.github.io/normalize.css/2.1.3/normalize.css">
 	<link rel="stylesheet" href="web/css/jquery.idealforms.css">
-
+<script src="web/js/facebook.js"></script>
 <style>
 .field.buttons button {
 	margin-right: .5em;
@@ -40,15 +40,6 @@ width:100%;
       <section id="one" class="wrapper style1">
          <div class="login-container">
             <header class="major">
-						
-						<h3>--------------LOGIN USING--------------</h3>
-						<fb:login-button size="large" scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
-						  
-				<ul class="icons">
-					<li><a href="#" class="icon fa-twitter" id="twitter-button" name="twitter" value="twitter" onclick="this.form.submited=this.value;"><span class="label">Twitter</span></a></li>
-				</ul>
-<h3>----------     OR     ----------</h3>
 
 					</header>
             <!-- Form --> 
@@ -62,6 +53,7 @@ width:100%;
   
   
 
+
 				
        <div class="row uniform">
    <div class="12u">
@@ -69,7 +61,19 @@ width:100%;
 </div>
 </div></div>
 
+
+
      
+     <div class="row uniform">
+                     <div class="12u">
+                     	<div class="field">
+                     	 <fb:login-button size="large" scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+    <span class="error"></span>
+  </div>
+                     </div>
+                  </div>
+                  
          <div class="row uniform">
                      <div class="12u">
                      	<div class="field">
@@ -104,6 +108,8 @@ width:100%;
   <p style="text-align: center;font-size: 10px!important;">* You have 3 attempts to login. On your 3rd failed attempt, your account will be locked.</p>
   <button type="submit" id="cmdLogin" name="login" value="login" onclick="this.form.submited=this.value;" style="float: none;">Login</button>
   <button type="submit" id="cmdResetPassword" name="resetPassword" value="resetPassword" onclick="this.form.submited=this.value;" style="float: none;">Reset Password</button>
+  
+  <button type="submit" id="cmdTwitter" name="twitter" value="twitter" onclick="this.form.submited=this.value;" class="display-none">Twitter</button>
 
                      </div>
                   </div>

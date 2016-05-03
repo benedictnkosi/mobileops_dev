@@ -78,28 +78,7 @@ width:100%;
   </div></div>
                   </div>
      
-     
- <div class="row uniform">
-                     <div class="6u 12u(3)">
-                     
-                     <div class="select-wrapper">
-													<select name="gender" id="gender">
-														<option value="FEMALE">Female</option>
-														<option value="MALE">Male</option>
-													</select>
-												</div>
-												
-												
-                     	
-                     </div>
-                     <div class="6u 12u(3)">	<div class="field">
-                     <input type="text" name="idnumber" id="idnumber" value=""
-                           placeholder="ID Number"/>
-
-    <span class="error"></span>
-  </div></div>
-                  </div>
-                  
+                
                                
  <div class="row uniform">
                      <div class="6u 12u(3)">
@@ -196,7 +175,7 @@ width:100%;
                                                       
                   
   <!-- Button -->
-  <button type="submit" id="cmdRegister">Submit</button>
+  <button type="submit" id="cmdRegister" style="margin-top: 1em;">Submit</button>
 
 </form>
             </section>
@@ -219,13 +198,9 @@ width:100%;
             'surname': 'required',
             'email': 'required email',
             'mobile_number': 'required number min:10 max:10',
-            'idnumber': 'required',
             'address': 'required',
             'confirm_password': 'required equalto:password',
-            'password': 'required',
-            'gender' : 'select:test',
-            'complex': '',
-            
+            'password': 'required'
           },
           
         	onSubmit: function(invalid, e) {

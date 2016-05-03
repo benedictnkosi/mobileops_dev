@@ -19,18 +19,6 @@
     background: white;
 }
 
-    .invoice-box{
-        max-width:800px;
-        margin:auto;
-        padding:30px;
-        border:1px solid #eee;
-        box-shadow:0 0 10px rgba(0, 0, 0, .15);
-        font-size:16px;
-        line-height:24px;
-        font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color:#555;
-    }
-    
     .invoice-box table{
         width:100%;
         line-height:inherit;
@@ -38,7 +26,7 @@
     }
     
     .invoice-box table td{
-        padding:5px;
+        
         vertical-align:top;
     }
     
@@ -104,7 +92,7 @@
 				<!-- Two -->
 			<section id="two" class="wrapper style2">
 	
-				<div class="reg-container">
+				<div class="booking-details-container">
 				<header class="major">
 						<h2>APPOINTMENT DETAILS</h2>
 					</header>
@@ -162,15 +150,13 @@
                                 <p id="personalDetails"></p>
                             </td>
                             
-                            <td style="text-align:right;">
-                               <p id="lbl_providername"></p>
-
-                            </td>
+                            
                         </tr>
                     </table>
                 </td>
             </tr>
             
+
             <tr class="heading">
                 <td>
                     Service
@@ -201,7 +187,7 @@
                
             </tr>
              <tr style="border: none;background-color:white;" id="tr_buttons">
-                <td>
+                <td id="booking-details-buttons">
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
 				   <a id="updateBooking" href="#" class="button">Update Booking</a>
                 </td>

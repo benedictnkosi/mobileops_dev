@@ -51,7 +51,7 @@
 }
 
 .row.uniform {
-	width: 80%;
+	width: 100%;
 }
 </style>
 

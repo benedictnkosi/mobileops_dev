@@ -3,7 +3,7 @@
 require_once(__DIR__.'/../../../bootstrap.php');
 require_once(__DIR__.'/../../../app/application.php');
 
-require_once(__DIR__.'/../Logic/Email_template.php');
+require_once(__DIR__.'/../Logic/email_template.php');
 
 require_once(__DIR__.'/../Entity/UserMessages.php');
 require_once(__DIR__.'/../Entity/UserProfile.php');

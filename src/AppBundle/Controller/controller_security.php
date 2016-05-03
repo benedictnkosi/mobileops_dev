@@ -3,12 +3,12 @@
 require_once(__DIR__.'/../../../bootstrap.php');
 require_once(__DIR__.'/../../../app/application.php');
 
-require_once(__DIR__."/../Logic/Registration.php");
-require_once(__DIR__."/../Logic/Login.php");
-require_once(__DIR__."/../Logic/FB_Login.php");
-require_once(__DIR__."/../Logic/Twitter_Login.php");
-require_once(__DIR__.'/../Logic/Email_template.php');
-require_once(__DIR__."/../Logic/Mail.php");
+require_once(__DIR__."/../Logic/registration.php");
+require_once(__DIR__."/../Logic/login.php");
+require_once(__DIR__."/../Logic/fb_login.php");
+require_once(__DIR__."/../Logic/twitter_login.php");
+require_once(__DIR__.'/../Logic/email_template.php');
+require_once(__DIR__."/../Logic/mail.php");
 
 require_once(__DIR__."/../Entity/RegistrationKey.php");
 require_once(__DIR__."/../Entity/PasswordResetKey.php");

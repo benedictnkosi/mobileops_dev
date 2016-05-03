@@ -2,8 +2,8 @@
 
 require_once(__DIR__.'/../../../bootstrap.php');
 require_once(__DIR__.'/../../../app/application.php');
-require_once(__DIR__.'/../Logic/Email_template.php');
-require_once (__DIR__."/../Logic/Mail.php");
+require_once(__DIR__.'/../Logic/email_template.php');
+require_once (__DIR__."/../Logic/mail.php");
 
 /*required entities*/
 require_once(__DIR__.'/../Entity/LuFee.php');
@@ -351,13 +351,22 @@ function cancelBooking($entityManager){
 		if($booking){
 			$bookingBookingStatus 	= changeBookingStatus($entityManager,$booking,'BOOKING_CANCELLED');
 			if($bookingBookingStatus){
-				$response['status'] = 1;
-				$response['message'] = 'Successfully Cancelled Your Booking :(';
-				echo json_encode($response);
-				return;
+				
+				//send booking confirmation email to client
+				if(send_booking_cancellation_message($entityManager, $booking)){
+					$response['status'] = 1;
+					$response['message'] = 'Your Booking Was Cancelled Successfully';
+					$response['bookingid'] = $booking->getBookingId();
+					echo json_encode($response);
+				}else{
+					$response['status'] = 1;
+					$response['message'] = 'Your Booking Was Cancelled Successfully. Confirmation email failed to send, please contact aministrator';
+					$response['bookingid'] = $booking->getBookingId();
+					echo json_encode($response);
+				}
 			}else{
 				$response['status'] = 2;
-				$response['message'] = 'Failed To Cancel Your Booking2';
+				$response['message'] = 'Failed To Cancel Your Booking';
 				echo json_encode($response);
 			}
 		}else{
@@ -517,8 +526,8 @@ function completeBooking($entityManager){
 			$response['bookingid'] = $booking->getBookingId();
 			echo json_encode($response);
 		}else{
-			$response['status'] = 1;
-			$response['message'] = 'Your Booking Was Successful. Confirmation email failed to send, please contact aministrator';
+			$response['status'] = 2;
+			$response['message'] = 'Failed To Submit Your Booking. Confirmation email failed to send, please contact aministrator';
 			$response['bookingid'] = $booking->getBookingId();
 			echo json_encode($response);
 		}
@@ -597,6 +606,12 @@ function getServicePrices($entityManager){
 		$ServicesPriceArray = array ();
 		foreach ($selectedServicesArray as &$service) {
 			$priceItemDTO = getServiceDTOfromArray($entityManager,$_GET['region'],$service,$_SESSION['service_prices_array']);
+			if($priceItemDTO == null){
+				$response['status'] = 2;
+				$response['message'] = $service . " price for " . $_GET['region'] . " is not loaded.";
+				echo json_encode($response);
+				return;
+			}
 			$TempServicesPriceArray = array ();
 			array_push ( $TempServicesPriceArray, $service);
 			array_push ( $TempServicesPriceArray, $priceItemDTO->getServiceAmount());
@@ -1148,6 +1163,7 @@ function getActiveBookingStatus($entityManager,$booking){
 	try {
 		return $entityManager->getRepository('BookingBookingStatus')->findOneBy(array('booking' => $booking,'active' => TRUE));
 	} catch (Exception $e) {
+		
 		return NULL;
 	}
 }
@@ -1568,13 +1584,13 @@ function send_booking_confirmation_message($entityManager, $booking_id){
 				<tr class="serviceRow"><td></td><td>Total: R550.00</td></tr>'
 		);
 		
-		if(emailMessage($entityManager,$Parameters,$message_type)){
-			$messages[] = "Successfully sent message to MobileOps" ;
+		if(emailMessage($entityManager,$Parameters,$message_type, "MobileOps - Booking Confirmation", $_POST['email'])){
+			return true;
 		}else{
-			$errors[] = "Failed to send message to MobileOps, please try again" ;
+				return false;
 		}
 
-		return true;
+	
 	}catch (Exception $e) {
 		return false;
 	}
@@ -1582,7 +1598,7 @@ function send_booking_confirmation_message($entityManager, $booking_id){
 
 
 //send email to user for password with link/url
-function emailMessage($entityManager, $Parameters, $messageType){
+function emailMessage($entityManager, $Parameters, $messageType, $emailSubject, $toEmailAddress){
 	try{
 		$errors = array ();
 		$messages = array ();
@@ -1597,19 +1613,53 @@ function emailMessage($entityManager, $Parameters, $messageType){
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		$headers .= 'From: ' .SYSTEM_EMAIL_ADDRESS. "\r\n";
-		$headers .= 'Reply-To: ' .$_POST['email']. "\r\n";
+		$headers .= 'Reply-To: ' .SYSTEM_EMAIL_ADDRESS. "\r\n";
 
 		$headers .= 'X-Mailer: PHP/' . phpversion () . "\r\n";
 
 
-		if (mail ( SYSTEM_EMAIL_ADDRESS , "MobileOps - " . $messageType, $body, $headers )) {
+		if (mail ( $toEmailAddress , $emailSubject, $body, $headers )) {
 			return true;
 		} else {
 			return false;
 		}
 
 	}catch (Exception $e) {
+		echo $e->getMessage();
 		return false;
 	}
 }
+
+
+function send_booking_cancellation_message($entityManager, $booking){
+	try {
+		
+		$BookingUserProfile =  $entityManager->getRepository('BookingUserProfile')->findOneBy(array('booking' => $booking));
+		if($BookingUserProfile){
+			$message_type = "booking_cancellation";
+			
+			$Parameters = array(
+					"first_name" => $BookingUserProfile->getFirstName(),
+					"last_name" => $BookingUserProfile->getSurname(),
+					"booking_reference" => $booking->getBookingId(),
+					"booking_id" => $booking->getBookingId()
+			);
+			
+			if(emailMessage($entityManager,$Parameters,$message_type, "MobileOps - Booking Cancellation", $BookingUserProfile->getEmailAddress())){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+		
+		
+	}catch (Exception $e) {
+		echo $e->getMessage();
+		return false;
+	}
+}
+
+
 

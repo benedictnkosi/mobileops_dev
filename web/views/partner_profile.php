@@ -116,22 +116,6 @@
 
 <div class="row uniform">
 <div class="6u 12u(3)">
-
-<div class="select-wrapper"><select name="gender" id="gender">
-	<option value="FEMALE">Female</option>
-	<option value="MALE">Male</option>
-</select></div>
-
-</div>
-<div class="6u 12u(3)">
-<div class="field"><input type="text" name="idnumber" id="idnumber"
-	value="" placeholder="ID Number" /> <span class="error"></span></div>
-</div>
-</div>
-
-
-<div class="row uniform">
-<div class="6u 12u(3)">
 <div class="field"><input type="email" name="email" id="email" value=""
 	placeholder="Email" disabled="true" /> <span class="error"></span></div>
 </div>
@@ -157,7 +141,7 @@
 
 <div class="row uniform">
 <div class="6u 12u(1)">
-<div class="field"><textarea name="personalNote" cols="100" rows="2"
+<div class="field"><textarea name="personalNote" cols="100" rows="4"
 	placeholder="Tell us about your self" id="txt_personalNote"
 	maxlength="200" style="width: 100%;"></textarea> <span class="error"></span></div>
 </div>

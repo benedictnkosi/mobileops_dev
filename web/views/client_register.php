@@ -161,9 +161,8 @@
 </div>
 
 
-
 <!-- Button -->
-<button type="submit" id="cmdRegister">Submit</button>
+<button type="submit" id="cmdRegister" style="margin-top: 1em;">Submit</button>
 
 </form>
 </section></div>

@@ -18,7 +18,7 @@ try {
 try {
 
 
-	$dir_dest = 'web/bundles/framework/images/partner_gallery/';
+	$dir_dest = __DIR__. '/../../../web/images/partner_gallery/';
 	//check if this call is for getting images or uploading. if uploading the FILES array wont be empty
 	if (!empty($_FILES)) {
 		

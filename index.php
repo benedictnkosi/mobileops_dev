@@ -33,7 +33,7 @@ $entityManager = EntityManager::create($conn, $config);
 require_once ("app/application.php");
 
 // load the login class
-require_once ("src/AppBundle/Logic/Login.php");
+require_once ("src/AppBundle/Logic/login.php");
 
 // create a login object. when this object is created, it will do all login/logout stuff automatically
 // so this single line handles the entire login process. in consequence, you can simply ...
@@ -111,6 +111,8 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/twitterlogin.php");
 	}elseif (isset ( $_GET ["partnergallery"] )) {
 		include ("web/views/partner_gallery.php");
+	}elseif (isset ( $_GET ["bookingdetails"] )) {
+		include ("web/views/booking_details.php");
 	}else{
 		include ("web/views/home.php");
 	}

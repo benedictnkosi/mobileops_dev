@@ -13,11 +13,6 @@ class BookingBookingStatus
     private $active;
 
     /**
-     * @var string
-     */
-    private $bookingBookingStatuscol;
-
-    /**
      * @var \DateTime
      */
     private $timestamp = 'CURRENT_TIMESTAMP';
@@ -60,30 +55,6 @@ class BookingBookingStatus
     public function getActive()
     {
         return $this->active;
-    }
-
-    /**
-     * Set bookingBookingStatuscol
-     *
-     * @param string $bookingBookingStatuscol
-     *
-     * @return BookingBookingStatus
-     */
-    public function setBookingBookingStatuscol($bookingBookingStatuscol)
-    {
-        $this->bookingBookingStatuscol = $bookingBookingStatuscol;
-
-        return $this;
-    }
-
-    /**
-     * Get bookingBookingStatuscol
-     *
-     * @return string
-     */
-    public function getBookingBookingStatuscol()
-    {
-        return $this->bookingBookingStatuscol;
     }
 
     /**

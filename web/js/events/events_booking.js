@@ -9,14 +9,13 @@ $(document).ready(
 
 			if (!sessionStorage.mobileops_email_address) {
 				if (getCookie("mobileops") == null) {
-					// window.location.href = "/index.php?logout";
+					//window.location.href = "/index.php?logout";
 				} else {
 					saveCookieToSession();
 				}
 				getAllServices();
 
 			} else {
-				getAllServices();
 				getClientProfile();
 			}
 
@@ -26,53 +25,6 @@ $(document).ready(
 			intialiseDateTimePicker(dateHolder.toString(), '09:00');
 
 		});
-
-function getAllBookingdata() {
-	// get Booking details
-	getBookingDetails();
-	// get booking Date,
-
-	// get booked services
-
-	// get selected partner
-
-}
-
-function getBookingDetails() {
-
-	$
-			.ajax({
-				type : 'GET',
-				url : 'src/AppBundle/Controller/controller_bookingdetails.php?getBookingDetails='
-						+ getUrlParameter("editbooking"),
-				data : 'bookingId=' + getUrlParameter("editbooking"),
-				dataType : "json",
-				success : function(data) {
-					$('#firstname').val(data['client_name']);
-					$('#surname').val(data['client_surname']);
-					$('#email').val(data['client_email_address']);
-					$('#mobile_number').val(data['client_mobile_number']);
-					$('#address').val(data['booking_address']);
-					$('#complex').val(data['booking_complex']);
-					$('#input_Latitude').val(data['lat']);
-					$('#input_Longitude').val(data['lng']);
-					$('#input_province').val(
-							data['administrative_area_level_1']);
-					$('#input_street_name').val(data['input_street_name']);
-					$('#input_city').val(data['locality']);
-					$('#input_suburb').val(data['sublocality']);
-
-					// set date time picker date and time
-					var res = data['booking_date'].split("-");
-					day = res[2].substring(0, 2);
-					intialiseDateTimePicker(day + '.' + res[1] + '.' + res[0],
-							res[2].substring(3));
-
-					// select the booking services
-					$("#chk_Treatment").prop("checked", true);
-				},
-			});
-}
 
 function intialiseDateTimePicker(bookignDate, bookingTime) {
 	$('#datetimepicker').datetimepicker(
@@ -468,8 +420,8 @@ function getAllServices() {
 																	var selectedStep = $(".idealsteps-step-active");
 																	if (("Step 5"
 																			.localeCompare(selectedStep[0].firstChild.firstChild.data) == 0)) {
-																		if ("Complete Booking"
-																				.localeCompare(e.originalEvent.explicitOriginalTarget.innerHTML) == 0) {
+																		console.log(e);
+																		//if ("Complete Booking".localeCompare(e.originalEvent.explicitOriginalTarget.innerHTML) == 0) {
 
 																			$
 																					.post(
@@ -509,7 +461,7 @@ function getAllServices() {
 
 																							},
 																							'json');
-																		}
+																		//}
 
 																	}
 
@@ -617,6 +569,7 @@ function getClientProfile() {
 				$('#input_province').val(data['province']);
 				$('#input_suburb').val(data['suburb']);
 				$('#input_city').val(data['city']);
+				getAllServices();
 			}
 		},
 	});
@@ -640,6 +593,17 @@ function getTotalAmountDue(formdata) {
 				},
 				dataType : "json",
 				success : function(response) {
+					if(response.status == 2){
+						$('#lbl_booking_message').text(response.message);
+						$('#lbl_booking_message').removeClass("display-none").addClass("alert-danger");
+						$('#invoice_table').addClass("display-none");
+						$("html, body").animate({scrollTop : $("#lbl_booking_message").offset().top},"slow");
+						return;
+				}
+					
+					$('#lbl_booking_message').addClass("display-none");
+					$('#invoice_table').removeClass("display-none");
+					
 					$('.serviceRow').remove();
 					var services = response.message;
 					var ServicesArray = new Array()
@@ -663,10 +627,6 @@ function getTotalAmountDue(formdata) {
 												.round(response.message[i][1] * 100) / 100)
 										.toFixed(2);
 
-						// pricesString = pricesString + response.message[i][0]
-						// + ": R" +
-						// parseFloat(Math.round(response.message[i][1] * 100) /
-						// 100).toFixed(2) + "<br/>";
 						totalPrice = totalPrice
 								+ parseInt(response.message[i][1]);
 
