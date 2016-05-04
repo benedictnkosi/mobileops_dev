@@ -135,7 +135,9 @@ class Login {
 								$json = json_encode($UserDetailsArray);
 
 								//print_r($json);
-									
+								//save temp login cookie expiring after 24hrs
+								setcookie ( "mobileops_temp_login", $json, time () + (3600), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
+								
 								if (isset ( $_POST ['rememberme'] )) {
 									setcookie ( "mobileops", $json, time () + (86400 * 30), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
 								}
@@ -185,9 +187,11 @@ class Login {
 			// unset cookies
 			// setcookie("username", "", time()-7600, "/");
 			setcookie ( "mobileops", "", time () - (86400 * 31), "/" );
+			setcookie ( "mobileops_temp_login", "", time () - (86400 * 31), "/" );
 			setcookie ( "fbm_" . FB_APPID, "", time () - (86400 * 31), "/" );
 			setcookie ( "fbsr_" . FB_APPID, "", time () - (86400 * 31), "/" );
 
+			
 			// return a little feeedback message
 			$this->messages [] = "You have been logged out.";
 		} catch (Exception $e) {

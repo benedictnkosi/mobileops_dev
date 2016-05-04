@@ -7,6 +7,7 @@
 <head>
 
 <title></title>
+<script src="web/js/commons.js" type="text/javascript"></script>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -21,7 +22,7 @@
 
 <!--[if lte IE 8]><script src="web/css/ie/html5shiv.js"></script><![endif]-->
 
-<script src="web/js/commons.js" type="text/javascript"></script>
+
 
 
 

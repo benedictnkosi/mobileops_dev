@@ -430,7 +430,7 @@ function completeBooking($entityManager){
 		
 		if(!$booking){
 			$response['status'] = 2;
-			$response['message'] = 'Failed To Submit Your Booking1';
+			$response['message'] = 'Failed To Submit Your Booking';
 			echo json_encode($response);
 			return;
 		}
@@ -649,9 +649,9 @@ function getBookingsInCalender($entityManager){
 
 	if($user_bookings==null){
 		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
-		if($user_object && strcmp($_GET['getBookingsInCalender'], "CLIENT") == 0 ){
+		if($user_object && strcmp($_SESSION['user_role'], "CLIENT") == 0 ){
 			$user_bookings = getBookingsByUserId($entityManager,$user_object);
-		}elseif ($user_object && strcmp($_GET['getBookingsInCalender'], "PARTNER") == 0 ){
+		}elseif ($user_object && strcmp($_SESSION['user_role'], "PARTNER") == 0 ){
 			$user_bookings = getBookingsByPartnerId($entityManager,$user_object);
 		}
 	}

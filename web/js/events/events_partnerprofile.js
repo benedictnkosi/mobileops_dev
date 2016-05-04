@@ -1,7 +1,7 @@
 // JavaScript Document
 $(document).ready(function() {
 
-	   if (!sessionStorage.mobileops_email_address) {
+	if (getCookie("mobileops_temp_login") == null) {
 	        if (getCookie("mobileops") == null) {
 	        	window.location.href = "/index.php?logout";
 	        } else {
@@ -9,7 +9,7 @@ $(document).ready(function() {
 	        }
 	    }
 
-	    if (sessionStorage.mobileops_user_role.localeCompare("PARTNER") !== 0) {
+	    if (getValueInCookie('mobileops_temp_login', 'user_role').localeCompare("PARTNER") !== 0) {
 	        window.location.href = "/index.php";
 	    }
    
@@ -118,7 +118,7 @@ function getPartnerProfile() {
     $.ajax({
         type: 'GET',
         url: 'src/AppBundle/Controller/controller_partner_profile.php',
-        data: 'getPartnerProfile=' + sessionStorage.mobileops_email_address,
+        data: 'getPartnerProfile=true',
         dataType: "json",
         success: function(response) {
             var data = response.message;
@@ -147,7 +147,7 @@ function getPartnerServices() {
     $.ajax({
         type: 'GET',
         url: 'src/AppBundle/Controller/controller_partner_profile.php',
-        data: 'getPartnerServices=' + sessionStorage.mobileops_email_address,
+        data: 'getPartnerServices=true',
         dataType: "json",
         success: function(response) {
             var data = response.message;

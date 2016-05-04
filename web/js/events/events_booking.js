@@ -7,15 +7,15 @@ $(document).ready(
 			sessionStorage.mobileops_servicesArray = "null";
 			sessionStorage.mobileops_providerSelected = "false";
 
-			if (!sessionStorage.mobileops_email_address) {
-				if (getCookie("mobileops") == null) {
-					//window.location.href = "/index.php?logout";
-				} else {
-					saveCookieToSession();
+			if (getCookie("mobileops_temp_login") == null) {
+				if (getCookie("mobileops")) {
+					//saveCookieToSession();
+					getClientProfile();
+				}else{
+					getAllServices();
 				}
-				getAllServices();
-
-			} else {
+				
+			}else{
 				getClientProfile();
 			}
 
@@ -55,9 +55,10 @@ function intialiseDateTimePicker(bookignDate, bookingTime) {
 
 				],
 				onSelectTime : function(dp, $input) {
-					sessionStorage.mobileops_seletedBookingTime = dp
-							.dateFormat('H:i');
+					sessionStorage.mobileops_seletedBookingTime = dp.dateFormat('H:i');
 					$('#booking_time').val(dp.dateFormat('H:i'));
+					
+					
 				},
 
 				onSelectDate : function(dp, $input) {
@@ -169,12 +170,6 @@ function getAllServices() {
 																'email' : 'required email',
 																'mobile_number' : 'required number min:10 max:10',
 																'address' : 'required',
-															// 'skills_checkbox_item[]':
-															// 'minoption:1',
-															// 'skills_checkbox_item1[]':
-															// 'minoption:1
-															// maxoption:3',
-
 															},
 
 															errors : {
@@ -199,10 +194,7 @@ function getAllServices() {
 																after : function() {
 																	element = $('li.idealsteps-step-active');
 																	selectedTab = element[0].firstChild.firstChild.data;
-																	// var
-																	// selectedTab
-																	// =
-																	// this.firstChild.firstChild.data;
+	
 																	var checkedValues = $(
 																			'.skills_checkbox_item:checked')
 																			.map(
@@ -216,10 +208,6 @@ function getAllServices() {
 																			&& sessionStorage.mobileops_providerSelected
 																					.localeCompare("false") == 0) {
 																		if (checkedValues.length > 0) {
-																			// $(
-																			// ".idealsteps-nav
-																			// ul
-																			// li").eq(3).click();
 																			$(
 																					'form.idealforms')
 																					.idealforms(
@@ -235,10 +223,6 @@ function getAllServices() {
 																												3000);
 																							});
 																		} else {
-																			// $(
-																			// ".idealsteps-nav
-																			// ul
-																			// li").eq(3).click();
 																			$(
 																					'form.idealforms')
 																					.idealforms(
@@ -260,101 +244,119 @@ function getAllServices() {
 																			&& sessionStorage.mobileops_providerSelected
 																					.localeCompare("false") != 0) {
 
-																		getTotalAmountDue();
+																		if(isTimeAfterNow()){
+																			getTotalAmountDue();
+																			
+																			$(
+																			"#personalDetails")
+																			.empty();
 
-																		$(
-																				"#personalDetails")
-																				.empty();
+																	var element = document
+																			.getElementById("personalDetails");
 
-																		var element = document
-																				.getElementById("personalDetails");
+																	element
+																			.appendChild(document
+																					.createTextNode($(
+																							'#firstname')
+																							.val()
+																							+ " "
+																							+ $(
+																									'#surname')
+																									.val()));
+																	element
+																			.appendChild(document
+																					.createElement("br"));
 
-																		element
-																				.appendChild(document
-																						.createTextNode($(
-																								'#firstname')
-																								.val()
-																								+ " "
-																								+ $(
-																										'#surname')
-																										.val()));
-																		element
-																				.appendChild(document
-																						.createElement("br"));
+																	element
+																			.appendChild(document
+																					.createTextNode($(
+																							'#email')
+																							.val()));
+																	element
+																			.appendChild(document
+																					.createElement("br"));
 
-																		element
-																				.appendChild(document
-																						.createTextNode($(
-																								'#email')
-																								.val()));
-																		element
-																				.appendChild(document
-																						.createElement("br"));
+																	element
+																			.appendChild(document
+																					.createTextNode($(
+																							'#mobile_number')
+																							.val()));
+																	element
+																			.appendChild(document
+																					.createElement("br"));
 
-																		element
-																				.appendChild(document
-																						.createTextNode($(
-																								'#mobile_number')
-																								.val()));
-																		element
-																				.appendChild(document
-																						.createElement("br"));
+																	element
+																			.appendChild(document
+																					.createTextNode($(
+																							'#complex')
+																							.val()));
+																	element
+																			.appendChild(document
+																					.createElement("br"));
 
-																		element
-																				.appendChild(document
-																						.createTextNode($(
-																								'#complex')
-																								.val()));
-																		element
-																				.appendChild(document
-																						.createElement("br"));
+																	element
+																			.appendChild(document
+																					.createTextNode($(
+																							'#address')
+																							.val()));
+																	element
+																			.appendChild(document
+																					.createElement("br"));
 
-																		element
-																				.appendChild(document
-																						.createTextNode($(
-																								'#address')
-																								.val()));
-																		element
-																				.appendChild(document
-																						.createElement("br"));
+																	// selected
+																	// date
+																	$(
+																			"#lbl_date")
+																			.empty();
+																	var element = document
+																			.getElementById("lbl_date");
+																	element
+																			.appendChild(document
+																					.createTextNode(FormatDateLong()));
+																	element
+																			.appendChild(document
+																					.createElement("br"));
 
-																		// selected
-																		// date
-																		$(
-																				"#lbl_date")
-																				.empty();
-																		var element = document
-																				.getElementById("lbl_date");
-																		element
-																				.appendChild(document
-																						.createTextNode(FormatDateLong()));
-																		element
-																				.appendChild(document
-																						.createElement("br"));
+																	// selected
+																	// provider
 
-																		// selected
-																		// provider
-
-																		$(
-																				"#lbl_providername")
-																				.empty();
-																		var element = document
-																				.getElementById("lbl_providername");
-																		element
-																				.appendChild(document
-																						.createTextNode("Your service provider is "
-																								+ $(
-																										'#lblpartner'
-																												+ sessionStorage.mobileops_providerSelected)
-																										.text()));
-																		$(
-																				'#input_providername')
-																				.val(
+																	$(
+																			"#lbl_providername")
+																			.empty();
+																	var element = document
+																			.getElementById("lbl_providername");
+																	element
+																			.appendChild(document
+																					.createTextNode("Your service provider is "
+																							+ $(
+																									'#lblpartner'
+																											+ sessionStorage.mobileops_providerSelected)
+																									.text()));
+																	$(
+																			'#input_providername')
+																			.val(
+																					$(
+																							'#lblpartner'
+																									+ sessionStorage.mobileops_providerSelected)
+																							.text())
+																							
+																							
+																		}else{
+																			$(
+																			'form.idealforms')
+																			.idealforms(
+																					'goToStep',
+																					1);
+																	$(
+																			'#lbl_date_message')
+																			.show(
+																					function() {
 																						$(
-																								'#lblpartner'
-																										+ sessionStorage.mobileops_providerSelected)
-																								.text())
-
+																								this)
+																								.fadeOut(
+																										3000);
+																					});
+																		}
 																	}
 
 																	if (("Step 4"
@@ -550,27 +552,31 @@ function getClientProfile() {
 	$.ajax({
 		type : 'GET',
 		url : 'src/AppBundle/Controller/controller_client_profile.php',
-		data : 'getClientProfile=' + sessionStorage.mobileops_email_address,
+		data : 'getClientProfile=true',
 		dataType : "json",
 		success : function(response) {
-			data = response.message;
-			$('#firstname').val(data['name']);
-			$('#surname').val(data['surname']);
-			$('#email').val(data['email']);
-			$('#mobile_number').val(data['mobile_number']);
+			if(response.status == 1){
+				data = response.message;
+				$('#firstname').val(data['name']);
+				$('#surname').val(data['surname']);
+				$('#email').val(data['email']);
+				$('#mobile_number').val(data['mobile_number']);
 
-			if (data['latitude'] !== null) {
-				$('#address').val(data['address']);
-				$('#complex').val(data['complex']);
-				$('#input_Latitude').val(data['latitude']);
-				$('#input_Longitude').val(data['longitude']);
-				$('#input_street_name').val(data['street_name']);
-				$('#input_street_number').val(data['street_number']);
-				$('#input_province').val(data['province']);
-				$('#input_suburb').val(data['suburb']);
-				$('#input_city').val(data['city']);
-				getAllServices();
+				if (data['latitude'] !== null) {
+					$('#address').val(data['address']);
+					$('#complex').val(data['complex']);
+					$('#input_Latitude').val(data['latitude']);
+					$('#input_Longitude').val(data['longitude']);
+					$('#input_street_name').val(data['street_name']);
+					$('#input_street_number').val(data['street_number']);
+					$('#input_province').val(data['province']);
+					$('#input_suburb').val(data['suburb']);
+					$('#input_city').val(data['city']);
+					
+				}
 			}
+			getAllServices();
+			
 		},
 	});
 }
@@ -691,5 +697,26 @@ function selectPartner(event) {
 	sessionStorage.mobileops_providerSelected = i.replace("partner", "");
 	$('.selectPartner').removeClass("selectedPartner", 1000, "easeInBack");
 	$('#' + event.target.id).addClass("selectedPartner");
-	$('form.idealforms').idealforms('goToStep', 4);
+	//$('form.idealforms').idealforms('goToStep', 4);
+}
+
+
+
+function isTimeAfterNow(){
+	var seletedBookingDate = sessionStorage.mobileops_seletedBookingDate;
+	var seletedBookingTime = sessionStorage.mobileops_seletedBookingTime;
+
+	var partsOfDate = seletedBookingDate.split('/');
+	var partsOfTime = seletedBookingTime.split(':');
+	
+	var bookingDate = new Date(partsOfDate[0],parseInt(partsOfDate[1]) - 1,partsOfDate[2],partsOfTime[0],partsOfTime[1]);
+	
+	var todayDate = new Date();
+
+	if(bookingDate > todayDate){
+		return true;
+	}else{
+		return false;
+	}
+	
 }

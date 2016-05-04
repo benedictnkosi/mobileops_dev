@@ -173,20 +173,20 @@ width:100%;
             				if(message.indexOf("successfully") > -1){
             					var user_role = response.user_role;
                 				
-            					sessionStorage.mobileops_email_address = response.email_address;
-            					sessionStorage.mobileops_firstname = response.firstname;
-            					sessionStorage.mobileops_surname = response.surname;
-            					sessionStorage.mobileops_phone_number = response.phone_number;
-            					sessionStorage.mobileops_user_id = response.user_id;
+            					//sessionStorage.mobileops_email_address = response.email_address;
+            					//sessionStorage.mobileops_firstname = response.firstname;
+            					//sessionStorage.mobileops_surname = response.surname;
+            					//sessionStorage.mobileops_phone_number = response.phone_number;
+            					//sessionStorage.mobileops_user_id = response.user_id;
             					
             					if(user_role.indexOf("CLIENT") > -1){
-            						sessionStorage.mobileops_user_role = "CLIENT";
+            						//sessionStorage.mobileops_user_role = "CLIENT";
             						window.location.href = "index.php?mybookings";
                 				}else if(user_role.indexOf("PARTNER") > -1){
-                					sessionStorage.mobileops_user_role = "PARTNER";
+                					//sessionStorage.mobileops_user_role = "PARTNER";
                 					window.location.href = "index.php?mybookings";
                 				}else if(user_role.indexOf("ADMINISTRATOR") > -1){
-                					sessionStorage.mobileops_user_role = "ADMINISTRATOR";
+                					//sessionStorage.mobileops_user_role = "ADMINISTRATOR";
                 					window.location.href = "index.php";
                 				}
             				}
@@ -219,7 +219,7 @@ width:100%;
              				var message = response.message;
 
              				if(message.indexOf("oauth_token=") > -1){
-             					sessionStorage.mobileops_user_role = "CLIENT";
+             					//sessionStorage.mobileops_user_role = "CLIENT";
              					
              					window.location.assign(message)
              				}

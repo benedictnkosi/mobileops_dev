@@ -8,6 +8,8 @@
 
 <title></title>
 
+<script src="web/js/commons.js" type="text/javascript"></script>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <meta name="description" content="" />
@@ -20,8 +22,6 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
 <!--[if lte IE 8]><script src="web/css/ie/html5shiv.js"></script><![endif]-->
-
-<script src="web/js/commons.js" type="text/javascript"></script>
 
 <script src="web/js/jquery.min.js"></script>
 

@@ -37,6 +37,15 @@ function getCookie(cname) {
 	return null;
 }
 
+
+
+function getValueInCookie(cname, cVariableName) {
+	var JsonCookie = jQuery.parseJSON(unescape(getCookie(cname)));
+	return(JsonCookie[cVariableName]);
+}
+
+
+
 function replaceParameter(strKey, strValue) {
 	var allParameters = sessionStorage.allParameters;
 	var Index = allParameters.indexOf(strKey);

@@ -44,7 +44,7 @@ width:100%;
    <body class="landing">
       <!-- one -->
       <section id="one" class="wrapper style1">
-         <div class="reg-container">
+         <div class="container">
             <header class="major">
 						<h2>PARTNER REGISTRATION</h2>
 						

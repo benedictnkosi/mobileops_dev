@@ -1,7 +1,7 @@
 // JavaScript Document
 
 $(document).ready(function() {
-	if (!sessionStorage.mobileops_email_address) {
+	if (getCookie("mobileops_temp_login") == null) {
 		if(getCookie("mobileops") == null){
 			window.location.href = "/index.php?logout";
 		}else{
@@ -10,7 +10,7 @@ $(document).ready(function() {
 		
 	}
 	
-	if(sessionStorage.mobileops_user_role.localeCompare("PARTNER") !== 0){
+	if(getValueInCookie('mobileops_temp_login', 'user_role').localeCompare("PARTNER") !== 0){
 		window.location.href = "/index.php";
 	}
 	

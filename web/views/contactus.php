@@ -94,7 +94,6 @@ form.idealforms textarea {
             'surname': 'required',
             'email': 'required email',
             'message': 'required minmax:10:500',
-            
             'mobile_number': 'required number min:10 max:10',
           },
           onSubmit: function(invalid, e) {

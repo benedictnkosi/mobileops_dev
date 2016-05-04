@@ -1,15 +1,26 @@
 // JavaScript Document
 
 $(document).ready(function() {
-	if (sessionStorage.mobileops_email_address) {
+	if (getCookie("mobileops_temp_login")) {
 		prepopulateForm();
 	}
-	
 });
 
 function prepopulateForm(){
-	$('#firstname').val(sessionStorage.mobileops_firstname);
-	$('#surname').val(sessionStorage.mobileops_surname);
-	$('#email').val(sessionStorage.mobileops_email_address);
-	$('#mobile_number').val(sessionStorage.mobileops_phone_number);
+	
+	$.ajax({
+		type : 'GET',
+		url : 'src/AppBundle/Controller/controller_client_profile.php',
+		data : 'getClientProfile=true',
+		dataType : "json",
+		success : function(response) {
+
+			data = response.message;
+			$('#firstname').val(data['name']);
+			$('#surname').val(data['surname']);
+			$('#email').val(data['email']);
+			$('#mobile_number').val(data['mobile_number']);
+	},
+	});
+	
 }

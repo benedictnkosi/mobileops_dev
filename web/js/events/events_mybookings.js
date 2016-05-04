@@ -1,11 +1,12 @@
 // JavaScript Document
 
 $(document).ready(function() {
-	if (!sessionStorage.mobileops_email_address) {
+	if (getCookie("mobileops_temp_login") == null) {
 		if(getCookie("mobileops") == null){
+			console.log('mobileops_temp_login and mobileops are null');
 			window.location.href = "/index.php?logout";
 		}else{
-			saveCookieToSession();
+			//saveCookieToSession();
 		}
 	}
 
@@ -23,7 +24,7 @@ $(document).ready(function() {
 	defaultView: 'agendaDay',
 	minTime: "07:00:00",
 	maxTime: "23:59:00",
-	events: 'src/AppBundle/Controller/controller_booking.php?getBookingsInCalender=' + sessionStorage.mobileops_user_role,
+	events: 'src/AppBundle/Controller/controller_booking.php?getBookingsInCalender=true',
 	timeFormat: 'H:mm',
 	});
 	//getCalendarEvents();

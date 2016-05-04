@@ -43,7 +43,7 @@
 <body class="landing">
 <!-- one -->
 <section id="one" class="wrapper style1">
-<div class="reg-container"><header class="major">
+<div class="container"><header class="major">
 <h2>CLIENT REGISTRATION</h2>
 
 </header> <!-- Form --> <section>

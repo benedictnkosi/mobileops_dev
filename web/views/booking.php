@@ -276,6 +276,14 @@
                   
 
 </section> <!-- date time --> <section class="idealsteps-step">
+
+<div class="row uniform">
+   <div class="12u">
+                  <div id="lbl_date_message" class="alert display-none alert-danger"  >Date cannot be in the past.
+</div>
+</div></div>
+
+
 <h3>DATE & TIME</h3>
 <div class="field"><input id="datetimepicker" type="text"> <span
 	class="error"></span></div>
@@ -396,7 +404,7 @@
             
              <tr style="border: none;">
                 <td>
-                    <textarea name=bookingNotes cols="50" rows="4"
+                    <textarea name=bookingNotes cols="50" rows="4" maxlength="500" 
 	placeholder="Special requests and notes" id="txt_bookingNotes"></textarea>
                 </td>
 

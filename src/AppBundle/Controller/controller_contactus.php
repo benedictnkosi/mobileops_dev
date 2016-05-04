@@ -4,6 +4,7 @@ require_once(__DIR__.'/../../../bootstrap.php');
 require_once(__DIR__.'/../../../app/application.php');
 
 require_once(__DIR__.'/../Logic/email_template.php');
+require_once (__DIR__."/../Logic/mail.php");
 
 require_once(__DIR__.'/../Entity/UserMessages.php');
 require_once(__DIR__.'/../Entity/UserProfile.php');
@@ -11,7 +12,7 @@ require_once(__DIR__.'/../Entity/User.php');
 require_once(__DIR__.'/../Entity/Address.php');
 require_once(__DIR__.'/../Entity/LuUserRole.php');
 require_once(__DIR__.'/../Entity/LuAccountStatus.php');
-require_once (__DIR__."/../Logic/Mail.php");
+
 
 if (isset ( $_POST ['send_message'] )) {
 	if ($_POST ['send_message']) :

@@ -17,21 +17,21 @@
 							<section class="feature ">
 								<h3>NAILS</h3>
 								<p>Manicures and pedicures Cleansing Facial  Cleansing Facial </p>
-								<input type="submit" value="View All Services" />
+								<img alt="hair" src="web/images/nails.jpg" class="home_images">
 							</section>
 						</div>
 						<div class="4u 6u$(2) 12u$(3)">
 							<section class="feature ">
 								<h3>HAIR</h3>
 								<p>From Brazilian weave to the most basic hairstyle and other things</p>
-								<input type="submit" value="View All Services" />
+								<img alt="hair" src="web/images/hair.jpg" class="home_images">
 							</section>
 						</div>
 						<div class="4u$ 6u(2) 12u$(3)">
 							<section class="feature ">
 								<h3>Massage</h3>
 								<p>Massage with a Deep Cleansing Facial Cleansing Facial </p>
-								<input type="submit" value="View All Services" />
+								<img alt="hair" src="web/images/massage.jpg" class="home_images">
 							</section>
 						</div>
 						
