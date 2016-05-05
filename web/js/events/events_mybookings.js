@@ -7,6 +7,10 @@ $(document).ready(function() {
 			var referrer = document.referrer;
 			if(referrer.localeCompare("http://localhost/index.php?login") !== 0){
 				window.location.href = "/index.php?logout";
+			}else if(referrer.localeCompare("http://localhost/index.php?login") == 0 && sessionStorage.loggedin){
+				window.location.href = "/index.php?logout";
+			}else{
+				sessionStorage.loggedin = 1;
 			}
 		}
 	}

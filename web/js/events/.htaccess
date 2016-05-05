@@ -1,0 +1,4 @@
+# 4 HOURS
+<FilesMatch ".(js)$">
+Header set Cache-Control "max-age=14400, must-revalidate"
+</FilesMatch>
