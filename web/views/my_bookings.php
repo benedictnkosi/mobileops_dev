@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <head>
+<title>My Bookings</title>
 <link rel='stylesheet' href='web/css/fullcalendar.css' />
 <link rel='stylesheet' href='web/css/jquery.qtip.css' />
 <script src='web/js/moment.min.js'></script>

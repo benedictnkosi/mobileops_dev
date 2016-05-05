@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <head>
+<title>Mobile Beauty Salon</title>
 <script src="web/js/events/events_home.js"></script>
 <script src="web/js/commons.js"></script>
       </head>

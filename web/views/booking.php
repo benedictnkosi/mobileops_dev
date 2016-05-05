@@ -2,7 +2,7 @@
 <html>
 
 <head>
-
+<title>New Booking</title>
 <script src="web/js/events/events_booking.js"></script>
 
 
@@ -173,7 +173,7 @@
                      <div class="6u 12u(3)">
                      	<div class="field">
                      	
- <input type="text" name="name" id="firstname" value=""
+ <input type="text" name="firstname" id="firstname" value=""
                            placeholder="Name"/>
     <span class="error"></span>
   </div>

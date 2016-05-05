@@ -193,13 +193,13 @@ function regionServiceDTOtoBookingServiceRegionService($regionServicePriceDTO,$b
 
 
 function getBookingsByUserId($entityManager,$userObject){
-	$booking_object     = $entityManager->getRepository('Booking')->findBy(array('active' => TRUE,'user' => $userObject));
+	$booking_objects     = $entityManager->getRepository('Booking')->findBy(array('active' => TRUE,'user' => $userObject));
 	$activeBookingsArray = array ();
 
-	foreach ($booking_object as &$value) {
+	foreach ($booking_objects as &$value) {
 		array_push($activeBookingsArray,$value);
 	}
-	$_SESSION['user_bookings'] = $activeBookingsArray;
+	$_SESSION['user_bookings'] = serialize($activeBookingsArray);
 	
 	return $activeBookingsArray;
 }
@@ -214,7 +214,7 @@ function getBookingsByPartnerId($entityManager,$userObject){
 		$booking_object = $value->getBooking();
 		array_push($activeBookingsArray,$booking_object);
 	}
-	$_SESSION['user_bookings'] = $activeBookingsArray;
+	$_SESSION['user_bookings'] = serialize($activeBookingsArray);
 
 	
 	return $activeBookingsArray;
@@ -397,7 +397,7 @@ function completeBooking($entityManager){
 		$suburb = $_POST['sublocality'];
 		$city = $_POST['locality'];
 
-		$_SESSION['booking_user'] = $_POST ['name'];
+		$_SESSION['booking_user'] = $_POST ['firstname'];
 
 		$date = new DateTime();
 
@@ -437,7 +437,7 @@ function completeBooking($entityManager){
 		
 		$booking_user_profile  = new BookingUserProfile();
 		$booking_user_profile->setEmailAddress($_POST ['email']);
-		$booking_user_profile->setFirstName($_POST ['name']);
+		$booking_user_profile->setFirstName($_POST ['firstname']);
 		$booking_user_profile->setPhoneNumber($_POST ['mobile_number']);
 		$booking_user_profile->setSurname($_POST ['surname']);
 		$booking_user_profile->setDateCreated($date);
@@ -488,7 +488,7 @@ function completeBooking($entityManager){
 			return;
 		}
 
-		$bookingComments = addBookingComments($entityManager,$booking,$_POST['bookingNotes'],$_POST ['name']);
+		$bookingComments = addBookingComments($entityManager,$booking,$_POST['bookingNotes'],$_POST ['firstname']);
 
 		
 		if(!$bookingComments){
@@ -644,10 +644,11 @@ function getBookingsInCalender($entityManager){
 	$user_bookings = null;
 	if (isset($_SESSION['user_bookings']))
 	{
-		//$user_bookings = $_SESSION['user_bookings'];
+		$user_bookings = unserialize($_SESSION['user_bookings']);
 	}
 
 	if($user_bookings==null){
+		echo "this is still called";
 		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
 		if($user_object && strcmp($_SESSION['user_role'], "CLIENT") == 0 ){
 			$user_bookings = getBookingsByUserId($entityManager,$user_object);
@@ -697,7 +698,7 @@ function getAllUserBookings($entityManager){
 			array_push ($bookings_array, $value);
 		}
 
-		$_SESSION['user_bookings'] = $bookings_array;
+		$_SESSION['user_bookings'] = serialize($bookings_array);
 
 		$response['status'] = 1;
 		$response['message'] = $bookings_array;
@@ -721,7 +722,7 @@ function getAllUserBookingsFromUserSession($entityManager){
 			array_push ($bookings_array, $value);
 		}
 
-		$_SESSION['user_bookings'] = $bookings_array;
+		$_SESSION['user_bookings'] = serialize($bookings_array);
 
 		$response['status'] = 1;
 		$response['message'] = $bookings_array;
@@ -752,7 +753,7 @@ function getBookingTimeDetails($entityManager){
 
 function getBookingFromSessionByID($booking_id){
 
-	$user_bookings_in_session = $_SESSION['user_bookings'];
+	$user_bookings_in_session = unserialize($_SESSION['user_bookings']);
 	$booking = null;
 
 	if($user_bookings_in_session!=null){
@@ -1551,14 +1552,14 @@ function changeBookingUserProfileStatus($entityManager,$currentBookingUserProfil
 
 function send_booking_confirmation_message($entityManager, $booking_id){
 	try {
-		$name = $_POST ['name'];
+		$name = $_POST ['firstname'];
 		$surname = $_POST ['surname'];
 		$email = $_POST ['email'];
 		$phone_number = $_POST ['mobile_number'];
 		$message_type = "booking_confirmation";
 		$message = "test";
 
-		$personalDetails = $_POST['name'] . " " . $_POST['surname'] . "<br/>" 
+		$personalDetails = $_POST['firstname'] . " " . $_POST['surname'] . "<br/>" 
 		.  $_POST ['email'] . "<br/>" . 
 		$_POST ['mobile_number']. "<br/>
 		<h4>APPOINTMENT ADDRESS</h4>". "<p>"
@@ -1569,7 +1570,7 @@ function send_booking_confirmation_message($entityManager, $booking_id){
 		. $_POST['locality'];
 		
 		$Parameters = array(
-				"first_name" => $_POST['name'],
+				"first_name" => $_POST['firstname'],
 				"last_name" => $_POST['surname'],
 				"mobile_number" => $_POST['mobile_number'],
 				"personal_details" => $personalDetails,

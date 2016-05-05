@@ -2,6 +2,7 @@
 
 <html>
 <head>
+<title>Pricelist</title>
 <meta charset="UTF-8">
 <!-- accodian -->
 

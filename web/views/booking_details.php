@@ -2,6 +2,7 @@
 
 <html>
 <head>
+<title>Booking Details</title>
 	<script src="web/js/events/events_bookingdetails.js"></script>
 	<script src="web/js/commons.js"></script>
 	

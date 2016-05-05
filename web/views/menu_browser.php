@@ -5,15 +5,15 @@
 <html>
 
 <head>
+<link rel="shortcut icon" href="web/favicon.ico" />
 
-<title></title>
+<meta name="description" content="Mobile Beaty Salon provides salon service at the convinient of your home. we provide Hair, Nails and massage services" />
+
+<meta name="keywords" content="Mobile, Salon, Mobile Salon, Mobile Salon Johhanesburg, Mobile Salon Gauteng, Mobile Nails, Mobile Massage, Mobile Massage Johhanesburg, Mobile Massage Gauteng" />
 <script src="web/js/commons.js" type="text/javascript"></script>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-<meta name="description" content="" />
-
-<meta name="keywords" content="" />
 
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">

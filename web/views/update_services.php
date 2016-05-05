@@ -2,6 +2,7 @@
 
 <html>
 <head>
+<title>Services</title>
 <script src="web/js/events/events_services.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="web/css/build.css" />

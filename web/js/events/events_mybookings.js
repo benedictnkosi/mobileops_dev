@@ -3,10 +3,11 @@
 $(document).ready(function() {
 	if (getCookie("mobileops_temp_login") == null) {
 		if(getCookie("mobileops") == null){
-			console.log('mobileops_temp_login and mobileops are null');
-			window.location.href = "/index.php?logout";
-		}else{
-			//saveCookieToSession();
+			//if user just logged in sometimes the system checks for the cookie before its created
+			var referrer = document.referrer;
+			if(referrer.localeCompare("http://localhost/index.php?login") !== 0){
+				window.location.href = "/index.php?logout";
+			}
 		}
 	}
 

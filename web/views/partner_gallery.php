@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
+<title>Gallery</title>
 <script src="web/js/lean-slider.js"></script>
 <script src="web/js/commons.js"></script>
 <link rel="stylesheet" href="web/css/lean-slider.css" type="text/css" />

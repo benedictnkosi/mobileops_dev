@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
+<title>Profile</title>
 <link href="web/css/dropzone-style.css" media="all" rel="stylesheet"
 	type="text/css" />
 
