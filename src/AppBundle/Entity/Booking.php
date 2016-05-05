@@ -23,6 +23,11 @@ class Booking
     private $userBooked;
 
     /**
+     * @var string
+     */
+    private $bookingGuid;
+
+    /**
      * @var integer
      */
     private $bookingId;
@@ -103,6 +108,30 @@ class Booking
     public function getUserBooked()
     {
         return $this->userBooked;
+    }
+
+    /**
+     * Set bookingGuid
+     *
+     * @param string $bookingGuid
+     *
+     * @return Booking
+     */
+    public function setBookingGuid($bookingGuid)
+    {
+        $this->bookingGuid = $bookingGuid;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingGuid
+     *
+     * @return string
+     */
+    public function getBookingGuid()
+    {
+        return $this->bookingGuid;
     }
 
     /**

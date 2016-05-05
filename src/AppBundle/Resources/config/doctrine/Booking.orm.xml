@@ -25,6 +25,11 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="bookingGuid" type="string" column="booking_guid" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
     <many-to-one field="user" target-entity="User" fetch="LAZY">
       <join-columns>
         <join-column name="user_id" referenced-column-name="user_id"/>

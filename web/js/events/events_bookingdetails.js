@@ -159,7 +159,7 @@ function getBookingDetails(){
 	
 	$.ajax({
 		type : 'GET',
-		url : 'src/AppBundle/Controller/controller_booking.php?getBookingDetails=' + getUrlParameter("bookingdetails"),
+		url : 'src/AppBundle/Controller/controller_booking.php?getBookingDetails=' + getUrlParameter("bookingdetails") + "&uuid=" + getUrlParameter("uuid"),
 		data : 'bookingId=' + getUrlParameter("bookingdetails"),
 		dataType : "json",
 		success : function(data) {

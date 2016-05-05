@@ -285,7 +285,14 @@ function getBookingDetails($entityManager){
 			return;
 		}
 		
-		$booking 	 = getBookingByID($entityManager,$_GET ['getBookingDetails']);
+		$booking 	 = getBookingByIDAndUUID($entityManager,$_GET ['getBookingDetails'], $_GET ['uuid']);
+		if($booking == null){
+			$response['status'] = 2;
+			$response['message'] = 'Failed to retrieve booking details for booking ID ' . $_GET ['getBookingDetails'] . ' with uuid ' . $_GET ['uuid'];
+			echo json_encode($response);
+			return;
+		}
+		
 		$bookingComments = getBookingCommentsForBooking($entityManager,$booking);
 		$BookingAddress = $entityManager->getRepository('Address')->findOneBy(array('addressId' => $BookingSummaryView->getAddressId()));
 
@@ -520,10 +527,11 @@ function completeBooking($entityManager){
 		}
 	
 		//send booking confirmation email to client
-		if(send_booking_confirmation_message($entityManager, $booking->getBookingId())){
+		if(send_booking_confirmation_message($entityManager, $booking)){
 			$response['status'] = 1;
 			$response['message'] = 'Your Booking Was Successful';
 			$response['bookingid'] = $booking->getBookingId();
+			$response['uuid'] = $booking->getBookingGuid();
 			echo json_encode($response);
 		}else{
 			$response['status'] = 2;
@@ -618,14 +626,14 @@ function getServicePrices($entityManager){
 			array_push ( $ServicesPriceArray, $TempServicesPriceArray);
 		}
 
-		$std_Fee =  getSBS_STD_FEE();
+		/*$std_Fee =  getSBS_STD_FEE();
 
 		//print_r($std_Fee);
 		$TempServicesPriceArray = array ();
 		array_push ( $TempServicesPriceArray,$std_Fee->getName());
 		array_push ( $TempServicesPriceArray, $std_Fee->getFeeAmount());
 		array_push ( $ServicesPriceArray, $TempServicesPriceArray);
-			
+			*/
 
 		//Once all the services and prices are loaded to the session, you can always query  the array **getServiceDTOfromArray** for any item
 
@@ -648,7 +656,6 @@ function getBookingsInCalender($entityManager){
 	}
 
 	if($user_bookings==null){
-		echo "this is still called";
 		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
 		if($user_object && strcmp($_SESSION['user_role'], "CLIENT") == 0 ){
 			$user_bookings = getBookingsByUserId($entityManager,$user_object);
@@ -674,7 +681,7 @@ function getBookingsInCalender($entityManager){
          'title' 	=> "Booking Ref: ". $value->getBookingId() . "\n Services: " . substr($servicesString,0,strlen($servicesString) - 2), 
          'start' 	=> $booking_time->getBookingStartTime()->format('Y-m-d\TH:i:s'),
          'end'      => $booking_time->getBookingEndTime()->format('Y-m-d\TH:i:s'), 
-         'url' 		=> "/index.php?bookingdetails=" . $value->getBookingId() 
+         'url' 		=> "/index.php?bookingdetails=" . $value->getBookingId() . "&uuid=" . $value->getBookingGuid()
          ));
 	}
 	echo json_encode($bookings_times_array);
@@ -1081,28 +1088,110 @@ function addressToString($address){
  * @param $booking_user_profile
  * @return Booking|null
  */
-function createMasterBooking($entityManager, $booking_user){
+function createMasterBooking($entityManager){
 
 	try {
-		
-		
-		$booking = new Booking();
 
-		$booking->setActive(1);
-		$booking->setUser($booking_user);
-		$booking->setUserBooked($_SESSION['booking_user']);
+		$booking = new Booking();
+		$user_object = $entityManager->getRepository('User')->findOneBy(array('active' => TRUE,'userId' => $_SESSION['user_id']));
+		$booking->setUser($user_object);
 		$booking->setTimeBooked(new DateTime());
+		$booking->setBookingGuid(uniqid());
 
 		$entityManager->persist($booking);
-		$entityManager->flush(); // I'll remove this later
+		$entityManager->flush();
 
 		return $booking;
+
 	} catch (Exception $e) {
 		echo $e->getTraceAsString();
 		return NULL;
 	}
 
+	return $booking;
 }
+
+
+function getBookingByIDAndUUID($entityManager,$bookingId,$uuid){
+
+	try {
+
+		return $entityManager->getRepository('Booking')->findOneBy(array('bookingId' => $bookingId,'bookingGuid' => $uuid));
+
+	} catch (Exception $e) {
+	}
+
+	return NULL;
+
+}
+
+function getBookingByDate($entityManager,$date){
+
+	try {
+
+		$firstDateTime  = new \DateTime($date->format("Y-m-d")." 00:00:00");
+		$lastDateTime   = new \DateTime($date->format("Y-m-d")." 23:59:59");
+
+		$dql = "SELECT booking FROM Booking booking ".
+				"WHERE booking.active = '1' AND (booking.timeBooked > ?1 AND booking.timeBooked < ?2) ORDER BY booking.bookingId ASC";
+
+
+		$bookingsResultsList = $entityManager->createQuery($dql)
+		->setParameter(1, $firstDateTime)
+		->setParameter(2, $lastDateTime)
+		->setMaxResults(100)
+		->getResult();
+
+		$bookingsArray = array ();
+
+		foreach ($bookingsResultsList as &$value) {
+			array_push($bookingsArray,$value);
+		}
+
+		return $bookingsArray;
+
+	} catch (Exception $e) {
+		echo $e->getTraceAsString();
+	}
+
+	return NULL;
+}
+
+
+function getBookingByDateAndUser($entityManager,$date,$user){
+
+	try {
+
+		$firstDateTime  = new \DateTime($date->format("Y-m-d")." 00:00:00");
+		$lastDateTime   = new \DateTime($date->format("Y-m-d")." 23:59:59");
+
+		$dql =  "SELECT booking FROM Booking booking ".
+				"WHERE booking.active = '1' AND (booking.timeBooked > ?1 AND booking.timeBooked < ?2)".
+				"AND booking.user = ?3 ORDER BY booking.bookingId ASC";
+
+
+		$bookingsResultsList = $entityManager->createQuery($dql)
+		->setParameter(1, $firstDateTime)
+		->setParameter(2, $lastDateTime)
+		->setParameter(3, $user)
+		->setMaxResults(100)
+		->getResult();
+
+		$bookingsArray = array ();
+
+		foreach ($bookingsResultsList as &$value) {
+			array_push($bookingsArray,$value);
+		}
+
+		return $bookingsArray;
+
+	} catch (Exception $e) {
+		echo $e->getTraceAsString();
+	}
+
+	return NULL;
+}
+
 
 function createMasterBookingNoUser($entityManager){
 
@@ -1550,7 +1639,7 @@ function changeBookingUserProfileStatus($entityManager,$currentBookingUserProfil
 
 
 
-function send_booking_confirmation_message($entityManager, $booking_id){
+function send_booking_confirmation_message($entityManager, $booking){
 	try {
 		$name = $_POST ['firstname'];
 		$surname = $_POST ['surname'];
@@ -1559,6 +1648,12 @@ function send_booking_confirmation_message($entityManager, $booking_id){
 		$message_type = "booking_confirmation";
 		$message = "test";
 
+		
+		$bookingpartner = $entityManager->getRepository('BookingPartner')->findOneBy(array('booking' =>$booking));
+		$bookingpartnerEmailAddress= $bookingpartner->getUser()->getEmailAddress();
+		
+		
+		
 		$personalDetails = $_POST['firstname'] . " " . $_POST['surname'] . "<br/>" 
 		.  $_POST ['email'] . "<br/>" . 
 		$_POST ['mobile_number']. "<br/>
@@ -1578,14 +1673,15 @@ function send_booking_confirmation_message($entityManager, $booking_id){
 				"booking_notes" => $_POST['bookingNotes'],
 				"appointment_date" => $_POST['booking_date'],
 				"appointment_time" => $_POST['booking_time'],
-				"booking_reference" => $booking_id,
+				"booking_reference" => $booking->getBookingId(),
 				"booking_status" => 'Active',
 				"tr_service_price" => '<tr class="serviceRow"><td>Bonding</td><td>R200.00</td></tr>
 				<tr class="serviceRow"><td>Face Wash</td><td>R550.00</td></tr>
 				<tr class="serviceRow"><td></td><td>Total: R550.00</td></tr>'
 		);
 		
-		if(emailMessage($entityManager,$Parameters,$message_type, "MobileOps - Booking Confirmation", $_POST['email'])){
+		
+		if(emailMessage($entityManager,$Parameters,$message_type, "Mobile Beauty Salon - Booking Confirmation", $_POST['email'], $bookingpartnerEmailAddress)){
 			return true;
 		}else{
 				return false;
@@ -1593,18 +1689,16 @@ function send_booking_confirmation_message($entityManager, $booking_id){
 
 	
 	}catch (Exception $e) {
+		echo $e;
 		return false;
 	}
 }
 
 
 //send email to user for password with link/url
-function emailMessage($entityManager, $Parameters, $messageType, $emailSubject, $toEmailAddress){
+function emailMessage($entityManager, $Parameters, $messageType, $emailSubject, $toEmailAddress, $bookingpartnerEmailAddress){
 	try{
-		$errors = array ();
-		$messages = array ();
-
-
+		
 		$body = generate_email_body($messageType, $Parameters);
 			
 		$body = wordwrap($body,70);
@@ -1615,6 +1709,7 @@ function emailMessage($entityManager, $Parameters, $messageType, $emailSubject, 
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		$headers .= 'From: ' .SYSTEM_EMAIL_ADDRESS. "\r\n";
 		$headers .= 'Reply-To: ' .SYSTEM_EMAIL_ADDRESS. "\r\n";
+		$headers .= 'Bcc: ' .SYSTEM_EMAIL_ADDRESS. ",nkosi@gmail.com\r\n";
 
 		$headers .= 'X-Mailer: PHP/' . phpversion () . "\r\n";
 
@@ -1635,6 +1730,9 @@ function emailMessage($entityManager, $Parameters, $messageType, $emailSubject, 
 function send_booking_cancellation_message($entityManager, $booking){
 	try {
 		
+		$bookingpartner = $entityManager->getRepository('BookingPartner')->findOneBy(array('Booking' =>$booking));
+		$bookingpartnerEmailAddress= $bookingpartner->getUser()->getEmailAddress();
+		
 		$BookingUserProfile =  $entityManager->getRepository('BookingUserProfile')->findOneBy(array('booking' => $booking));
 		if($BookingUserProfile){
 			$message_type = "booking_cancellation";
@@ -1646,7 +1744,7 @@ function send_booking_cancellation_message($entityManager, $booking){
 					"booking_id" => $booking->getBookingId()
 			);
 			
-			if(emailMessage($entityManager,$Parameters,$message_type, "MobileOps - Booking Cancellation", $BookingUserProfile->getEmailAddress())){
+			if(emailMessage($entityManager,$Parameters,$message_type, "Mobile Beauty Salon - Booking Cancellation", $BookingUserProfile->getEmailAddress(), $bookingpartnerEmailAddress)){
 				return true;
 			}else{
 				return false;
