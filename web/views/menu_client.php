@@ -38,7 +38,9 @@
 
 <script src="web/js/init.js"></script>
 
-<script src="web/js/checkBrowserSessionData.js" type="text/javascript"></script>
+
+
+<script src="web/js/events/events_monitor_cookie.js" type="text/javascript"></script>
 
 <noscript>
 

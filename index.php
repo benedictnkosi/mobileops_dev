@@ -79,8 +79,10 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/contactus.php");
 	}elseif (isset ( $_GET ["partnergallery"] )) {
 		include ("web/views/partner_gallery.php");
+	}elseif (isset ( $_GET ["bookingsByStatus"] )) {
+		include ("web/views/bookings_by_status.php");
 	}elseif (isset ( $_GET ["editbooking"] )) {
-		include ("web/views/booking.php");
+		include ("web/views/edit_booking.php");
 	}else{
 		include ("web/views/home.php");
 	}

@@ -134,7 +134,7 @@ class Login {
 
 								$json = json_encode($UserDetailsArray);
 
-								//save temp login cookie expiring after 24hrs
+								//save temp login cookie expiring after 20min
 								setcookie ( "mobileops_temp_login", $json, time () + (1200), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
 								
 								if (isset ( $_POST ['rememberme'] )) {

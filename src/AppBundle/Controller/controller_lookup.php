@@ -16,9 +16,7 @@ require_once(__DIR__.'/../Entity/LuUserRight.php');
 require_once(__DIR__.'/../Entity/LuUserRole.php');
 
 function getAllLookupsByClass($entityManager,$lookupClass){
-
 	try {
-		
 		$activeLookups      = $entityManager->getRepository($lookupClass)->findAll();
 		$activeLookupsArray = array ();
 		
@@ -31,7 +29,6 @@ function getAllLookupsByClass($entityManager,$lookupClass){
 	} catch (Exception $e) {
 		echo 'Failed to load lookups ' + $lookupClass;
 	}
-
 	return NULL;
 }
 

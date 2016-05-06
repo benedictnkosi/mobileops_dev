@@ -13,10 +13,12 @@
  */
 
 define("SYSTEM_EMAIL_ADDRESS", "info@mobileops.co.za");
+define("NOTIFICATION_EMAIL_GROUP", "info@mobileops.co.za,nkosi.benedict@gmail.com");
 define("DOMAIN_NAME", "mobileops.co.za");
 define("COUNTRY", "South Africa");
 define('GENERIC_SYSTEM_ERROR', "An error occurred, please contact system administrator @ info@mobileops.co.za");
 define("RADIUS", 0.1019);
+
 
 define("FB_APPID", "773233792802919"); //LIVE
 //define("FB_APPID", "773239122802386"); //TEST

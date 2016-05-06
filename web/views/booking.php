@@ -318,7 +318,7 @@
 
  <div class="row uniform">
    <div class="12u">
-                  <div id="lbl_message" class="alert display-none alert-danger"  >Please select partner
+                  <div id="lbl_message" class="alert display-none alert-danger"  >Please select service provider
 </div>
 </div></div>
 
@@ -416,7 +416,9 @@
              <tr style="border: none;">
                 <td>
                     
-<button type="submit" class="submit">Complete Booking</button>
+<button type="submit" class="submit" id="cmdCompleteBooking" style="margin-right: 1em">Complete Booking</button>
+        
+        
                 </td>
             </tr>
             

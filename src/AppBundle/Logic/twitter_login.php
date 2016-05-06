@@ -152,6 +152,10 @@ class Twitter_Login {
 
 				$json = json_encode($UserDetailsArray);
 
+				//save temp login cookie expiring after 20min
+				setcookie ( "mobileops_temp_login", $json, time () + (1200), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
+				
+				
 				//auto remember for facebook, 30 days expiry cookie
 				setcookie ( "mobileops", $json, time () + (86400 * 30), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
 			}else{

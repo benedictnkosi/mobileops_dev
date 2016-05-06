@@ -7,6 +7,11 @@ $(document).ready(
 			sessionStorage.mobileops_servicesArray = "null";
 			sessionStorage.mobileops_providerSelected = "false";
 
+			$("#cmdCompleteBooking").click(function(){
+			    $(this).after("<img src='web/images/ajax-loader.gif' alt='loading' />").fadeIn();  
+			  });
+
+			
 			if (getCookie("mobileops_temp_login") == null) {
 				if (getCookie("mobileops")) {
 					//saveCookieToSession();
@@ -437,8 +442,7 @@ function getAllServices() {
 																									response) {
 																								if (response.message
 																										.indexOf("Successful") > -1) {
-																									window.location.href = "/index.php?bookingdetails="
-																											+ response.bookingid + "&uuid=" + response.uuid;
+																								window.location.href = "/index.php?bookingdetails="+ response.bookingid + "&uuid=" + response.uuid;
 																								} else {
 																									$(
 																											'#lbl_booking_message')

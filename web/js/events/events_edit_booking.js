@@ -19,6 +19,13 @@ $(document).ready(function() {
 	    updateBooking();
 });
 	
+	
+	$('#changePartner').click(function(event){
+	    event.preventDefault();
+	    $('#tr_bestPartners').removeClass( "display-none" ).addClass( "" );
+	    getBestPartners();
+});
+	
 });
 
 
@@ -69,7 +76,7 @@ function updateBooking(){
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
-		 data: {"updateBooking" : getUrlParameter("bookingdetails"),
+		 data: {"updateBooking" : getUrlParameter("editbooking"),
 			 "client_name":input_client_name.value,
 			 "client_surname":input_client_surname.value,
 			 "client_email_address":input_client_email_address.value,
@@ -129,7 +136,7 @@ function addServicesRows(services){
 	var totalPrice = 0;
 	var rowNum = 4;
 	var table = document.getElementById("invoice_table");
-	
+	var ServicesArray = [];
 	for (i = 0; i < services.length; i++){
 		var row = table.insertRow(rowNum);
 		row.className = "serviceRow";
@@ -138,12 +145,15 @@ function addServicesRows(services){
 		var cell2 = row.insertCell(1);
 		
 		cell1.innerHTML = services[i][0];
-		cell2.innerHTML = "R" + parseFloat(Math.round(services[i][1] * 100) / 100).toFixed(2);
+		ServicesArray.push(services[i][0]);
 		
-		//pricesString = pricesString + response.message[i][0] + ": R" + parseFloat(Math.round(response.message[i][1] * 100) / 100).toFixed(2) + "<br/>";
+		cell2.innerHTML = "R" + parseFloat(Math.round(services[i][1] * 100) / 100).toFixed(2);
 		totalPrice = totalPrice + parseInt(services[i][1]);
 	}
-	//$("#totalAmountDueDiv").html(pricesString + "<br/>Tatal : R" + parseFloat(Math.round(totalPrice * 100) / 100).toFixed(2));
+	
+	sessionStorage.setItem("mobileops_servicesArray", JSON
+			.stringify(ServicesArray));
+	
 	var row = table.insertRow(rowNum);
 	row.className = "serviceRow";
 	var cell1 = row.insertCell(0);
@@ -159,8 +169,8 @@ function getBookingDetails(){
 	
 	$.ajax({
 		type : 'GET',
-		url : 'src/AppBundle/Controller/controller_booking.php?getBookingDetails=' + getUrlParameter("bookingdetails") + "&uuid=" + getUrlParameter("uuid"),
-		data : 'bookingId=' + getUrlParameter("bookingdetails"),
+		url : 'src/AppBundle/Controller/controller_booking.php?getBookingDetails=' + getUrlParameter("editbooking") + "&admin=true",
+		data : 'bookingId=' + getUrlParameter("editbooking"),
 		dataType : "json",
 		success : function(data) {
 			//check if booking id found
@@ -227,7 +237,7 @@ function getBookingDetails(){
 
 			
 			h = document.createElement("H3")
-			t = document.createTextNode("SERVICE PROVIDER DETAILS"); 
+			t = document.createTextNode("PARTNER DETAILS"); 
 			h.appendChild(t);      
 			element.appendChild(h);      
 			
@@ -244,6 +254,9 @@ function getBookingDetails(){
 			element.appendChild(document.createTextNode(data['booking_address']));
 			element.appendChild(document.createElement("br"));
 			
+			//save lat and long to session for when admin wants to get best partners
+			sessionStorage.mobileops_lat =data['lat'];
+			sessionStorage.mobileops_long = data['lng'];
 			
 			
 			$("#booking_ref_label" ).empty();
@@ -267,11 +280,9 @@ function getBookingDetails(){
 		        break;
 		    case "BOOKING_AWAITING_PARTNER_CONFIRMATION":
 		    	bookingStatus = "Awaiting Partner Confirmation";
-		    	
 		        break;
 		    case "BOOKING_AWAITING_CLIENT_CONFIRMATION":
 		    	bookingStatus = "Awaiting Client Confirmation";
-		    	
 		        break;
 		    case "BOOKING_COMPLETED":
 		    	bookingStatus = "Complete";
@@ -291,7 +302,6 @@ function getBookingDetails(){
 				$('#tr_buttons').addClass('display-none');
 			}
 			
-			
 			$("#lbl_status" ).empty();
 			var element = document.getElementById("lbl_status");
 			element.appendChild(document.createTextNode(bookingStatus));
@@ -300,7 +310,7 @@ function getBookingDetails(){
 			var servicesArray = data['booking_services'];
 			addServicesRows(servicesArray);
 			
-			//notes
+			//notes	
 			$( "#bookingnotes" ).empty();
 			var element = document.getElementById("bookingnotes");
 			element.appendChild(document.createTextNode(data['booking_notes']));
@@ -314,4 +324,47 @@ function getBookingDetails(){
 	});
 	
 	
+}
+
+
+function getBestPartners(formdata) {
+	$("#bestPartnersDiv")
+			.load(
+					"src/AppBundle/Controller/controller_booking.php?getBestPartners=getBestPartners&skills_array=" + sessionStorage.mobileops_servicesArray + 
+					"&lat=" + sessionStorage.mobileops_lat + "&lng=" + sessionStorage.mobileops_long,
+					function() {
+						$('.selectPartner').click(
+								function(event) {
+									event.preventDefault();
+									$("#selectPartner").bind("click",
+											selectPartner(event));
+								});
+
+						$(".rating ").rating({
+							starCaptions : {
+								0 : "Not Rated",
+								1 : "Very Poor",
+								2 : "Poor",
+								3 : "Ok",
+								4 : "Good",
+								5 : "Very Good"
+							},
+							starCaptionClasses : {
+								1 : "text-danger",
+								2 : "text-warning",
+								3 : "text-info",
+								4 : "text-primary",
+								5 : "text-success"
+							},
+						});
+					});
+}
+
+
+//event id is partner + partner id we just need to save the id
+function selectPartner(event) {
+	var i = event.target.id.toString();
+	sessionStorage.mobileops_providerSelected = i.replace("partner", "");
+	$('.selectPartner').removeClass("selectedPartner", 1000, "easeInBack");
+	$('#' + event.target.id).addClass("selectedPartner");
 }
