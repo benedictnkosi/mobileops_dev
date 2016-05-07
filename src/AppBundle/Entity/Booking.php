@@ -10,7 +10,7 @@ class Booking
     /**
      * @var boolean
      */
-    private $active = '0';
+    private $active = '1';
 
     /**
      * @var \DateTime

@@ -12,7 +12,7 @@
     </id>
     <field name="active" type="boolean" column="active" nullable="true">
       <options>
-        <option name="default">0</option>
+        <option name="default">1</option>
       </options>
     </field>
     <field name="timeBooked" type="datetime" column="time_booked" nullable="false">

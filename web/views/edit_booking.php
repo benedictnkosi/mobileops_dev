@@ -135,21 +135,7 @@
                 </td>
             </tr>
             
-             <tr class="top" >
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td class="title">
-                            <h2>New Booking Time</h2>
-                              <div class="field " ><input id="datetimepicker" type="text"> <span
-	class="error"></span></div>
-                            </td>
-                            
-                            
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+            
             
             <tr class="information">
                 <td colspan="2">
@@ -188,24 +174,73 @@
              <tr style="border: none;background-color:white;">
                 <td>
                   <p id="bookingnotes"></p>
+                   <p id="addBookingnotes"></p>
                 </td>
 
             </tr>
+            
+            <tr style="border: none;background-color:white;" class="tr_buttons">
+                <td id="booking-details-buttons">
+                  
+				   <a id="addBookingNotes" href="#" class="button">Add Booking Notes</a>
+				   
+                </td>
+            </tr>
+            
 
+
+ <tr class="top" >
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                            <h2>New Booking Time</h2>
+                              <div class="field " ><input id="datetimepicker" type="text"> <span
+	class="error"></span></div>
+                            </td>
+                            
+                            
+                        </tr>
+                        
+                         <tr style="border: none;background-color:white;" class="tr_buttons">
+                <td id="booking-details-buttons">
+                  
+				  <select name="reason" id="dropdown_reason"><option value="DEFAULT">---SELECT REASON---</option>
+</select>
+				   
+                </td>
+            </tr>
+                        
+                        
+                         <tr style="border: none;background-color:white;" class="tr_buttons">
+                <td id="booking-details-buttons">
+                  
+				   <a id="updateDate" href="#" class="button">Update Date/Time</a>
+                </td>
+            </tr>
+            
+
+                    </table>
+                </td>
+            </tr>
+            
+            
             <tr  style="border: none;background-color:white;" id="tr_bestPartners" class="display-none">
                <td>
-                   <h3>CHANGE PARTNER </h3>(Clicking SELECT will submit the change)
+                   <h3>CHANGE PARTNER </h3>
 				<div id="bestPartnersDiv"></div>
                 </td>
                 
             </tr>
             
             
-             <tr style="border: none;background-color:white;" id="tr_buttons">
+             <tr style="border: none;background-color:white;" class="tr_buttons">
                 <td id="booking-details-buttons">
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
-				   <a id="updateBooking" href="#" class="button">Update Booking</a>
-				    <a id="changePartner" href="#" class="button">Change Partner</a>
+				    <a id="fetchPartner" href="#" class="button">Fetch Partners</a>
+				    <a id="updatePartner" href="#" class="button">Update Partner</a>
+				   
+				    <a id="changePartnerAndDate" href="#" class="button">Update Partner & Date</a>
                 </td>
             </tr>
             

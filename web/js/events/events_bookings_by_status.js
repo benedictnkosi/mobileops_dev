@@ -62,7 +62,7 @@ function getBookingByStatus(){
 	
 	$.ajax({
 		type : 'GET',
-		url : 'src/AppBundle/Controller/controller_booking.php?getBookingByStatus=' + $( "#dropdown_status" ).val(),
+		url : 'src/AppBundle/Controller/controller_booking.php?getBookingViewByStatus=' + $( "#dropdown_status" ).val(),
 		dataType : "json",
 		success : function(data) {
 			//check if booking id found

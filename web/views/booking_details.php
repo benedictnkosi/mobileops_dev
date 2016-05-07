@@ -180,9 +180,10 @@
              <tr style="border: none;background-color:white;">
                 <td>
                   <p id="bookingnotes"></p>
+                   <p id="addBookingnotes"></p>
                 </td>
 
-            </tr style="border: none;background-color:white;">
+            </tr>
             
             <tr>
                
@@ -190,7 +191,7 @@
              <tr style="border: none;background-color:white;" id="tr_buttons">
                 <td id="booking-details-buttons">
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
-				   <a id="updateBooking" href="#" class="button">Update Booking</a>
+				   <a id="addBookingNotes" href="#" class="button">Add Booking Notes</a>
                 </td>
             </tr>
             

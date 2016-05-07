@@ -14,10 +14,16 @@ $(document).ready(
 			
 			if (getCookie("mobileops_temp_login") == null) {
 				if (getCookie("mobileops")) {
-					//saveCookieToSession();
 					getClientProfile();
 				}else{
-					getAllServices();
+					//if user is not logged in and its a rebook get personal details from previous booking else use the user details
+					if(getUrlParameter('uuid')){
+						cancelBookingForRebook();
+					}else{
+						getAllServices();
+					}
+					
+					
 				}
 				
 			}else{
@@ -722,5 +728,29 @@ function isTimeAfterNow(){
 	}else{
 		return false;
 	}
+	
+}
+
+
+
+function cancelBookingForRebook(){
+	$.ajax({
+		type : 'GET',
+		url : 'src/AppBundle/Controller/controller_booking.php?cancelBookingForRebook=' + getUrlParameter("booking") + "&uuid=" + getUrlParameter("uuid"),
+		data : 'bookingId=' + getUrlParameter("booking"),
+		dataType : "json",
+		success : function(data) {
+			if(data.status == 2){
+				return;
+			}
+			$('#firstname').val(data['client_name']);
+			$('#surname').val(data['client_surname']);
+			$('#email').val(data['client_email_address']);
+			$('#mobile_number').val(data['client_mobile_number']);
+			
+			getAllServices();
+	},
+	});
+	
 	
 }

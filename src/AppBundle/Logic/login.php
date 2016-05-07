@@ -42,7 +42,7 @@ class Login {
 	 */
 	public function __construct($entityManager) {
 		// create/read session, absolutely necessary
-		$this->my_session_start (86400 * 31);
+		$this->my_session_start (1200);
 
 
 		// check the possible login actions:
@@ -179,17 +179,18 @@ class Login {
 	 */
 	public function doLogout() {
 		try {
+
+			// unset cookies
+			setcookie ( "mobileops_temp_login", "", time () + (86400 * 31), "/" );
+			setcookie ( "mobileops", "", time () - (86400 * 31), "/" );
+			
+			setcookie ( "fbm_" . FB_APPID, "", time () - (86400 * 31), "/" );
+			setcookie ( "fbsr_" . FB_APPID, "", time () - (86400 * 31), "/" );
+			
 			// delete the session of the user
 			$_SESSION = array ();
 			session_destroy ();
-
-			// unset cookies
-			// setcookie("username", "", time()-7600, "/");
-			setcookie ( "mobileops", "", time () - (86400 * 31), "/" );
-			setcookie ( "mobileops_temp_login", "", time () - (86400 * 31), "/" );
-			setcookie ( "fbm_" . FB_APPID, "", time () - (86400 * 31), "/" );
-			setcookie ( "fbsr_" . FB_APPID, "", time () - (86400 * 31), "/" );
-
+				
 			
 			// return a little feeedback message
 			$this->messages [] = "You have been logged out.";
@@ -211,8 +212,9 @@ class Login {
 				}
 			}
 			
-			if(isset ( $_COOKIE ['mobileops_temp_login'] )){
+			if ((isset ( $_SESSION ['user_login_status'] ) and $_SESSION ['user_login_status'] == 1) and isset ( $_COOKIE ['mobileops'] )) {
 				setcookie ( "mobileops_temp_login", $_COOKIE ['mobileops_temp_login'], time () + (1200), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
+				echo "test";
 			}
 
 			//if there is a user session set, udate session with user details

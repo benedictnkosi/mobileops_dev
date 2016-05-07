@@ -5,6 +5,9 @@
       <index name="booking_booking_status_idx" columns="booking_booking_status"/>
       <index name="booking_booking_status_fk_idx" columns="booking_id"/>
     </indexes>
+    <unique-constraints>
+      <unique-constraint name="booking_booking_status_id_UNIQUE" columns="booking_booking_status_id"/>
+    </unique-constraints>
     <id name="bookingBookingStatusId" type="integer" column="booking_booking_status_id">
       <generator strategy="IDENTITY"/>
     </id>

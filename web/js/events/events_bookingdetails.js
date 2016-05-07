@@ -14,9 +14,9 @@ $(document).ready(function() {
 	    cancelBooking();
 });
 	
-	$('#updateBooking').click(function(event){
+	$('#addBookingNotes').click(function(event){
 	    event.preventDefault();
-	    updateBooking();
+	    addBookingCommentsByClient();
 });
 	
 });
@@ -65,23 +65,28 @@ function intialiseDateTimePicker(bookignDate, bookingTime){
 }
 
 
-function updateBooking(){
+function addBookingCommentsByClient(){
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
-		 data: {"updateBooking" : getUrlParameter("bookingdetails"),
-			 "client_name":input_client_name.value,
-			 "client_surname":input_client_surname.value,
-			 "client_email_address":input_client_email_address.value,
-			 "client_mobile_number":input_client_mobile_number.value,
-			 "seletedBookingDate":sessionStorage.mobileops_seletedBookingDate,
-			 "seletedBookingTime":sessionStorage.mobileops_seletedBookingTime,
+		 data: {"updateBookingComments" : getUrlParameter("bookingdetails"),
+			 "booking_notes":input_booking_notes.value,
 		
 	},
 		 dataType : "json",
 		success : function(response) {
 			var message = response.message;
 			if(message.indexOf("Successfully ") > -1){
+				var myDate = new Date();
+				var formateddate = myDate.getFullYear() + "-" +
+				('0' + (myDate.getMonth()+1)).slice(-2) + "-" +
+				('0' + myDate.getDate()).slice(-2) + " " +
+				myDate.getHours() + ":" + myDate.getMinutes() + " - ";
+				
+				var element = document.getElementById("bookingnotes");
+				element.appendChild(document.createTextNode(formateddate));
+				element.appendChild(document.createTextNode(input_booking_notes.value));
+				input_booking_notes.value = "";
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
 			}else{
@@ -192,39 +197,16 @@ function getBookingDetails(){
 			element.appendChild(h);
 			element.appendChild(document.createElement("br"));
 			
-			
-			var input_client_name= document.createElement("input");
-			input_client_name.type = "text";
-			input_client_name.value = data['client_name'];
-			input_client_name.id = "input_client_name";
-			element.appendChild(input_client_name);
+			element.appendChild(document.createTextNode(data['client_name']));
+	
+			element.appendChild(document.createTextNode(' ' + data['client_surname']));
 			element.appendChild(document.createElement("br"));
 			
-			
-			var input_client_surname = document.createElement("input");
-			input_client_surname.type = "text";
-			input_client_surname.value =  data['client_surname'];
-			input_client_surname.id = "input_client_surname";
-			element.appendChild(input_client_surname);
-			element.appendChild(document.createElement("br"));
-
-		
-			var input_client_email_address = document.createElement("input");
-			input_client_email_address.type = "text";
-			input_client_email_address.value = data['client_email_address'];
-			input_client_email_address.id = "input_client_email_address";
-			input_client_email_address.readOnly = true;
-			element.appendChild(input_client_email_address);
+			element.appendChild(document.createTextNode(data['client_email_address']));
 			element.appendChild(document.createElement("br"));
 			
-			
-			var input_client_mobile_number = document.createElement("input");
-			input_client_mobile_number.type = "text";
-			input_client_mobile_number.value = data['client_mobile_number'];
-			input_client_mobile_number.id = "input_client_mobile_number";
-			element.appendChild(input_client_mobile_number);
+			element.appendChild(document.createTextNode(data['client_mobile_number']));
 			element.appendChild(document.createElement("br"));
-
 			
 			h = document.createElement("H3")
 			t = document.createTextNode("SERVICE PROVIDER DETAILS"); 
@@ -303,9 +285,21 @@ function getBookingDetails(){
 			//notes
 			$( "#bookingnotes" ).empty();
 			var element = document.getElementById("bookingnotes");
-			element.appendChild(document.createTextNode(data['booking_notes']));
 			
-
+			var bookingNotes = data['booking_notes'];
+			for (i = 0; i < bookingNotes.length; i++){
+				element.appendChild(document.createTextNode(bookingNotes[i][1] + ' - '));
+				element.appendChild(document.createTextNode(bookingNotes[i][0]));
+				element.appendChild(document.createElement("br"));
+			}
+			
+			var element = document.getElementById("addBookingnotes");
+			var input_booking_comments= document.createElement("textarea");
+			input_booking_comments.type = "text";
+			input_booking_comments.id = "input_booking_notes";
+			element.appendChild(input_booking_comments);
+		
+			$("#input_booking_notes").attr('maxlength','100');
 			
 			$( "#bookingref" ).text("REF: " + data['booking_ref']);
 			$( "#bookingstatus" ).text("STATUS: " + data['booking_status']);

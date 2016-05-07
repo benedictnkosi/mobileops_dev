@@ -303,9 +303,10 @@
 	select {
 		height: 2.75em;
 	}
-
+	
 	textarea {
 		padding: 0.75em 1em;
+		 background: white;
 	}
 
 	input[type="checkbox"],
@@ -1517,3 +1518,5 @@ width:100%;
 	width:100%
 	}
 }
+
+

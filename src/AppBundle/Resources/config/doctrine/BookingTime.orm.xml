@@ -4,9 +4,6 @@
     <indexes>
       <index name="booking_id_idx" columns="booking_id"/>
     </indexes>
-    <unique-constraints>
-      <unique-constraint name="booking_reference_UNIQUE" columns="booking_reference"/>
-    </unique-constraints>
     <id name="bookingTimeId" type="integer" column="booking_time_id">
       <generator strategy="IDENTITY"/>
     </id>

@@ -7,26 +7,51 @@ $(document).ready(function() {
 		}
 	}
 	
+	sessionStorage.mobileops_providerSelected = "";
+	
 	getBookingDetails();
+	getDateChangeReasons();
 	
 	$('#cancelBooking').click(function(event){
 	    event.preventDefault();
 	    cancelBooking();
 });
 	
-	$('#updateBooking').click(function(event){
-	    event.preventDefault();
-	    updateBooking();
-});
 	
-	
-	$('#changePartner').click(function(event){
+	$('#fetchPartner').click(function(event){
 	    event.preventDefault();
 	    $('#tr_bestPartners').removeClass( "display-none" ).addClass( "" );
 	    getBestPartners();
 });
 	
+	$('#updatePartner').click(function(event){
+	    event.preventDefault();
+	    changeBookingPartner();
 });
+	
+	
+	$('#addBookingNotes').click(function(event){
+	    event.preventDefault();
+	    addBookingCommentsByClient();
+	    
+	
+});
+	
+	
+	$('#updateDate').click(function(event){
+	    event.preventDefault();
+	    changeBookingDateTime();
+});
+	
+	$('#changePartnerAndDate').click(function(event){
+	    event.preventDefault();
+	    changeBookingDateTimeAndPartner();
+});
+	
+	
+});
+
+
 
 
 function intialiseDateTimePicker(bookignDate, bookingTime){
@@ -106,19 +131,46 @@ function cancelBooking(){
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
-		 data: {"cancelBooking" : getUrlParameter("bookingdetails")}, 
+		 data: {"cancelBooking" : getUrlParameter("editbooking")}, 
 		 dataType : "json",
 		success : function(response) {
 			var message = response.message;
 			if(message.indexOf("Successfully") > -1){
-				$('#lbl_message').text(message);
-				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+				
+				var bookingStatus = "";
+				switch(response['booking_status']) {
+			    case "BOOKING_ACTIVE":
+			    	bookingStatus = "Active";
+			        break;
+			    case "BOOKING_CANCELLED":
+			    	bookingStatus = "Cancelled";
+			    	$('.tr_buttons').addClass('display-none')
+			        break;
+			    case "BOOKING_AWAITING_PARTNER_CONFIRMATION":
+			    	bookingStatus = "Awaiting Partner Confirmation";
+			        break;
+			    case "BOOKING_AWAITING_CLIENT_CONFIRMATION":
+			    	bookingStatus = "Awaiting Client Confirmation";
+			        break;
+			    case "BOOKING_COMPLETED":
+			    	bookingStatus = "Complete";
+			    	$('.tr_buttons').addClass('display-none')
+			        break;
+			    default:
+			    	bookingStatus =  "Error";
+			    	$('.tr_buttons').addClass('display-none')
+				}
 				
 				$("#lbl_status" ).empty();
 				var element = document.getElementById("lbl_status");
-				element.appendChild(document.createTextNode("Cancelled"));
+				element.appendChild(document.createTextNode(bookingStatus));
 				
-				$('#tr_buttons').addClass('display-none')
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+				
+				
+				
+				$('.tr_buttons').addClass('display-none')
 				
 			}else{
 				$('#lbl_message').text(message);
@@ -134,7 +186,7 @@ function addServicesRows(services){
 	$('.serviceRow').remove();
 	var pricesString = "";
 	var totalPrice = 0;
-	var rowNum = 4;
+	var rowNum = 3;
 	var table = document.getElementById("invoice_table");
 	var ServicesArray = [];
 	for (i = 0; i < services.length; i++){
@@ -203,36 +255,15 @@ function getBookingDetails(){
 			element.appendChild(document.createElement("br"));
 			
 			
-			var input_client_name= document.createElement("input");
-			input_client_name.type = "text";
-			input_client_name.value = data['client_name'];
-			input_client_name.id = "input_client_name";
-			element.appendChild(input_client_name);
+			element.appendChild(document.createTextNode(data['client_name']));
+			
+			element.appendChild(document.createTextNode(' ' + data['client_surname']));
 			element.appendChild(document.createElement("br"));
 			
-			
-			var input_client_surname = document.createElement("input");
-			input_client_surname.type = "text";
-			input_client_surname.value =  data['client_surname'];
-			input_client_surname.id = "input_client_surname";
-			element.appendChild(input_client_surname);
-			element.appendChild(document.createElement("br"));
-
-		
-			var input_client_email_address = document.createElement("input");
-			input_client_email_address.type = "text";
-			input_client_email_address.value = data['client_email_address'];
-			input_client_email_address.id = "input_client_email_address";
-			input_client_email_address.readOnly = true;
-			element.appendChild(input_client_email_address);
+			element.appendChild(document.createTextNode(data['client_email_address']));
 			element.appendChild(document.createElement("br"));
 			
-			
-			var input_client_mobile_number = document.createElement("input");
-			input_client_mobile_number.type = "text";
-			input_client_mobile_number.value = data['client_mobile_number'];
-			input_client_mobile_number.id = "input_client_mobile_number";
-			element.appendChild(input_client_mobile_number);
+			element.appendChild(document.createTextNode(data['client_mobile_number']));
 			element.appendChild(document.createElement("br"));
 
 			
@@ -276,7 +307,8 @@ function getBookingDetails(){
 		        break;
 		    case "BOOKING_CANCELLED":
 		    	bookingStatus = "Cancelled";
-		    	$('#tr_buttons').addClass('display-none')
+		    	$('.tr_buttons').addClass( "display-none" );
+		    	//$('.tr_buttons').addClass('display-none');
 		        break;
 		    case "BOOKING_AWAITING_PARTNER_CONFIRMATION":
 		    	bookingStatus = "Awaiting Partner Confirmation";
@@ -286,20 +318,20 @@ function getBookingDetails(){
 		        break;
 		    case "BOOKING_COMPLETED":
 		    	bookingStatus = "Complete";
-		    	$('#tr_buttons').addClass('display-none')
+		    	$('.tr_buttons').addClass('display-none');
 		        break;
 		    default:
 		    	bookingStatus =  "Error";
-		    	$('#tr_buttons').addClass('display-none')
+		    	$('.tr_buttons').addClass('display-none');
 			}
 			
 			//remove the buttons for partner
 			if (getCookie("mobileops_temp_login")) {
 				if(getValueInCookie('mobileops_temp_login', 'user_role').localeCompare("PARTNER") == 0 ){
-					$('#tr_buttons').addClass('display-none');
+					$('.tr_buttons').addClass('display-none');
 				}
 			}else{
-				$('#tr_buttons').addClass('display-none');
+				$('.tr_buttons').addClass('display-none');
 			}
 			
 			$("#lbl_status" ).empty();
@@ -310,12 +342,25 @@ function getBookingDetails(){
 			var servicesArray = data['booking_services'];
 			addServicesRows(servicesArray);
 			
-			//notes	
+			//notes
 			$( "#bookingnotes" ).empty();
 			var element = document.getElementById("bookingnotes");
-			element.appendChild(document.createTextNode(data['booking_notes']));
+			
+			var bookingNotes = data['booking_notes'];
+			for (i = 0; i < bookingNotes.length; i++){
+				element.appendChild(document.createTextNode(bookingNotes[i][1] + ' - '));
+				element.appendChild(document.createTextNode(bookingNotes[i][0]));
+				element.appendChild(document.createElement("br"));
+			}
+			
+			var element = document.getElementById("addBookingnotes");
+			var input_booking_comments= document.createElement("textarea");
+			input_booking_comments.type = "text";
+			input_booking_comments.id = "input_booking_notes";
+			element.appendChild(input_booking_comments);
 			
 
+			$("#input_booking_notes").attr('maxlength','100');
 			
 			$( "#bookingref" ).text("REF: " + data['booking_ref']);
 			$( "#bookingstatus" ).text("STATUS: " + data['booking_status']);
@@ -368,3 +413,267 @@ function selectPartner(event) {
 	$('.selectPartner').removeClass("selectedPartner", 1000, "easeInBack");
 	$('#' + event.target.id).addClass("selectedPartner");
 }
+
+function addBookingCommentsByClient(){
+	$.ajax({
+		type : 'POST',
+		url : 'src/AppBundle/Controller/controller_booking.php',
+		 data: {"updateBookingComments" : getUrlParameter("editbooking"),
+			 "booking_notes":input_booking_notes.value,
+		
+	},
+		 dataType : "json",
+		success : function(response) {
+			var message = response.message;
+			if(message.indexOf("Successfully ") > -1){
+				var myDate = new Date();
+				var formateddate = myDate.getFullYear() + "-" +
+				('0' + (myDate.getMonth()+1)).slice(-2) + "-" +
+				('0' + myDate.getDate()).slice(-2) + " " +
+				myDate.getHours() + ":" + myDate.getMinutes() + " - ";
+				
+				var element = document.getElementById("bookingnotes");
+				element.appendChild(document.createTextNode(formateddate));
+				element.appendChild(document.createTextNode(input_booking_notes.value));
+				element.appendChild(document.createElement("br"));
+				input_booking_notes.value = "";
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+			}else{
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+			}
+			$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+	},
+	});
+}
+
+
+function changeBookingDateTimeAndPartner(){
+	if($( "#dropdown_reason" ).val().localeCompare("DEFAULT") == 0){
+		$('#lbl_message').text("Please select New Booking Time reason");
+		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+		$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+		return;
+	}
+	
+	if(sessionStorage.mobileops_providerSelected.localeCompare("") == 0){
+			$('#lbl_message').text("Please select New Partner");
+			$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+			$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+			return;
+	}
+	
+	$.ajax({
+		type : 'POST',
+		url : 'src/AppBundle/Controller/controller_booking.php',
+		 data: {"changeBookingDateTimeAndPartner" : getUrlParameter("editbooking"),
+			 "booking_date": sessionStorage.mobileops_seletedBookingDate,
+			 "booking_time": sessionStorage.mobileops_seletedBookingTime,
+			 "newBookingTimeReason": $( "#dropdown_reason" ).val(),
+			 "partner_id"  : sessionStorage.mobileops_providerSelected
+	},
+		 dataType : "json",
+		success : function(response) {
+			var message = response.message;
+			if(message.indexOf("Successfully ") > -1){
+				var bookingStatus = "";
+				switch(response['booking_status']) {
+			    case "BOOKING_ACTIVE":
+			    	bookingStatus = "Active";
+			        break;
+			    case "BOOKING_CANCELLED":
+			    	bookingStatus = "Cancelled";
+			    	$('.tr_buttons').addClass('display-none')
+			        break;
+			    case "BOOKING_AWAITING_PARTNER_CONFIRMATION":
+			    	bookingStatus = "Awaiting Partner Confirmation";
+			        break;
+			    case "BOOKING_AWAITING_CLIENT_CONFIRMATION":
+			    	bookingStatus = "Awaiting Client Confirmation";
+			        break;
+			    case "BOOKING_COMPLETED":
+			    	bookingStatus = "Complete";
+			    	$('.tr_buttons').addClass('display-none')
+			        break;
+			    default:
+			    	bookingStatus =  "Error";
+			    	$('.tr_buttons').addClass('display-none')
+				}
+				
+				$("#lbl_status" ).empty();
+				var element = document.getElementById("lbl_status");
+				element.appendChild(document.createTextNode(bookingStatus));
+				
+				
+				$( "#lbl_date" ).empty();
+				var element = document.getElementById("lbl_date");
+				element.appendChild(document.createTextNode(sessionStorage.mobileops_seletedBookingDate + ' ' + sessionStorage.mobileops_seletedBookingTime));
+				element.appendChild(document.createElement("br"));
+				
+				
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+			}else{
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+			}
+			$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+	},
+	});
+}
+
+
+function changeBookingDateTime(){
+	if($( "#dropdown_reason" ).val().localeCompare("DEFAULT") == 0){
+		$('#lbl_message').text("Please select New Booking Time reason");
+		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+		$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+		return;
+	}
+	
+	$.ajax({
+		type : 'POST',
+		url : 'src/AppBundle/Controller/controller_booking.php',
+		 data: {"changeBookingDateTime" : getUrlParameter("editbooking"),
+			 "booking_date": sessionStorage.mobileops_seletedBookingDate,
+			 "booking_time": sessionStorage.mobileops_seletedBookingTime,
+			 "newBookingTimeReason": $( "#dropdown_reason" ).val(),
+		
+	},
+		 dataType : "json",
+		success : function(response) {
+			var message = response.message;
+			if(message.indexOf("Successfully ") > -1){
+				var bookingStatus = "";
+				switch(response['booking_status']) {
+			    case "BOOKING_ACTIVE":
+			    	bookingStatus = "Active";
+			        break;
+			    case "BOOKING_CANCELLED":
+			    	bookingStatus = "Cancelled";
+			    	$('.tr_buttons').addClass('display-none')
+			        break;
+			    case "BOOKING_AWAITING_PARTNER_CONFIRMATION":
+			    	bookingStatus = "Awaiting Partner Confirmation";
+			        break;
+			    case "BOOKING_AWAITING_CLIENT_CONFIRMATION":
+			    	bookingStatus = "Awaiting Client Confirmation";
+			        break;
+			    case "BOOKING_COMPLETED":
+			    	bookingStatus = "Complete";
+			    	$('.tr_buttons').addClass('display-none')
+			        break;
+			    default:
+			    	bookingStatus =  "Error";
+			    	$('.tr_buttons').addClass('display-none')
+				}
+				
+				$("#lbl_status" ).empty();
+				var element = document.getElementById("lbl_status");
+				element.appendChild(document.createTextNode(bookingStatus));
+				
+				
+				$( "#lbl_date" ).empty();
+				var element = document.getElementById("lbl_date");
+				element.appendChild(document.createTextNode(sessionStorage.mobileops_seletedBookingDate + ' ' + sessionStorage.mobileops_seletedBookingTime));
+				element.appendChild(document.createElement("br"));
+				
+				
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+			}else{
+				$('#lbl_message').text(message);
+				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+			}
+			$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+	},
+	});
+}
+
+
+function changeBookingPartner(){
+	if(sessionStorage.mobileops_providerSelected.localeCompare("") == 0){
+			$('#lbl_message').text("Please select New Partner");
+			$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+			$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+			return;
+	}
+	
+		
+	var parameters = "changeBookingPartnerByAdmin="  + getUrlParameter('editbooking') + "&partner_id="  + sessionStorage.mobileops_providerSelected;
+
+$.ajax({
+type : 'GET',
+url : '/src/AppBundle/Controller/controller_booking.php',
+data : parameters,
+dataType : "json",
+success : function(response) {
+	if(response.status == 1){
+		var bookingStatus = "";
+		switch(response['booking_status']) {
+	    case "BOOKING_ACTIVE":
+	    	bookingStatus = "Active";
+	        break;
+	    case "BOOKING_CANCELLED":
+	    	bookingStatus = "Cancelled";
+	    	$('.tr_buttons').addClass('display-none')
+	        break;
+	    case "BOOKING_AWAITING_PARTNER_CONFIRMATION":
+	    	bookingStatus = "Awaiting Partner Confirmation";
+	        break;
+	    case "BOOKING_AWAITING_CLIENT_CONFIRMATION":
+	    	bookingStatus = "Awaiting Client Confirmation";
+	        break;
+	    case "BOOKING_COMPLETED":
+	    	bookingStatus = "Complete";
+	    	$('.tr_buttons').addClass('display-none')
+	        break;
+	    default:
+	    	bookingStatus =  "Error";
+	    	$('.tr_buttons').addClass('display-none')
+		}
+		
+		$("#lbl_status" ).empty();
+		var element = document.getElementById("lbl_status");
+		element.appendChild(document.createTextNode(bookingStatus));
+		
+		
+		$('#lbl_message').text(response.message);
+		$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+	}else{
+		$('#lbl_message').text(response.message);
+		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+	}
+	$("html, body").animate({ scrollTop: $("#lbl_message").offset().top}, "slow");
+},
+});
+}
+
+
+function getDateChangeReasons(){
+	
+	var parameters = "getDateChangeReasons=true";
+
+$.ajax({
+type : 'GET',
+url : '/src/AppBundle/Controller/controller_booking.php',
+data : parameters,
+dataType : "json",
+success : function(response) {
+	data = response.ChangeDateReason;
+	
+	if(response.status == 2){
+		return;
+	}
+	
+	for (i = 0; i < data.length; i++) { 
+	    $('#dropdown_reason').append($('<option>', { 
+	        value: data[i],
+	        text : data[i] 
+	    }))
+	}
+},
+});
+}
+

@@ -14,6 +14,7 @@ require_once(__DIR__.'/../Entity/LuService.php');
 require_once(__DIR__.'/../Entity/LuServiceType.php');
 require_once(__DIR__.'/../Entity/LuUserRight.php');
 require_once(__DIR__.'/../Entity/LuUserRole.php');
+require_once(__DIR__.'/../Entity/LuDatechangeReasons.php');
 
 function getAllLookupsByClass($entityManager,$lookupClass){
 	try {
@@ -35,11 +36,14 @@ function getAllLookupsByClass($entityManager,$lookupClass){
 function getAllActiveLookupsByClass($entityManager,$lookupClass){
 
 	try {
+	
 		
-		$activeLookups      = $entityManager->getRepository($lookupClass)->findBy(array('active' => TRUE));
+		
+		$activeLookups = $entityManager->getRepository($lookupClass)->findBy(array('active' => TRUE));
+		
 		$activeLookupsArray = array ();
-		
 		foreach ($activeLookups as &$value) {
+			
 			array_push($activeLookupsArray,$value);
 		}
 		

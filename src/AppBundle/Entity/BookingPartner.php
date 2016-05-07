@@ -10,6 +10,11 @@ class BookingPartner
     /**
      * @var integer
      */
+    private $active = '1';
+
+    /**
+     * @var integer
+     */
     private $bookingPartnerId;
 
     /**
@@ -22,6 +27,30 @@ class BookingPartner
      */
     private $booking;
 
+
+    /**
+     * Set active
+     *
+     * @param integer $active
+     *
+     * @return BookingPartner
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return integer
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
 
     /**
      * Get bookingPartnerId
