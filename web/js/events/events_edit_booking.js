@@ -128,6 +128,11 @@ function updateBooking(){
 
 
 function cancelBooking(){
+	var r = confirm("Are you sure you want to cancel this booking?");
+	if (r == false) {
+	    return;
+	} 
+	
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
@@ -373,11 +378,16 @@ function getBookingDetails(){
 
 
 function getBestPartners(formdata) {
+	
+	$('#tr_all_buttons').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();
+	
 	$("#bestPartnersDiv")
 			.load(
 					"src/AppBundle/Controller/controller_booking.php?getBestPartners=getBestPartners&skills_array=" + sessionStorage.mobileops_servicesArray + 
 					"&lat=" + sessionStorage.mobileops_lat + "&lng=" + sessionStorage.mobileops_long,
 					function() {
+						$('.loading').remove();
+						
 						$('.selectPartner').click(
 								function(event) {
 									event.preventDefault();
@@ -415,6 +425,13 @@ function selectPartner(event) {
 }
 
 function addBookingCommentsByClient(){
+	if(input_booking_notes.value.length < 1){
+		$('#lbl_message').text("Special notes field is empty");
+		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+		$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
+		return;
+	}
+	
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
@@ -450,6 +467,8 @@ function addBookingCommentsByClient(){
 
 
 function changeBookingDateTimeAndPartner(){
+	 
+	
 	if($( "#dropdown_reason" ).val().localeCompare("DEFAULT") == 0){
 		$('#lbl_message').text("Please select New Booking Time reason");
 		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
@@ -464,6 +483,13 @@ function changeBookingDateTimeAndPartner(){
 			return;
 	}
 	
+	var r = confirm("Are you sure you want to change booking time and partner?");
+	if (r == false) {
+	    return;
+	}
+	
+	$('#tr_all_buttons').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();
+	
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
@@ -475,6 +501,7 @@ function changeBookingDateTimeAndPartner(){
 	},
 		 dataType : "json",
 		success : function(response) {
+			$('.loading').remove();
 			var message = response.message;
 			if(message.indexOf("Successfully ") > -1){
 				var bookingStatus = "";
@@ -525,12 +552,20 @@ function changeBookingDateTimeAndPartner(){
 
 
 function changeBookingDateTime(){
+
 	if($( "#dropdown_reason" ).val().localeCompare("DEFAULT") == 0){
 		$('#lbl_message').text("Please select New Booking Time reason");
 		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
 		$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
 		return;
 	}
+	
+	var r = confirm("Are you sure you want to change time for this booking?");
+	if (r == false) {
+	    return;
+	} 
+	
+	$('#updateDate').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn(); 
 	
 	$.ajax({
 		type : 'POST',
@@ -543,6 +578,7 @@ function changeBookingDateTime(){
 	},
 		 dataType : "json",
 		success : function(response) {
+			$('.loading').remove();
 			var message = response.message;
 			if(message.indexOf("Successfully ") > -1){
 				var bookingStatus = "";
@@ -593,6 +629,7 @@ function changeBookingDateTime(){
 
 
 function changeBookingPartner(){
+	
 	if(sessionStorage.mobileops_providerSelected.localeCompare("") == 0){
 			$('#lbl_message').text("Please select New Partner");
 			$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
@@ -600,7 +637,13 @@ function changeBookingPartner(){
 			return;
 	}
 	
-		
+	var r = confirm("Are you sure you want to change partner for this booking?");
+	if (r == false) {
+	    return;
+	} 
+
+	$('#tr_all_buttons').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn(); 
+	
 	var parameters = "changeBookingPartnerByAdmin="  + getUrlParameter('editbooking') + "&partner_id="  + sessionStorage.mobileops_providerSelected;
 
 $.ajax({
@@ -609,6 +652,7 @@ url : '/src/AppBundle/Controller/controller_booking.php',
 data : parameters,
 dataType : "json",
 success : function(response) {
+	$('.loading').remove();
 	if(response.status == 1){
 		var bookingStatus = "";
 		switch(response['booking_status']) {

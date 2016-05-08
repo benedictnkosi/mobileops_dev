@@ -32,6 +32,14 @@ if (isset ( $_GET ['getPartnerProfile'] )) {
 	endif;
 }
 
+if (isset ( $_GET ['getPartnerPersonalNote'] )) {
+	if ($_GET ['getPartnerPersonalNote']) :
+	getPartnerPersonalNote($entityManager);
+	endif;
+}
+
+
+
 
 if (isset ( $_GET ['deleteimage'] )) {
 	if ($_GET ['deleteimage']) :
@@ -269,6 +277,38 @@ function getPartnerProfile($entityManager){
 
 }
 
+
+
+function getPartnerPersonalNote($entityManager){
+	try {
+		session_start ();
+	} catch (Exception $e) {
+	}
+
+	try {
+		$profileArray = array ();
+
+		$user = $entityManager->getRepository('User')->findOneBy(array('userId' => $_GET['getPartnerPersonalNote']));
+		if($user){
+			$UserProfile = $user->getUserProfile();
+
+			$profileArray['name'] = $UserProfile->getFirstName();
+			$profileArray['surname'] = $UserProfile->getSurname();
+				
+			$profileArray['personalNote'] = $UserProfile->getPersonalNote();
+		}
+
+		//print json_encode ( $profileArray );
+		$response['status'] = 1;
+		$response['message'] = $profileArray;
+		echo json_encode($response);
+	} catch (Exception $e) {
+		$response['status'] = 2;
+		$response['message'] = $e->getMessage();
+		echo json_encode($response);
+	}
+
+}
 
 
 function getPartnerImages($entityManager){

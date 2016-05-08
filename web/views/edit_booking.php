@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Booking Details</title>
+<title>Edit Booking</title>
 	<script src="web/js/events/events_edit_booking.js"></script>
 	<script src="web/js/commons.js"></script>
 	
@@ -234,7 +234,7 @@
             </tr>
             
             
-             <tr style="border: none;background-color:white;" class="tr_buttons">
+             <tr style="border: none;background-color:white;" class="tr_buttons" id="tr_all_buttons">
                 <td id="booking-details-buttons">
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
 				    <a id="fetchPartner" href="#" class="button">Fetch Partners</a>

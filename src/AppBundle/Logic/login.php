@@ -60,9 +60,8 @@ class Login {
 		session_start ();
 
 		if (isset ( $_SESSION ['timeout_idle'] ) && $_SESSION ['timeout_idle'] < time ()) {
-			echo "session killed";
+			
 			session_destroy ();
-			session_start ();
 			session_regenerate_id ();
 			$_SESSION = array ();
 		}
@@ -212,9 +211,9 @@ class Login {
 				}
 			}
 			
-			if ((isset ( $_SESSION ['user_login_status'] ) and $_SESSION ['user_login_status'] == 1) and isset ( $_COOKIE ['mobileops'] )) {
+			if ((isset ( $_SESSION ['user_login_status'] ) and $_SESSION ['user_login_status'] == 1) and isset ( $_COOKIE ['mobileops_temp_login'] )) {
 				setcookie ( "mobileops_temp_login", $_COOKIE ['mobileops_temp_login'], time () + (1200), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
-				echo "test";
+				
 			}
 
 			//if there is a user session set, udate session with user details

@@ -154,7 +154,7 @@
 
 <div class="container booking-container"><header class="major">
 
-<h2>BOOK YOUR APPOINTMENT</h2>
+<h2 id="booking_heading">BOOK YOUR APPOINTMENT</h2>
 
 </header>
 
@@ -322,7 +322,7 @@
 </div>
 </div></div>
 
-<h3>SELECT A SERVICE PROVIDER</h3>
+<h3 id="h3_select_partner">SELECT A SERVICE PROVIDER</h3>
 
 <div id="bestPartnersDiv"></div>
 

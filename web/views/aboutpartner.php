@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Gallery</title>
+<title>About Partner</title>
 <script src="web/js/lean-slider.js"></script>
 <script src="web/js/commons.js"></script>
 <link rel="stylesheet" href="web/css/lean-slider.css" type="text/css" />
@@ -10,15 +10,20 @@
 
 
 <link
-	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
+	href="web/css/bootstrap.min.css"
 	rel="stylesheet">
 
 </head>
 <body class="landing">
 
 <section id="two" class="wrapper style2">
+
+
 <div class="container" id="partner_gallery_container">
-<h3 id="gallery_heading" style="text-align: center;">Partner Gallery</h3>
+<h3 id="heading" style="text-align: center;">Service Provider Profile</h3>
+
+<p id="about_partner"></p>
+
 
 
 <div class="slider-wrapper">
@@ -31,17 +36,19 @@
     
     
 </section> <script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	src="web/js/jquery-ui.min.js"></script>
 
 
 <script type="text/javascript">
 
 $(document).ready(function() {
 
-	$("#slider").load("src/AppBundle/Controller/controller_partner_profile.php?getPartnerImages=" + getUrlParameter("partnergallery"), function() {
+	readPartnerProfile();
+	
+	$("#slider").load("src/AppBundle/Controller/controller_partner_profile.php?getPartnerImages=" + getUrlParameter("aboutpartner"), function() {
 		var slider = $( "#slider" ).html();
 		if(slider.indexOf("failed") > -1){
-			$( "#gallery_heading" ).html("Partner does not have any images uploaded");
+			
 			$( ".slider-wrapper" ).remove();
 		}else{
 			var slider = $('#slider').leanSlider({
@@ -55,7 +62,28 @@ $(document).ready(function() {
 		}
 		
 	});
+
+	
 });
+
+function readPartnerProfile(){
+	$.ajax({
+		type : 'GET',
+		url : 'src/AppBundle/Controller/controller_partner_profile.php?getPartnerPersonalNote=' + getUrlParameter("aboutpartner"),
+		dataType : "json",
+		success : function(data) {
+			//check if booking id found
+			
+			if(data.status == 1){
+				$("#about_partner" ).empty();
+				var element = document.getElementById("about_partner");
+				element.appendChild(document.createTextNode(data.message['personalNote']));
+				$( "#heading" ).html(data.message['name'] + " " + data.message['surname'] + " Profile" );
+				return;
+			}
+		},
+	});
+}
       </script>
 
 </body>

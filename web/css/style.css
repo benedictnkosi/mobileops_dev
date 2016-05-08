@@ -1520,3 +1520,9 @@ width:100%;
 }
 
 
+.bookings_list{
+	border-radius: 1em;
+    background-color: #EFF2B9;
+    padding: 1em;
+    color: black;
+}

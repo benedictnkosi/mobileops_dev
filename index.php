@@ -77,8 +77,8 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/pricelist.php");
 	}elseif (isset ( $_GET ["contactus"] )) {
 		include ("web/views/contactus.php");
-	}elseif (isset ( $_GET ["partnergallery"] )) {
-		include ("web/views/partner_gallery.php");
+	}elseif (isset ( $_GET ["aboutpartner"] )) {
+		include ("web/views/aboutpartner.php");
 	}elseif (isset ( $_GET ["bookingsByStatus"] )) {
 		include ("web/views/bookings_by_status.php");
 	}elseif (isset ( $_GET ["editbooking"] )) {
@@ -113,8 +113,8 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/pricelist.php");
 	}elseif (isset ( $_GET ["oauth_token"] )) {
 		include ("web/views/twitterlogin.php");
-	}elseif (isset ( $_GET ["partnergallery"] )) {
-		include ("web/views/partner_gallery.php");
+	}elseif (isset ( $_GET ["aboutpartner"] )) {
+		include ("web/views/aboutpartner.php");
 	}elseif (isset ( $_GET ["bookingdetails"] )) {
 		include ("web/views/booking_details.php");
 	}elseif (isset ( $_GET ["acceptchanges"] )) {

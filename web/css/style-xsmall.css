@@ -68,6 +68,7 @@
 	input[type="button"],
 	.button {
 		padding: 0;
+		    margin-bottom: 0.2em;
 	}
 
 /* Slider */
@@ -183,4 +184,8 @@ table td {
 
 #div_Hair{
 	padding: 0em 0em !important;
+}
+
+#personalDetails {
+    width: 100%;
 }

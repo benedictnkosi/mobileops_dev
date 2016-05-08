@@ -11,6 +11,8 @@ $(document).ready(
 			    $(this).after("<img src='web/images/ajax-loader.gif' alt='loading' />").fadeIn();  
 			  });
 
+			$('#booking_heading').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();
+			
 			
 			if (getCookie("mobileops_temp_login") == null) {
 				if (getCookie("mobileops")) {
@@ -104,6 +106,7 @@ function getAllServices() {
 				data : 'getAllServices=All',
 				dataType : "json",
 				success : function(response) {
+					$('.loading').remove();
 					var SkillAccordian = document.getElementById("accordion");
 					var data = response.message;
 					for (i = 0; i < data.length; i++) {
@@ -448,7 +451,7 @@ function getAllServices() {
 																									response) {
 																								if (response.message
 																										.indexOf("Successful") > -1) {
-																								window.location.href = "/index.php?bookingdetails="+ response.bookingid + "&uuid=" + response.uuid;
+																								//window.location.href = "/index.php?bookingdetails="+ response.bookingid + "&uuid=" + response.uuid;
 																								} else {
 																									$(
 																											'#lbl_booking_message')
@@ -669,11 +672,14 @@ function getTotalAmountDue(formdata) {
 }
 
 function getBestPartners(formdata) {
+	
+	$('#h3_select_partner').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();
 	$("#bestPartnersDiv")
 			.load(
 					"src/AppBundle/Controller/controller_booking.php?getBestPartners=getBestPartners&"
 							+ formdata,
 					function() {
+						$('.loading').remove();
 						$('.selectPartner').click(
 								function(event) {
 									event.preventDefault();

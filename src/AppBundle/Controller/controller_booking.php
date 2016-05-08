@@ -50,6 +50,7 @@ if (isset ( $_GET ['getBestPartners'] )) {
 	
 	
 	
+	
 	endif;
 }
 
@@ -61,6 +62,7 @@ if (isset ( $_GET ['getServicePrices'] )) {
 		}
 		
 		getServicePrices ( $entityManager );
+	
 	
 	
 	
@@ -84,6 +86,7 @@ if (isset ( $_GET ['getBookingsInCalender'] )) {
 	
 	
 	
+	
 	endif;
 }
 
@@ -101,6 +104,7 @@ if (isset ( $_GET ['completeBooking'] )) {
 	
 	
 	
+	
 	endif;
 }
 
@@ -109,6 +113,7 @@ if (isset ( $_POST ['cancelBooking'] )) {
 		
 		cancelBooking ( $entityManager );
 	
+	
 
 	endif;
 }
@@ -116,6 +121,7 @@ if (isset ( $_POST ['cancelBooking'] )) {
 if (isset ( $_GET ['getBookingDetails'] )) {
 	if ($_GET ['getBookingDetails']) :
 		getBookingDetails ( $entityManager );
+	
 	
 	
 
@@ -128,6 +134,7 @@ if (isset ( $_POST ['updateBooking'] )) {
 	
 	
 	
+	
 	endif;
 }
 
@@ -135,13 +142,14 @@ if (isset ( $_POST ['updateBookingComments'] )) {
 	if ($_POST ['updateBookingComments']) :
 		updateBookingComments ( $entityManager );
 	
+	
 	endif;
 }
-
 
 if (isset ( $_GET ['getBookingViewByStatus'] )) {
 	if ($_GET ['getBookingViewByStatus']) :
 		getBookingViewByStatus ( $entityManager );
+	
 	endif;
 }
 
@@ -149,12 +157,14 @@ if (isset ( $_GET ['getBookingStatus'] )) {
 	if ($_GET ['getBookingStatus']) :
 		getBookingStatus ( $entityManager );
 	
+	
 	endif;
 }
 
 if (isset ( $_GET ['getDateChangeReasons'] )) {
 	if ($_GET ['getDateChangeReasons']) :
 		getDateChangeReasons ( $entityManager );
+	
 	
 	
 	
@@ -169,12 +179,14 @@ if (isset ( $_POST ['changeBookingDateTime'] )) {
 	
 	
 	
+	
 	endif;
 }
 
 if (isset ( $_GET ['acceptChanges'] )) {
 	if ($_GET ['acceptChanges']) :
 		acceptChanges ( $entityManager );
+	
 	
 	
 
@@ -186,6 +198,7 @@ if (isset ( $_GET ['cancelBookingForRebook'] )) {
 	if ($_GET ['cancelBookingForRebook']) :
 		cancelBookingForRebook ( $entityManager );
 	
+	
 	endif;
 }
 
@@ -193,58 +206,55 @@ if (isset ( $_GET ['changeBookingPartnerByAdmin'] )) {
 	if ($_GET ['changeBookingPartnerByAdmin']) :
 		changeBookingPartnerByAdmin ( $entityManager );
 	
+	
 	endif;
 }
-
 
 if (isset ( $_POST ['changeBookingDateTimeAndPartner'] )) {
 	if ($_POST ['changeBookingDateTimeAndPartner']) :
-	changeBookingDateTimeAndPartner ( $entityManager );
+		changeBookingDateTimeAndPartner ( $entityManager );
+	
 
 	endif;
 }
-
-
 function changeBookingDateTimeAndPartner($entityManager) {
 	try {
 		session_start ();
 	} catch ( Exception $e ) {
 	}
-
+	
 	try {
 		$format = 'Y/m/d H:i';
 		$dateStartTime = DateTime::createFromFormat ( $format, $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] );
 		$dateEndTime = DateTime::createFromFormat ( $format, $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] );
-
+		
 		$dateEndTime->add ( new DateInterval ( 'PT3H' ) );
-
+		
 		$booking = getBookingByID ( $entityManager, $_POST ['changeBookingDateTimeAndPartner'] );
 		if ($booking) {
-				
+			
 			$newBookingTime = changeBookingTime ( $entityManager, $booking, $dateStartTime, $dateEndTime );
-				
+			
 			if ($newBookingTime) {
 				
 				$bookingPartner = changeBookingPartner ( $entityManager, $booking, $_POST ['partner_id'] );
-					
-				if ($bookingPartner) {
-					$note = "Admin updated partner to " . $bookingPartner->getUser()->getUserProfile()->getFirstName() . ' ' .$bookingPartner->getUser()->getUserProfile()->getSurname() . " and booking date time to " . $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] . ". Reason: " . $_POST ['newBookingTimeReason'];
-					$bookingComments = addBookingComments ( $entityManager, $booking, $note, $_SESSION ['firstname'] );
-						
 				
+				if ($bookingPartner) {
+					$note = "Admin updated partner to " . $bookingPartner->getUser ()->getUserProfile ()->getFirstName () . ' ' . $bookingPartner->getUser ()->getUserProfile ()->getSurname () . " and booking date time to " . $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] . ". Reason: " . $_POST ['newBookingTimeReason'];
+					$bookingComments = addBookingComments ( $entityManager, $booking, $note, $_SESSION ['firstname'] );
+					
 					$bookingBookingStatus = changeBookingStatus ( $entityManager, $booking, 'BOOKING_AWAITING_CLIENT_CONFIRMATION' );
 					
 					if ($bookingBookingStatus) {
-						if (send_booking_date_partner_changed_message ( $entityManager, $booking)) {
+						if (send_booking_date_partner_changed_message ( $entityManager, $booking )) {
 							$response ['status'] = 1;
 							$response ['message'] = 'Successfully updated booking date and time and partner';
-							$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus()->getName();
+							$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus ()->getName ();
 							echo json_encode ( $response );
 							return;
-						} 
+						}
 					}
 				}
-				
 			}
 		}
 		$response ['status'] = 1;
@@ -255,30 +265,24 @@ function changeBookingDateTimeAndPartner($entityManager) {
 		echo $e->getMessage ();
 	}
 }
-
-
-
-
 function changeBookingPartnerByAdmin($entityManager) {
 	try {
 		$booking = getBookingByID ( $entityManager, $_GET ['changeBookingPartnerByAdmin'] );
-		if($booking){
+		if ($booking) {
 			$bookingPartner = changeBookingPartner ( $entityManager, $booking, $_GET ['partner_id'] );
 			
 			if ($bookingPartner) {
 				$bookingBookingStatus = changeBookingStatus ( $entityManager, $booking, 'BOOKING_AWAITING_CLIENT_CONFIRMATION' );
 				
 				if ($bookingBookingStatus) {
-					if(send_booking_partner_changed_message($entityManager, $booking)){
+					if (send_booking_partner_changed_message ( $entityManager, $booking )) {
 						$response ['status'] = 1;
 						$response ['message'] = 'Successfully updated partner';
-						$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus()->getName();
+						$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus ()->getName ();
 						echo json_encode ( $response );
 						return;
 					}
 				}
-				
-				
 			}
 		}
 		
@@ -293,7 +297,17 @@ function changeBookingPartnerByAdmin($entityManager) {
 function acceptChanges($entityManager) {
 	try {
 		$booking = getBookingByIDAndUUID ( $entityManager, $_GET ['acceptChanges'], $_GET ['uuid'] );
+		
 		if ($booking) {
+			$bookingStatus = getActiveBookingStatus ( $entityManager, $booking );
+			
+			if (strcmp ( $bookingStatus->getBookingBookingStatus ()->getName (), "BOOKING_AWAITING_CLIENT_CONFIRMATION" ) !== 0) {
+				$response ['status'] = 2;
+				$response ['message'] = "Failed to accept changes. Please contact system administrator";
+				echo json_encode ( $response );
+				return;
+			}
+			
 			$bookingBookingStatus = changeBookingStatus ( $entityManager, $booking, 'BOOKING_ACTIVE' );
 			
 			if ($bookingBookingStatus) {
@@ -346,7 +360,7 @@ function changeBookingDateTime($entityManager) {
 					if (send_booking_date_changed_message ( $entityManager, $booking, $note )) {
 						$response ['status'] = 1;
 						$response ['message'] = 'Successfully updated booking date and time';
-						$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus()->getName();
+						$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus ()->getName ();
 						echo json_encode ( $response );
 						return;
 					} else {
@@ -410,7 +424,8 @@ function getBookingStatus($entityManager) {
 function getBookingViewByStatus($entityManager) {
 	try {
 		$booking_objects = $entityManager->getRepository ( 'BookingSummaryView' )->findBy ( array (
-				'active' => 1, 'latestBookingStatus' => $_GET ['getBookingViewByStatus']
+				'active' => 1,
+				'latestBookingStatus' => $_GET ['getBookingViewByStatus'] 
 		) );
 		
 		$activeBookingsArray = array ();
@@ -507,8 +522,8 @@ function regionServiceDTOtoBookingServiceRegionService($regionServicePriceDTO, $
 function getBookingsByUserId($entityManager, $userObject) {
 	$booking_objects = $entityManager->getRepository ( 'Booking' )->findBy ( array (
 			'active' => TRUE,
-			'user' => $userObject 
-	) );
+			'user' => $userObject
+	),  array('timeBooked' => 'DESC') );
 	$activeBookingsArray = array ();
 	
 	foreach ( $booking_objects as &$value ) {
@@ -520,7 +535,8 @@ function getBookingsByUserId($entityManager, $userObject) {
 }
 function getBookingsByPartnerId($entityManager, $userObject) {
 	$bookingPartner = $entityManager->getRepository ( 'BookingPartner' )->findBy ( array (
-			'user' => $userObject, 'active' => 1
+			'user' => $userObject,
+			'active' => 1 
 	) );
 	$activeBookingsArray = array ();
 	
@@ -543,34 +559,45 @@ function updateBookingComments($entityManager) {
 				'bookingId' => $_POST ['updateBookingComments'] 
 		) );
 		if ($booking) {
+			$bookingComments;
 			
-			$bookingComments = addBookingComments ( $entityManager, $booking, $_POST ['booking_notes'], $_SESSION ['firstname'] );
+			if (isset ( $_SESSION ['firstname'] )) {
+				$bookingComments = addBookingComments ( $entityManager, $booking, $_POST ['booking_notes'], $_SESSION ['firstname'] );
+			} else {
+				$BookingSummaryView = $entityManager->getRepository ( 'BookingSummaryView' )->findOneBy ( array (
+						'bookingId' => $_POST ['updateBookingComments'] 
+				) );
+				$bookingComments = addBookingComments ( $entityManager, $booking, $_POST ['booking_notes'], $BookingSummaryView->getFirstName () );
+			}
+			
 			if (! $bookingComments) {
 				$response ['status'] = 2;
 				$response ['message'] = 'Failed To Add Booking Notes';
 				echo json_encode ( $response );
 				return;
 			} else {
-				if (strcasecmp ( $_SESSION ['user_role'], "ADMINISTRATOR" ) == 0) {
-					
-					// send booking confirmation email to client
-					if (send_booking_notes_added_message ( $entityManager, $booking )) {
-						$response ['status'] = 1;
-						$response ['message'] = 'Successfully Added Booking Notes';
-						echo json_encode ( $response );
-						return;
-					} else {
-						$response ['status'] = 2;
-						$response ['message'] = 'Failed To Add Booking Note. Email failed to send, please contact aministrator';
-						echo json_encode ( $response );
-						return;
+				if (isset ( $_SESSION ['user_role'] )) {
+					if (strcasecmp ( $_SESSION ['user_role'], "ADMINISTRATOR" ) == 0) {
+						
+						// send booking confirmation email to client
+						if (send_booking_notes_added_message ( $entityManager, $booking )) {
+							$response ['status'] = 1;
+							$response ['message'] = 'Successfully Added Booking Notes';
+							echo json_encode ( $response );
+							return;
+						} else {
+							$response ['status'] = 2;
+							$response ['message'] = 'Failed To Add Booking Note. Email failed to send, please contact aministrator';
+							echo json_encode ( $response );
+							return;
+						}
 					}
-				} else {
-					$response ['status'] = 1;
-					$response ['message'] = 'Successfully Added Booking Notes';
-					echo json_encode ( $response );
-					return;
 				}
+				
+				$response ['status'] = 1;
+				$response ['message'] = 'Successfully Added Booking Notes';
+				echo json_encode ( $response );
+				return;
 			}
 		}
 		
@@ -655,7 +682,8 @@ function getBookingDetails($entityManager) {
 		
 		// booking Partner
 		$BookingPartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking , 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
 		if ($BookingPartner) {
 			$bookingDetailsArray ['provider_name'] = $BookingPartner->getUser ()->getUserProfile ()->getFirstName () . " " . $BookingPartner->getUser ()->getUserProfile ()->getSurname ();
@@ -701,8 +729,6 @@ function cancelBookingForRebook($entityManager) {
 		
 		$bookingBookingStatus = changeBookingStatus ( $entityManager, $booking, 'BOOKING_CANCELLED' );
 		
-		
-		
 		print json_encode ( $bookingDetailsArray );
 	} catch ( Exception $e ) {
 		$response ['status'] = 2;
@@ -714,9 +740,12 @@ function cancelBooking($entityManager) {
 	try {
 		
 		$booking = $entityManager->getRepository ( 'Booking' )->findOneBy ( array (
-				'bookingId' => $_POST ['cancelBooking'] 
+				'bookingId' => $_POST ['cancelBooking'], 'bookingGuid' => $_POST ['uuid']
 		) );
+		
+		
 		if ($booking) {
+			
 			$bookingBookingStatus = changeBookingStatus ( $entityManager, $booking, 'BOOKING_CANCELLED' );
 			if ($bookingBookingStatus) {
 				
@@ -725,7 +754,7 @@ function cancelBooking($entityManager) {
 					$response ['status'] = 1;
 					$response ['message'] = 'Your Booking Was Cancelled Successfully';
 					$response ['bookingid'] = $booking->getBookingId ();
-					$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus()->getName();
+					$response ['booking_status'] = $bookingBookingStatus->getBookingBookingStatus ()->getName ();
 					echo json_encode ( $response );
 				} else {
 					$response ['status'] = 1;
@@ -747,6 +776,7 @@ function cancelBooking($entityManager) {
 		$response ['status'] = 2;
 		$response ['message'] = 'Failed To Cancel Your Booking';
 		echo json_encode ( $response );
+		echo $e;
 	}
 }
 function completeBooking($entityManager) {
@@ -1017,7 +1047,7 @@ function getServicePrices($entityManager) {
 function getBookingsInCalender($entityManager) {
 	$user_bookings = null;
 	if (isset ( $_SESSION ['user_bookings'] )) {
-		$user_bookings = unserialize ( $_SESSION ['user_bookings'] );
+		//$user_bookings = unserialize ( $_SESSION ['user_bookings'] );
 	}
 	
 	if ($user_bookings == null) {
@@ -1052,7 +1082,11 @@ function getBookingsInCalender($entityManager) {
 				'title' => "Booking Ref: " . $value->getBookingId () . "\n Services: " . substr ( $servicesString, 0, strlen ( $servicesString ) - 2 ),
 				'start' => $booking_time->getBookingStartTime ()->format ( 'Y-m-d\TH:i:s' ),
 				'end' => $booking_time->getBookingEndTime ()->format ( 'Y-m-d\TH:i:s' ),
-				'url' => "/index.php?bookingdetails=" . $value->getBookingId () . "&uuid=" . $value->getBookingGuid () 
+				'url' => "/index.php?bookingdetails=" . $value->getBookingId () . "&uuid=" . $value->getBookingGuid (),
+				'services' => substr ( $servicesString, 0, strlen ( $servicesString ) - 2 ),
+				'booking_ref' => "Booking Ref: " . $value->getBookingId (),
+				'uuid' => $value->getBookingGuid ()
+				
 		) );
 	}
 	echo json_encode ( $bookings_times_array );
@@ -1300,7 +1334,7 @@ function outputPartnerToBrowser($partner, $ratingAvg) {
 	echo '<input id="partner_rating" class="rating"
 	value="' . $ratingAvg . '" data-min="0" data-max="5" data-disabled="true" data-size="xs">';
 	
-	echo '<a href="index.php?partnergallery=' . $partner->getUserId () . '" target="_blank" class="button">View Gallery</a>';
+	echo '<a href="index.php?aboutpartner=' . $partner->getUserId () . '" target="_blank" class="button">View Gallery</a>';
 	echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select</a>';
 	echo ' </div>';
 	echo '</div>';
@@ -1781,11 +1815,12 @@ function changeBookingPartner($entityManager, $booking, $user_id) {
 		
 		// booking Partner
 		$BookingPartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking, 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
 		
 		if ($BookingPartner) {
-			$BookingPartner->setActive (0);
+			$BookingPartner->setActive ( 0 );
 			$entityManager->persist ( $BookingPartner );
 			$entityManager->flush ();
 		}
@@ -2001,7 +2036,8 @@ function send_booking_confirmation_message($entityManager, $booking) {
 		$serviceRows = "";
 		
 		$bookingpartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking, 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
 		
@@ -2080,7 +2116,8 @@ function send_booking_cancellation_message($entityManager, $booking) {
 	try {
 		
 		$bookingpartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking, 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
 		
@@ -2114,7 +2151,8 @@ function send_booking_notes_added_message($entityManager, $booking) {
 	try {
 		
 		$bookingpartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking, 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
 		
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
@@ -2152,7 +2190,8 @@ function send_booking_date_changed_message($entityManager, $booking, $date_chang
 	try {
 		
 		$bookingpartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking, 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
 		
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
@@ -2170,7 +2209,7 @@ function send_booking_date_changed_message($entityManager, $booking, $date_chang
 					"booking_reference" => $booking->getBookingId (),
 					"booking_id" => $booking->getBookingId (),
 					"date_change_note" => $date_change_note,
-					"booking_note" => $_POST ['booking_notes'],
+					"booking_note" => $_POST ['newBookingTimeReason'],
 					"uuid" => $booking->getBookingGuid () 
 			);
 			
@@ -2187,35 +2226,33 @@ function send_booking_date_changed_message($entityManager, $booking, $date_chang
 		return false;
 	}
 }
-
-
-
 function send_booking_partner_changed_message($entityManager, $booking) {
 	try {
-
+		
 		$bookingpartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking, 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
-
+		
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
-
+		
 		$BookingUserProfile = $entityManager->getRepository ( 'BookingUserProfile' )->findOneBy ( array (
-				'booking' => $booking
+				'booking' => $booking 
 		) );
 		if ($BookingUserProfile) {
-				
+			
 			$message_type = "booking_partner_change";
-				
+			
 			$Parameters = array (
 					"first_name" => $BookingUserProfile->getFirstName (),
 					"last_name" => $BookingUserProfile->getSurname (),
 					"booking_reference" => $booking->getBookingId (),
 					"booking_id" => $booking->getBookingId (),
 					"uuid" => $booking->getBookingGuid (),
-					"partner_id" => $bookingpartner->getUser()->getUserId(),
-					"partner_name" => $bookingpartner->getUser()->getUserProfile()->getFirstName() . ' ' .$bookingpartner->getUser()->getUserProfile()->getSurname()
+					"partner_id" => $bookingpartner->getUser ()->getUserId (),
+					"partner_name" => $bookingpartner->getUser ()->getUserProfile ()->getFirstName () . ' ' . $bookingpartner->getUser ()->getUserProfile ()->getSurname () 
 			);
-				
+			
 			if (emailMessage ( $entityManager, $Parameters, $message_type, "Mobile Beauty Salon - Booking Service Provider Changed", $BookingUserProfile->getEmailAddress (), $bookingpartnerEmailAddress )) {
 				return true;
 			} else {
@@ -2229,22 +2266,21 @@ function send_booking_partner_changed_message($entityManager, $booking) {
 		return false;
 	}
 }
-
-
 function send_booking_date_partner_changed_message($entityManager, $booking) {
 	try {
-
+		
 		$bookingpartner = $entityManager->getRepository ( 'BookingPartner' )->findOneBy ( array (
-				'booking' => $booking, 'active' => 1
+				'booking' => $booking,
+				'active' => 1 
 		) );
-
+		
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
-
+		
 		$BookingUserProfile = $entityManager->getRepository ( 'BookingUserProfile' )->findOneBy ( array (
-				'booking' => $booking
+				'booking' => $booking 
 		) );
 		if ($BookingUserProfile) {
-
+			
 			$message_type = "booking_partner_date_change";
 			$Parameters = array (
 					"first_name" => $BookingUserProfile->getFirstName (),
@@ -2252,12 +2288,12 @@ function send_booking_date_partner_changed_message($entityManager, $booking) {
 					"booking_reference" => $booking->getBookingId (),
 					"booking_id" => $booking->getBookingId (),
 					"uuid" => $booking->getBookingGuid (),
-					"partner_id" => $bookingpartner->getUser()->getUserId(),
+					"partner_id" => $bookingpartner->getUser ()->getUserId (),
 					"booking_time" => $_POST ['booking_time'],
 					"booking_date" => $_POST ['booking_date'],
-					"partner_name" => $bookingpartner->getUser()->getUserProfile()->getFirstName() . ' ' .$bookingpartner->getUser()->getUserProfile()->getSurname()
+					"partner_name" => $bookingpartner->getUser ()->getUserProfile ()->getFirstName () . ' ' . $bookingpartner->getUser ()->getUserProfile ()->getSurname () 
 			);
-
+			
 			if (emailMessage ( $entityManager, $Parameters, $message_type, "Mobile Beauty Salon - Booking Service Provider Changed", $BookingUserProfile->getEmailAddress (), $bookingpartnerEmailAddress )) {
 				return true;
 			} else {

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Contact Us</title>
+<title>Bookings</title>
 <link rel="stylesheet"
 	href="http://necolas.github.io/normalize.css/2.1.3/normalize.css">
 <link rel="stylesheet" href="web/css/jquery.idealforms.css">

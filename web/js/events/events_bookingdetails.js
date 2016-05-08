@@ -66,6 +66,14 @@ function intialiseDateTimePicker(bookignDate, bookingTime){
 
 
 function addBookingCommentsByClient(){
+	if(input_booking_notes.value.length < 1){
+		$('#lbl_message').text("Special notes field is empty");
+		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+		return;
+	}
+	
+	$('#tr_buttons').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();  
+	
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
@@ -75,6 +83,7 @@ function addBookingCommentsByClient(){
 	},
 		 dataType : "json",
 		success : function(response) {
+			$('.loading').remove();
 			var message = response.message;
 			if(message.indexOf("Successfully ") > -1){
 				var myDate = new Date();
@@ -101,14 +110,22 @@ function addBookingCommentsByClient(){
 
 
 function cancelBooking(){
+	var r = confirm("Are you sure you want to cancel this booking?");
+	if (r == false) {
+	    return;
+	} 
+	
+	$('#tr_buttons').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn(); 
+	
 	$.ajax({
 		type : 'POST',
 		url : 'src/AppBundle/Controller/controller_booking.php',
-		 data: {"cancelBooking" : getUrlParameter("bookingdetails")}, 
+		 data: {"cancelBooking" : getUrlParameter("bookingdetails"), "uuid":getUrlParameter("uuid")}, 
 		 dataType : "json",
 		success : function(response) {
+			$('.loading').remove();
 			var message = response.message;
-			if(message.indexOf("Successfully") > -1){
+			if(response.status ==  1){
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
 				
@@ -270,7 +287,8 @@ function getBookingDetails(){
 					$('#tr_buttons').addClass('display-none');
 				}
 			}else{
-				$('#tr_buttons').addClass('display-none');
+				//user can add notes and cancel booking when not logged in, the uuid will act as a security measure
+				//$('#tr_buttons').addClass('display-none');
 			}
 			
 			

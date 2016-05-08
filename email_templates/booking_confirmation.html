@@ -15,8 +15,6 @@
 		<p>
 			Hi <<first_name>> <<last_name>>,</p>
 
-		<br/>
-
 		<p>Thank you for ordering from <a href="http://mobileops.co.za">mobileOps.co.za</a></p>
 
 		<p>You can track the status of your booking at any time.</p>
@@ -25,8 +23,8 @@
 		<br/>
 		
 		
-		<div class="invoice-box" style="max-width: 800px;padding: 30px;border: 1px solid #eee;box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);font-size: 16px;line-height: 24px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: #555">
-        <table id="invoice_table" cellpadding="0" cellspacing="0" style="width: 100%;line-height: inherit;text-align: left;border: 1px solid #eee;box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);font-size: 16px;">
+		<div class="invoice-box" style="padding: 1px;border: 1px solid #eee;box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);font-size: 16px;line-height: 24px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: #555">
+        <table id="invoice_table" cellpadding="0" cellspacing="0" style="width: 100%;line-height: inherit;text-align: left;border: 1px solid #eee;box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);font-size: 16px;">
             <tr class="top">
                 <td colspan="2" style="padding: 5px;vertical-align: top">
                     <table style="width: 100%;line-height: inherit;text-align: left;">
@@ -49,7 +47,19 @@
                             <td style="padding: 5px;vertical-align: top;padding-bottom: 40px">
                                 <p/><h4>Client Details</h4><<personal_details>></p>
                             </td>
-                            
+                           
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            
+           
+            <tr class="information">
+                <td colspan="2" style="padding: 5px;vertical-align: top">
+                    <table style="width: 100%;line-height: inherit;text-align: left">
+                        <tr>
+                           
                             <td style="padding: 5px;vertical-align: top;padding-bottom: 40px">
                                <p/><h4>Service Provider Details</h4><<provider_name>></p>
 
@@ -58,9 +68,6 @@
                     </table>
                 </td>
             </tr>
-            
-            
-           
             
             <tr class="heading">
                 <td style="padding: 5px;vertical-align: top;background: #eee;border-bottom: 1px solid #ddd;font-weight: bold">
