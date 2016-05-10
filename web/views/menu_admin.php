@@ -63,7 +63,7 @@
 
 <header id="header" class="alt skel-layers-fixed">
 
-<h1><a href="index.php?home">MOBILE BEAUTY SALON</a>
+<h1><a href="index.php?home">MOBILEOPS SERVICES</a>
 <br>	</h1>
 
 <nav id="nav">
@@ -82,7 +82,7 @@
 <!-- Banner -->
 <section id="banner">
 <div class="inner">
-<h2 style="display: inline;">MOBILE BEAUTY SALON</h2>
+<h2 style="display: inline;">MOBILEOPS SERVICES</h2>
 
 <p>we come to you</p>
 </div>

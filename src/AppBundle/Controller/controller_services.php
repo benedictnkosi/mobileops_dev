@@ -45,7 +45,7 @@ function saveServices($entityManager){
 			foreach ($AddedServicesArray as &$value) {
 				$LuService = $entityManager->getRepository('LuService')->findOneBy(array('name' =>$value ));
 
-				$UserUserService = $entityManager->getRepository('UserUserService')->findOneBy(array('userUserServiceName' =>$LuService ));
+				$UserUserService = $entityManager->getRepository('UserUserService')->findOneBy(array('userUserServiceName' =>$LuService, 'userUserServiceProfile' => $UserProfile));
 				if($UserUserService){
 					$UserUserService->setActive(true);
 					$entityManager->persist($UserUserService);

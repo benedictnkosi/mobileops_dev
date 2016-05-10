@@ -58,7 +58,7 @@
 <!-- Two -->
 <section id="two" class="wrapper style2">
 <div class="container"><header class="major">
-<h2>PRICELIST</h2>
+<h2>PRICE LIST</h2>
 </header> <section>
 
 <form class="idealforms" novalidate action="/" method="post">

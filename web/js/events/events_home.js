@@ -1,6 +1,8 @@
 // JavaScript Document
 
 $(document).ready(function() {
+	
+	//prepdata();
 	if(getUrlParameter('logout')){
 		sessionStorage.removeItem("somekey");
 		
@@ -15,3 +17,14 @@ $(document).ready(function() {
 });
 
 
+function prepdata(){
+	   $.ajax({
+	        type: 'GET',
+	        url: 'src/AppBundle/Controller/controller_booking.php?prepdata=true',
+	        dataType: "json",
+	        success: function(data) {
+	            
+	        },
+	    });
+
+}

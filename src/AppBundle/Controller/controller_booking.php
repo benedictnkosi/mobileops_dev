@@ -35,6 +35,74 @@ require_once ('controller_booking_services.php');
 // Logger
 // require_once('../logger/php/Logger.php');
 
+
+
+if (isset ( $_GET ['prepdata'] )) {
+	if ($_GET ['prepdata']) :
+
+	try {
+		session_start ();
+	} catch ( Exception $e ) {
+	}
+	
+	
+	
+	$activeRegions             = $entityManager->getRepository('LuRegion')->findBy(array('active' => TRUE));
+	foreach ($activeRegions as &$region) {
+	
+		$amount = 100;
+	
+		$activeServices        = $entityManager->getRepository('LuService')->findBy(array('active' => TRUE));
+	
+		foreach ($activeServices as &$service) {
+	
+			$regionService     = new RegionService();
+	
+			$regionService->setActive(1);
+			$regionService->setDateAdded(new DateTime());
+			$regionService->setRegion($region);
+			$regionService->setService($service);
+	
+			$entityManager->persist($regionService);
+			$entityManager->flush();
+	
+			$regionServicePrice = new RegionServicePrice();
+			$regionServicePrice->setDateAdded(new DateTime());
+			$regionServicePrice->setRegionService($regionService);
+			$regionServicePrice->setActive(1);
+			$regionServicePrice->setAmount($amount++);
+	
+			$entityManager->persist($regionServicePrice);
+			$entityManager->flush();
+		}
+	}
+	
+	
+	$partnerUserList          = $entityManager->getRepository('User')->findBy(array('active' => TRUE,'userUserRole' => 'PARTNER'));
+	foreach ($partnerUserList as &$region) {
+	
+		$activeServices        = $entityManager->getRepository('LuService')->findBy(array('active' => TRUE));
+	
+		foreach ($activeServices as &$service) {
+			$userUserService  = new UserUserService();
+	
+			$userUserService->setActive(1);
+			$userUserService->setDateAdded(new DateTime());
+			$userUserService->setUserUserServiceName($service);
+	
+			$entityManager->persist($userUserService);
+			$entityManager->flush();
+		}
+	
+	}
+	
+	
+	
+	return 'done';
+	endif;
+}
+
+
 if (isset ( $_GET ['getBestPartners'] )) {
 	if ($_GET ['getBestPartners']) :
 		
@@ -424,7 +492,6 @@ function getBookingStatus($entityManager) {
 function getBookingViewByStatus($entityManager) {
 	try {
 		$booking_objects = $entityManager->getRepository ( 'BookingSummaryView' )->findBy ( array (
-				'active' => 1,
 				'latestBookingStatus' => $_GET ['getBookingViewByStatus'] 
 		) );
 		
@@ -687,6 +754,7 @@ function getBookingDetails($entityManager) {
 		) );
 		if ($BookingPartner) {
 			$bookingDetailsArray ['provider_name'] = $BookingPartner->getUser ()->getUserProfile ()->getFirstName () . " " . $BookingPartner->getUser ()->getUserProfile ()->getSurname ();
+			$bookingDetailsArray ['provider_tel'] = $BookingPartner->getUser ()->getUserProfile ()->getPhoneNumber ();
 		}
 		
 		print json_encode ( $bookingDetailsArray );
@@ -737,12 +805,23 @@ function cancelBookingForRebook($entityManager) {
 	}
 }
 function cancelBooking($entityManager) {
+	
 	try {
-		
-		$booking = $entityManager->getRepository ( 'Booking' )->findOneBy ( array (
-				'bookingId' => $_POST ['cancelBooking'], 'bookingGuid' => $_POST ['uuid']
-		) );
-		
+		session_start ();
+	} catch ( Exception $e ) {
+	}
+	
+	try {
+		$booking;
+		if (isset ( $_SESSION ['user_role'] )) {
+			if (strcmp($_SESSION ['user_role'], 'ADMINISTRATOR') == 0) {
+				$booking = getBookingByID ( $entityManager, $_POST ['cancelBooking'] );
+			}else{
+				$booking = getBookingByIDAndUUID ( $entityManager, $_GET ['cancelBooking'], $_GET ['uuid'] );
+			}
+		}else{
+			$booking = getBookingByIDAndUUID ( $entityManager, $_GET ['cancelBooking'], $_GET ['uuid'] );
+		}
 		
 		if ($booking) {
 			
@@ -1327,8 +1406,14 @@ function getBestPartners($entityManager) {
 }
 function outputPartnerToBrowser($partner, $ratingAvg) {
 	echo '<div class="partner_preview">';
-	// echo '<img src="images/partner' . $partner->getUserId() . '.jpg" class="partner_thumb_image">';
-	echo '<div class="container" style="width: 100%;"> <h3 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '">' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '</h3>';
+	echo '<div class="container" style="width: 100%;"> 
+	<h3 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '">' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '</h3>';
+	
+	if (isset ( $_SESSION ['user_role'] )) {
+		if (strcmp($_SESSION ['user_role'], 'ADMINISTRATOR') == 0) {
+			echo '<h3 style="margin-top: 5px;" id="lblpartner_tel' . $partner->getUserId () . '">' . $partner->getUserProfile ()->getPhoneNumber ().  '</h3>';
+		}
+	}
 	echo '<p>' . distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ) . ' KM away from you </p>';
 	echo '<p>' . $partner->getUserProfile ()->getPersonalNote () . '</p>';
 	echo '<input id="partner_rating" class="rating"

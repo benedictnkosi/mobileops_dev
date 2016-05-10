@@ -30,7 +30,7 @@
 						</div>
 						<div class="4u$ 6u(2) 12u$(3)">
 							<section class="feature ">
-								<h3>Massage</h3>
+								<h3>MASSAGE</h3>
 								<p>Aromatic Oil Massage, Aromatherapy Thai Massage, Head, Neck and Shoulder Massage, Thai Sports Massage, Thai Traditional What Po Massage</p>
 								<img alt="hair" src="web/images/massage.jpg" class="home_images">
 							</section>

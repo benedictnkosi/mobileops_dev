@@ -67,7 +67,7 @@
 <header id="header" class="alt skel-layers-fixed">
 
 <h1>
-<a href="index.php?home">MOBILE BEAUTY SALON</a>
+<a href="index.php?home" class="icon fa-home"> MOBILEOPS SERVICES</a>
 <br>
 </h1>
 
@@ -86,8 +86,8 @@
 
 	<li><a href="" class="icon fa-angle-down">REGISTER</a>
 	<ul>
-		<li><a href="index.php?register">BECOME A CLIENT</a></li>
-		<li><a href="index.php?newpartner">BECOME A PARTNER</a></li>
+		<li><a href="index.php?register">CLIENT</a></li>
+		<li><a href="index.php?newpartner">SERVICE PROVIDER</a></li>
 	</ul>
 	</li>
 
@@ -103,7 +103,7 @@
 <section id="banner">
 <div class="inner">
 
-<h2 style="display: inline;">MOBILE BEAUTY SALON</h2>
+<h2 style="display: inline;">MOBILEOPS SERVICES</h2>
 
 
 <p>we come to you</p>

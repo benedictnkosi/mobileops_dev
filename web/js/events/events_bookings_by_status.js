@@ -59,6 +59,7 @@ function getBookingByStatus(){
 		return;
 	}
 	
+	$('.bookingRow').remove();
 	
 	$.ajax({
 		type : 'GET',

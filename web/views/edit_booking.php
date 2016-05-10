@@ -161,7 +161,7 @@
                     Price
                 </td>
             </tr>
-            
+             
              <tr class="heading">
                 <td>
                     Special Notes
@@ -174,9 +174,8 @@
              <tr style="border: none;background-color:white;">
                 <td>
                   <p id="bookingnotes"></p>
-                   <p id="addBookingnotes"></p>
+                  <textarea  id="input_booking_notes" maxlength="500"></textarea>
                 </td>
-
             </tr>
             
             <tr style="border: none;background-color:white;" class="tr_buttons">
