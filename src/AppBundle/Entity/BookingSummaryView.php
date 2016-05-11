@@ -25,11 +25,6 @@ class BookingSummaryView
     /**
      * @var string
      */
-    private $mobileNumber;
-
-    /**
-     * @var string
-     */
     private $userEmailAddress;
 
     /**
@@ -68,6 +63,11 @@ class BookingSummaryView
     private $lastUpdated = 'CURRENT_TIMESTAMP';
 
     /**
+     * @var string
+     */
+    private $mobileNumber;
+
+    /**
      * @var integer
      */
     private $userId;
@@ -88,7 +88,7 @@ class BookingSummaryView
     public function setBookingId($bookingId)
     {
         $this->bookingId = $bookingId;
-
+    
         return $this;
     }
 
@@ -112,7 +112,7 @@ class BookingSummaryView
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -136,7 +136,7 @@ class BookingSummaryView
     public function setTimeBooked($timeBooked)
     {
         $this->timeBooked = $timeBooked;
-
+    
         return $this;
     }
 
@@ -151,30 +151,6 @@ class BookingSummaryView
     }
 
     /**
-     * Set mobileNumber
-     *
-     * @param string $mobileNumber
-     *
-     * @return BookingSummaryView
-     */
-    public function setMobileNumber($mobileNumber)
-    {
-        $this->mobileNumber = $mobileNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get mobileNumber
-     *
-     * @return string
-     */
-    public function getMobileNumber()
-    {
-        return $this->mobileNumber;
-    }
-
-    /**
      * Set userEmailAddress
      *
      * @param string $userEmailAddress
@@ -184,7 +160,7 @@ class BookingSummaryView
     public function setUserEmailAddress($userEmailAddress)
     {
         $this->userEmailAddress = $userEmailAddress;
-
+    
         return $this;
     }
 
@@ -208,7 +184,7 @@ class BookingSummaryView
     public function setBookingStartTime($bookingStartTime)
     {
         $this->bookingStartTime = $bookingStartTime;
-
+    
         return $this;
     }
 
@@ -232,7 +208,7 @@ class BookingSummaryView
     public function setBookingEndTime($bookingEndTime)
     {
         $this->bookingEndTime = $bookingEndTime;
-
+    
         return $this;
     }
 
@@ -256,7 +232,7 @@ class BookingSummaryView
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-
+    
         return $this;
     }
 
@@ -280,7 +256,7 @@ class BookingSummaryView
     public function setSurname($surname)
     {
         $this->surname = $surname;
-
+    
         return $this;
     }
 
@@ -304,7 +280,7 @@ class BookingSummaryView
     public function setAddressId($addressId)
     {
         $this->addressId = $addressId;
-
+    
         return $this;
     }
 
@@ -328,7 +304,7 @@ class BookingSummaryView
     public function setLatestBookingStatus($latestBookingStatus)
     {
         $this->latestBookingStatus = $latestBookingStatus;
-
+    
         return $this;
     }
 
@@ -352,7 +328,7 @@ class BookingSummaryView
     public function setLastUpdated($lastUpdated)
     {
         $this->lastUpdated = $lastUpdated;
-
+    
         return $this;
     }
 
@@ -367,6 +343,30 @@ class BookingSummaryView
     }
 
     /**
+     * Set mobileNumber
+     *
+     * @param string $mobileNumber
+     *
+     * @return BookingSummaryView
+     */
+    public function setMobileNumber($mobileNumber)
+    {
+        $this->mobileNumber = $mobileNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get mobileNumber
+     *
+     * @return string
+     */
+    public function getMobileNumber()
+    {
+        return $this->mobileNumber;
+    }
+
+    /**
      * Set userId
      *
      * @param integer $userId
@@ -376,7 +376,7 @@ class BookingSummaryView
     public function setUserId($userId)
     {
         $this->userId = $userId;
-
+    
         return $this;
     }
 

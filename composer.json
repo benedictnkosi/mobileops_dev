@@ -19,9 +19,16 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/apache/logging-log4php"
+    }
+    ],
     "require": {
         "php": ">=5.5.9",
         "symfony/symfony": "3.0.*",
+        "apache/log4php": "2.3.0",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",

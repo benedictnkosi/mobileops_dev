@@ -31,18 +31,16 @@ require_once (__DIR__ . '/../Entity/LuDatechangeReasons.php');
 
 require_once ('controller_lookup.php');
 require_once ('controller_booking_services.php');
-
-// Logger
-// require_once('../logger/php/Logger.php');
-
-
+require_once ('controller_logger.php');
 
 if (isset ( $_GET ['prepdata'] )) {
 	if ($_GET ['prepdata']) :
 
 	try {
 		session_start ();
-	} catch ( Exception $e ) {
+	} catch ( Exception $e )
+    {
+        $logger->critical("Error could not start session: ".$e->getTraceAsString());
 	}
 	
 	
@@ -294,9 +292,9 @@ function changeBookingDateTimeAndPartner($entityManager) {
 	try {
 		$format = 'Y/m/d H:i';
 		$dateStartTime = DateTime::createFromFormat ( $format, $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] );
-		$dateEndTime = DateTime::createFromFormat ( $format, $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] );
+		$dateEndTime   = DateTime::createFromFormat ( $format, $_POST ['booking_date'] . ' ' . $_POST ['booking_time'] );
 		
-		$dateEndTime->add ( new DateInterval ( 'PT3H' ) );
+		$dateEndTime->add(new DateInterval('PT3H'));
 		
 		$booking = getBookingByID ( $entityManager, $_POST ['changeBookingDateTimeAndPartner'] );
 		if ($booking) {
@@ -330,8 +328,8 @@ function changeBookingDateTimeAndPartner($entityManager) {
 		echo json_encode ( $response );
 		return;
 	} catch ( Exception $e ) {
-		echo $e->getMessage ();
-	}
+        getLogger()->critical("Could not update booking date and time and partner: ".$e->getTraceAsString());
+    }
 }
 function changeBookingPartnerByAdmin($entityManager) {
 	try {

@@ -20,12 +20,12 @@ class LogUserActivity
     /**
      * @var integer
      */
-    private $userActivity;
+    private $userId;
 
     /**
-     * @var \User
+     * @var integer
      */
-    private $user;
+    private $userActivity;
 
 
     /**
@@ -38,7 +38,7 @@ class LogUserActivity
     public function setActivityDate($activityDate)
     {
         $this->activityDate = $activityDate;
-
+    
         return $this;
     }
 
@@ -62,7 +62,7 @@ class LogUserActivity
     public function setAction($action)
     {
         $this->action = $action;
-
+    
         return $this;
     }
 
@@ -77,6 +77,30 @@ class LogUserActivity
     }
 
     /**
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return LogUserActivity
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
      * Get userActivity
      *
      * @return integer
@@ -84,30 +108,6 @@ class LogUserActivity
     public function getUserActivity()
     {
         return $this->userActivity;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \User $user
-     *
-     * @return LogUserActivity
-     */
-    public function setUser(\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \User
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 }
 

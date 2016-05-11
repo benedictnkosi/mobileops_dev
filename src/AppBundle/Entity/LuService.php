@@ -8,6 +8,11 @@
 class LuService
 {
     /**
+     * @var string
+     */
+    private $serviceTypeName;
+
+    /**
      * @var \DateTime
      */
     private $dateCreated = 'CURRENT_TIMESTAMP';
@@ -27,11 +32,30 @@ class LuService
      */
     private $name;
 
-    /**
-     * @var \LuServiceType
-     */
-    private $serviceTypeName;
 
+    /**
+     * Set serviceTypeName
+     *
+     * @param string $serviceTypeName
+     *
+     * @return LuService
+     */
+    public function setServiceTypeName($serviceTypeName)
+    {
+        $this->serviceTypeName = $serviceTypeName;
+    
+        return $this;
+    }
+
+    /**
+     * Get serviceTypeName
+     *
+     * @return string
+     */
+    public function getServiceTypeName()
+    {
+        return $this->serviceTypeName;
+    }
 
     /**
      * Set dateCreated
@@ -43,7 +67,7 @@ class LuService
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-
+    
         return $this;
     }
 
@@ -67,7 +91,7 @@ class LuService
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -91,7 +115,7 @@ class LuService
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-
+    
         return $this;
     }
 
@@ -113,30 +137,6 @@ class LuService
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set serviceTypeName
-     *
-     * @param \LuServiceType $serviceTypeName
-     *
-     * @return LuService
-     */
-    public function setServiceTypeName(\LuServiceType $serviceTypeName = null)
-    {
-        $this->serviceTypeName = $serviceTypeName;
-
-        return $this;
-    }
-
-    /**
-     * Get serviceTypeName
-     *
-     * @return \LuServiceType
-     */
-    public function getServiceTypeName()
-    {
-        return $this->serviceTypeName;
     }
 }
 

@@ -4,6 +4,9 @@
     <indexes>
       <index name="booking_id_idx" columns="booking_id"/>
     </indexes>
+    <unique-constraints>
+      <unique-constraint name="booking_reference_UNIQUE" columns="booking_reference"/>
+    </unique-constraints>
     <id name="bookingTimeId" type="integer" column="booking_time_id">
       <generator strategy="IDENTITY"/>
     </id>
@@ -14,7 +17,11 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
     <field name="bookingReference" type="string" column="booking_reference" length="45" nullable="false">
       <options>
         <option name="fixed"/>

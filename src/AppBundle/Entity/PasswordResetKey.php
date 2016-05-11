@@ -38,7 +38,7 @@ class PasswordResetKey
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = $emailAddress;
-
+    
         return $this;
     }
 
@@ -62,7 +62,7 @@ class PasswordResetKey
     public function setUniqueKey($uniqueKey)
     {
         $this->uniqueKey = $uniqueKey;
-
+    
         return $this;
     }
 
@@ -86,7 +86,7 @@ class PasswordResetKey
     public function setActivated($activated)
     {
         $this->activated = $activated;
-
+    
         return $this;
     }
 

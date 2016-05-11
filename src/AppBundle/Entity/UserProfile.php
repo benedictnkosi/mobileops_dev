@@ -8,6 +8,11 @@
 class UserProfile
 {
     /**
+     * @var integer
+     */
+    private $addressId;
+
+    /**
      * @var boolean
      */
     private $active = '1';
@@ -57,11 +62,30 @@ class UserProfile
      */
     private $userProfileId;
 
-    /**
-     * @var \Address
-     */
-    private $address;
 
+    /**
+     * Set addressId
+     *
+     * @param integer $addressId
+     *
+     * @return UserProfile
+     */
+    public function setAddressId($addressId)
+    {
+        $this->addressId = $addressId;
+    
+        return $this;
+    }
+
+    /**
+     * Get addressId
+     *
+     * @return integer
+     */
+    public function getAddressId()
+    {
+        return $this->addressId;
+    }
 
     /**
      * Set active
@@ -73,7 +97,7 @@ class UserProfile
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -97,7 +121,7 @@ class UserProfile
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-
+    
         return $this;
     }
 
@@ -121,7 +145,7 @@ class UserProfile
     public function setSecondName($secondName)
     {
         $this->secondName = $secondName;
-
+    
         return $this;
     }
 
@@ -145,7 +169,7 @@ class UserProfile
     public function setSurname($surname)
     {
         $this->surname = $surname;
-
+    
         return $this;
     }
 
@@ -169,7 +193,7 @@ class UserProfile
     public function setGender($gender)
     {
         $this->gender = $gender;
-
+    
         return $this;
     }
 
@@ -193,7 +217,7 @@ class UserProfile
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-
+    
         return $this;
     }
 
@@ -217,7 +241,7 @@ class UserProfile
     public function setIdNumberOrPassport($idNumberOrPassport)
     {
         $this->idNumberOrPassport = $idNumberOrPassport;
-
+    
         return $this;
     }
 
@@ -241,7 +265,7 @@ class UserProfile
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
-
+    
         return $this;
     }
 
@@ -265,7 +289,7 @@ class UserProfile
     public function setPersonalNote($personalNote)
     {
         $this->personalNote = $personalNote;
-
+    
         return $this;
     }
 
@@ -287,30 +311,6 @@ class UserProfile
     public function getUserProfileId()
     {
         return $this->userProfileId;
-    }
-
-    /**
-     * Set address
-     *
-     * @param \Address $address
-     *
-     * @return UserProfile
-     */
-    public function setAddress(\Address $address = null)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return \Address
-     */
-    public function getAddress()
-    {
-        return $this->address;
     }
 }
 

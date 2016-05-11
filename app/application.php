@@ -20,6 +20,7 @@ define('GENERIC_SYSTEM_ERROR', "An error occurred, please contact system adminis
 define("RADIUS", 0.1019);
 
 
+
 define("FB_APPID", "773233792802919"); //LIVE
 //define("FB_APPID", "773239122802386"); //TEST
 

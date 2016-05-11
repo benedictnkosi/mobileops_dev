@@ -48,7 +48,7 @@ class RegionService
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -72,7 +72,7 @@ class RegionService
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-
+    
         return $this;
     }
 
@@ -96,7 +96,7 @@ class RegionService
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-
+    
         return $this;
     }
 
@@ -130,7 +130,7 @@ class RegionService
     public function setService(\LuService $service = null)
     {
         $this->service = $service;
-
+    
         return $this;
     }
 
@@ -154,7 +154,7 @@ class RegionService
     public function setRegion(\LuRegion $region = null)
     {
         $this->region = $region;
-
+    
         return $this;
     }
 

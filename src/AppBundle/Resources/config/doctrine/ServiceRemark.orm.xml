@@ -18,6 +18,11 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="remarkTypeId" type="string" column="remark_type_id" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
     <field name="remark" type="text" column="remark" length="65535" nullable="true">
       <options>
         <option name="fixed"/>
@@ -28,16 +33,11 @@
         <option name="default">CURRENT_TIMESTAMP</option>
       </options>
     </field>
-    <many-to-one field="remarkType" target-entity="LuRemark" fetch="LAZY">
-      <join-columns>
-        <join-column name="remark_type_id" referenced-column-name="name"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="bookingService" target-entity="BookingServiceRegion" fetch="LAZY">
-      <join-columns>
-        <join-column name="booking_service_id" referenced-column-name="booking_service_region_id"/>
-      </join-columns>
-    </many-to-one>
+    <field name="bookingServiceId" type="integer" column="booking_service_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
   </entity>
 </doctrine-mapping>
 

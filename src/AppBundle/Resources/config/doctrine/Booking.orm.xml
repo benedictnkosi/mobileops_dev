@@ -6,6 +6,8 @@
     </indexes>
     <unique-constraints>
       <unique-constraint name="booking_id_UNIQUE" columns="booking_id"/>
+      <unique-constraint name="booking_guid_UNIQUE" columns="booking_guid"/>
+      <unique-constraint name="booking_reference_UNIQUE" columns="booking_reference"/>
     </unique-constraints>
     <id name="bookingId" type="integer" column="booking_id">
       <generator strategy="IDENTITY"/>
@@ -20,12 +22,12 @@
         <option name="default">CURRENT_TIMESTAMP</option>
       </options>
     </field>
-    <field name="userBooked" type="string" column="user_booked" length="100" nullable="true">
+    <field name="bookingGuid" type="string" column="booking_guid" length="45" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="bookingGuid" type="string" column="booking_guid" length="45" nullable="true">
+    <field name="bookingReference" type="string" column="booking_reference" length="45" nullable="true">
       <options>
         <option name="fixed"/>
       </options>

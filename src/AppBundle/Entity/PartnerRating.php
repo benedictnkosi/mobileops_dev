@@ -10,7 +10,17 @@ class PartnerRating
     /**
      * @var integer
      */
+    private $userId;
+
+    /**
+     * @var integer
+     */
     private $rating;
+
+    /**
+     * @var integer
+     */
+    private $bookingId;
 
     /**
      * @var \DateTime
@@ -22,16 +32,30 @@ class PartnerRating
      */
     private $partnerRatingId;
 
-    /**
-     * @var \User
-     */
-    private $user;
 
     /**
-     * @var \Booking
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return PartnerRating
      */
-    private $booking;
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    
+        return $this;
+    }
 
+    /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
 
     /**
      * Set rating
@@ -43,7 +67,7 @@ class PartnerRating
     public function setRating($rating)
     {
         $this->rating = $rating;
-
+    
         return $this;
     }
 
@@ -58,6 +82,30 @@ class PartnerRating
     }
 
     /**
+     * Set bookingId
+     *
+     * @param integer $bookingId
+     *
+     * @return PartnerRating
+     */
+    public function setBookingId($bookingId)
+    {
+        $this->bookingId = $bookingId;
+    
+        return $this;
+    }
+
+    /**
+     * Get bookingId
+     *
+     * @return integer
+     */
+    public function getBookingId()
+    {
+        return $this->bookingId;
+    }
+
+    /**
      * Set dateAdded
      *
      * @param \DateTime $dateAdded
@@ -67,7 +115,7 @@ class PartnerRating
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-
+    
         return $this;
     }
 
@@ -89,54 +137,6 @@ class PartnerRating
     public function getPartnerRatingId()
     {
         return $this->partnerRatingId;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \User $user
-     *
-     * @return PartnerRating
-     */
-    public function setUser(\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set booking
-     *
-     * @param \Booking $booking
-     *
-     * @return PartnerRating
-     */
-    public function setBooking(\Booking $booking = null)
-    {
-        $this->booking = $booking;
-
-        return $this;
-    }
-
-    /**
-     * Get booking
-     *
-     * @return \Booking
-     */
-    public function getBooking()
-    {
-        return $this->booking;
     }
 }
 

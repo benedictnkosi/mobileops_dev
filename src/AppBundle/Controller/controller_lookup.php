@@ -36,9 +36,7 @@ function getAllLookupsByClass($entityManager,$lookupClass){
 function getAllActiveLookupsByClass($entityManager,$lookupClass){
 
 	try {
-	
-		
-		
+
 		$activeLookups = $entityManager->getRepository($lookupClass)->findBy(array('active' => TRUE));
 		
 		$activeLookupsArray = array ();
@@ -62,4 +60,57 @@ function getActiveLookupByName($entityManager,$lookupClass,$lookupName){
 	} catch (Exception $e) {
 		echo 'Failed to load lookups ' + $lookupClass;
 	}
+}
+
+// Cant use this because doctrine doesnt allow to set primary keys, we will need to disable them
+
+function addLookupBasic($entityManager,$lookupClassName,$lookupValue){
+
+    $lookup      = NULL;
+    $user_id     = NULL;
+
+	try{
+
+        if (isset ( $_SESSION ['user_id'] )){
+            $user_id = $_SESSION ['user_id'];
+        }
+
+        switch ($lookupClassName) {
+
+            case "LuAccountStatus":
+                $lookup = new LuAccountStatus();
+				break;
+			case "LuBookingStatus":
+                $lookup = new LuBookingStatus();
+				break;
+			case "LuUserRole":
+				$lookup = new LuUserRole();
+				break;
+			case "LuServiceType":
+                $lookup = new LuServiceType();
+				break;
+			case "LuUserRight":
+                $lookup = new LuUserRight();
+				break;
+			default:
+				echo "Your favorite lookup is not here!";
+		}
+
+        if($lookup!=NULL){
+
+            $lookup->setDateCreated(new DateTime());
+            $lookup->setActive(true);
+            $lookup->setAddedBy($user_id);
+
+            $entityManager->persist($lookup);
+            $entityManager->flush();
+        }
+	}
+	catch (Exception $e){
+		echo "Failed to add lookup ".$lookupName." ".$e->getTraceAsString();
+		return 'FAIL';
+	}
+
+    return $lookup;
+
 }

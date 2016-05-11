@@ -37,11 +37,11 @@
         <option name="fixed"/>
       </options>
     </field>
-    <many-to-one field="userMessageProfile" target-entity="UserProfile" fetch="LAZY">
-      <join-columns>
-        <join-column name="user_message_profile_id" referenced-column-name="user_profile_id"/>
-      </join-columns>
-    </many-to-one>
+    <field name="userMessageProfileId" type="integer" column="user_message_profile_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
   </entity>
 </doctrine-mapping>
 

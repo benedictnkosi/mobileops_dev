@@ -8,14 +8,14 @@
 class BookingBookingStatus
 {
     /**
+     * @var \DateTime
+     */
+    private $dateChanged = 'CURRENT_TIMESTAMP';
+
+    /**
      * @var boolean
      */
     private $active;
-
-    /**
-     * @var \DateTime
-     */
-    private $timestamp = 'CURRENT_TIMESTAMP';
 
     /**
      * @var integer
@@ -23,15 +23,39 @@ class BookingBookingStatus
     private $bookingBookingStatusId;
 
     /**
-     * @var \Booking
-     */
-    private $booking;
-
-    /**
      * @var \LuBookingStatus
      */
     private $bookingBookingStatus;
 
+    /**
+     * @var \Booking
+     */
+    private $booking;
+
+
+    /**
+     * Set dateChanged
+     *
+     * @param \DateTime $dateChanged
+     *
+     * @return BookingBookingStatus
+     */
+    public function setDateChanged($dateChanged)
+    {
+        $this->dateChanged = $dateChanged;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateChanged
+     *
+     * @return \DateTime
+     */
+    public function getDateChanged()
+    {
+        return $this->dateChanged;
+    }
 
     /**
      * Set active
@@ -43,7 +67,7 @@ class BookingBookingStatus
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -58,30 +82,6 @@ class BookingBookingStatus
     }
 
     /**
-     * Set timestamp
-     *
-     * @param \DateTime $timestamp
-     *
-     * @return BookingBookingStatus
-     */
-    public function setTimestamp($timestamp)
-    {
-        $this->timestamp = $timestamp;
-
-        return $this;
-    }
-
-    /**
-     * Get timestamp
-     *
-     * @return \DateTime
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
-    }
-
-    /**
      * Get bookingBookingStatusId
      *
      * @return integer
@@ -89,30 +89,6 @@ class BookingBookingStatus
     public function getBookingBookingStatusId()
     {
         return $this->bookingBookingStatusId;
-    }
-
-    /**
-     * Set booking
-     *
-     * @param \Booking $booking
-     *
-     * @return BookingBookingStatus
-     */
-    public function setBooking(\Booking $booking = null)
-    {
-        $this->booking = $booking;
-
-        return $this;
-    }
-
-    /**
-     * Get booking
-     *
-     * @return \Booking
-     */
-    public function getBooking()
-    {
-        return $this->booking;
     }
 
     /**
@@ -125,7 +101,7 @@ class BookingBookingStatus
     public function setBookingBookingStatus(\LuBookingStatus $bookingBookingStatus = null)
     {
         $this->bookingBookingStatus = $bookingBookingStatus;
-
+    
         return $this;
     }
 
@@ -137,6 +113,30 @@ class BookingBookingStatus
     public function getBookingBookingStatus()
     {
         return $this->bookingBookingStatus;
+    }
+
+    /**
+     * Set booking
+     *
+     * @param \Booking $booking
+     *
+     * @return BookingBookingStatus
+     */
+    public function setBooking(\Booking $booking = null)
+    {
+        $this->booking = $booking;
+    
+        return $this;
+    }
+
+    /**
+     * Get booking
+     *
+     * @return \Booking
+     */
+    public function getBooking()
+    {
+        return $this->booking;
     }
 }
 

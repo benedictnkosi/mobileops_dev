@@ -48,7 +48,7 @@ class BookingComments
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -72,7 +72,7 @@ class BookingComments
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-
+    
         return $this;
     }
 
@@ -96,7 +96,7 @@ class BookingComments
     public function setBookingComments($bookingComments)
     {
         $this->bookingComments = $bookingComments;
-
+    
         return $this;
     }
 
@@ -120,7 +120,7 @@ class BookingComments
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-
+    
         return $this;
     }
 
@@ -154,7 +154,7 @@ class BookingComments
     public function setBooking(\Booking $booking = null)
     {
         $this->booking = $booking;
-
+    
         return $this;
     }
 

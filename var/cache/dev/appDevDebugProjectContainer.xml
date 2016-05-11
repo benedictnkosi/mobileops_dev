@@ -139,12 +139,14 @@
           <parameter>doctrine</parameter>
         </parameter>
       </parameter>
+      <parameter key="monolog.handler.file">null</parameter>
       <parameter key="monolog.handler.main" type="collection">
         <parameter key="type">exclusive</parameter>
         <parameter key="elements" type="collection">
           <parameter>event</parameter>
         </parameter>
       </parameter>
+      <parameter key="monolog.handler.syslog">null</parameter>
     </parameter>
     <parameter key="swiftmailer.class">Swift_Mailer</parameter>
     <parameter key="swiftmailer.transport.sendmail.class">Swift_Transport_SendmailTransport</parameter>
@@ -1491,7 +1493,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>572dda85c017f7.47864298</argument>
+            <argument>57320af9808979.45054303</argument>
           </service>
         </argument>
       </argument>
@@ -1620,7 +1622,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>572dda85c017f7.47864298</argument>
+            <argument>57320af9808979.45054303</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -1876,7 +1878,19 @@
       <argument type="service" id="http_kernel"/>
       <argument>twig.controller.exception:showAction</argument>
     </service>
+    <service id="monolog.handler.syslog" class="Monolog\Handler\StreamHandler">
+      <argument>/var/log/symfony.log</argument>
+      <argument>400</argument>
+      <argument>true</argument>
+      <argument>null</argument>
+    </service>
     <service id="monolog.handler.main" class="Monolog\Handler\StreamHandler">
+      <argument>C:\xampp\htdocs\mobileops\var\logs/dev.log</argument>
+      <argument>100</argument>
+      <argument>true</argument>
+      <argument>null</argument>
+    </service>
+    <service id="monolog.handler.file" class="Monolog\Handler\StreamHandler">
       <argument>C:\xampp\htdocs\mobileops\var\logs/dev.log</argument>
       <argument>100</argument>
       <argument>true</argument>
@@ -2244,7 +2258,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2256,7 +2276,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2268,7 +2294,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2280,7 +2312,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2292,7 +2330,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2304,7 +2348,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2312,6 +2362,12 @@
     </service>
     <service id="monolog.logger.event" class="Symfony\Bridge\Monolog\Logger">
       <argument>event</argument>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
+      </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
       </call>
@@ -2322,7 +2378,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2331,7 +2393,13 @@
     <service id="monolog.logger.doctrine" class="Symfony\Bridge\Monolog\Logger">
       <argument>doctrine</argument>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
@@ -2443,7 +2511,13 @@
         <argument type="service" id="monolog.handler.console"/>
       </call>
       <call method="pushHandler">
+        <argument type="service" id="monolog.handler.file"/>
+      </call>
+      <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.syslog"/>
       </call>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.debug"/>
