@@ -36,15 +36,13 @@ require_once ('controller_booking_services.php');
 // require_once('../logger/php/Logger.php');
 
 
-
 if (isset ( $_GET ['prepdata'] )) {
 	if ($_GET ['prepdata']) :
-
+		//echo  myvariable();
 	try {
 		session_start ();
 	} catch ( Exception $e ) {
 	}
-	
 	
 	
 	$activeRegions             = $entityManager->getRepository('LuRegion')->findBy(array('active' => TRUE));

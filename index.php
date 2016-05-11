@@ -81,6 +81,8 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/aboutpartner.php");
 	}elseif (isset ( $_GET ["bookingsByStatus"] )) {
 		include ("web/views/bookings_by_status.php");
+	}elseif (isset ( $_GET ["services_management"] )) {
+		include ("web/views/manage_services.php");
 	}elseif (isset ( $_GET ["editbooking"] )) {
 		include ("web/views/edit_booking.php");
 	}elseif (isset ( $_GET ["acceptchanges"] )) {

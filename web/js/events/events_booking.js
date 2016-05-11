@@ -177,7 +177,7 @@ function getAllServices() {
 
                                     silentLoad: true,
                                     rules: {
-                                        'name': 'required',
+                                        'firstname': 'required',
                                         'surname': 'required',
                                         'email': 'required email',
                                         'mobile_number': 'required number min:10 max:10',
@@ -187,6 +187,8 @@ function getAllServices() {
                                     errors: {
                                         'skills_checkbox_item[]': {
                                             ajaxError: 'No Services Selected'
+                                        },'name': {
+                                            ajaxError: 'Fuck you'
                                         }
                                     },
 
@@ -559,17 +561,27 @@ function getClientProfile() {
 
 function getTotalAmountDue(formdata) {
 
-    var checkedValues = $('.skills_checkbox_item:checked').map(function() {
+	if($('#input_street_name').val().length < 1 || $('#input_street_number').val().length < 1 ){
+		$('#lbl_address_message').show(function() {
+			$(this).fadeOut(6000);}
+		);
+		
+		
+		$('form.idealforms').idealforms('goToStep',0);
+		return;
+	}
+
+	
+	var checkedValues = $('.skills_checkbox_item:checked').map(function() {
         return this.value;
     }).get();
 
     var jsonString = JSON.stringify(checkedValues);
-
     $
         .ajax({
             type: 'GET',
             url: 'src/AppBundle/Controller/controller_booking.php?getServicePrices=true&region=' +
-                $('#input_city').val(),
+                $('#input_province').val(),
             data: {
                 "services": jsonString
             },
@@ -634,12 +646,24 @@ function getTotalAmountDue(formdata) {
                 cell2.innerHTML = "Total: R" +
                     parseFloat(Math.round(totalPrice * 100) / 100)
                     .toFixed(2);
+                
+                $('#cmdCompleteBooking').show();
             },
 
         });
 }
 
 function getBestPartners(formdata) {
+	
+	if($('#input_street_name').val().length < 1 || $('#input_street_number').val().length < 1 ){
+		$('#lbl_address_message').show(function() {
+			$(this).fadeOut(6000);}
+		);
+		
+		
+		$('form.idealforms').idealforms('goToStep',0);
+		return;
+	}
 
     $('#h3_select_partner').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();
     $("#bestPartnersDiv")

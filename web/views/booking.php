@@ -169,6 +169,13 @@
 	class="idealsteps-step">
 
 <h3>PERSONAL DETAILS</h3>
+
+ <div class="row uniform">
+   <div class="12u">
+                  <div id="lbl_address_message" class="alert display-none alert-danger"  >Address must contains street name and street number
+</div>
+</div></div>
+
  <div class="row uniform">
                      <div class="6u 12u(3)">
                      	<div class="field">
@@ -226,9 +233,6 @@
 	class="googleResults" id="input_Longitude"> <span class="error"></span>
 </div>
 </div>
-
-
-
 
 <div class="6u 12u(3)">
 <div class="field"><input name="administrative_area_level_1" type="text" value=""
@@ -416,7 +420,7 @@
              <tr style="border: none;">
                 <td>
                     
-<button type="submit" class="submit" id="cmdCompleteBooking" style="margin-right: 1em">Complete Booking</button>
+<button type="submit" class="submit display-none" id="cmdCompleteBooking" style="margin-right: 1em">Complete Booking</button>
         
         
                 </td>
@@ -485,11 +489,6 @@
 <script>
 
 $("#address").geocomplete({ details: "form" }); 
-
-
-
-
-
 	$("#partner_rating").rating({
     starCaptions: {0: "Not Rated",1: "Very Poor", 2: "Poor", 3: "Ok", 4: "Good", 5: "Very Good"},
     starCaptionClasses: {1: "text-danger", 2: "text-warning", 3: "text-info", 4: "text-primary", 5: "text-success"},

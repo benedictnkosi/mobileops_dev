@@ -67,6 +67,12 @@
 <form class="idealforms" novalidate action="/" method="post"><!-- Text -->
 
 
+   <div class="row uniform">
+   <div class="12u">
+                  <div id="lbl_address_message" class="alert display-none alert-danger"  >Address must contains street name and street number
+</div>
+</div></div>
+
      <div class="row uniform">
    <div class="12u">
                   <div id="lbl_message" class="alert display-none" >
@@ -194,7 +200,21 @@
         	    if (invalid) {
         	      
         	    } else {
-            	  
+
+        	    	if($('#input_street_name').val().length < 1 || $('#input_street_number').val().length < 1 ){
+        	    		$('#lbl_address_message').show(function() {
+        	    			$(this).fadeOut(6000);}
+        	    		);
+        	    		
+        	    		$("html, body").animate({
+                            scrollTop: $(
+                                    ".container")
+                                .offset().top
+                        },
+                        "slow");
+        	    		return;
+        	    	}
+        	    	
         	      $.post('src/AppBundle/Controller/controller_client_profile.php', this.$form.serialize(), function(response) {  
         	    	  var message = response.message;
         	  		if(message.indexOf("Successfully") > -1){
@@ -204,7 +224,14 @@
         	  			$('#lbl_message').text(message);
         	  			$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
         	  		}
-        	  		$("html, body").animate({ scrollTop: 0 }, "slow");
+        	  		$(
+                    "html, body")
+                .animate({
+                        scrollTop: $(
+                                ".container")
+                            .offset().top
+                    },
+                    "slow");
         	      }, 'json');
         	    }    
         	  }
