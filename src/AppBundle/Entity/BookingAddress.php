@@ -38,7 +38,7 @@ class BookingAddress
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -72,7 +72,7 @@ class BookingAddress
     public function setClientAddress(\Address $clientAddress = null)
     {
         $this->clientAddress = $clientAddress;
-
+    
         return $this;
     }
 
@@ -96,7 +96,7 @@ class BookingAddress
     public function setBooking(\Booking $booking = null)
     {
         $this->booking = $booking;
-
+    
         return $this;
     }
 

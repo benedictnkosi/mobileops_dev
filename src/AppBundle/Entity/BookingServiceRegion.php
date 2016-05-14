@@ -25,7 +25,7 @@ class BookingServiceRegion
     /**
      * @var boolean
      */
-    private $rating;
+    private $rating = '3';
 
     /**
      * @var \DateTime
@@ -40,7 +40,7 @@ class BookingServiceRegion
     /**
      * @var float
      */
-    private $discountPercentagediscountPercentage = '0';
+    private $discountPercentage = '0';
 
     /**
      * @var float
@@ -73,7 +73,7 @@ class BookingServiceRegion
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -97,7 +97,7 @@ class BookingServiceRegion
     public function setRegionServiceId($regionServiceId)
     {
         $this->regionServiceId = $regionServiceId;
-
+    
         return $this;
     }
 
@@ -121,7 +121,7 @@ class BookingServiceRegion
     public function setComments($comments)
     {
         $this->comments = $comments;
-
+    
         return $this;
     }
 
@@ -145,7 +145,7 @@ class BookingServiceRegion
     public function setRating($rating)
     {
         $this->rating = $rating;
-
+    
         return $this;
     }
 
@@ -169,7 +169,7 @@ class BookingServiceRegion
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-
+    
         return $this;
     }
 
@@ -193,7 +193,7 @@ class BookingServiceRegion
     public function setServiceAmount($serviceAmount)
     {
         $this->serviceAmount = $serviceAmount;
-
+    
         return $this;
     }
 
@@ -208,27 +208,27 @@ class BookingServiceRegion
     }
 
     /**
-     * Set discountPercentagediscountPercentage
+     * Set discountPercentage
      *
-     * @param float $discountPercentagediscountPercentage
+     * @param float $discountPercentage
      *
      * @return BookingServiceRegion
      */
-    public function setDiscountPercentagediscountPercentage($discountPercentagediscountPercentage)
+    public function setDiscountPercentage($discountPercentage)
     {
-        $this->discountPercentagediscountPercentage = $discountPercentagediscountPercentage;
-
+        $this->discountPercentage = $discountPercentage;
+    
         return $this;
     }
 
     /**
-     * Get discountPercentagediscountPercentage
+     * Get discountPercentage
      *
      * @return float
      */
-    public function getDiscountPercentagediscountPercentage()
+    public function getDiscountPercentage()
     {
-        return $this->discountPercentagediscountPercentage;
+        return $this->discountPercentage;
     }
 
     /**
@@ -241,7 +241,7 @@ class BookingServiceRegion
     public function setActualAmountToPay($actualAmountToPay)
     {
         $this->actualAmountToPay = $actualAmountToPay;
-
+    
         return $this;
     }
 
@@ -265,7 +265,7 @@ class BookingServiceRegion
     public function setServiceName($serviceName)
     {
         $this->serviceName = $serviceName;
-
+    
         return $this;
     }
 
@@ -299,7 +299,7 @@ class BookingServiceRegion
     public function setBooking(\Booking $booking = null)
     {
         $this->booking = $booking;
-
+    
         return $this;
     }
 

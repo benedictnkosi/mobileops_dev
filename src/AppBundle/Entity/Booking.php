@@ -20,12 +20,12 @@ class Booking
     /**
      * @var string
      */
-    private $userBooked;
+    private $bookingGuid;
 
     /**
      * @var string
      */
-    private $bookingGuid;
+    private $bookingReference;
 
     /**
      * @var integer
@@ -48,7 +48,7 @@ class Booking
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -72,7 +72,7 @@ class Booking
     public function setTimeBooked($timeBooked)
     {
         $this->timeBooked = $timeBooked;
-
+    
         return $this;
     }
 
@@ -87,30 +87,6 @@ class Booking
     }
 
     /**
-     * Set userBooked
-     *
-     * @param string $userBooked
-     *
-     * @return Booking
-     */
-    public function setUserBooked($userBooked)
-    {
-        $this->userBooked = $userBooked;
-
-        return $this;
-    }
-
-    /**
-     * Get userBooked
-     *
-     * @return string
-     */
-    public function getUserBooked()
-    {
-        return $this->userBooked;
-    }
-
-    /**
      * Set bookingGuid
      *
      * @param string $bookingGuid
@@ -120,7 +96,7 @@ class Booking
     public function setBookingGuid($bookingGuid)
     {
         $this->bookingGuid = $bookingGuid;
-
+    
         return $this;
     }
 
@@ -132,6 +108,30 @@ class Booking
     public function getBookingGuid()
     {
         return $this->bookingGuid;
+    }
+
+    /**
+     * Set bookingReference
+     *
+     * @param string $bookingReference
+     *
+     * @return Booking
+     */
+    public function setBookingReference($bookingReference)
+    {
+        $this->bookingReference = $bookingReference;
+    
+        return $this;
+    }
+
+    /**
+     * Get bookingReference
+     *
+     * @return string
+     */
+    public function getBookingReference()
+    {
+        return $this->bookingReference;
     }
 
     /**
@@ -154,7 +154,7 @@ class Booking
     public function setUser(\User $user = null)
     {
         $this->user = $user;
-
+    
         return $this;
     }
 

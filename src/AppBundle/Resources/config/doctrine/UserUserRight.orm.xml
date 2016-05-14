@@ -9,9 +9,19 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="userRightId" type="string" column="user_right_id" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
     <field name="dateAdded" type="datetime" column="date_added" nullable="true">
       <options>
         <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="userId" type="integer" column="user_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
       </options>
     </field>
     <field name="modifiedBy" type="string" column="modified_by" length="50" nullable="true">
@@ -19,16 +29,6 @@
         <option name="fixed"/>
       </options>
     </field>
-    <many-to-one field="user" target-entity="User" fetch="LAZY">
-      <join-columns>
-        <join-column name="user_id" referenced-column-name="user_id"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="userRight" target-entity="LuUserRight" fetch="LAZY">
-      <join-columns>
-        <join-column name="user_right_id" referenced-column-name="name"/>
-      </join-columns>
-    </many-to-one>
   </entity>
 </doctrine-mapping>
 

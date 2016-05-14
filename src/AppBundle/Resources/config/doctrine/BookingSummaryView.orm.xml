@@ -16,11 +16,6 @@
       </options>
     </field>
     <field name="timeBooked" type="datetime" column="time_booked" nullable="true"/>
-    <field name="mobileNumber" type="string" column="mobile_number" length="45" nullable="true">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
     <field name="userEmailAddress" type="string" column="user_email_address" length="250" nullable="true">
       <options>
         <option name="fixed"/>
@@ -51,6 +46,11 @@
     <field name="lastUpdated" type="datetime" column="last_updated" nullable="true">
       <options>
         <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="mobileNumber" type="string" column="mobile_number" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
       </options>
     </field>
     <field name="userId" type="integer" column="user_id" nullable="true">

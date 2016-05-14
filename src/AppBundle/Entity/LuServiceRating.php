@@ -38,7 +38,7 @@ class LuServiceRating
     public function setActive($active)
     {
         $this->active = $active;
-
+    
         return $this;
     }
 
@@ -62,7 +62,7 @@ class LuServiceRating
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-
+    
         return $this;
     }
 
@@ -86,7 +86,7 @@ class LuServiceRating
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-
+    
         return $this;
     }
 

@@ -40,12 +40,12 @@ class UserMessages
     /**
      * @var integer
      */
-    private $userMessageId;
+    private $userMessageProfileId;
 
     /**
-     * @var \UserProfile
+     * @var integer
      */
-    private $userMessageProfile;
+    private $userMessageId;
 
 
     /**
@@ -58,7 +58,7 @@ class UserMessages
     public function setCreationUserName($creationUserName)
     {
         $this->creationUserName = $creationUserName;
-
+    
         return $this;
     }
 
@@ -82,7 +82,7 @@ class UserMessages
     public function setCreationUserSurname($creationUserSurname)
     {
         $this->creationUserSurname = $creationUserSurname;
-
+    
         return $this;
     }
 
@@ -106,7 +106,7 @@ class UserMessages
     public function setCreationUserEmailAddress($creationUserEmailAddress)
     {
         $this->creationUserEmailAddress = $creationUserEmailAddress;
-
+    
         return $this;
     }
 
@@ -130,7 +130,7 @@ class UserMessages
     public function setCreationUserTelNumber($creationUserTelNumber)
     {
         $this->creationUserTelNumber = $creationUserTelNumber;
-
+    
         return $this;
     }
 
@@ -154,7 +154,7 @@ class UserMessages
     public function setMessage($message)
     {
         $this->message = $message;
-
+    
         return $this;
     }
 
@@ -178,7 +178,7 @@ class UserMessages
     public function setMessageType($messageType)
     {
         $this->messageType = $messageType;
-
+    
         return $this;
     }
 
@@ -193,6 +193,30 @@ class UserMessages
     }
 
     /**
+     * Set userMessageProfileId
+     *
+     * @param integer $userMessageProfileId
+     *
+     * @return UserMessages
+     */
+    public function setUserMessageProfileId($userMessageProfileId)
+    {
+        $this->userMessageProfileId = $userMessageProfileId;
+    
+        return $this;
+    }
+
+    /**
+     * Get userMessageProfileId
+     *
+     * @return integer
+     */
+    public function getUserMessageProfileId()
+    {
+        return $this->userMessageProfileId;
+    }
+
+    /**
      * Get userMessageId
      *
      * @return integer
@@ -200,30 +224,6 @@ class UserMessages
     public function getUserMessageId()
     {
         return $this->userMessageId;
-    }
-
-    /**
-     * Set userMessageProfile
-     *
-     * @param \UserProfile $userMessageProfile
-     *
-     * @return UserMessages
-     */
-    public function setUserMessageProfile(\UserProfile $userMessageProfile = null)
-    {
-        $this->userMessageProfile = $userMessageProfile;
-
-        return $this;
-    }
-
-    /**
-     * Get userMessageProfile
-     *
-     * @return \UserProfile
-     */
-    public function getUserMessageProfile()
-    {
-        return $this->userMessageProfile;
     }
 }
 

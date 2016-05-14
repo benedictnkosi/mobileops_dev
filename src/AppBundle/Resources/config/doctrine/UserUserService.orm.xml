@@ -8,6 +8,11 @@
     <id name="userUserServiceId" type="integer" column="user_user_service_id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="userUserServiceProfileId" type="integer" column="user_user_service_profile_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <field name="active" type="boolean" column="active" nullable="true">
       <options>
         <option name="default">1</option>
@@ -23,11 +28,6 @@
         <option name="fixed"/>
       </options>
     </field>
-    <many-to-one field="userUserServiceProfile" target-entity="UserProfile" fetch="LAZY">
-      <join-columns>
-        <join-column name="user_user_service_profile_id" referenced-column-name="user_profile_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="userUserServiceName" target-entity="LuService" fetch="LAZY">
       <join-columns>
         <join-column name="user_user_service_name" referenced-column-name="name"/>
