@@ -33,8 +33,6 @@ function saveServices($entityManager){
 		$newServicesArray = json_decode(stripslashes($_POST['saveServices']));
 		$partner_services = $_SESSION['partner_services'];
 
-
-
 		$AddedServicesArray=array_diff($newServicesArray,$partner_services);
 		$RemovedServicesArray=array_diff($partner_services,$newServicesArray);
 
@@ -56,13 +54,13 @@ function saveServices($entityManager){
 					$UserUserService->setUserUserServiceProfile($UserProfile);
 					$entityManager->persist($UserUserService);
 				}
-					
-
 			}
 			$entityManager->flush();
 			getPartnerServices($entityManager);
 
-		}elseif(count($RemovedServicesArray) > 0){
+		}
+		
+		if(count($RemovedServicesArray) > 0){
 			foreach ($RemovedServicesArray as &$value) {
 				$LuService = $entityManager->getRepository('LuService')->findOneBy(array('name' =>$value ));
 				$UserUserService = $entityManager->getRepository('UserUserService')->findOneBy(array('userUserServiceName' =>$LuService ));
@@ -71,11 +69,12 @@ function saveServices($entityManager){
 			}
 			$entityManager->flush();
 			getPartnerServices($entityManager);
-		}else{
-			$response['status'] = 1;
+		}
+			
+		$response['status'] = 1;
 			$response['message'] = "Services updated successfuliy";
 			echo json_encode($response);
-		}
+		
 	}catch (Exception $e) {
 		$response['status'] = 2;
 		$response['message'] = $e->getMessage();

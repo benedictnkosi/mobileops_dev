@@ -71,6 +71,7 @@
 <ul>
 	
 	<li><a href="index.php?bookingsByStatus">BOOKINGS BY STATUS</a></li>
+	<li><a href="index.php?services_management">MANAGE SERVICES</a></li>
 	<li><a href="index.php?logout=true">LOGOUT</a></li>
 
 </ul>

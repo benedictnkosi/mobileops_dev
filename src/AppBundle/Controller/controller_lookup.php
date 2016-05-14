@@ -16,6 +16,7 @@ require_once(__DIR__.'/../Entity/LuUserRight.php');
 require_once(__DIR__.'/../Entity/LuUserRole.php');
 require_once(__DIR__.'/../Entity/LuDatechangeReasons.php');
 
+
 function getAllLookupsByClass($entityManager,$lookupClass){
 	try {
 		$activeLookups      = $entityManager->getRepository($lookupClass)->findAll();
@@ -36,9 +37,7 @@ function getAllLookupsByClass($entityManager,$lookupClass){
 function getAllActiveLookupsByClass($entityManager,$lookupClass){
 
 	try {
-	
-		
-		
+
 		$activeLookups = $entityManager->getRepository($lookupClass)->findBy(array('active' => TRUE));
 		
 		$activeLookupsArray = array ();
@@ -62,4 +61,43 @@ function getActiveLookupByName($entityManager,$lookupClass,$lookupName){
 	} catch (Exception $e) {
 		echo 'Failed to load lookups ' + $lookupClass;
 	}
+}
+
+
+function getAllLookupsNamesByClass($entityManager,$lookupClass){
+	try {
+		$activeLookups      = $entityManager->getRepository($lookupClass)->findAll();
+		$activeLookupsArray = array ();
+
+		foreach ($activeLookups as &$value) {
+			array_push($activeLookupsArray,$value->getName());
+		}
+
+		return $activeLookupsArray;
+
+	} catch (Exception $e) {
+		echo 'Failed to load lookups ' + $lookupClass;
+	}
+	return NULL;
+}
+
+function getAllActiveLookupsNamesByClass($entityManager,$lookupClass){
+
+	try {
+
+		$activeLookups = $entityManager->getRepository($lookupClass)->findBy(array('active' => TRUE));
+
+		$activeLookupsArray = array ();
+		foreach ($activeLookups as &$value) {
+				
+			array_push($activeLookupsArray,$value->getName());
+		}
+
+		return $activeLookupsArray;
+
+	} catch (Exception $e) {
+		echo 'Failed to load lookups ' + $lookupClass;
+	}
+
+	return NULL;
 }

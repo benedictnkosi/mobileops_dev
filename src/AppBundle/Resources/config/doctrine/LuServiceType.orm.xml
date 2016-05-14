@@ -4,6 +4,11 @@
     <id name="name" type="string" column="name" length="45">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="active" type="integer" column="active" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
   </entity>
 </doctrine-mapping>
 
