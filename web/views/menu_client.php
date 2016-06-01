@@ -63,8 +63,10 @@
 
 <header id="header" class="alt skel-layers-fixed">
 
-<h1><a href="index.php?home">MOBILEOPS SERVICES</a>
-<br>	</h1>
+<h1>
+<a href="index.php?home" class="icon fa-home"> MOBILEOPS SERVICES</a>
+<br>
+</h1>
 
 <nav id="nav">
 

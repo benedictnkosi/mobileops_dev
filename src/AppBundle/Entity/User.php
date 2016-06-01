@@ -33,19 +33,9 @@ class User
     private $passwordLastChanged;
 
     /**
-     * @var string
-     */
-    private $userUserAccountStatusId = 'ACCOUNT_NOT_VERIFIED';
-
-    /**
      * @var \DateTime
      */
     private $dateCreated = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var string
-     */
-    private $userUserRole;
 
     /**
      * @var string
@@ -65,12 +55,22 @@ class User
     /**
      * @var integer
      */
-    private $userProfileId;
+    private $userId;
 
     /**
-     * @var integer
+     * @var \LuUserRole
      */
-    private $userId;
+    private $userUserRole;
+
+    /**
+     * @var \UserProfile
+     */
+    private $userProfile;
+
+    /**
+     * @var \LuAccountStatus
+     */
+    private $userUserAccountStatus;
 
 
     /**
@@ -83,7 +83,7 @@ class User
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -107,7 +107,7 @@ class User
     public function setPasswordRetryCount($passwordRetryCount)
     {
         $this->passwordRetryCount = $passwordRetryCount;
-    
+
         return $this;
     }
 
@@ -131,7 +131,7 @@ class User
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = $emailAddress;
-    
+
         return $this;
     }
 
@@ -155,7 +155,7 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
-    
+
         return $this;
     }
 
@@ -179,7 +179,7 @@ class User
     public function setPasswordLastChanged($passwordLastChanged)
     {
         $this->passwordLastChanged = $passwordLastChanged;
-    
+
         return $this;
     }
 
@@ -194,30 +194,6 @@ class User
     }
 
     /**
-     * Set userUserAccountStatusId
-     *
-     * @param string $userUserAccountStatusId
-     *
-     * @return User
-     */
-    public function setUserUserAccountStatusId($userUserAccountStatusId)
-    {
-        $this->userUserAccountStatusId = $userUserAccountStatusId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userUserAccountStatusId
-     *
-     * @return string
-     */
-    public function getUserUserAccountStatusId()
-    {
-        return $this->userUserAccountStatusId;
-    }
-
-    /**
      * Set dateCreated
      *
      * @param \DateTime $dateCreated
@@ -227,7 +203,7 @@ class User
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-    
+
         return $this;
     }
 
@@ -242,30 +218,6 @@ class User
     }
 
     /**
-     * Set userUserRole
-     *
-     * @param string $userUserRole
-     *
-     * @return User
-     */
-    public function setUserUserRole($userUserRole)
-    {
-        $this->userUserRole = $userUserRole;
-    
-        return $this;
-    }
-
-    /**
-     * Get userUserRole
-     *
-     * @return string
-     */
-    public function getUserUserRole()
-    {
-        return $this->userUserRole;
-    }
-
-    /**
      * Set facebookNetworkId
      *
      * @param string $facebookNetworkId
@@ -275,7 +227,7 @@ class User
     public function setFacebookNetworkId($facebookNetworkId)
     {
         $this->facebookNetworkId = $facebookNetworkId;
-    
+
         return $this;
     }
 
@@ -299,7 +251,7 @@ class User
     public function setTwitterNetworkId($twitterNetworkId)
     {
         $this->twitterNetworkId = $twitterNetworkId;
-    
+
         return $this;
     }
 
@@ -323,7 +275,7 @@ class User
     public function setGoogleNetworkId($googleNetworkId)
     {
         $this->googleNetworkId = $googleNetworkId;
-    
+
         return $this;
     }
 
@@ -338,30 +290,6 @@ class User
     }
 
     /**
-     * Set userProfileId
-     *
-     * @param integer $userProfileId
-     *
-     * @return User
-     */
-    public function setUserProfileId($userProfileId)
-    {
-        $this->userProfileId = $userProfileId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userProfileId
-     *
-     * @return integer
-     */
-    public function getUserProfileId()
-    {
-        return $this->userProfileId;
-    }
-
-    /**
      * Get userId
      *
      * @return integer
@@ -369,6 +297,78 @@ class User
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Set userUserRole
+     *
+     * @param \LuUserRole $userUserRole
+     *
+     * @return User
+     */
+    public function setUserUserRole(\LuUserRole $userUserRole = null)
+    {
+        $this->userUserRole = $userUserRole;
+
+        return $this;
+    }
+
+    /**
+     * Get userUserRole
+     *
+     * @return \LuUserRole
+     */
+    public function getUserUserRole()
+    {
+        return $this->userUserRole;
+    }
+
+    /**
+     * Set userProfile
+     *
+     * @param \UserProfile $userProfile
+     *
+     * @return User
+     */
+    public function setUserProfile(\UserProfile $userProfile = null)
+    {
+        $this->userProfile = $userProfile;
+
+        return $this;
+    }
+
+    /**
+     * Get userProfile
+     *
+     * @return \UserProfile
+     */
+    public function getUserProfile()
+    {
+        return $this->userProfile;
+    }
+
+    /**
+     * Set userUserAccountStatus
+     *
+     * @param \LuAccountStatus $userUserAccountStatus
+     *
+     * @return User
+     */
+    public function setUserUserAccountStatus(\LuAccountStatus $userUserAccountStatus = null)
+    {
+        $this->userUserAccountStatus = $userUserAccountStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get userUserAccountStatus
+     *
+     * @return \LuAccountStatus
+     */
+    public function getUserUserAccountStatus()
+    {
+        return $this->userUserAccountStatus;
     }
 }
 

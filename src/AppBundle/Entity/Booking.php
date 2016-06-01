@@ -20,12 +20,17 @@ class Booking
     /**
      * @var string
      */
+    private $userBooked;
+
+    /**
+     * @var string
+     */
     private $bookingGuid;
 
     /**
      * @var string
      */
-    private $bookingReference;
+    private $sourceSystem = 'OPS';
 
     /**
      * @var integer
@@ -48,7 +53,7 @@ class Booking
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -72,7 +77,7 @@ class Booking
     public function setTimeBooked($timeBooked)
     {
         $this->timeBooked = $timeBooked;
-    
+
         return $this;
     }
 
@@ -87,6 +92,30 @@ class Booking
     }
 
     /**
+     * Set userBooked
+     *
+     * @param string $userBooked
+     *
+     * @return Booking
+     */
+    public function setUserBooked($userBooked)
+    {
+        $this->userBooked = $userBooked;
+
+        return $this;
+    }
+
+    /**
+     * Get userBooked
+     *
+     * @return string
+     */
+    public function getUserBooked()
+    {
+        return $this->userBooked;
+    }
+
+    /**
      * Set bookingGuid
      *
      * @param string $bookingGuid
@@ -96,7 +125,7 @@ class Booking
     public function setBookingGuid($bookingGuid)
     {
         $this->bookingGuid = $bookingGuid;
-    
+
         return $this;
     }
 
@@ -111,27 +140,27 @@ class Booking
     }
 
     /**
-     * Set bookingReference
+     * Set sourceSystem
      *
-     * @param string $bookingReference
+     * @param string $sourceSystem
      *
      * @return Booking
      */
-    public function setBookingReference($bookingReference)
+    public function setSourceSystem($sourceSystem)
     {
-        $this->bookingReference = $bookingReference;
-    
+        $this->sourceSystem = $sourceSystem;
+
         return $this;
     }
 
     /**
-     * Get bookingReference
+     * Get sourceSystem
      *
      * @return string
      */
-    public function getBookingReference()
+    public function getSourceSystem()
     {
-        return $this->bookingReference;
+        return $this->sourceSystem;
     }
 
     /**
@@ -154,7 +183,7 @@ class Booking
     public function setUser(\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 

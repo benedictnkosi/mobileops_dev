@@ -8,11 +8,6 @@
 class UserUserService
 {
     /**
-     * @var integer
-     */
-    private $userUserServiceProfileId;
-
-    /**
      * @var boolean
      */
     private $active = '1';
@@ -33,34 +28,15 @@ class UserUserService
     private $userUserServiceId;
 
     /**
+     * @var \UserProfile
+     */
+    private $userUserServiceProfile;
+
+    /**
      * @var \LuService
      */
     private $userUserServiceName;
 
-
-    /**
-     * Set userUserServiceProfileId
-     *
-     * @param integer $userUserServiceProfileId
-     *
-     * @return UserUserService
-     */
-    public function setUserUserServiceProfileId($userUserServiceProfileId)
-    {
-        $this->userUserServiceProfileId = $userUserServiceProfileId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userUserServiceProfileId
-     *
-     * @return integer
-     */
-    public function getUserUserServiceProfileId()
-    {
-        return $this->userUserServiceProfileId;
-    }
 
     /**
      * Set active
@@ -72,7 +48,7 @@ class UserUserService
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -96,7 +72,7 @@ class UserUserService
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -120,7 +96,7 @@ class UserUserService
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-    
+
         return $this;
     }
 
@@ -145,6 +121,30 @@ class UserUserService
     }
 
     /**
+     * Set userUserServiceProfile
+     *
+     * @param \UserProfile $userUserServiceProfile
+     *
+     * @return UserUserService
+     */
+    public function setUserUserServiceProfile(\UserProfile $userUserServiceProfile = null)
+    {
+        $this->userUserServiceProfile = $userUserServiceProfile;
+
+        return $this;
+    }
+
+    /**
+     * Get userUserServiceProfile
+     *
+     * @return \UserProfile
+     */
+    public function getUserUserServiceProfile()
+    {
+        return $this->userUserServiceProfile;
+    }
+
+    /**
      * Set userUserServiceName
      *
      * @param \LuService $userUserServiceName
@@ -154,7 +154,7 @@ class UserUserService
     public function setUserUserServiceName(\LuService $userUserServiceName = null)
     {
         $this->userUserServiceName = $userUserServiceName;
-    
+
         return $this;
     }
 

@@ -38,16 +38,16 @@ function addBookingsRows(bookings){
 		var cell4 = row.insertCell(3);
 		var cell5 = row.insertCell(4);
 		var cell6 = row.insertCell(5);
-		var cell7 = row.insertCell(6);
 		
 		
-		cell1.innerHTML = bookings[i][0];
+		
+		cell1.innerHTML = '<a href="/index.php?editbooking=' + bookings[i][0] + '">' + bookings[i][0] + '</a>';
 		cell2.innerHTML =  bookings[i][1];
 		cell3.innerHTML =  bookings[i][2];
 		cell4.innerHTML =  bookings[i][3];
 		cell5.innerHTML =  bookings[i][4];
 		cell6.innerHTML =  bookings[i][5];
-		cell7.innerHTML =  '<a href="/index.php?editbooking=' + bookings[i][0] + '">EDIT</a>';
+
 	}
 }
 

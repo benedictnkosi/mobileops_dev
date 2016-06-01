@@ -16,11 +16,11 @@
 Pretty much anything we want to log for a user.</option>
       </options>
     </field>
-    <field name="userId" type="integer" column="user_id" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
+    <many-to-one field="user" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="user_id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
 

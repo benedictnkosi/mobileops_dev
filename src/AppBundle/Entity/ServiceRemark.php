@@ -20,11 +20,6 @@ class ServiceRemark
     /**
      * @var string
      */
-    private $remarkTypeId;
-
-    /**
-     * @var string
-     */
     private $remark;
 
     /**
@@ -35,12 +30,17 @@ class ServiceRemark
     /**
      * @var integer
      */
-    private $bookingServiceId;
+    private $serviceRemarkId;
 
     /**
-     * @var integer
+     * @var \LuRemark
      */
-    private $serviceRemarkId;
+    private $remarkType;
+
+    /**
+     * @var \BookingServiceRegion
+     */
+    private $bookingService;
 
 
     /**
@@ -53,7 +53,7 @@ class ServiceRemark
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -77,7 +77,7 @@ class ServiceRemark
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-    
+
         return $this;
     }
 
@@ -92,30 +92,6 @@ class ServiceRemark
     }
 
     /**
-     * Set remarkTypeId
-     *
-     * @param string $remarkTypeId
-     *
-     * @return ServiceRemark
-     */
-    public function setRemarkTypeId($remarkTypeId)
-    {
-        $this->remarkTypeId = $remarkTypeId;
-    
-        return $this;
-    }
-
-    /**
-     * Get remarkTypeId
-     *
-     * @return string
-     */
-    public function getRemarkTypeId()
-    {
-        return $this->remarkTypeId;
-    }
-
-    /**
      * Set remark
      *
      * @param string $remark
@@ -125,7 +101,7 @@ class ServiceRemark
     public function setRemark($remark)
     {
         $this->remark = $remark;
-    
+
         return $this;
     }
 
@@ -149,7 +125,7 @@ class ServiceRemark
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -164,30 +140,6 @@ class ServiceRemark
     }
 
     /**
-     * Set bookingServiceId
-     *
-     * @param integer $bookingServiceId
-     *
-     * @return ServiceRemark
-     */
-    public function setBookingServiceId($bookingServiceId)
-    {
-        $this->bookingServiceId = $bookingServiceId;
-    
-        return $this;
-    }
-
-    /**
-     * Get bookingServiceId
-     *
-     * @return integer
-     */
-    public function getBookingServiceId()
-    {
-        return $this->bookingServiceId;
-    }
-
-    /**
      * Get serviceRemarkId
      *
      * @return integer
@@ -195,6 +147,54 @@ class ServiceRemark
     public function getServiceRemarkId()
     {
         return $this->serviceRemarkId;
+    }
+
+    /**
+     * Set remarkType
+     *
+     * @param \LuRemark $remarkType
+     *
+     * @return ServiceRemark
+     */
+    public function setRemarkType(\LuRemark $remarkType = null)
+    {
+        $this->remarkType = $remarkType;
+
+        return $this;
+    }
+
+    /**
+     * Get remarkType
+     *
+     * @return \LuRemark
+     */
+    public function getRemarkType()
+    {
+        return $this->remarkType;
+    }
+
+    /**
+     * Set bookingService
+     *
+     * @param \BookingServiceRegion $bookingService
+     *
+     * @return ServiceRemark
+     */
+    public function setBookingService(\BookingServiceRegion $bookingService = null)
+    {
+        $this->bookingService = $bookingService;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingService
+     *
+     * @return \BookingServiceRegion
+     */
+    public function getBookingService()
+    {
+        return $this->bookingService;
     }
 }
 

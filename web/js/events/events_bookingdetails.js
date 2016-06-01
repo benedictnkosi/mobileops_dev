@@ -69,6 +69,7 @@ function addBookingCommentsByClient(){
 	if(input_booking_notes.value.length < 1){
 		$('#lbl_message').text("Special notes field is empty");
 		$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
+		$("html, body").animate({ scrollTop: $(".invoice-box").offset().top}, "slow");
 		return;
 	}
 	
@@ -93,11 +94,16 @@ function addBookingCommentsByClient(){
 				myDate.getHours() + ":" + myDate.getMinutes() + " - ";
 				
 				var element = document.getElementById("bookingnotes");
-				element.appendChild(document.createTextNode(formateddate));
+				var neuB = document.createElement("b");
+				neuB.appendChild(document.createTextNode(formateddate));
+				element.appendChild(neuB);
 				element.appendChild(document.createTextNode(input_booking_notes.value));
+				element.appendChild(document.createElement("HR"));
 				input_booking_notes.value = "";
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+				
+				
 			}else{
 				$('#lbl_message').text(message);
 				$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
@@ -149,7 +155,7 @@ function addServicesRows(services){
 	$('.serviceRow').remove();
 	var pricesString = "";
 	var totalPrice = 0;
-	var rowNum = 4;
+	var rowNum = 3;
 	var table = document.getElementById("invoice_table");
 	
 	for (i = 0; i < services.length; i++){
@@ -159,7 +165,7 @@ function addServicesRows(services){
 		var cell1 = row.insertCell(0);
 		var cell2 = row.insertCell(1);
 		
-		cell1.innerHTML = services[i][0];
+		cell1.innerHTML = services[i][2] + " - " + services[i][0];
 		cell2.innerHTML = "R" + parseFloat(Math.round(services[i][1] * 100) / 100).toFixed(2);
 		
 		//pricesString = pricesString + response.message[i][0] + ": R" + parseFloat(Math.round(response.message[i][1] * 100) / 100).toFixed(2) + "<br/>";
@@ -229,9 +235,18 @@ function getBookingDetails(){
 			t = document.createTextNode("SERVICE PROVIDER DETAILS"); 
 			h.appendChild(t);      
 			element.appendChild(h);      
+			var a = document.createElement("a");
+			a.setAttribute("target","_blank");
+			a.href= 'http://mobileops.co.za/index.php?aboutpartner=' + data['provider_id'];
+			var linkText = document.createTextNode(data['provider_name']);
+			a.appendChild(linkText);
 			
-			element.appendChild(document.createTextNode("Name: " + data['provider_name']));
-			element.appendChild(document.createElement("br"));
+			element.appendChild(document.createTextNode("Your service provider name is "));
+			
+			
+			
+			
+			element.appendChild(a);
 			
 			h = document.createElement("H3")
 			t = document.createTextNode("APPOINTMENT ADDRESS"); 
@@ -263,28 +278,29 @@ function getBookingDetails(){
 		    case "BOOKING_CANCELLED":
 		    	bookingStatus = "Cancelled";
 		    	$('#tr_buttons').addClass('display-none')
+		    	$('#bookingnotes').addClass('display-none')
 		        break;
 		    case "BOOKING_AWAITING_PARTNER_CONFIRMATION":
 		    	bookingStatus = "Awaiting Partner Confirmation";
-		    	
 		        break;
 		    case "BOOKING_AWAITING_CLIENT_CONFIRMATION":
 		    	bookingStatus = "Awaiting Client Confirmation";
-		    	
 		        break;
 		    case "BOOKING_COMPLETED":
 		    	bookingStatus = "Complete";
 		    	$('#tr_buttons').addClass('display-none')
+		    	$('#bookingnotes').addClass('display-none')
 		        break;
 		    default:
 		    	bookingStatus =  "Error";
 		    	$('#tr_buttons').addClass('display-none')
+		    	$('#bookingnotes').addClass('display-none')
 			}
 			
 			//remove the buttons for partner
 			if (getCookie("mobileops_temp_login")) {
 				if(getValueInCookie('mobileops_temp_login', 'user_role').localeCompare("PARTNER") == 0 ){
-					$('#tr_buttons').addClass('display-none');
+					$('#cancelBooking').addClass('display-none');
 				}
 			}else{
 				//user can add notes and cancel booking when not logged in, the uuid will act as a security measure
@@ -306,9 +322,12 @@ function getBookingDetails(){
 			
 			var bookingNotes = data['booking_notes'];
 			for (i = 0; i < bookingNotes.length; i++){
-				element.appendChild(document.createTextNode(bookingNotes[i][1] + ' - '));
+				var neuB = document.createElement("b");
+				neuB.appendChild(document.createTextNode(bookingNotes[i][1] + ' - '));
+				element.appendChild(neuB);
 				element.appendChild(document.createTextNode(bookingNotes[i][0]));
 				element.appendChild(document.createElement("br"));
+				element.appendChild(document.createElement("HR"));
 			}
 			
 			var element = document.getElementById("addBookingnotes");
@@ -317,7 +336,8 @@ function getBookingDetails(){
 			input_booking_comments.id = "input_booking_notes";
 			element.appendChild(input_booking_comments);
 		
-			$("#input_booking_notes").attr('maxlength','100');
+			$("#input_booking_notes").attr('maxlength','500');
+			$("#input_booking_notes").attr('placeholder','e.g. Please change appointment time to Friday 13:00');
 			
 			$( "#bookingref" ).text("REF: " + data['booking_ref']);
 			$( "#bookingstatus" ).text("STATUS: " + data['booking_status']);

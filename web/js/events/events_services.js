@@ -35,19 +35,17 @@ function saveServices(){
 		dataType : "json",
 		success : function(data) {
 			
-			if(data.message){
-					$('#lbl_message').text("Services updated successfuliy");
+			if(data.status == 1){
+					$('#lbl_message').text(data.message);
 					$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
-					sessionStorage["partnerServices"] = JSON.stringify(data.message);
-				}else if(message.indexOf("successfully") > -1){
-					$('#lbl_message').text("Services updated successfuliy");
-					$('#lbl_message').removeClass( "display-none alert-danger" ).addClass( "alert-success" );
+					sessionStorage["partnerServices"] = JSON.stringify(data.services);
 				}
+				
 				else{
-					$('#lbl_message').text("Error, Failed to update service. Please try again.");
+					$('#lbl_message').text(data.message);
 					$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
 				}
-			$("html, body").animate({ scrollTop: $("#lbl_message").offset().top}, "slow");
+			$("html, body").animate({ scrollTop: $(".container").offset().top}, "slow");
 			
 	},
 	

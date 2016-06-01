@@ -43,7 +43,7 @@ class LuFee
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -67,7 +67,7 @@ class LuFee
     public function setFeeAmount($feeAmount)
     {
         $this->feeAmount = $feeAmount;
-    
+
         return $this;
     }
 
@@ -91,7 +91,7 @@ class LuFee
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -115,7 +115,7 @@ class LuFee
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-    
+
         return $this;
     }
 

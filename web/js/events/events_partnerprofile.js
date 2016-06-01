@@ -27,7 +27,7 @@ $(document).ready(function() {
         maxFilesize: 3,
         addRemoveLinks: true,
         uploadMultiple: false,
-        maxFiles: 20,
+        maxFiles: 50,
 
         // on initialize get the images on the server for the partner
         init: function() {

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="BookingProcessRating" table="booking_process_rating">
-    <indexes>
-      <index name="booking_booking_proccess_rating_fk_idx" columns="booking_id"/>
-    </indexes>
     <id name="bookingProcessRatingId" type="integer" column="booking_process_rating_id">
       <generator strategy="IDENTITY"/>
     </id>
@@ -22,16 +19,16 @@
         <option name="default">CURRENT_TIMESTAMP</option>
       </options>
     </field>
+    <field name="bookingId" type="integer" column="booking_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <field name="userId" type="integer" column="user_id" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
-      <join-columns>
-        <join-column name="booking_id" referenced-column-name="booking_id"/>
-      </join-columns>
-    </many-to-one>
   </entity>
 </doctrine-mapping>
 

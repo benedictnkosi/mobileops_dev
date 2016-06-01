@@ -65,6 +65,8 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/my_bookings.php");
 	}elseif (isset ( $_GET ["bookingdetails"] )) {
 		include ("web/views/booking_details.php");
+	}elseif (isset ( $_GET ["partnerbookingdetails"] )) {
+		include ("web/views/partner_booking_details.php");
 	}elseif (isset ( $_GET ["updateservices"] )) {
 		include ("web/views/update_services.php");
 	}elseif (isset ( $_GET ["home"] )) {
@@ -119,6 +121,8 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/aboutpartner.php");
 	}elseif (isset ( $_GET ["bookingdetails"] )) {
 		include ("web/views/booking_details.php");
+	}elseif (isset ( $_GET ["partnerbookingdetails"] )) {
+		include ("web/views/partner_booking_details.php");
 	}elseif (isset ( $_GET ["acceptchanges"] )) {
 		include ("web/views/accept_changes.php");
 	}else{

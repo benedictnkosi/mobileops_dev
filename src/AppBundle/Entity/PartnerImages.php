@@ -8,11 +8,6 @@
 class PartnerImages
 {
     /**
-     * @var integer
-     */
-    private $userId;
-
-    /**
      * @var string
      */
     private $imageName;
@@ -27,30 +22,11 @@ class PartnerImages
      */
     private $imageId;
 
-
     /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return PartnerImages
+     * @var \User
      */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    
-        return $this;
-    }
+    private $user;
 
-    /**
-     * Get userId
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
 
     /**
      * Set imageName
@@ -62,7 +38,7 @@ class PartnerImages
     public function setImageName($imageName)
     {
         $this->imageName = $imageName;
-    
+
         return $this;
     }
 
@@ -86,7 +62,7 @@ class PartnerImages
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -108,6 +84,30 @@ class PartnerImages
     public function getImageId()
     {
         return $this->imageId;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \User $user
+     *
+     * @return PartnerImages
+     */
+    public function setUser(\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
 

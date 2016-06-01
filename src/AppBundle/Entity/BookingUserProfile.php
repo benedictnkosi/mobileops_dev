@@ -63,7 +63,7 @@ class BookingUserProfile
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -87,7 +87,7 @@ class BookingUserProfile
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-    
+
         return $this;
     }
 
@@ -111,7 +111,7 @@ class BookingUserProfile
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
-    
+
         return $this;
     }
 
@@ -135,7 +135,7 @@ class BookingUserProfile
     public function setGender($gender)
     {
         $this->gender = $gender;
-    
+
         return $this;
     }
 
@@ -159,7 +159,7 @@ class BookingUserProfile
     public function setSurname($surname)
     {
         $this->surname = $surname;
-    
+
         return $this;
     }
 
@@ -183,7 +183,7 @@ class BookingUserProfile
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-    
+
         return $this;
     }
 
@@ -207,7 +207,7 @@ class BookingUserProfile
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = $emailAddress;
-    
+
         return $this;
     }
 
@@ -241,7 +241,7 @@ class BookingUserProfile
     public function setBooking(\Booking $booking = null)
     {
         $this->booking = $booking;
-    
+
         return $this;
     }
 

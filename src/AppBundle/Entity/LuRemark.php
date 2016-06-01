@@ -38,7 +38,7 @@ class LuRemark
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -62,7 +62,7 @@ class LuRemark
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -86,7 +86,7 @@ class LuRemark
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-    
+
         return $this;
     }
 

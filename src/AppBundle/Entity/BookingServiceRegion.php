@@ -25,7 +25,7 @@ class BookingServiceRegion
     /**
      * @var boolean
      */
-    private $rating = '3';
+    private $rating;
 
     /**
      * @var \DateTime
@@ -53,6 +53,11 @@ class BookingServiceRegion
     private $serviceName;
 
     /**
+     * @var string
+     */
+    private $serviceType;
+
+    /**
      * @var integer
      */
     private $bookingServiceRegionId;
@@ -73,7 +78,7 @@ class BookingServiceRegion
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -97,7 +102,7 @@ class BookingServiceRegion
     public function setRegionServiceId($regionServiceId)
     {
         $this->regionServiceId = $regionServiceId;
-    
+
         return $this;
     }
 
@@ -121,7 +126,7 @@ class BookingServiceRegion
     public function setComments($comments)
     {
         $this->comments = $comments;
-    
+
         return $this;
     }
 
@@ -145,7 +150,7 @@ class BookingServiceRegion
     public function setRating($rating)
     {
         $this->rating = $rating;
-    
+
         return $this;
     }
 
@@ -169,7 +174,7 @@ class BookingServiceRegion
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-    
+
         return $this;
     }
 
@@ -193,7 +198,7 @@ class BookingServiceRegion
     public function setServiceAmount($serviceAmount)
     {
         $this->serviceAmount = $serviceAmount;
-    
+
         return $this;
     }
 
@@ -217,7 +222,7 @@ class BookingServiceRegion
     public function setDiscountPercentage($discountPercentage)
     {
         $this->discountPercentage = $discountPercentage;
-    
+
         return $this;
     }
 
@@ -241,7 +246,7 @@ class BookingServiceRegion
     public function setActualAmountToPay($actualAmountToPay)
     {
         $this->actualAmountToPay = $actualAmountToPay;
-    
+
         return $this;
     }
 
@@ -265,7 +270,7 @@ class BookingServiceRegion
     public function setServiceName($serviceName)
     {
         $this->serviceName = $serviceName;
-    
+
         return $this;
     }
 
@@ -277,6 +282,30 @@ class BookingServiceRegion
     public function getServiceName()
     {
         return $this->serviceName;
+    }
+
+    /**
+     * Set serviceType
+     *
+     * @param string $serviceType
+     *
+     * @return BookingServiceRegion
+     */
+    public function setServiceType($serviceType)
+    {
+        $this->serviceType = $serviceType;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceType
+     *
+     * @return string
+     */
+    public function getServiceType()
+    {
+        return $this->serviceType;
     }
 
     /**
@@ -299,7 +328,7 @@ class BookingServiceRegion
     public function setBooking(\Booking $booking = null)
     {
         $this->booking = $booking;
-    
+
         return $this;
     }
 

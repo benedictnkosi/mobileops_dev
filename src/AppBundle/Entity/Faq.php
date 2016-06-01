@@ -38,7 +38,7 @@ class Faq
     public function setQuestion($question)
     {
         $this->question = $question;
-    
+
         return $this;
     }
 
@@ -62,7 +62,7 @@ class Faq
     public function setAnswer($answer)
     {
         $this->answer = $answer;
-    
+
         return $this;
     }
 
@@ -86,7 +86,7 @@ class Faq
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 

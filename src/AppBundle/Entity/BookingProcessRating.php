@@ -25,17 +25,17 @@ class BookingProcessRating
     /**
      * @var integer
      */
+    private $bookingId;
+
+    /**
+     * @var integer
+     */
     private $userId;
 
     /**
      * @var integer
      */
     private $bookingProcessRatingId;
-
-    /**
-     * @var \Booking
-     */
-    private $booking;
 
 
     /**
@@ -48,7 +48,7 @@ class BookingProcessRating
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -72,7 +72,7 @@ class BookingProcessRating
     public function setRating($rating)
     {
         $this->rating = $rating;
-    
+
         return $this;
     }
 
@@ -96,7 +96,7 @@ class BookingProcessRating
     public function setDateRated($dateRated)
     {
         $this->dateRated = $dateRated;
-    
+
         return $this;
     }
 
@@ -111,6 +111,30 @@ class BookingProcessRating
     }
 
     /**
+     * Set bookingId
+     *
+     * @param integer $bookingId
+     *
+     * @return BookingProcessRating
+     */
+    public function setBookingId($bookingId)
+    {
+        $this->bookingId = $bookingId;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingId
+     *
+     * @return integer
+     */
+    public function getBookingId()
+    {
+        return $this->bookingId;
+    }
+
+    /**
      * Set userId
      *
      * @param integer $userId
@@ -120,7 +144,7 @@ class BookingProcessRating
     public function setUserId($userId)
     {
         $this->userId = $userId;
-    
+
         return $this;
     }
 
@@ -142,30 +166,6 @@ class BookingProcessRating
     public function getBookingProcessRatingId()
     {
         return $this->bookingProcessRatingId;
-    }
-
-    /**
-     * Set booking
-     *
-     * @param \Booking $booking
-     *
-     * @return BookingProcessRating
-     */
-    public function setBooking(\Booking $booking = null)
-    {
-        $this->booking = $booking;
-    
-        return $this;
-    }
-
-    /**
-     * Get booking
-     *
-     * @return \Booking
-     */
-    public function getBooking()
-    {
-        return $this->booking;
     }
 }
 

@@ -25,7 +25,7 @@ class BookingTime
     /**
      * @var boolean
      */
-    private $active = '1';
+    private $active;
 
     /**
      * @var string
@@ -53,7 +53,7 @@ class BookingTime
     public function setBookingStartTime($bookingStartTime)
     {
         $this->bookingStartTime = $bookingStartTime;
-    
+
         return $this;
     }
 
@@ -77,7 +77,7 @@ class BookingTime
     public function setBookingEndTime($bookingEndTime)
     {
         $this->bookingEndTime = $bookingEndTime;
-    
+
         return $this;
     }
 
@@ -101,7 +101,7 @@ class BookingTime
     public function setBookingLastChangeUser($bookingLastChangeUser)
     {
         $this->bookingLastChangeUser = $bookingLastChangeUser;
-    
+
         return $this;
     }
 
@@ -125,7 +125,7 @@ class BookingTime
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -149,7 +149,7 @@ class BookingTime
     public function setBookingReference($bookingReference)
     {
         $this->bookingReference = $bookingReference;
-    
+
         return $this;
     }
 
@@ -183,7 +183,7 @@ class BookingTime
     public function setBooking(\Booking $booking = null)
     {
         $this->booking = $booking;
-    
+
         return $this;
     }
 

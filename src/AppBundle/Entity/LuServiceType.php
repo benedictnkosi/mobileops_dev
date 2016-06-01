@@ -13,6 +13,16 @@ class LuServiceType
     private $active;
 
     /**
+     * @var \DateTime
+     */
+    private $dateAdded = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var string
+     */
+    private $addedBy;
+
+    /**
      * @var string
      */
     private $name;
@@ -40,6 +50,54 @@ class LuServiceType
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set dateAdded
+     *
+     * @param \DateTime $dateAdded
+     *
+     * @return LuServiceType
+     */
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdded
+     *
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
+
+    /**
+     * Set addedBy
+     *
+     * @param string $addedBy
+     *
+     * @return LuServiceType
+     */
+    public function setAddedBy($addedBy)
+    {
+        $this->addedBy = $addedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get addedBy
+     *
+     * @return string
+     */
+    public function getAddedBy()
+    {
+        return $this->addedBy;
     }
 
     /**

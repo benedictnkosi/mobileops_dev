@@ -13,19 +13,9 @@ class UserUserRight
     private $active;
 
     /**
-     * @var string
-     */
-    private $userRightId;
-
-    /**
      * @var \DateTime
      */
     private $dateAdded = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var integer
-     */
-    private $userId;
 
     /**
      * @var string
@@ -36,6 +26,16 @@ class UserUserRight
      * @var integer
      */
     private $userUserRightId;
+
+    /**
+     * @var \User
+     */
+    private $user;
+
+    /**
+     * @var \LuUserRight
+     */
+    private $userRight;
 
 
     /**
@@ -48,7 +48,7 @@ class UserUserRight
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -63,30 +63,6 @@ class UserUserRight
     }
 
     /**
-     * Set userRightId
-     *
-     * @param string $userRightId
-     *
-     * @return UserUserRight
-     */
-    public function setUserRightId($userRightId)
-    {
-        $this->userRightId = $userRightId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userRightId
-     *
-     * @return string
-     */
-    public function getUserRightId()
-    {
-        return $this->userRightId;
-    }
-
-    /**
      * Set dateAdded
      *
      * @param \DateTime $dateAdded
@@ -96,7 +72,7 @@ class UserUserRight
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -111,30 +87,6 @@ class UserUserRight
     }
 
     /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return UserUserRight
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
      * Set modifiedBy
      *
      * @param string $modifiedBy
@@ -144,7 +96,7 @@ class UserUserRight
     public function setModifiedBy($modifiedBy)
     {
         $this->modifiedBy = $modifiedBy;
-    
+
         return $this;
     }
 
@@ -166,6 +118,54 @@ class UserUserRight
     public function getUserUserRightId()
     {
         return $this->userUserRightId;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \User $user
+     *
+     * @return UserUserRight
+     */
+    public function setUser(\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set userRight
+     *
+     * @param \LuUserRight $userRight
+     *
+     * @return UserUserRight
+     */
+    public function setUserRight(\LuUserRight $userRight = null)
+    {
+        $this->userRight = $userRight;
+
+        return $this;
+    }
+
+    /**
+     * Get userRight
+     *
+     * @return \LuUserRight
+     */
+    public function getUserRight()
+    {
+        return $this->userRight;
     }
 }
 

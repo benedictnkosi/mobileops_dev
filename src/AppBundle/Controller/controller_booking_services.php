@@ -57,33 +57,37 @@ function loadRegionServicePrices($entityManager){
 	try {
 		$activeRegionServices            = $entityManager->getRepository('RegionService')->findBy(array('active' => TRUE));
 
-		foreach ($activeRegionServices as &$value) {
-				
-			try {
-
-				$regionServicePrice        = $entityManager->getRepository('RegionServicePrice')->findOneBy(array('active' => TRUE,'regionService' => $value));
-
-				if($regionServicePrice!=NULL){
+		if($activeRegionServices){
+			foreach ($activeRegionServices as &$value) {
+			
+				try {
+					$regionServicePrice        = $entityManager->getRepository('RegionServicePrice')->findOneBy(array('active' => TRUE,'regionService' => $value));
+			
+					if($regionServicePrice!=NULL){
+						//echo "RegionServicePrice found \n";
+						$regionServicePriceDTO = new RegionServicePriceDTO();
+			
+						$regionServicePriceDTO->setDiscountPercentage($regionServicePrice->getDiscountPercentage());
+						$regionServicePriceDTO->setServiceAmount($regionServicePrice->getAmount());
+			
+						$regionServicePriceDTO->setRegion($value->getRegion()->getName());
+						$regionServicePriceDTO->setServiceName($value->getService()->getName());
+			
+						$regionServicePriceDTO->setRegionServiceId($value->getRegionServiceId());
+						$regionServicePriceDTO->setRegionServicePriceId($regionServicePrice->getRegionServicePriceId());
+			
+						array_push($regionServicePriceDTOArray, $regionServicePriceDTO);
+					}
 						
-					$regionServicePriceDTO = new RegionServicePriceDTO();
-						
-					$regionServicePriceDTO->setDiscountPercentage($regionServicePrice->getDiscountPercentage());
-					$regionServicePriceDTO->setServiceAmount($regionServicePrice->getAmount());
-						
-					$regionServicePriceDTO->setRegion($value->getRegion()->getName());
-					$regionServicePriceDTO->setServiceName($value->getService()->getName());
-						
-					$regionServicePriceDTO->setRegionServiceId($value->getRegionServiceId());
-					$regionServicePriceDTO->setRegionServicePriceId($regionServicePrice->getRegionServicePriceId());
-
-					array_push($regionServicePriceDTOArray, $regionServicePriceDTO);
+				} catch (Exception $e) {
+					echo "\n".$e->getTraceAsString();
 				}
-					
-			} catch (Exception $e) {
-				echo "\n".$e->getTraceAsString();
+			
 			}
-
+		}else{
+			echo "RegionService not found \n";
 		}
+		
 
 		return $regionServicePriceDTOArray;
 
@@ -201,9 +205,9 @@ function updateBookingServiceRating($entityManager,$bookingServiceRegionObject,$
 
 function getServiceDTOfromArray($entityManager,$regionName,$serviceName,$servicePriceDTOArray){
 
+
 	try {
 		foreach ($servicePriceDTOArray as &$priceItemDTO){
-			
 			if($priceItemDTO!=NULL){
 				if($priceItemDTO->equals($regionName,$serviceName)){
 					return $priceItemDTO;

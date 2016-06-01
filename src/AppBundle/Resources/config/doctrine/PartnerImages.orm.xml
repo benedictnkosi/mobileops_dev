@@ -7,11 +7,6 @@
     <id name="imageId" type="integer" column="image_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="userId" type="integer" column="user_id" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="imageName" type="string" column="image_name" length="45" nullable="true">
       <options>
         <option name="fixed"/>
@@ -23,6 +18,11 @@
         <option name="default">1</option>
       </options>
     </field>
+    <many-to-one field="user" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="user_id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
 

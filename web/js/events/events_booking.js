@@ -7,14 +7,14 @@ $(document).ready(
         sessionStorage.mobileops_providerSelected = "false";
 
         $("#cmdCompleteBooking").click(function() {
+        	
             $(this).after("<img src='web/images/ajax-loader.gif' alt='loading' />").fadeIn();
             completeBooking();
         });
+        
 
+        
         $('#booking_heading').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();
-
-
-
 
         if (getCookie("mobileops_temp_login") == null) {
             if (getCookie("mobileops")) {
@@ -108,6 +108,8 @@ function getAllServices() {
                 $('.loading').remove();
                 var SkillAccordian = document.getElementById("accordion");
                 var data = response.message;
+                
+                
                 for (i = 0; i < data.length; i++) {
                     var arraySkills = data[i];
 
@@ -122,6 +124,7 @@ function getAllServices() {
                         if (j == 0) {
                             var h = document.createElement("H3"); // <h3>Hair</h3>
                             h.appendChild(document.createTextNode(skill));
+                            h.name = "testing";
                             SkillAccordian.appendChild(h);
                             categoryDiv.id = "div_" + skill;
 
@@ -164,7 +167,9 @@ function getAllServices() {
 
                 $("#accordion").accordion({
                     activate: function(event, ui) {
+                    	sessionStorage.mobileops_SelectedServicesCategory = $('.ui-accordion-header-active').attr('aria-controls');
                         clearSelections();
+                        
                     }
                 });
 
@@ -561,14 +566,52 @@ function getClientProfile() {
 
 function getTotalAmountDue(formdata) {
 
-	if($('#input_street_name').val().length < 1 || $('#input_street_number').val().length < 1 ){
+	if($('#input_street_name').val().length < 1 && $('#input_street_number').val().length < 1 ){
 		$('#lbl_address_message').show(function() {
 			$(this).fadeOut(6000);}
 		);
 		
-		
-		$('form.idealforms').idealforms('goToStep',0);
+		$("html, body").animate({
+            scrollTop: $(
+                    ".container")
+                .offset().top
+        },
+        "slow");
 		return;
+	}
+
+	
+	if($('#input_street_name').val().length > 1 && $('#input_street_number').val().length < 1 ){
+		var streetNumber = prompt("Please enter your street number", "");
+		if (streetNumber != null) {
+    		if(!isNaN(streetNumber)){
+    			$("#input_street_number").val(streetNumber);
+    		}else{
+    			$('#lbl_address_message').show(function() {
+	    			$(this).fadeOut(6000);}
+	    		);
+	    		
+	    		$("html, body").animate({
+                    scrollTop: $(
+                            ".container")
+                        .offset().top
+                },
+                "slow");
+	    		return;
+    		}
+		}else{
+			$('#lbl_address_message').show(function() {
+    			$(this).fadeOut(6000);}
+    		);
+    		
+    		$("html, body").animate({
+                scrollTop: $(
+                        ".container")
+                    .offset().top
+            },
+            "slow");
+    		return;
+		}
 	}
 
 	
@@ -616,7 +659,7 @@ function getTotalAmountDue(formdata) {
                     var cell1 = row.insertCell(0);
                     var cell2 = row.insertCell(1);
 
-                    cell1.innerHTML = response.message[i][0];
+                    cell1.innerHTML = $('.ui-accordion-header-active').attr('aria-controls').replace("div_", "") + " - " + response.message[i][0];
                     cell2.innerHTML = "R" +
                         parseFloat(
                             Math
@@ -655,14 +698,52 @@ function getTotalAmountDue(formdata) {
 
 function getBestPartners(formdata) {
 	
-	if($('#input_street_name').val().length < 1 || $('#input_street_number').val().length < 1 ){
+	if($('#input_street_name').val().length < 1 && $('#input_street_number').val().length < 1 ){
 		$('#lbl_address_message').show(function() {
 			$(this).fadeOut(6000);}
 		);
 		
-		
-		$('form.idealforms').idealforms('goToStep',0);
+		$("html, body").animate({
+            scrollTop: $(
+                    ".container")
+                .offset().top
+        },
+        "slow");
 		return;
+	}
+
+	
+	if($('#input_street_name').val().length > 1 && $('#input_street_number').val().length < 1 ){
+		var streetNumber = prompt("Please enter your street number", "");
+		if (streetNumber != null) {
+    		if(!isNaN(streetNumber)){
+    			$("#input_street_number").val(streetNumber);
+    		}else{
+    			$('#lbl_address_message').show(function() {
+	    			$(this).fadeOut(6000);}
+	    		);
+	    		
+	    		$("html, body").animate({
+                    scrollTop: $(
+                            ".container")
+                        .offset().top
+                },
+                "slow");
+	    		return;
+    		}
+		}else{
+			$('#lbl_address_message').show(function() {
+    			$(this).fadeOut(6000);}
+    		);
+    		
+    		$("html, body").animate({
+                scrollTop: $(
+                        ".container")
+                    .offset().top
+            },
+            "slow");
+    		return;
+		}
 	}
 
     $('#h3_select_partner').after("<img src='web/images/ajax-loader.gif' alt='loading' class='loading'/>").fadeIn();
@@ -679,23 +760,7 @@ function getBestPartners(formdata) {
                             selectPartner(event));
                     });
 
-                $(".rating ").rating({
-                    starCaptions: {
-                        0: "Not Rated",
-                        1: "Very Poor",
-                        2: "Poor",
-                        3: "Ok",
-                        4: "Good",
-                        5: "Very Good"
-                    },
-                    starCaptionClasses: {
-                        1: "text-danger",
-                        2: "text-warning",
-                        3: "text-info",
-                        4: "text-primary",
-                        5: "text-success"
-                    },
-                });
+
             });
 }
 
@@ -764,6 +829,7 @@ function completeBooking() {
             $('.idealforms').serialize(),
             function(
                 response) {
+
                 if (response.message
                     .indexOf("Successful") > -1) {
                     window.location.href = "/index.php?bookingdetails=" + response.bookingid + "&uuid=" + response.uuid;

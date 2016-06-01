@@ -63,8 +63,10 @@
 
 <header id="header" class="alt skel-layers-fixed">
 
-<h1><a href="index.php?home">MOBILEOPS SERVICES</a>
-<br>	</h1>
+<h1>
+<a href="index.php?home" class="icon fa-home"> MOBILEOPS SERVICES</a>
+<br>
+</h1>
 
 <nav id="nav">
 
@@ -72,6 +74,7 @@
 	
 	<li><a href="index.php?bookingsByStatus">BOOKINGS BY STATUS</a></li>
 	<li><a href="index.php?services_management">MANAGE SERVICES</a></li>
+	<li><a href="index.php?pricelist">PRICES</a></li>
 	<li><a href="index.php?logout=true">LOGOUT</a></li>
 
 </ul>

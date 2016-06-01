@@ -38,7 +38,7 @@ class LuAccountStatus
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -62,7 +62,7 @@ class LuAccountStatus
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-    
+
         return $this;
     }
 
@@ -86,7 +86,7 @@ class LuAccountStatus
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-    
+
         return $this;
     }
 

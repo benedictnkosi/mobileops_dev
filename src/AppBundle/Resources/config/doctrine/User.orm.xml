@@ -36,20 +36,9 @@
       </options>
     </field>
     <field name="passwordLastChanged" type="datetime" column="password_last_changed" nullable="true"/>
-    <field name="userUserAccountStatusId" type="string" column="user_user_account_status_id" length="45" nullable="false">
-      <options>
-        <option name="fixed"/>
-        <option name="default">ACCOUNT_NOT_VERIFIED</option>
-      </options>
-    </field>
     <field name="dateCreated" type="datetime" column="date_created" nullable="true">
       <options>
         <option name="default">CURRENT_TIMESTAMP</option>
-      </options>
-    </field>
-    <field name="userUserRole" type="string" column="user_user_role" length="45" nullable="true">
-      <options>
-        <option name="fixed"/>
       </options>
     </field>
     <field name="facebookNetworkId" type="string" column="facebook_network_id" length="250" nullable="true">
@@ -67,11 +56,21 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="userProfileId" type="integer" column="user_profile_id" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
+    <many-to-one field="userUserRole" target-entity="LuUserRole" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_user_role" referenced-column-name="name"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="userProfile" target-entity="UserProfile" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_profile_id" referenced-column-name="user_profile_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="userUserAccountStatus" target-entity="LuAccountStatus" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_user_account_status_id" referenced-column-name="name"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
 

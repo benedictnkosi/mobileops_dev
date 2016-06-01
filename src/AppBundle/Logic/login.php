@@ -134,7 +134,7 @@ class Login {
 								$json = json_encode($UserDetailsArray);
 
 								//save temp login cookie expiring after 20min
-								setcookie ( "mobileops_temp_login", $json, time () + (1200), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
+								setcookie ( "mobileops_temp_login", $json, strtotime( '+30 days' ), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
 								
 								if (isset ( $_POST ['rememberme'] )) {
 									setcookie ( "mobileops", $json, time () + (86400 * 30), "/" ); // here we are setting a cookie named username, with the Username on the database that will last 48 hours and will be set on the understandesign.com domain. This is an optional parameter.
@@ -178,7 +178,15 @@ class Login {
 	 */
 	public function doLogout() {
 		try {
-
+			if(!isset($_SESSION))
+			{
+				session_start();
+			}
+			
+		} catch ( Exception $e ) {
+		}
+		
+		try {
 			// unset cookies
 			setcookie ( "mobileops_temp_login", "", time () + (86400 * 31), "/" );
 			setcookie ( "mobileops", "", time () - (86400 * 31), "/" );
@@ -186,9 +194,13 @@ class Login {
 			setcookie ( "fbm_" . FB_APPID, "", time () - (86400 * 31), "/" );
 			setcookie ( "fbsr_" . FB_APPID, "", time () - (86400 * 31), "/" );
 			
-			// delete the session of the user
-			$_SESSION = array ();
-			session_destroy ();
+			if(isset($_SESSION['email_address']))
+			{
+				// delete the session of the user
+				$_SESSION = array ();
+				session_destroy ();
+			}
+			
 				
 			
 			// return a little feeedback message

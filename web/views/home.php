@@ -10,7 +10,7 @@
 			<section id="two" class="wrapper style2">
 				<div class="container">
 				<header class="major">
-						<p> MOBILE	BEAUTY SALON provides a wide range of beauty services to the home. <a href="/index.php?booking">Book now</a> for a hassle-free beauty appointment<br />
+						<p> MOBILEOPS provides a wide range of beauty services to the home. <a href="/index.php?booking">Book now</a> for a hassle-free beauty appointment<br />
 						</p>
 					</header>
 					<div class="row uniform">

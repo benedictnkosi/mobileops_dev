@@ -4,8 +4,6 @@
 <head>
 <title>New Booking</title>
 <script src="web/js/events/events_booking.js"></script>
-
-
 <!-- accodian -->
 
 <link rel="stylesheet"
@@ -35,12 +33,13 @@
 
 <script src="web/js/jquery.datetimepicker.full.min.js"></script>
 
-<!-- rating -->
+<!-- rating 
 
 <link href="web/css/star-rating.min.css" media="all" rel="stylesheet"
 	type="text/css" />
 
 <script src="web/js/star-rating.min.js" type="text/javascript"></script>
+-->
 
 <!-- LOCATION SCRIPTS -->      
  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
@@ -406,7 +405,7 @@
                 </td>
             </tr>
             
-             <tr style="border: none;">
+             <tr style="border: none;background-color:white">
                 <td>
                     <textarea name=bookingNotes cols="50" rows="4" maxlength="500" 
 	placeholder="Special requests and notes" id="txt_bookingNotes"></textarea>
@@ -417,10 +416,10 @@
             <tr>
                
             </tr>
-             <tr style="border: none;">
+             <tr style="border: none;background-color:white">
                 <td>
                     
-<button type="submit" class="submit display-none" id="cmdCompleteBooking" style="margin-right: 1em">Complete Booking</button>
+<button type="submit" onclick="this.disabled=true" class="submit display-none" id="cmdCompleteBooking" style="margin-right: 1em">Complete Booking</button>
         
         
                 </td>
@@ -470,9 +469,6 @@
 </div>
 
 
-
-
-
 </div>
 
 </section>
@@ -489,10 +485,7 @@
 <script>
 
 $("#address").geocomplete({ details: "form" }); 
-	$("#partner_rating").rating({
-    starCaptions: {0: "Not Rated",1: "Very Poor", 2: "Poor", 3: "Ok", 4: "Good", 5: "Very Good"},
-    starCaptionClasses: {1: "text-danger", 2: "text-warning", 3: "text-info", 4: "text-primary", 5: "text-success"},
-    });
+
     
   </script>
 

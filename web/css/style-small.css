@@ -189,6 +189,7 @@ table td {
 
 .booking-container{
 	    padding-left: 1px !important;
+	     width: 100% !important;
 }
 
 #div_Hair{
@@ -197,4 +198,14 @@ table td {
 
 #personalDetails {
     width: 100%;
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0 0px !important;
+    
+}
+
+
+.ideal-radiocheck-label{
+	    font-weight: 200 !important;
 }

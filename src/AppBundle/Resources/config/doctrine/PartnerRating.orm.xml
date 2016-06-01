@@ -8,22 +8,22 @@
     <id name="partnerRatingId" type="integer" column="partner_rating_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="userId" type="integer" column="user_id" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="rating" type="integer" column="rating" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="bookingId" type="integer" column="booking_id" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="dateAdded" type="datetime" column="date_added" nullable="true"/>
+    <many-to-one field="user" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="user_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="booking" target-entity="Booking" fetch="LAZY">
+      <join-columns>
+        <join-column name="booking_id" referenced-column-name="booking_id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
 

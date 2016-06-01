@@ -53,7 +53,7 @@ class RegionServicePrice
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -77,7 +77,7 @@ class RegionServicePrice
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -101,7 +101,7 @@ class RegionServicePrice
     public function setUserAdded($userAdded)
     {
         $this->userAdded = $userAdded;
-    
+
         return $this;
     }
 
@@ -125,7 +125,7 @@ class RegionServicePrice
     public function setAmount($amount)
     {
         $this->amount = $amount;
-    
+
         return $this;
     }
 
@@ -149,7 +149,7 @@ class RegionServicePrice
     public function setDiscountPercentage($discountPercentage)
     {
         $this->discountPercentage = $discountPercentage;
-    
+
         return $this;
     }
 
@@ -183,7 +183,7 @@ class RegionServicePrice
     public function setRegionService(\RegionService $regionService = null)
     {
         $this->regionService = $regionService;
-    
+
         return $this;
     }
 

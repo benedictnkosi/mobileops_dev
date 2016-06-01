@@ -79,19 +79,7 @@
         font-weight:bold;
     }
     
-    @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td{
-            width:100%;
-            display:block;
-            text-align:center;
-        }
-        
-        .invoice-box table tr.information table td{
-            width:100%;
-            display:block;
-            text-align:center;
-        }
-    }
+
     </style>
     
    </head>
@@ -188,7 +176,7 @@
             
 
 
- <tr class="top" >
+ <tr class="top new_booking_time" >
                 <td colspan="2">
                     <table>
                         <tr>
@@ -236,10 +224,25 @@
              <tr style="border: none;background-color:white;" class="tr_buttons" id="tr_all_buttons">
                 <td id="booking-details-buttons">
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
+                   <a id="completeBooking" href="#" class="button">Complete Booking</a>
 				    <a id="fetchPartner" href="#" class="button">Fetch Partners</a>
 				    <a id="updatePartner" href="#" class="button">Update Partner</a>
 				   
 				    <a id="changePartnerAndDate" href="#" class="button">Update Partner & Date</a>
+                </td>
+            </tr>
+            
+            <tr style="border: none;background-color:white;" class="tr_buttons" id="tr_all_buttons">
+                <td>
+                  <h3>RESEND EMAILS</h3>
+                </td>
+            </tr>
+            
+            
+             <tr style="border: none;background-color:white;" class="tr_buttons" id="tr_all_buttons">
+                <td id="booking-details-buttons">
+                   <a id="cmdEmailClientNewBooking" href="#" class="button">CLIENT CONFIRMATION</a>
+                   <a id="cmdEmailPartnerNewBooking" href="#" class="button">PARTNER NEW BOOKING</a>
                 </td>
             </tr>
             

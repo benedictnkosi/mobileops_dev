@@ -28,6 +28,7 @@ if (isset ( $_POST ['saveServices'] )) {
 
 function saveServices($entityManager){
 	try{
+		$ServicesArray = array ();
 		$date = new DateTime();
 		session_start ();
 		$newServicesArray = json_decode(stripslashes($_POST['saveServices']));
@@ -56,7 +57,7 @@ function saveServices($entityManager){
 				}
 			}
 			$entityManager->flush();
-			getPartnerServices($entityManager);
+			$ServicesArray = getPartnerServices($entityManager);
 
 		}
 		
@@ -68,12 +69,22 @@ function saveServices($entityManager){
 				$entityManager->persist($UserUserService);
 			}
 			$entityManager->flush();
-			getPartnerServices($entityManager);
+			$ServicesArray = getPartnerServices($entityManager);
 		}
-			
-		$response['status'] = 1;
+		
+		if(count($ServicesArray) < 1){
+			$response['status'] = 2;
+			$response['services'] = $ServicesArray;
+			$response['message'] = "No changes detected";
+		}else{
+			$response['status'] = 1;
+			$response['services'] = $ServicesArray;
 			$response['message'] = "Services updated successfuliy";
-			echo json_encode($response);
+		}
+		
+		
+		
+		echo json_encode($response);
 		
 	}catch (Exception $e) {
 		$response['status'] = 2;
@@ -98,9 +109,8 @@ function getPartnerServices($entityManager){
 		$_SESSION['partner_services'] = $ServicesArray;
 		//print json_encode ( $ServicesArray );
 
-		$response['status'] = 1;
-		$response['message'] = $ServicesArray;
-		echo json_encode($response);
+		return $ServicesArray;
+		
 	}catch (Exception $e) {
 		$response['status'] = 2;
 		$response['message'] = $e->getMessage();
@@ -113,7 +123,7 @@ function getPartnerServices($entityManager){
 function getAllServices($entityManager){
 	try{
 		$LuService = new LuService();
-		$LuServices = $entityManager->getRepository('LuService')->findBy(array(), array('serviceTypeName' => 'ASC'));
+		$LuServices = $entityManager->getRepository('LuService')->findBy(array('active'=>1), array('serviceTypeName' => 'ASC'));
 
 		$serviceTypeName = "";
 		$allServicesArray = array ();

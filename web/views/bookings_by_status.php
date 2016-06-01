@@ -137,9 +137,6 @@
 	
 </select>
                 </td>
-                 <td>
-                    Action
-                </td>
             </tr>
         </table>
         </div>

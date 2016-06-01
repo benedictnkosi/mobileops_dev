@@ -7,11 +7,6 @@
     <id name="userProfileId" type="integer" column="user_profile_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="addressId" type="integer" column="address_id" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="active" type="boolean" column="active" nullable="true">
       <options>
         <option name="default">1</option>
@@ -57,6 +52,11 @@
         <option name="fixed"/>
       </options>
     </field>
+    <many-to-one field="address" target-entity="Address" fetch="LAZY">
+      <join-columns>
+        <join-column name="address_id" referenced-column-name="address_id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
 

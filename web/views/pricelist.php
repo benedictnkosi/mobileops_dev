@@ -75,7 +75,7 @@
                      <div class="6u 12u(3)">
                      <div class="field">
                     <div class="select-wrapper"><select name="service type" id="dropdown_region">
-	<option value="DEFAULT">----SELECT YOUR AREA-----</option>
+	<option value="DEFAULT">----SELECT YOUR PROVINCE-----</option>
 </select></div></div>
 												
 												

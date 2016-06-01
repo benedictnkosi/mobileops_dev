@@ -6,7 +6,14 @@ $(document).ready(function() {
 		});
 	
 	$( "#dropdown_serviceType" ).change(function() {
-		getPrices();
+		
+		if($(this).find('option:selected').index() == 0){
+			$("#jsontotable-obj").html("");
+			$('#lbl_message').addClass( "display-none" );
+			return;
+		}else{
+			getPrices();
+		}
 		});
 	
 	getRegions();
@@ -34,6 +41,9 @@ success : function(response) {
 
 
 function getServiceCategoriesForRegion(){
+	if($('#dropdown_region').val().localeCompare('DEFAULT')==0){
+		return;
+	}
 	
 	$('#dropdown_serviceType').empty().append('<option value="DEFAULT">----SELECT CATEGORY-----</option>');
 	$('#lbl_message').addClass( "display-none" );

@@ -33,7 +33,7 @@ class LuDatechangeReasons
     public function setReason($reason)
     {
         $this->reason = $reason;
-    
+
         return $this;
     }
 
@@ -57,7 +57,7 @@ class LuDatechangeReasons
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 

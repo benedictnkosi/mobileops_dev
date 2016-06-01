@@ -120,28 +120,12 @@
                                 Booking Ref: <label id="booking_ref_label"></label><br>
                                 Booking Status: <label id="lbl_status"></label><br>
                                 Booking Date: <label id="lbl_date"></label><br>
-                                
-                                
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
             
-             <tr class="top display-none" >
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td class="title">
-                              <div class="field " ><input id="datetimepicker" type="text"> <span
-	class="error"></span></div>
-                            </td>
-                            
-                            
-                        </tr>
-                    </table>
-                </td>
-            </tr>
             
             <tr class="information">
                 <td colspan="2">
@@ -190,7 +174,7 @@
             </tr>
              <tr style="border: none;background-color:white;" id="tr_buttons">
                 <td id="booking-details-buttons">
-                   <a id="addBookingNotes" href="#" class="button">Add Booking Notes</a>
+                   <a id="addBookingNotes" href="#" class="button">Add Notes</a>
                    <a id="cancelBooking" href="#" class="button">Cancel Booking</a>
                 </td>
             </tr>

@@ -201,7 +201,7 @@
         	      
         	    } else {
 
-        	    	if($('#input_street_name').val().length < 1 || $('#input_street_number').val().length < 1 ){
+        	    	if($('#input_street_name').val().length < 1 && $('#input_street_number').val().length < 1 ){
         	    		$('#lbl_address_message').show(function() {
         	    			$(this).fadeOut(6000);}
         	    		);
@@ -213,6 +213,40 @@
                         },
                         "slow");
         	    		return;
+        	    	}
+
+        	    	
+        	    	if($('#input_street_name').val().length > 1 && $('#input_street_number').val().length < 1 ){
+        	    		var streetNumber = prompt("Please enter your street number", "");
+        	    		if (streetNumber != null) {
+            	    		if(!isNaN(streetNumber)){
+            	    			$("#input_street_number").val(streetNumber);
+            	    		}else{
+            	    			$('#lbl_address_message').show(function() {
+                	    			$(this).fadeOut(6000);}
+                	    		);
+                	    		
+                	    		$("html, body").animate({
+                                    scrollTop: $(
+                                            ".container")
+                                        .offset().top
+                                },
+                                "slow");
+                	    		return;
+            	    		}
+        	    		}else{
+        	    			$('#lbl_address_message').show(function() {
+            	    			$(this).fadeOut(6000);}
+            	    		);
+            	    		
+            	    		$("html, body").animate({
+                                scrollTop: $(
+                                        ".container")
+                                    .offset().top
+                            },
+                            "slow");
+            	    		return;
+        	    		}
         	    	}
         	    	
         	      $.post('src/AppBundle/Controller/controller_client_profile.php', this.$form.serialize(), function(response) {  

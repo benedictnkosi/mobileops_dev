@@ -78,7 +78,7 @@ class Address
     public function setStreetName($streetName)
     {
         $this->streetName = $streetName;
-    
+
         return $this;
     }
 
@@ -102,7 +102,7 @@ class Address
     public function setStreetNumber($streetNumber)
     {
         $this->streetNumber = $streetNumber;
-    
+
         return $this;
     }
 
@@ -126,7 +126,7 @@ class Address
     public function setSuburbName($suburbName)
     {
         $this->suburbName = $suburbName;
-    
+
         return $this;
     }
 
@@ -150,7 +150,7 @@ class Address
     public function setCityName($cityName)
     {
         $this->cityName = $cityName;
-    
+
         return $this;
     }
 
@@ -174,7 +174,7 @@ class Address
     public function setProvinceName($provinceName)
     {
         $this->provinceName = $provinceName;
-    
+
         return $this;
     }
 
@@ -198,7 +198,7 @@ class Address
     public function setComplexName($complexName)
     {
         $this->complexName = $complexName;
-    
+
         return $this;
     }
 
@@ -222,7 +222,7 @@ class Address
     public function setLatitude($latitude)
     {
         $this->latitude = $latitude;
-    
+
         return $this;
     }
 
@@ -246,7 +246,7 @@ class Address
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
-    
+
         return $this;
     }
 
@@ -270,7 +270,7 @@ class Address
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -294,7 +294,7 @@ class Address
     public function setAddedBy($addedBy)
     {
         $this->addedBy = $addedBy;
-    
+
         return $this;
     }
 
@@ -318,7 +318,7 @@ class Address
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 

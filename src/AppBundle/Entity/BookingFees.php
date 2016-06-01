@@ -43,7 +43,7 @@ class BookingFees
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -67,7 +67,7 @@ class BookingFees
     public function setDateAdded($dateAdded)
     {
         $this->dateAdded = $dateAdded;
-    
+
         return $this;
     }
 
@@ -101,7 +101,7 @@ class BookingFees
     public function setFee(\LuFee $fee = null)
     {
         $this->fee = $fee;
-    
+
         return $this;
     }
 
@@ -125,7 +125,7 @@ class BookingFees
     public function setBooking(\Booking $booking = null)
     {
         $this->booking = $booking;
-    
+
         return $this;
     }
 

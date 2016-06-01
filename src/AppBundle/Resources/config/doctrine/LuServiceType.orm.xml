@@ -9,6 +9,16 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <field name="dateAdded" type="datetime" column="date_added" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="addedBy" type="string" column="added_by" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
   </entity>
 </doctrine-mapping>
 

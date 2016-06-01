@@ -17,7 +17,7 @@ define("NOTIFICATION_EMAIL_GROUP", "info@mobileops.co.za,nkosi.benedict@gmail.co
 define("DOMAIN_NAME", "mobileops.co.za");
 define("COUNTRY", "South Africa");
 define('GENERIC_SYSTEM_ERROR', "An error occurred, please contact system administrator @ info@mobileops.co.za");
-define("RADIUS", 0.1019);
+define("RADIUS", 1.1019);
 
 
 
