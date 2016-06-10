@@ -138,6 +138,14 @@ function getPartnerProfile() {
             $('#input_suburb').val(data['suburb']);
             $('#input_province').val(data['province']);
             $('#txt_personalNote').val(data['personalNote']);
+           
+           
+            
+            if(data['mobility']){
+            	 $('input[value="' + data['mobility'] + '"]').parent( ".ideal-radiocheck-label" ).click();
+            }
+           
+           
         },
     });
 }

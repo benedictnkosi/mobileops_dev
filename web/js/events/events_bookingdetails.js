@@ -312,6 +312,7 @@ function getBookingDetails(){
 			var element = document.getElementById("lbl_status");
 			element.appendChild(document.createTextNode(bookingStatus));
 			
+			
 			//selected services
 			var servicesArray = data['booking_services'];
 			addServicesRows(servicesArray);

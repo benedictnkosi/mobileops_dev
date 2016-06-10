@@ -310,8 +310,7 @@
 		 background: white;
 	}
 
-	input[type="checkbox"],
-	input[type="radio"] {
+	input[type="checkbox"]{
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-o-appearance: none;

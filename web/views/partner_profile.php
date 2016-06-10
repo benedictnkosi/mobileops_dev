@@ -18,7 +18,8 @@
 
 
 <script src="web/js/star-rating.min.js" type="text/javascript"></script>
-<script src="web/js/events/events_partnerprofile.js" type="text/javascript"></script>
+<script src="web/js/events/events_partnerprofile.js"
+	type="text/javascript"></script>
 
 <!-- image upload -->
 <script src="/web/js/ajaxupload.js" type="text/javascript"></script>
@@ -35,6 +36,14 @@
 
 
 <style>
+form.idealforms .ideal-radiocheck-label {
+	display: inline !important;
+	padding: .25em 0 !important;
+	cursor: pointer;
+	clear: none !important;
+	float: left;
+}
+
 .field.buttons button {
 	margin-right: .5em;
 }
@@ -77,165 +86,212 @@
 	cursor: pointer;
 	cursor: hand;
 }
+
+.group {
+	background: transparent !important;
+}
 </style>
 
 
 </head>
 <body class="landing">
-<!-- one -->
-<section id="one" class="wrapper style1">
-<div class="container"><input id="partner_rating" class="rating"
-	value="3" data-min="0" data-max="5" data-disabled="true" data-size="xs"><section>
+	<!-- one -->
+	<section id="one" class="wrapper style1">
+		<div class="container">
+			<section>
 
 
-<h3>Personal Details</h3>
+				<h3>Personal Details</h3>
 
 
-<form class="idealforms" novalidate action="/" method="post"><!-- Text -->
+				<form class="idealforms" novalidate action="/" method="post">
+					<!-- Text -->
 
 
-   <div class="row uniform">
-   <div class="12u">
-                  <div id="lbl_address_message" class="alert display-none alert-danger"  >Address must contains street name and street number
-</div>
-</div></div>
+					<div class="row uniform">
+						<div class="12u">
+							<div id="lbl_address_message"
+								class="alert display-none alert-danger">Address must contains
+								street name and street number</div>
+						</div>
+					</div>
 
 
-<div class="row uniform">
-<div class="12u">
-<div id="lbl_message" class="alert display-none"></div>
-</div>
-</div>
+					<div class="row uniform">
+						<div class="12u">
+							<div id="lbl_message" class="alert display-none"></div>
+						</div>
+					</div>
 
-<div class="row uniform">
-<div class="6u 12u(3)">
-<div class="field"><input type="text" name="savePersonalDetails"
-	value="partner" style="display: none;" /> <input type="text"
-	name="firstname" id="firstname" value="" placeholder="First Name" /> <span
-	class="error"></span></div>
-</div>
-<div class="6u 12u(3)">
-<div class="field"><input type="text" name="surname" id="surname"
-	value="" placeholder="Surname" /> <span class="error"></span></div>
-</div>
-</div>
-
-
-<div class="row uniform">
-<div class="6u 12u(3)">
-<div class="field"><input type="email" name="email" id="email" value=""
-	placeholder="Email" disabled="true" /> <span class="error"></span></div>
-</div>
-<div class="6u 12u(3)">
-<div class="field"><input type="text" name="mobile_number"
-	id="mobile_number" value="" placeholder="Phone Number" /> <span
-	class="error"></span></div>
-</div>
-</div>
-
-<div class="row uniform">
-<div class="6u 12u(3)">
-<div class="field"><input type="text" name="address" id="address"
-	value=""
-	placeholder="Street Address e.g. 340 Kent Avenue, Randburg, South Africa" />
-<span class="error"></span></div>
-</div>
-<div class="6u 12u(3)">
-<div class="field"><input type="text" name="complex" id="complex"
-	value="" placeholder="Complex Name" /> <span class="error"></span></div>
-</div>
-</div>
-
-<div class="row uniform">
-<div class="6u 12u(1)">
-<div class="field"><textarea name="personalNote" cols="100" rows="4"
-	placeholder="Tell us about your self" id="txt_personalNote"
-	maxlength="200" style="width: 100%;"></textarea> <span class="error"></span></div>
-</div>
-</div>
-
-<div class="row uniform  display-none">
-<div class="6u 12u(3)">
-
-<div class="field"><input name="lat" type="text" value=""
-	class="googleResults" id="input_Latitude"> <span class="error"></span>
-</div>
-</div>
-<div class="6u 12u(3)">
-<div class="field"><input name="lng" type="text" value=""
-	class="googleResults" id="input_Longitude"> <span class="error"></span>
-</div>
-</div>
-
-<div class="6u 12u(3)">
-<div class="field"><input name="administrative_area_level_1" type="text"
-	value="" class="googleResults" id="input_province"> <span class="error"></span>
-</div>
-</div>
-
-
-<div class="6u 12u(3)">
-<div class="field"><input name="locality" type="text"
-	value="" class="googleResults" id="input_suburb"> <span class="error"></span>
-</div>
-</div>
-
-
-<div class="6u 12u(3)">
-<div class="field"><input name="route" type="text" value=""
-	class="googleResults" id="input_street_name"> <span class="error"></span>
-</div>
-</div>
-
-<div class="6u 12u(3)">
-<div class="field"><input name="street_number" type="text" value=""
-	class="googleResults" id="input_street_number"> <span class="error"></span>
-</div>
-</div>
-
-
-<div class="6u 12u(3)">
-<div class="field"><input name="sublocality" type="text" value=""
-	class="googleResults" id="input_city"> <span class="error"></span></div>
-</div>
-
-</div>
+					<div class="row uniform">
+						<div class="6u 12u(1)">
+							<div class="field">
+								<p class="group">
+									<label>Mobility:</label> <label><input name="mobility"
+										type="radio" value="Walk-In Only">Walk-In Only</label> <label><input
+										name="mobility" type="radio" value="Mobile">Mobile</label> <label><input
+										name="mobility" type="radio" value="Both">Both</label>
+								</p>
+								<span class="error"></span>
+							</div>
+						</div>
+					</div>
 
 
 
-<!-- Button -->
-<button type="submit" id="cmdSaveDetails">Save Details</button>
-
-</form>
-</section></div>
-</section>
-<!-- Two -->
-<section id="two" class="wrapper style2">
-<div class="container">
-<h3>Partner Services</h3>
-<div id="partnerServicesDiv"></div>
-<a href="index.php?updateservices" class="button">Update Services</a></div>
-</section>
-
-
-<!-- Three -->
-
-<section id="three" class="wrapper style2">
-<div class="container">
-<h3>Partner Gallery Images</h3>
-<form action="/src/AppBundle/Logic/file_upload.php" class="dropzone"
-	id="fileUpload_dropzone"></form>
-</div>
-</section>
-
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-
-<script src="web/js/out/jquery.idealforms.js"></script>
+					<div class="row uniform">
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input type="text" name="savePersonalDetails" value="partner"
+									style="display: none;" /> <input type="text" name="firstname"
+									id="firstname" value="" placeholder="First Name" /> <span
+									class="error"></span>
+							</div>
+						</div>
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input type="text" name="surname" id="surname" value=""
+									placeholder="Surname" /> <span class="error"></span>
+							</div>
+						</div>
+					</div>
 
 
+					<div class="row uniform">
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input type="email" name="email" id="email" value=""
+									placeholder="Email" disabled="true" /> <span class="error"></span>
+							</div>
+						</div>
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input type="text" name="mobile_number" id="mobile_number"
+									value="" placeholder="Phone Number" /> <span class="error"></span>
+							</div>
+						</div>
+					</div>
 
-<script type="text/javascript">
+					<div class="row uniform">
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input type="text" name="address" id="address" value=""
+									placeholder="Street Address e.g. 340 Kent Avenue, Randburg, South Africa" />
+								<span class="error"></span>
+							</div>
+						</div>
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input type="text" name="complex" id="complex" value=""
+									placeholder="Complex Name" /> <span class="error"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row uniform">
+						<div class="6u 12u(1)">
+							<div class="field">
+								<textarea name="personalNote" cols="100" rows="4"
+									placeholder="Tell us about your self" id="txt_personalNote"
+									maxlength="200" style="width: 100%;"></textarea>
+								<span class="error"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row uniform  display-none">
+						<div class="6u 12u(3)">
+
+							<div class="field">
+								<input name="lat" type="text" value="" class="googleResults"
+									id="input_Latitude"> <span class="error"></span>
+							</div>
+						</div>
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input name="lng" type="text" value="" class="googleResults"
+									id="input_Longitude"> <span class="error"></span>
+							</div>
+						</div>
+
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input name="administrative_area_level_1" type="text" value=""
+									class="googleResults" id="input_province"> <span class="error"></span>
+							</div>
+						</div>
+
+
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input name="locality" type="text" value=""
+									class="googleResults" id="input_suburb"> <span class="error"></span>
+							</div>
+						</div>
+
+
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input name="route" type="text" value="" class="googleResults"
+									id="input_street_name"> <span class="error"></span>
+							</div>
+						</div>
+
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input name="street_number" type="text" value=""
+									class="googleResults" id="input_street_number"> <span
+									class="error"></span>
+							</div>
+						</div>
+
+
+						<div class="6u 12u(3)">
+							<div class="field">
+								<input name="sublocality" type="text" value=""
+									class="googleResults" id="input_city"> <span class="error"></span>
+							</div>
+						</div>
+
+					</div>
+
+
+
+					<!-- Button -->
+					<button type="submit" id="cmdSaveDetails">Save Details</button>
+
+				</form>
+			</section>
+		</div>
+	</section>
+	<!-- Two -->
+	<section id="two" class="wrapper style2">
+		<div class="container">
+			<h3>Partner Services</h3>
+			<div id="partnerServicesDiv"></div>
+			<a href="index.php?updateservices" class="button">Update Services</a>
+		</div>
+	</section>
+
+
+	<!-- Three -->
+
+	<section id="three" class="wrapper style2">
+		<div class="container">
+			<h3>Partner Gallery Images</h3>
+			<form action="/src/AppBundle/Logic/file_upload.php" class="dropzone"
+				id="fileUpload_dropzone"></form>
+		</div>
+	</section>
+
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+	<script src="web/js/out/jquery.idealforms.js"></script>
+
+
+
+	<script type="text/javascript">
 
 
       $("#address").geocomplete({ details: "form" }); 
@@ -263,7 +319,23 @@
         	    if (invalid) {
         	      
         	    } else {
+        	    	
+            	    if(!$('input:radio[name=mobility]:checked').val()){
+            	    	$('#lbl_message').text('Please select mobility');
+        	  			$('#lbl_message').removeClass( "display-none alert-success alert-warning" ).addClass( "alert-danger" );
+        	  		
+        	  		$(
+                    "html, body")
+                .animate({
+                        scrollTop: $(
+                                ".container")
+                            .offset().top
+                    },
+                    "slow");
+                    return;
+            	    }
 
+            	    
         	    	if($('#input_street_name').val().length < 1 && $('#input_street_number').val().length < 1 ){
         	    		$('#lbl_address_message').show(function() {
         	    			$(this).fadeOut(6000);}

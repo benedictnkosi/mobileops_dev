@@ -120,6 +120,7 @@
                                 Booking Ref: <label id="booking_ref_label"></label><br>
                                 Booking Status: <label id="lbl_status"></label><br>
                                 Booking Date: <label id="lbl_date"></label><br>
+                                
                             </td>
                         </tr>
                     </table>
