@@ -3,9 +3,9 @@
 
 
 /**
- * RegionService
+ * PartnerService
  */
-class RegionService
+class PartnerService
 {
     /**
      * @var boolean
@@ -33,9 +33,9 @@ class RegionService
     private $service;
 
     /**
-     * @var \LuRegion
+     * @var \UserProfile
      */
-    private $region;
+    private $partnerProfile;
 
 
     /**
@@ -43,7 +43,7 @@ class RegionService
      *
      * @param boolean $active
      *
-     * @return RegionService
+     * @return PartnerService
      */
     public function setActive($active)
     {
@@ -67,7 +67,7 @@ class RegionService
      *
      * @param \DateTime $dateAdded
      *
-     * @return RegionService
+     * @return PartnerService
      */
     public function setDateAdded($dateAdded)
     {
@@ -91,7 +91,7 @@ class RegionService
      *
      * @param string $addedBy
      *
-     * @return RegionService
+     * @return PartnerService
      */
     public function setAddedBy($addedBy)
     {
@@ -125,7 +125,7 @@ class RegionService
      *
      * @param \LuService $service
      *
-     * @return RegionService
+     * @return PartnerService
      */
     public function setService(\LuService $service = null)
     {
@@ -145,27 +145,27 @@ class RegionService
     }
 
     /**
-     * Set region
+     * Set partnerProfile
      *
-     * @param \LuRegion $region
+     * @param \UserProfile $partnerProfile
      *
-     * @return RegionService
+     * @return PartnerService
      */
-    public function setRegion(\LuRegion $region = null)
+    public function setPartnerProfile(\UserProfile $partnerProfile = null)
     {
-        $this->region = $region;
+        $this->partnerProfile = $partnerProfile;
 
         return $this;
     }
 
     /**
-     * Get region
+     * Get partnerProfile
      *
-     * @return \LuRegion
+     * @return \UserProfile
      */
-    public function getRegion()
+    public function getPartnerProfile()
     {
-        return $this->region;
+        return $this->partnerProfile;
     }
 }
 

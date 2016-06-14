@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="BookingServiceRegion" table="booking_service_region">
+  <entity name="BookingService" table="booking_service">
     <indexes>
       <index name="booking_id_idx" columns="booking_id"/>
     </indexes>
-    <id name="bookingServiceRegionId" type="integer" column="booking_service_region_id">
+    <id name="bookingServiceId" type="integer" column="booking_service_id">
       <generator strategy="IDENTITY"/>
     </id>
     <field name="active" type="boolean" column="active" nullable="true">
@@ -12,7 +12,7 @@
         <option name="default">1</option>
       </options>
     </field>
-    <field name="regionServiceId" type="integer" column="region_service_id" nullable="true">
+    <field name="partnerServiceId" type="integer" column="partner_service_id" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>

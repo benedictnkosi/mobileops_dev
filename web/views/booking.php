@@ -49,6 +49,66 @@
 <meta charset=utf-8 />
 
 <style>
+
+.demo-tags {
+  margin: 1em 0;
+  padding: 0;
+  list-style-type: none;
+  display: inline-block;
+      float: right;
+}
+.demo-tags li {
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  position: relative;
+  margin: 0 1em 0.6em 0;
+}
+
+.demo-tags a {
+  background: #39beef;
+  color: #fff;
+  font-size: 18px;
+  font-size: 1.8rem;
+  text-decoration: none;
+  -webkit-border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  padding: 18px 20px;
+}
+
+
+.demo-tags a:after {
+  content: "";
+  float: right;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-left: 30px solid #39beef;
+  border-bottom: 30px solid transparent;
+}
+
+
+.demo-tags a:before {
+  content: "";
+  position: absolute;
+  top: 27px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #8ec6b9;
+  -moz-box-shadow: -1px -1px 1px #424444;
+  -webkit-box-shadow: -1px -1px 1px #424444;
+  box-shadow: -1px -1px 1px #424444;
+}
+
+
 .radio-inline input[type=radio]{
 	    margin-top: 0.3em;
 }

@@ -3,9 +3,9 @@
 
 
 /**
- * RegionServicePrice
+ * PartnerServicePrice
  */
-class RegionServicePrice
+class PartnerServicePrice
 {
     /**
      * @var boolean
@@ -38,7 +38,7 @@ class RegionServicePrice
     private $regionServicePriceId;
 
     /**
-     * @var \RegionService
+     * @var \PartnerService
      */
     private $regionService;
 
@@ -48,7 +48,7 @@ class RegionServicePrice
      *
      * @param boolean $active
      *
-     * @return RegionServicePrice
+     * @return PartnerServicePrice
      */
     public function setActive($active)
     {
@@ -72,7 +72,7 @@ class RegionServicePrice
      *
      * @param \DateTime $dateAdded
      *
-     * @return RegionServicePrice
+     * @return PartnerServicePrice
      */
     public function setDateAdded($dateAdded)
     {
@@ -96,7 +96,7 @@ class RegionServicePrice
      *
      * @param string $userAdded
      *
-     * @return RegionServicePrice
+     * @return PartnerServicePrice
      */
     public function setUserAdded($userAdded)
     {
@@ -120,7 +120,7 @@ class RegionServicePrice
      *
      * @param float $amount
      *
-     * @return RegionServicePrice
+     * @return PartnerServicePrice
      */
     public function setAmount($amount)
     {
@@ -144,7 +144,7 @@ class RegionServicePrice
      *
      * @param float $discountPercentage
      *
-     * @return RegionServicePrice
+     * @return PartnerServicePrice
      */
     public function setDiscountPercentage($discountPercentage)
     {
@@ -176,11 +176,11 @@ class RegionServicePrice
     /**
      * Set regionService
      *
-     * @param \RegionService $regionService
+     * @param \PartnerService $regionService
      *
-     * @return RegionServicePrice
+     * @return PartnerServicePrice
      */
-    public function setRegionService(\RegionService $regionService = null)
+    public function setRegionService(\PartnerService $regionService = null)
     {
         $this->regionService = $regionService;
 
@@ -190,7 +190,7 @@ class RegionServicePrice
     /**
      * Get regionService
      *
-     * @return \RegionService
+     * @return \PartnerService
      */
     public function getRegionService()
     {

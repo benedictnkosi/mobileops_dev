@@ -38,7 +38,7 @@ class ServiceRemark
     private $remarkType;
 
     /**
-     * @var \BookingServiceRegion
+     * @var \BookingService
      */
     private $bookingService;
 
@@ -176,11 +176,11 @@ class ServiceRemark
     /**
      * Set bookingService
      *
-     * @param \BookingServiceRegion $bookingService
+     * @param \BookingService $bookingService
      *
      * @return ServiceRemark
      */
-    public function setBookingService(\BookingServiceRegion $bookingService = null)
+    public function setBookingService(\BookingService $bookingService = null)
     {
         $this->bookingService = $bookingService;
 
@@ -190,7 +190,7 @@ class ServiceRemark
     /**
      * Get bookingService
      *
-     * @return \BookingServiceRegion
+     * @return \BookingService
      */
     public function getBookingService()
     {

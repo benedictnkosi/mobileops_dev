@@ -25,7 +25,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="bookingGuid" type="string" column="booking_guid" length="45" nullable="true">
+    <field name="bookingGuid" type="string" column="booking_guid" length="45" nullable="false">
       <options>
         <option name="fixed"/>
       </options>

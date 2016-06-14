@@ -47,7 +47,7 @@ width:100%;
       <section id="one" class="wrapper style1">
          <div class="container">
             <header class="major">
-						<h2>PARTNER REGISTRATION</h2>
+						<h2>SERVICE PROVIDER REGISTRATION</h2>
 						
 					</header>
             <!-- Form --> 

@@ -182,7 +182,7 @@ function getAllServices() {
 											sessionStorage.mobileops_SelectedServicesCategory = $(
 													'.ui-accordion-header-active')
 													.attr('aria-controls');
-											clearSelections();
+											//clearSelections();
 
 										}
 									});

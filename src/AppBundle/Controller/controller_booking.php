@@ -1620,6 +1620,10 @@ function outputPartnerToBrowser($partner, $ratingAvg, $entityManager) {
 		
 	$userMobility = getPartnerMobility ( $entityManager, $partner->getEmailAddress () );
 	
+	echo '<ul class="demo-tags">
+  <li><a href="#">R450.00</a></li>
+</ul>';
+	
 	if ($userMobility) {
 		$partnerMobility = $userMobility->getUserMobility ();
 		if (strcmp($partnerMobility, 'Both') == 0) {
@@ -1636,6 +1640,8 @@ function outputPartnerToBrowser($partner, $ratingAvg, $entityManager) {
 		
 	}
 	
+	
+	
 	if (isset ( $_SESSION ['user_role'] )) {
 		if (strcmp ( $_SESSION ['user_role'], 'ADMINISTRATOR' ) == 0) {
 			echo '<h3 style="margin-top: 5px;" id="lblpartner_tel' . $partner->getUserId () . '">' . $partner->getUserProfile ()->getPhoneNumber () . '</h3>';
@@ -1643,7 +1649,7 @@ function outputPartnerToBrowser($partner, $ratingAvg, $entityManager) {
 	}
 	
 	echo '<p>' . distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ) . ' KM away from you. Service provider in <b>' . $partner->getUserProfile ()->getAddress ()->getSuburbName () . ', ' . $partner->getUserProfile ()->getAddress ()->getCityName () . '</b></p>';
-	echo '<p>' . $partner->getUserProfile ()->getPersonalNote () . '</p>';
+	//echo '<p>' . $partner->getUserProfile ()->getPersonalNote () . '</p>';
 	// echo '<input id="partner_rating" class="rating"
 	// value="' . $ratingAvg . '" data-min="0" data-max="5" data-disabled="true" data-size="xs">';
 	

@@ -4,9 +4,9 @@
     <id name="name" type="string" column="name" length="45">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="active" type="integer" column="active" nullable="true">
+    <field name="active" type="boolean" column="active" nullable="true">
       <options>
-        <option name="unsigned"/>
+        <option name="default">1</option>
       </options>
     </field>
     <field name="dateAdded" type="datetime" column="date_added" nullable="true">

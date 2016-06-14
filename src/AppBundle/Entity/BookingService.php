@@ -3,9 +3,9 @@
 
 
 /**
- * BookingServiceRegion
+ * BookingService
  */
-class BookingServiceRegion
+class BookingService
 {
     /**
      * @var boolean
@@ -15,7 +15,7 @@ class BookingServiceRegion
     /**
      * @var integer
      */
-    private $regionServiceId;
+    private $partnerServiceId;
 
     /**
      * @var string
@@ -60,7 +60,7 @@ class BookingServiceRegion
     /**
      * @var integer
      */
-    private $bookingServiceRegionId;
+    private $bookingServiceId;
 
     /**
      * @var \Booking
@@ -73,7 +73,7 @@ class BookingServiceRegion
      *
      * @param boolean $active
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setActive($active)
     {
@@ -93,27 +93,27 @@ class BookingServiceRegion
     }
 
     /**
-     * Set regionServiceId
+     * Set partnerServiceId
      *
-     * @param integer $regionServiceId
+     * @param integer $partnerServiceId
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
-    public function setRegionServiceId($regionServiceId)
+    public function setPartnerServiceId($partnerServiceId)
     {
-        $this->regionServiceId = $regionServiceId;
+        $this->partnerServiceId = $partnerServiceId;
 
         return $this;
     }
 
     /**
-     * Get regionServiceId
+     * Get partnerServiceId
      *
      * @return integer
      */
-    public function getRegionServiceId()
+    public function getPartnerServiceId()
     {
-        return $this->regionServiceId;
+        return $this->partnerServiceId;
     }
 
     /**
@@ -121,7 +121,7 @@ class BookingServiceRegion
      *
      * @param string $comments
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setComments($comments)
     {
@@ -145,7 +145,7 @@ class BookingServiceRegion
      *
      * @param boolean $rating
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setRating($rating)
     {
@@ -169,7 +169,7 @@ class BookingServiceRegion
      *
      * @param \DateTime $dateCreated
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setDateCreated($dateCreated)
     {
@@ -193,7 +193,7 @@ class BookingServiceRegion
      *
      * @param float $serviceAmount
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setServiceAmount($serviceAmount)
     {
@@ -217,7 +217,7 @@ class BookingServiceRegion
      *
      * @param float $discountPercentage
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setDiscountPercentage($discountPercentage)
     {
@@ -241,7 +241,7 @@ class BookingServiceRegion
      *
      * @param float $actualAmountToPay
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setActualAmountToPay($actualAmountToPay)
     {
@@ -265,7 +265,7 @@ class BookingServiceRegion
      *
      * @param string $serviceName
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setServiceName($serviceName)
     {
@@ -289,7 +289,7 @@ class BookingServiceRegion
      *
      * @param string $serviceType
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setServiceType($serviceType)
     {
@@ -309,13 +309,13 @@ class BookingServiceRegion
     }
 
     /**
-     * Get bookingServiceRegionId
+     * Get bookingServiceId
      *
      * @return integer
      */
-    public function getBookingServiceRegionId()
+    public function getBookingServiceId()
     {
-        return $this->bookingServiceRegionId;
+        return $this->bookingServiceId;
     }
 
     /**
@@ -323,7 +323,7 @@ class BookingServiceRegion
      *
      * @param \Booking $booking
      *
-     * @return BookingServiceRegion
+     * @return BookingService
      */
     public function setBooking(\Booking $booking = null)
     {

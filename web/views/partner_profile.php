@@ -269,7 +269,9 @@ form.idealforms .ideal-radiocheck-label {
 		<div class="container">
 			<h3>Partner Services</h3>
 			<div id="partnerServicesDiv"></div>
-			<a href="index.php?updateservices" class="button">Update Services</a>
+			<a href="index.php?partnerservices" class="button">Update My Services</a>
+			<a href="index.php?partnerprices" class="button">Update My Prices</a>
+			<a href="index.php?requestservice" class="button">Request A New Service</a>
 		</div>
 	</section>
 

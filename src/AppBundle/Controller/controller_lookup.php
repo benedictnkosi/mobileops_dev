@@ -12,7 +12,7 @@ require_once(__DIR__.'/../Entity/LuBookingStatus.php');
 
 require_once(__DIR__.'/../Entity/LuFee.php');
 
-require_once(__DIR__.'/../Entity/LuRegion.php');
+
 
 require_once(__DIR__.'/../Entity/LuRemark.php');
 
@@ -26,11 +26,11 @@ require_once(__DIR__.'/../Entity/LuUserRight.php');
 
 require_once(__DIR__.'/../Entity/LuUserRole.php');
 
-require_once(__DIR__.'/../Entity/RegionService.php');
+
 
 require_once(__DIR__.'/../Entity/LuDatechangeReasons.php');
 
-require_once(__DIR__.'/../Entity/RegionServicePrice.php');
+
 
 
 

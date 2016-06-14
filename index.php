@@ -67,16 +67,20 @@ if ($login->isUserLoggedIn ($entityManager) == true) {
 		include ("web/views/booking_details.php");
 	}elseif (isset ( $_GET ["partnerbookingdetails"] )) {
 		include ("web/views/partner_booking_details.php");
-	}elseif (isset ( $_GET ["updateservices"] )) {
-		include ("web/views/update_services.php");
+	}elseif (isset ( $_GET ["partnerservices"] )) {
+		include ("web/views/partner_services.php");
+	}elseif (isset ( $_GET ["partnerprices"] )) {
+		include ("web/views/partner_prices.php");
+	}elseif (isset ( $_GET ["requestservice"] )) {
+		include ("web/views/request_service.php");
 	}elseif (isset ( $_GET ["home"] )) {
 		include ("web/views/home.php");
 	} elseif (isset ( $_GET ["booking"] )) {
 		include ("web/views/booking.php");
 	}elseif (isset ( $_GET ["faq"] )) {
 		include ("web/views/faq.php");
-	}elseif (isset ( $_GET ["pricelist"] )) {
-		include ("web/views/pricelist.php");
+	}elseif (isset ( $_GET ["newservicerequests"] )) {
+		include ("web/views/new_service_requests.php");
 	}elseif (isset ( $_GET ["contactus"] )) {
 		include ("web/views/contactus.php");
 	}elseif (isset ( $_GET ["aboutpartner"] )) {

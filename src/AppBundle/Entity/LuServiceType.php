@@ -8,9 +8,9 @@
 class LuServiceType
 {
     /**
-     * @var integer
+     * @var boolean
      */
-    private $active;
+    private $active = '1';
 
     /**
      * @var \DateTime
@@ -31,7 +31,7 @@ class LuServiceType
     /**
      * Set active
      *
-     * @param integer $active
+     * @param boolean $active
      *
      * @return LuServiceType
      */
@@ -45,7 +45,7 @@ class LuServiceType
     /**
      * Get active
      *
-     * @return integer
+     * @return boolean
      */
     public function getActive()
     {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RequestedService" table="requested_service">
+    <indexes>
+      <index name="user_requested_fk_idx" columns="user_requested"/>
+    </indexes>
+    <id name="requestedServiceId" type="integer" column="requested_service_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="requestedServiceName" type="string" column="requested_service_name" length="45" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="requestedServiceCategory" type="string" column="requested_service_category" length="45" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="active" type="boolean" column="active" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="dateRequested" type="datetime" column="date_requested" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="approvedStatus" type="boolean" column="approved_status" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="approvedBy" type="string" column="approved_by" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="requestedServiceDescription" type="text" column="requested_service_description" length="65535" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="userRequested" target-entity="UserProfile" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_requested" referenced-column-name="user_profile_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
+
