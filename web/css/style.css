@@ -310,8 +310,7 @@
 		 background: white;
 	}
 
-	input[type="checkbox"],
-	input[type="radio"] {
+	input[type="checkbox"]{
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-o-appearance: none;
@@ -1435,7 +1434,6 @@ ol {
   
 .partner_preview{
 	width:60%;
-	min-height:150px;
 	border: 1px solid #aaa;
     border-radius: 5px;
 	}

@@ -98,7 +98,7 @@
 <div class="inner">
 <h2 style="display: inline;">MOBILEOPS SERVICES</h2>
 
-<p>we come to you</p>
+<p>the right connection</p>
 </div>
 </section>
 

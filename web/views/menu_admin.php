@@ -74,7 +74,7 @@
 	
 	<li><a href="index.php?bookingsByStatus">BOOKINGS BY STATUS</a></li>
 	<li><a href="index.php?services_management">MANAGE SERVICES</a></li>
-	<li><a href="index.php?pricelist">PRICES</a></li>
+	<li><a href="index.php?newservicerequests">SERVICE REQUESTS</a></li>
 	<li><a href="index.php?logout=true">LOGOUT</a></li>
 
 </ul>
@@ -88,7 +88,7 @@
 <div class="inner">
 <h2 style="display: inline;">MOBILEOPS SERVICES</h2>
 
-<p>we come to you</p>
+<p>the right connection</p>
 </div>
 </section>
 

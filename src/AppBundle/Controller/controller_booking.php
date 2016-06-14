@@ -28,6 +28,7 @@ require_once (__DIR__ . '/../Entity/PartnerRating.php');
 require_once (__DIR__ . '/../Entity/BookingPartner.php');
 require_once (__DIR__ . '/../Controller/controller_lookup.php');
 require_once (__DIR__ . '/../Entity/LuDatechangeReasons.php');
+require_once (__DIR__ . '/../Controller/controller_partner_profile.php');
 
 require_once ('controller_lookup.php');
 require_once ('controller_booking_services.php');
@@ -63,6 +64,7 @@ if (isset ( $_GET ['prepdata'] )) {
 	
 	
 	
+	
 
 	endif;
 }
@@ -87,12 +89,14 @@ if (isset ( $_GET ['getBestPartners'] )) {
 	
 	
 	
+	
 	endif;
 }
 
 if (isset ( $_GET ['resendEmail'] )) {
 	if ($_GET ['resendEmail']) :
 		resendEmail ( $entityManager );
+	
 	
 	
 	
@@ -107,6 +111,7 @@ if (isset ( $_GET ['getServicePrices'] )) {
 		}
 		
 		getServicePrices ( $entityManager );
+	
 	
 	
 	
@@ -140,6 +145,7 @@ if (isset ( $_GET ['getBookingsInCalender'] )) {
 	
 	
 	
+	
 	endif;
 }
 
@@ -151,6 +157,7 @@ if (isset ( $_GET ['completeBooking'] )) {
 		}
 		
 		completeBooking ( $entityManager );
+	
 	
 	
 	
@@ -169,6 +176,7 @@ if (isset ( $_POST ['completeBookingByAdmin'] )) {
 	
 	
 	
+	
 
 	endif;
 }
@@ -177,6 +185,7 @@ if (isset ( $_POST ['acceptBooking'] )) {
 	if ($_POST ['acceptBooking']) :
 		
 		acceptBooking ( $entityManager );
+	
 	
 	
 	
@@ -194,6 +203,7 @@ if (isset ( $_POST ['cancelBooking'] )) {
 	
 	
 	
+	
 
 
 
@@ -204,6 +214,7 @@ if (isset ( $_POST ['cancelBooking'] )) {
 if (isset ( $_GET ['getBookingDetails'] )) {
 	if ($_GET ['getBookingDetails']) :
 		getBookingDetails ( $entityManager );
+	
 	
 	
 	
@@ -226,12 +237,14 @@ if (isset ( $_POST ['updateBooking'] )) {
 	
 	
 	
+	
 	endif;
 }
 
 if (isset ( $_POST ['updateBookingComments'] )) {
 	if ($_POST ['updateBookingComments']) :
 		updateBookingComments ( $entityManager );
+	
 	
 	
 	
@@ -249,6 +262,7 @@ if (isset ( $_GET ['getBookingViewByStatus'] )) {
 	
 	
 	
+	
 	endif;
 }
 
@@ -261,12 +275,14 @@ if (isset ( $_GET ['getBookingStatus'] )) {
 	
 	
 	
+	
 	endif;
 }
 
 if (isset ( $_GET ['getDateChangeReasons'] )) {
 	if ($_GET ['getDateChangeReasons']) :
 		getDateChangeReasons ( $entityManager );
+	
 	
 	
 	
@@ -291,12 +307,14 @@ if (isset ( $_POST ['changeBookingDateTime'] )) {
 	
 	
 	
+	
 	endif;
 }
 
 if (isset ( $_GET ['acceptChanges'] )) {
 	if ($_GET ['acceptChanges']) :
 		acceptChanges ( $entityManager );
+	
 	
 	
 	
@@ -308,6 +326,7 @@ if (isset ( $_GET ['acceptChanges'] )) {
 if (isset ( $_GET ['cancelBookingForRebook'] )) {
 	if ($_GET ['cancelBookingForRebook']) :
 		cancelBookingForRebook ( $entityManager );
+	
 	
 	
 	
@@ -326,12 +345,14 @@ if (isset ( $_GET ['changeBookingPartnerByAdmin'] )) {
 	
 	
 	
+	
 	endif;
 }
 
 if (isset ( $_POST ['changeBookingDateTimeAndPartner'] )) {
 	if ($_POST ['changeBookingDateTimeAndPartner']) :
 		changeBookingDateTimeAndPartner ( $entityManager );
+	
 	
 	
 	
@@ -548,7 +569,9 @@ function getBookingViewByStatus($entityManager) {
 	try {
 		$booking_objects = $entityManager->getRepository ( 'BookingSummaryView' )->findBy ( array (
 				'latestBookingStatus' => $_GET ['getBookingViewByStatus'] 
-		),array('bookingId' => 'DESC') );
+		), array (
+				'bookingId' => 'DESC' 
+		) );
 		
 		$activeBookingsArray = array ();
 		
@@ -612,33 +635,33 @@ function changeBookingRegionServiceStatus($entityManager, $bookingRegionServiceS
 /* comments can be null, rating can be null - cant remember why these two were part of this table */
 function addBookingRegionServiceRegionService($entityManager, $regionServicePriceDTO, $bookingObject, $comments, $rating, $serviceType) {
 	try {
-		$bookingServiceRegion = regionServiceDTOtoBookingServiceRegionService ( $regionServicePriceDTO, $bookingObject, $comments, $rating, $serviceType);
-
+		$bookingServiceRegion = regionServiceDTOtoBookingServiceRegionService ( $regionServicePriceDTO, $bookingObject, $comments, $rating, $serviceType );
+		
 		$entityManager->persist ( $bookingServiceRegion );
 		$entityManager->flush ();
-
+		
 		return $bookingServiceRegion;
 	} catch ( Exception $e ) {
 		echo $e->getTraceAsString ();
 	}
-
+	
 	return NULL;
 }
 function regionServiceDTOtoBookingServiceRegionService($regionServicePriceDTO, $bookingObject, $comments, $rating, $serviceType) {
 	$bookingServiceRegion = new BookingServiceRegion ();
-
+	
 	$bookingServiceRegion->setActive ( 1 );
 	$bookingServiceRegion->setBooking ( $bookingObject );
 	$bookingServiceRegion->setComments ( $comments );
-	$bookingServiceRegion->setDiscountPercentage( $regionServicePriceDTO->getDiscountPercentage () );
+	$bookingServiceRegion->setDiscountPercentage ( $regionServicePriceDTO->getDiscountPercentage () );
 	$bookingServiceRegion->setRating ( $rating );
 	$bookingServiceRegion->setActualAmountToPay ( $regionServicePriceDTO->getAmountToPay () );
 	$bookingServiceRegion->setServiceAmount ( $regionServicePriceDTO->getServiceAmount () );
 	$bookingServiceRegion->setDateCreated ( new DateTime () );
 	$bookingServiceRegion->setRegionServiceId ( $regionServicePriceDTO->getRegionServiceId () );
 	$bookingServiceRegion->setServiceName ( $regionServicePriceDTO->getServiceName () );
-	$bookingServiceRegion->setServiceType($serviceType->getName());
-
+	$bookingServiceRegion->setServiceType ( $serviceType->getName () );
+	
 	return $bookingServiceRegion;
 }
 function getBookingsByUserId($entityManager, $userObject) {
@@ -798,8 +821,7 @@ function getBookingDetails($entityManager) {
 			$serviceArray = array ();
 			array_push ( $serviceArray, $bookingRegionService->getServiceName () );
 			array_push ( $serviceArray, $bookingRegionService->getServiceAmount () );
-			array_push ( $serviceArray, $bookingRegionService->getServiceType() );
-			
+			array_push ( $serviceArray, $bookingRegionService->getServiceType () );
 			
 			array_push ( $bookingServiceRegionArray, $serviceArray );
 		}
@@ -811,9 +833,8 @@ function getBookingDetails($entityManager) {
 				'booking' => $booking,
 				'active' => 1 
 		) );
-		if (
-				$BookingPartner) {
-					$bookingDetailsArray ['provider_id'] = $BookingPartner->getUser ()->getUserId ();
+		if ($BookingPartner) {
+			$bookingDetailsArray ['provider_id'] = $BookingPartner->getUser ()->getUserId ();
 			$bookingDetailsArray ['provider_name'] = $BookingPartner->getUser ()->getUserProfile ()->getFirstName () . " " . $BookingPartner->getUser ()->getUserProfile ()->getSurname ();
 			$bookingDetailsArray ['provider_tel'] = $BookingPartner->getUser ()->getUserProfile ()->getPhoneNumber ();
 		}
@@ -1078,6 +1099,22 @@ function completeBooking($entityManager) {
 			return;
 		}
 		
+		
+		//set booking address to partners address if appointment is at service provider offices
+		if (isset ( $_POST ['preferredlocation'] )) {
+			if (strcmp($_POST ['preferredlocation'], 'walk_in') == 0) {
+				$user = $entityManager->getRepository ( 'User' )->findOneBy ( array (
+						'userId' => $_GET ['partner_id']
+				) );
+					
+				if ($user) {
+					$Address =$user->getUserProfile()->getAddress();
+				}
+			}
+			
+		}
+		
+		
 		$bookingAddress = createBookingAddress ( $entityManager, $booking, $Address );
 		if (! $bookingAddress) {
 			$response ['status'] = 2;
@@ -1173,58 +1210,60 @@ function completeBooking($entityManager) {
 }
 function writeServicesToDB($entityManager, $bookingObject) {
 	try {
-
+		
 		$bookingServices = json_decode ( $_GET ['completeBooking'] );
-
+		
 		foreach ( $bookingServices as $bookingServiceArray ) {
-
+			
 			$LuRegion = $entityManager->getRepository ( 'LuRegion' )->findOneBy ( array (
 					'active' => TRUE,
-					'name' => $_POST ['administrative_area_level_1']
+					'name' => $_POST ['administrative_area_level_1'] 
 			) );
-
-			$LuService = $entityManager->getRepository ( 'LuService' )->findOneBy ( array ('active' => TRUE,'name' => $bookingServiceArray [0]
+			
+			$LuService = $entityManager->getRepository ( 'LuService' )->findOneBy ( array (
+					'active' => TRUE,
+					'name' => $bookingServiceArray [0] 
 			) );
-
-			//echo $LuService->getServiceTypeName();
-
+			
+			// echo $LuService->getServiceTypeName();
+			
 			if ($LuRegion && $LuService) {
 				$RegionService = $entityManager->getRepository ( 'RegionService' )->findOneBy ( array (
 						'active' => TRUE,
 						'service' => $LuService,
-						'region' => $LuRegion
+						'region' => $LuRegion 
 				) );
 				if ($RegionService) {
 					$regionServicePrice = $entityManager->getRepository ( 'RegionServicePrice' )->findOneBy ( array (
 							'active' => TRUE,
-							'regionService' => $RegionService
+							'regionService' => $RegionService 
 					) );
 					if ($regionServicePrice) {
 						$regionServicePriceDTO = new RegionServicePriceDTO ();
-
+						
 						$regionServicePriceDTO->setDiscountPercentage ( $regionServicePrice->getDiscountPercentage () );
 						$regionServicePriceDTO->setServiceAmount ( $regionServicePrice->getAmount () );
-
+						
 						$regionServicePriceDTO->setRegion ( $RegionService->getRegion ()->getName () );
 						$regionServicePriceDTO->setServiceName ( $RegionService->getService ()->getName () );
-
+						
 						$regionServicePriceDTO->setRegionServiceId ( $RegionService->getRegionServiceId () );
 						$regionServicePriceDTO->setRegionServicePriceId ( $regionServicePrice->getRegionServicePriceId () );
-
-						addBookingRegionServiceRegionService ( $entityManager, $regionServicePriceDTO, $bookingObject, null, null,$LuService->getServiceTypeName());
+						
+						addBookingRegionServiceRegionService ( $entityManager, $regionServicePriceDTO, $bookingObject, null, null, $LuService->getServiceTypeName () );
 					}
 				} else {
 					$response ['status'] = 2;
 					$response ['message'] = "Region Service Not Found";
-
-					echo $e->getTraceAsString() ;
+					
+					echo $e->getTraceAsString ();
 					echo json_encode ( $response );
 					return;
 				}
 			} else {
 				$response ['status'] = 2;
 				$response ['message'] = "Service or region not found";
-				echo $e->getTraceAsString() ;
+				echo $e->getTraceAsString ();
 				echo json_encode ( $response );
 				return;
 			}
@@ -1232,7 +1271,7 @@ function writeServicesToDB($entityManager, $bookingObject) {
 	} catch ( Exception $e ) {
 		$response ['status'] = 2;
 		$response ['message'] = $e->getMessage ();
-		echo $e->getTraceAsString();
+		echo $e->getTraceAsString ();
 		echo json_encode ( $response );
 	}
 }
@@ -1535,6 +1574,12 @@ function getBestPartners($entityManager) {
 				}
 			}
 			
+			//check if partner mobility is set
+			$userMobility = getPartnerMobility ( $entityManager, $partner->getEmailAddress () );
+			if(!$userMobility){
+				break;
+			}
+			
 			if ($ServiceFoundOnPartner == true) {
 				$partnerFound = true;
 				// get partner rating
@@ -1556,7 +1601,7 @@ function getBestPartners($entityManager) {
 				}
 				
 				// output to screen
-				outputPartnerToBrowser ( $partner, $ratingAvg );
+				outputPartnerToBrowser ( $partner, $ratingAvg, $entityManager );
 			}
 		}
 		if (! $partnerFound) {
@@ -1570,10 +1615,32 @@ function getBestPartners($entityManager) {
 		echo 'No partners found near the provided address.';
 	}
 }
-function outputPartnerToBrowser($partner, $ratingAvg) {
+function outputPartnerToBrowser($partner, $ratingAvg, $entityManager) {
 	echo '<div class="partner_preview">';
-	echo '<div class="container" style="width: 100%;"> 
-	<h3 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '">' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '</h3>';
+		
+	$userMobility = getPartnerMobility ( $entityManager, $partner->getEmailAddress () );
+	
+	echo '<ul class="demo-tags">
+  <li><a href="#">R450.00</a></li>
+</ul>';
+	
+	if ($userMobility) {
+		$partnerMobility = $userMobility->getUserMobility ();
+		if (strcmp($partnerMobility, 'Both') == 0) {
+			echo '<div class="container" style="width: 100%;">
+			<h5 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '"><b>' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . ' (Walk-In And Mobile)</b></h5>';
+		}elseif (strcmp($partnerMobility, 'Mobile') == 0) {
+			echo '<div class="container" style="width: 100%;">
+			<h5 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '"><b>' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . ' (Mobile Only)</b></h5>';
+		}elseif (strcmp($partnerMobility, 'Walk-In Only') == 0) {
+			echo '<div class="container" style="width: 100%;">
+			<h5 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '"><b>' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . ' (Walk-In Only)</b></h5>';
+		}
+		
+		
+	}
+	
+	
 	
 	if (isset ( $_SESSION ['user_role'] )) {
 		if (strcmp ( $_SESSION ['user_role'], 'ADMINISTRATOR' ) == 0) {
@@ -1581,20 +1648,25 @@ function outputPartnerToBrowser($partner, $ratingAvg) {
 		}
 	}
 	
-	echo '<p>' . distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ) . ' KM away from you. Service provider in <b>'. $partner->getUserProfile ()->getAddress ()->getSuburbName (). ', ' .$partner->getUserProfile ()->getAddress ()->getCityName () .'</b></p>';
-	echo '<p>' . $partner->getUserProfile ()->getPersonalNote () . '</p>';
+	echo '<p>' . distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ) . ' KM away from you. Service provider in <b>' . $partner->getUserProfile ()->getAddress ()->getSuburbName () . ', ' . $partner->getUserProfile ()->getAddress ()->getCityName () . '</b></p>';
+	//echo '<p>' . $partner->getUserProfile ()->getPersonalNote () . '</p>';
 	// echo '<input id="partner_rating" class="rating"
 	// value="' . $ratingAvg . '" data-min="0" data-max="5" data-disabled="true" data-size="xs">';
 	
+	
+	
+	if (strcmp($partnerMobility, 'Both') == 0) {
+		echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select Mobile</a>';
+		echo '<a href="#" class="button selectPartner_walk_in" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="walkin_partner' . $partner->getUserId () . '">Select Walk In</a>';
+	}else{
+		echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select</a>';
+	}
 	echo '<a href="index.php?aboutpartner=' . $partner->getUserId () . '" target="_blank" class="button">View Gallery</a>';
-	echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select</a>';
 	echo ' </div>';
 	echo '</div>';
 }
-
-
 function distance($lat1, $lon1, $lat2, $lon2, $unit) {
-	//echo $lat1 . ' - ' . $lon1 . ' - '  . $lat2 .  ' - '  . $lon2;
+	// echo $lat1 . ' - ' . $lon1 . ' - ' . $lat2 . ' - ' . $lon2;
 	$theta = $lon1 - $lon2;
 	$dist = sin ( deg2rad ( $lat1 ) ) * sin ( deg2rad ( $lat2 ) ) + cos ( deg2rad ( $lat1 ) ) * cos ( deg2rad ( $lat2 ) ) * cos ( deg2rad ( $theta ) );
 	$dist = acos ( $dist );
@@ -1602,15 +1674,11 @@ function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 	$miles = $dist * 60 * 1.1515;
 	$unit = strtoupper ( $unit );
 	
-	if (is_nan($miles)) {
+	if (is_nan ( $miles )) {
 		return 0;
-		
-	}else{
+	} else {
 		return round ( $miles * 1.609344, 2 );
 	}
-	
-	
-	
 }
 function getBookingSummary($entityManager, $booking_id) {
 	if ($booking_id > 0) {
@@ -1664,49 +1732,49 @@ function createOrUpdateBookingSummary($entityManager, $booking, $bookingTime, $a
 	$bookingId = $booking->getBookingId ();
 	$addressId = $address->getAddressId ();
 	// $userProfile = $booking->getUser();
-
+	
 	$bookingView = $entityManager->getRepository ( 'BookingSummaryView' )->findOneBy ( array (
 			'active' => TRUE,
-			'bookingId' => $bookingId
+			'bookingId' => $bookingId 
 	) );
-
+	
 	$bookingIsNew = false;
-
+	
 	if ($bookingView == null) {
-		$bookingView   = new BookingSummaryView ();
-		$bookingIsNew  = true;
+		$bookingView = new BookingSummaryView ();
+		$bookingIsNew = true;
 	}
-
+	
 	$bookingView->setActive ( true );
-
+	
 	if (isset ( $_SESSION ['user_id'] )) {
 		$bookingView->setUserId ( $_SESSION ['user_id'] );
 	}
-
+	
 	$firstname = $userProfile->getFirstName ();
 	$surname = $userProfile->getSurname ();
 	$email = $emailAdress;
-
+	
 	$bookingView->setFirstName ( $firstname );
 	$bookingView->setSurname ( $surname );
 	$bookingView->setUserEmailAddress ( $email );
 	$bookingView->setMobileNumber ( $mobileNumber );
-
+	
 	$bookingView->setBookingId ( $bookingId );
 	$bookingView->setAddressId ( $addressId );
-
+	
 	$bookingView->setTimeBooked ( $booking->getTimeBooked () );
 	$bookingView->setBookingStartTime ( $bookingTime->getBookingStartTime () );
 	$bookingView->setBookingEndTime ( $bookingTime->getBookingEndTime () );
 	$bookingView->setLastUpdated ( new DateTime () );
-
-	if(!$bookingIsNew)
+	
+	if (! $bookingIsNew)
 		$bookingView->setLatestBookingStatus ( $bookingStatus );
-
-		$entityManager->persist ( $bookingView );
-		$entityManager->flush ();
-
-		return $bookingView;
+	
+	$entityManager->persist ( $bookingView );
+	$entityManager->flush ();
+	
+	return $bookingView;
 }
 function getBookingAddress($entityManager, $booking_object) {
 	$booking_address = $entityManager->getRepository ( 'BookingAddress' )->findBy ( array (
@@ -2259,18 +2327,16 @@ function getBookingUserProfile($entityManager, $booking) {
 		echo $e->getTrace ();
 	}
 }
-
 function getBookingAddressByBooking($entityManager, $booking) {
 	try {
 		return $entityManager->getRepository ( 'BookingAddress' )->findOneBy ( array (
 				'booking' => $booking,
-				'active' => TRUE
+				'active' => TRUE 
 		) );
 	} catch ( Exception $e ) {
 		echo $e->getTrace ();
 	}
 }
-
 
 // We will deactivate the currentBookingProfile and add a new one
 function updateBookingUserProfile($entityManager, $currentBookingUserProfile, $phoneNumber, $gender, $surname, $firstName, $emailAddress) {
@@ -2310,19 +2376,19 @@ function send_booking_confirmation_to_partner_message($entityManager, $booking) 
 		) );
 		
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
- 		$bookingAddress = getBookingAddressByBooking($entityManager, $booking);
- 		$bookingSummary = getBookingSummaryByBooking($entityManager, $booking);
+		$bookingAddress = getBookingAddressByBooking ( $entityManager, $booking );
+		$bookingSummary = getBookingSummaryByBooking ( $entityManager, $booking );
 		
 		$name = $bookingpartner->getUser ()->getUserProfile ()->getFirstName ();
 		$surname = $bookingpartner->getUser ()->getUserProfile ()->getSurname ();
 		$email = $bookingpartnerEmailAddress;
-		$phone_number = $bookingSummary->getMobileNumber();
+		$phone_number = $bookingSummary->getMobileNumber ();
 		$message_type = "booking_confirmation_partner";
 		$message = "test";
 		$serviceRows = "";
 		
-		$personalDetails = $bookingSummary->getFirstName() . " " . $bookingSummary->getSurname() . "<br/>" . $bookingSummary->getUserEmailAddress() . "<br/>" . $bookingSummary->getMobileNumber() . "<br/>
-		<h4>APPOINTMENT ADDRESS</h4>" . "<p>" . $bookingAddress->getClientAddress()->getComplexName() . "<br/>" . $bookingAddress->getClientAddress()->getStreetNumber() . ' ' . $bookingAddress->getClientAddress()->getStreetName() . "<br/>" . $bookingAddress->getClientAddress()->getSuburbName(). "<br/>" . $bookingAddress->getClientAddress()->getCityName();
+		$personalDetails = $bookingSummary->getFirstName () . " " . $bookingSummary->getSurname () . "<br/>" . $bookingSummary->getUserEmailAddress () . "<br/>" . $bookingSummary->getMobileNumber () . "<br/>
+		<h5>APPOINTMENT ADDRESS</h5>" . "<p>" . $bookingAddress->getClientAddress ()->getComplexName () . "<br/>" . $bookingAddress->getClientAddress ()->getStreetNumber () . ' ' . $bookingAddress->getClientAddress ()->getStreetName () . "<br/>" . $bookingAddress->getClientAddress ()->getSuburbName () . "<br/>" . $bookingAddress->getClientAddress ()->getCityName ();
 		
 		// get services and prices
 		$bookingServiceRegions = $entityManager->getRepository ( 'BookingServiceRegion' )->findBy ( array (
@@ -2332,7 +2398,7 @@ function send_booking_confirmation_to_partner_message($entityManager, $booking) 
 		if ($bookingServiceRegions) {
 			
 			foreach ( $bookingServiceRegions as &$value ) {
-				$serviceRows .= '<tr class="serviceRow"><td>' . $value ->getServiceType() . ' - ' . $value->getServiceName () . '</td><td>R' . number_format ( $value->getActualAmountToPay (), 2 ) . '</td></tr>';
+				$serviceRows .= '<tr class="serviceRow"><td>' . $value->getServiceType () . ' - ' . $value->getServiceName () . '</td><td>R' . number_format ( $value->getActualAmountToPay (), 2 ) . '</td></tr>';
 				$total = $total + $value->getActualAmountToPay ();
 			}
 			
@@ -2342,7 +2408,7 @@ function send_booking_confirmation_to_partner_message($entityManager, $booking) 
 		$bookingComments = getBookingCommentsArrayForBooking ( $entityManager, $booking );
 		$bookingCommentString = '';
 		foreach ( $bookingComments as &$value ) {
-			$bookingCommentString = $bookingCommentString . $value[0] . '<br>';
+			$bookingCommentString = $bookingCommentString . $value [0] . '<br>';
 		}
 		
 		$Parameters = array (
@@ -2350,9 +2416,9 @@ function send_booking_confirmation_to_partner_message($entityManager, $booking) 
 				"last_name" => $surname,
 				
 				"personal_details" => $personalDetails,
-				"provider_name" => $bookingpartner->getUser ()->getUserProfile()->getFirstName() . ' ' . $bookingpartner->getUser ()->getUserProfile()->getSurname(),
+				"provider_name" => $bookingpartner->getUser ()->getUserProfile ()->getFirstName () . ' ' . $bookingpartner->getUser ()->getUserProfile ()->getSurname (),
 				"booking_notes" => $bookingCommentString,
-				"appointment_date" => $bookingSummary->getBookingStartTime()->format('Y-m-d H:i:s'),
+				"appointment_date" => $bookingSummary->getBookingStartTime ()->format ( 'Y-m-d H:i:s' ),
 				"booking_reference" => $booking->getSourceSystem () . " - " . $booking->getBookingId (),
 				"booking_status" => 'Active',
 				"tr_service_price" => $serviceRows,
@@ -2379,18 +2445,17 @@ function send_booking_confirmation_message($entityManager, $booking) {
 		) );
 		$bookingpartnerEmailAddress = $bookingpartner->getUser ()->getEmailAddress ();
 		
-		$bookingAddress = getBookingAddressByBooking($entityManager, $booking);
-		$bookingSummary = getBookingSummaryByBooking($entityManager, $booking);
-		
+		$bookingAddress = getBookingAddressByBooking ( $entityManager, $booking );
+		$bookingSummary = getBookingSummaryByBooking ( $entityManager, $booking );
 		
 		$email = $bookingpartnerEmailAddress;
-		$phone_number = $bookingSummary->getMobileNumber();
+		$phone_number = $bookingSummary->getMobileNumber ();
 		$message_type = "booking_confirmation";
 		$message = "test";
 		$serviceRows = "";
 		
-		$personalDetails = $bookingSummary->getFirstName() . " " . $bookingSummary->getSurname() . "<br/>" . $bookingSummary->getUserEmailAddress() . "<br/>" . $bookingSummary->getMobileNumber() . "<br/>
-		<h4>APPOINTMENT ADDRESS</h4>" . "<p>" . $bookingAddress->getClientAddress()->getComplexName() . "<br/>" . $bookingAddress->getClientAddress()->getStreetNumber() . ' ' .$bookingAddress->getClientAddress()->getStreetName() . "<br/>" . $bookingAddress->getClientAddress()->getSuburbName(). "<br/>" . $bookingAddress->getClientAddress()->getCityName();
+		$personalDetails = $bookingSummary->getFirstName () . " " . $bookingSummary->getSurname () . "<br/>" . $bookingSummary->getUserEmailAddress () . "<br/>" . $bookingSummary->getMobileNumber () . "<br/>
+		<h5>APPOINTMENT ADDRESS</h5>" . "<p>" . $bookingAddress->getClientAddress ()->getComplexName () . "<br/>" . $bookingAddress->getClientAddress ()->getStreetNumber () . ' ' . $bookingAddress->getClientAddress ()->getStreetName () . "<br/>" . $bookingAddress->getClientAddress ()->getSuburbName () . "<br/>" . $bookingAddress->getClientAddress ()->getCityName ();
 		
 		// get services and prices
 		$bookingServiceRegions = $entityManager->getRepository ( 'BookingServiceRegion' )->findBy ( array (
@@ -2401,28 +2466,27 @@ function send_booking_confirmation_message($entityManager, $booking) {
 		if ($bookingServiceRegions) {
 			
 			foreach ( $bookingServiceRegions as &$value ) {
-				$serviceRows .= '<tr class="serviceRow"><td>' . $value ->getServiceType() . ' - ' . $value->getServiceName () . '</td><td>R' . number_format ( $value->getActualAmountToPay (), 2 ) . '</td></tr>';
+				$serviceRows .= '<tr class="serviceRow"><td>' . $value->getServiceType () . ' - ' . $value->getServiceName () . '</td><td>R' . number_format ( $value->getActualAmountToPay (), 2 ) . '</td></tr>';
 				$total .= $value->getActualAmountToPay ();
 			}
 			
 			$serviceRows .= '<tr class="serviceRow"><td></td><td>Total: R' . number_format ( $total, 2 ) . '</td></tr>';
 		}
 		
-		
 		$bookingComments = getBookingCommentsArrayForBooking ( $entityManager, $booking );
 		$bookingCommentString = '';
 		foreach ( $bookingComments as &$value ) {
-			$bookingCommentString = $bookingCommentString . $value[0] . '<br>';
+			$bookingCommentString = $bookingCommentString . $value [0] . '<br>';
 		}
 		
 		$Parameters = array (
-				"first_name" => $bookingSummary->getFirstName(),
-				"last_name" => $bookingSummary->getSurname(),
+				"first_name" => $bookingSummary->getFirstName (),
+				"last_name" => $bookingSummary->getSurname (),
 				"mobile_number" => $phone_number,
 				"personal_details" => $personalDetails,
-				"provider_name" => $bookingpartner->getUser ()->getUserProfile()->getFirstName() . ' ' . $bookingpartner->getUser ()->getUserProfile()->getSurname(),
+				"provider_name" => $bookingpartner->getUser ()->getUserProfile ()->getFirstName () . ' ' . $bookingpartner->getUser ()->getUserProfile ()->getSurname (),
 				"booking_notes" => $bookingCommentString,
-				"appointment_date" => $bookingSummary->getBookingStartTime()->format('Y-m-d H:i:s'),
+				"appointment_date" => $bookingSummary->getBookingStartTime ()->format ( 'Y-m-d H:i:s' ),
 				"booking_reference" => $booking->getSourceSystem () . " - " . $booking->getBookingId (),
 				"booking_status" => 'Active',
 				"tr_service_price" => $serviceRows,
@@ -2430,7 +2494,7 @@ function send_booking_confirmation_message($entityManager, $booking) {
 				"booking_id" => $booking->getBookingId () 
 		);
 		
-		if (emailMessage ( $entityManager, $Parameters, $message_type, "MobileOps - Booking Confirmation", $bookingSummary->getUserEmailAddress(), "" )) {
+		if (emailMessage ( $entityManager, $Parameters, $message_type, "MobileOps - Booking Confirmation", $bookingSummary->getUserEmailAddress (), "" )) {
 			return true;
 		} else {
 			return false;

@@ -49,6 +49,70 @@
 <meta charset=utf-8 />
 
 <style>
+
+.demo-tags {
+  margin: 1em 0;
+  padding: 0;
+  list-style-type: none;
+  display: inline-block;
+      float: right;
+}
+.demo-tags li {
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  position: relative;
+  margin: 0 1em 0.6em 0;
+}
+
+.demo-tags a {
+  background: #39beef;
+  color: #fff;
+  font-size: 18px;
+  font-size: 1.8rem;
+  text-decoration: none;
+  -webkit-border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  padding: 18px 20px;
+}
+
+
+.demo-tags a:after {
+  content: "";
+  float: right;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-left: 30px solid #39beef;
+  border-bottom: 30px solid transparent;
+}
+
+
+.demo-tags a:before {
+  content: "";
+  position: absolute;
+  top: 27px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #8ec6b9;
+  -moz-box-shadow: -1px -1px 1px #424444;
+  -webkit-box-shadow: -1px -1px 1px #424444;
+  box-shadow: -1px -1px 1px #424444;
+}
+
+
+.radio-inline input[type=radio]{
+	    margin-top: 0.3em;
+}
+
 .field.buttons button {
 	margin-right: .5em;
 }
@@ -143,6 +207,28 @@
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css"
 	rel="stylesheet" type="text/css">
 
+
+<script>
+  $(function() {
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+ 
+    $( "#opener" ).click(function() {
+      $( "#dialog" ).dialog( "open" );
+    });
+  });
+  </script>
+  
+  
 </head>
 
 <body class="landing">
@@ -167,7 +253,7 @@
 <div class="idealsteps-wrap"><!-- Step 1 --> <section
 	class="idealsteps-step">
 
-<h3>PERSONAL DETAILS</h3>
+<h4>PERSONAL DETAILS</h4>
 
  <div class="row uniform">
    <div class="12u">
@@ -287,7 +373,7 @@
 </div></div>
 
 
-<h3>DATE & TIME</h3>
+<h4>DATE & TIME</h4>
 <div class="field"><input id="datetimepicker" type="text"> <span
 	class="error"></span></div>
 	
@@ -304,7 +390,7 @@
 </div>
 </div></div>
 
-<h3>SELECT SERVICES FOR YOUR BOOKING</h3>
+<h4>SELECT SERVICES FOR YOUR BOOKING</h4>
 	
 <p>You can only book in the same category</p>
 
@@ -323,9 +409,12 @@
    <div class="12u">
                   <div id="lbl_message" class="alert display-none alert-danger"  >Please select service provider
 </div>
+<div id="lbl_location_message" class="alert display-none alert-danger"  >Please select appointment location
+</div>
+
 </div></div>
 
-<h3 id="h3_select_partner">SELECT A SERVICE PROVIDER</h3>
+<h4 id="h3_select_partner">SELECT SERVICE PROVIDER</h4>
 
 <div id="bestPartnersDiv"></div>
 
@@ -364,27 +453,23 @@
                 </td>
             </tr>
             
+
+            
             <tr class="information">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>
-                            <h3>CLIENT DETAILS</h3>
+                <td>
+                    <h4>CLIENT DETAILS</h4>
                                 <p id="personalDetails"></p>
-                            </td>
-                            
-                            <td>
-                            <h3>SERVICE PROVIDER DETAILS</h3>
+                                <br/>
+                                 <h4>SERVICE PROVIDER DETAILS</h4>
                                <p id="lbl_providername"></p>
-                               
-                            </td>
-                        </tr>
-                    </table>
+                               <br/>
+                                <p id="lbl_location"></p>
+                </td>
+                 <td>
+                    
                 </td>
             </tr>
             
-            
-           
             
             <tr class="heading">
                 <td>
@@ -395,7 +480,7 @@
                     Price
                 </td>
             </tr>
-            
+           
              <tr class="heading">
                 <td>
                     Special Notes
@@ -473,8 +558,6 @@
 
 </section>
 
-
-
 <script
 	src="web/js/jquery-ui.min.js"></script>
 
@@ -489,6 +572,9 @@ $("#address").geocomplete({ details: "form" });
     
   </script>
 
+
+
 </body>
+
 
 </html>

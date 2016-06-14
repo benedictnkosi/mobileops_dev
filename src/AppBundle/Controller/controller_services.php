@@ -3,6 +3,9 @@
 require_once(__DIR__.'/../../../bootstrap.php');
 require_once(__DIR__.'/../../../app/application.php');
 
+require_once (__DIR__ . '/../Logic/email_template.php');
+require_once (__DIR__ . "/../Logic/mail.php");
+
 require_once(__DIR__.'/../Entity/LuService.php');
 require_once(__DIR__.'/../Entity/LuServiceType.php');
 require_once(__DIR__.'/../Entity/UserProfile.php');
@@ -11,6 +14,15 @@ require_once(__DIR__.'/../Entity/UserUserService.php');
 require_once(__DIR__.'/../Entity/LuUserRole.php');
 require_once(__DIR__.'/../Entity/LuAccountStatus.php');
 require_once(__DIR__.'/../Entity/Address.php');
+require_once(__DIR__.'/../Entity/RequestedService.php');
+require_once(__DIR__.'/../Controller/controller_lookup.php');
+
+
+if (isset ( $_POST ['request_service'] )) {
+	if ($_POST ['request_service']) :
+	requestNewService($entityManager);
+	endif;
+}
 
 if (isset ( $_GET ['getAllServices'] )) {
 	if ($_GET ['getAllServices']) :
@@ -18,12 +30,21 @@ if (isset ( $_GET ['getAllServices'] )) {
 	endif;
 }
 
+
 if (isset ( $_POST ['saveServices'] )) {
 	if ($_POST ['saveServices']) :
 	saveServices($entityManager);
 
 	endif;
 }
+
+if (isset ( $_GET ['getServiceCategories'] )) {
+	if ($_GET ['getServiceCategories']) :
+	getServiceCategories($entityManager);
+
+	endif;
+}
+
 
 
 function saveServices($entityManager){
@@ -162,6 +183,130 @@ function getAllServices($entityManager){
 	}
 }
 
+
+
+//get all services ordered by service type
+function requestNewService($entityManager){
+	try {
+		session_start ();
+	} catch ( Exception $e ) {
+	}
+	
+	try{
+		//get partner user
+		$user = $entityManager->getRepository('User')->findOneBy(array('userId'=>$_SESSION ['user_id']));
+		
+		$RequestedService = new RequestedService();
+		$RequestedService->setActive(0);
+		$RequestedService->setDateRequested(new DateTime ());
+		$RequestedService->setRequestedServiceCategory($_POST ['service_category']);
+		$RequestedService->setRequestedServiceDescription($_POST ['service_description']);
+		$RequestedService->setRequestedServiceName($_POST ['service_name']);
+		$RequestedService->setUserRequested($user->getUserProfile());
+		
+		$entityManager->persist ( $RequestedService );
+		$entityManager->flush ();
+		
+		if(SendServiceRequestEmail($entityManager)){
+			$response['status'] = 1;
+			$response['message'] = 'Successfully requested new service. We will contact you soon.';
+			echo json_encode($response);
+			return;
+		}
+
+		$response['status'] = 2;
+		$response['message'] = 'Failed to request a new service, please try again.';
+		echo json_encode($response);
+	}catch (Exception $e) {
+		$response['status'] = 2;
+		$response['message'] = $e->getMessage();
+		echo json_encode($response);
+	}
+}
+
+
+// send email to user for password with link/url
+function SendServiceRequestEmail($entityManager) {
+	try {
+
+		$Parameters = array (
+				"service_name" => $_POST ['service_name'],
+				"service_category" => $_POST ['service_category']
+		);
+
+		$body = generate_email_body ( "new_service_requested", $Parameters );
+
+		$body = wordwrap ( $body, 70 );
+
+		$headers = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: ' . SYSTEM_EMAIL_ADDRESS . "\r\n";
+
+		$headers .= 'X-Mailer: PHP/' . phpversion () . "\r\n";
+
+		if (mail ( SYSTEM_EMAIL_ADDRESS, "MobileOps - New Service Requested", $body, $headers )) {
+			return true;
+		} else {
+			return false;
+		}
+	} catch ( Exception $e ) {
+		return false;
+	}
+}
+
+
+
+function getServiceCategories($entityManager){
+
+	try {
+
+
+		$ServiceTypes = getAllLookupsByClass($entityManager,'LuServiceType');
+
+
+
+		$CategoryArray = array ();
+
+		if($ServiceTypes){
+
+			foreach ($ServiceTypes as $ServiceType) {
+				array_push ( $CategoryArray, $ServiceType->getName());
+
+			}
+
+			$response['status'] = 1;
+
+			$response['message'] = $CategoryArray;
+
+			echo json_encode($response);
+
+		}else{
+
+			$response['status'] = 2;
+
+			$response['message'] = "No service categories found, please contact administrator @ " . SYSTEM_EMAIL_ADDRESS;
+
+			echo json_encode($response);
+
+			return;
+
+		}
+
+
+
+	} catch (Exception $e) {
+
+		$response['status'] = 2;
+
+		$response['message'] = $e->getMessage();
+
+		echo json_encode($response);
+
+	}
+
+
+
+}
 
 
 ?>
