@@ -35,12 +35,12 @@ class PartnerServicePrice
     /**
      * @var integer
      */
-    private $regionServicePriceId;
+    private $partnerServicePriceId;
 
     /**
      * @var \PartnerService
      */
-    private $regionService;
+    private $partnerService;
 
 
     /**
@@ -164,37 +164,37 @@ class PartnerServicePrice
     }
 
     /**
-     * Get regionServicePriceId
+     * Get partnerServicePriceId
      *
      * @return integer
      */
-    public function getRegionServicePriceId()
+    public function getPartnerServicePriceId()
     {
-        return $this->regionServicePriceId;
+        return $this->partnerServicePriceId;
     }
 
     /**
-     * Set regionService
+     * Set partnerService
      *
-     * @param \PartnerService $regionService
+     * @param \PartnerService $partnerService
      *
      * @return PartnerServicePrice
      */
-    public function setRegionService(\PartnerService $regionService = null)
+    public function setPartnerService(\PartnerService $partnerService = null)
     {
-        $this->regionService = $regionService;
+        $this->partnerService = $partnerService;
 
         return $this;
     }
 
     /**
-     * Get regionService
+     * Get partnerService
      *
      * @return \PartnerService
      */
-    public function getRegionService()
+    public function getPartnerService()
     {
-        return $this->regionService;
+        return $this->partnerService;
     }
 }
 

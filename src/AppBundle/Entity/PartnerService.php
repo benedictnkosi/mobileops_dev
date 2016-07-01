@@ -25,7 +25,7 @@ class PartnerService
     /**
      * @var integer
      */
-    private $regionServiceId;
+    private $partnerServiceId;
 
     /**
      * @var \LuService
@@ -111,13 +111,13 @@ class PartnerService
     }
 
     /**
-     * Get regionServiceId
+     * Get partnerServiceId
      *
      * @return integer
      */
-    public function getRegionServiceId()
+    public function getPartnerServiceId()
     {
-        return $this->regionServiceId;
+        return $this->partnerServiceId;
     }
 
     /**

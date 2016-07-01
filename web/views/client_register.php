@@ -185,6 +185,7 @@
       $("#address").geocomplete({ details: "form" });  // Option 1: Call on element.
       
       $('form.idealforms').idealforms({
+    	  iconHtml: false,
           silentLoad: true,
           rules: {
             'firstname': 'required',

@@ -8,11 +8,6 @@
     <id name="userMobilityId" type="integer" column="user_mobility_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="userProfileId" type="integer" column="user_profile_id" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="userMobility" type="string" column="user_mobility" length="45" nullable="true">
       <options>
         <option name="fixed"/>
@@ -28,6 +23,11 @@
         <option name="default">1</option>
       </options>
     </field>
+    <many-to-one field="userProfile" target-entity="UserProfile" fetch="LAZY">
+      <join-columns>
+        <join-column name="user_profile_id" referenced-column-name="user_profile_id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
 

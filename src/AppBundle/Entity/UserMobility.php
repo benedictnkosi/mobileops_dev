@@ -8,11 +8,6 @@
 class UserMobility
 {
     /**
-     * @var integer
-     */
-    private $userProfileId;
-
-    /**
      * @var string
      */
     private $userMobility;
@@ -32,30 +27,11 @@ class UserMobility
      */
     private $userMobilityId;
 
-
     /**
-     * Set userProfileId
-     *
-     * @param integer $userProfileId
-     *
-     * @return UserMobility
+     * @var \UserProfile
      */
-    public function setUserProfileId($userProfileId)
-    {
-        $this->userProfileId = $userProfileId;
+    private $userProfile;
 
-        return $this;
-    }
-
-    /**
-     * Get userProfileId
-     *
-     * @return integer
-     */
-    public function getUserProfileId()
-    {
-        return $this->userProfileId;
-    }
 
     /**
      * Set userMobility
@@ -137,6 +113,30 @@ class UserMobility
     public function getUserMobilityId()
     {
         return $this->userMobilityId;
+    }
+
+    /**
+     * Set userProfile
+     *
+     * @param \UserProfile $userProfile
+     *
+     * @return UserMobility
+     */
+    public function setUserProfile(\UserProfile $userProfile = null)
+    {
+        $this->userProfile = $userProfile;
+
+        return $this;
+    }
+
+    /**
+     * Get userProfile
+     *
+     * @return \UserProfile
+     */
+    public function getUserProfile()
+    {
+        return $this->userProfile;
     }
 }
 

@@ -1,6 +1,14 @@
 // JavaScript Document
 
 $(document).ready(function() {
+	if (getCookie("mobileops_temp_login") == null) {
+		if(getCookie("mobileops") == null){
+			window.location.href = "/index.php?logout";
+		}else{
+			saveCookieToSession();
+		}
+	}
+	
 	getServiceCategories();
 });
 

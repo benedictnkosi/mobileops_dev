@@ -194,7 +194,7 @@ function getAllServices() {
 										$('form.idealforms')
 												.idealforms(
 														{
-
+															 iconHtml: false,
 															silentLoad : true,
 															rules : {
 																'firstname' : 'required',
@@ -207,20 +207,17 @@ function getAllServices() {
 															errors : {
 																'skills_checkbox_item[]' : {
 																	ajaxError : 'No Services Selected'
-																},
-																'name' : {
-																	ajaxError : 'Fuck you'
 																}
 															},
 
 															steps : {
 
 																MY_stepsItems : [
-																		'Step 1',
-																		'Step 2',
-																		'Step 3',
-																		'Step 4',
-																		'Step 5' ],
+																		'1. Personal Details',
+																		'2. Time',
+																		'3. Services',
+																		'4. Service Providers',
+																		'5. Finish' ],
 
 																buildNavItems : function(
 																		i) {
@@ -238,7 +235,7 @@ function getAllServices() {
 																					})
 																			.get();
 
-																	if (("Step 5"
+																	if (("5. Finish"
 																			.localeCompare(selectedTab) == 0)
 																			&& sessionStorage.mobileops_providerSelected
 																					.localeCompare("false") == 0) {
@@ -274,7 +271,7 @@ function getAllServices() {
 																							});
 
 																		}
-																	} else if (("Step 5"
+																	} else if (("5. Finish"
 																			.localeCompare(selectedTab) == 0)
 																			&& sessionStorage.mobileops_providerSelected
 																					.localeCompare("false") != 0) {
@@ -369,6 +366,10 @@ function getAllServices() {
 																									response) {
 																								var element = document
 																								.getElementById("lbl_location");
+																								
+																								$(
+																								"#lbl_location")
+																								.empty();
 																								
 																								var h3 = document
 																										.createElement("h4");
@@ -465,7 +466,7 @@ function getAllServices() {
 																		}
 																	}
 
-																	if (("Step 4"
+																	if (("4. Service Providers"
 																			.localeCompare(selectedTab) == 0)) {
 																		if (checkedValues.length < 1) {
 																			$(
@@ -526,7 +527,7 @@ function getAllServices() {
 																			.get();
 
 																	var selectedStep = $(".idealsteps-step-active");
-																	if (("Step 5"
+																	if (("5. Finish"
 																			.localeCompare(selectedStep[0].firstChild.firstChild.data) == 0)) {
 																		console
 																				.log(e);

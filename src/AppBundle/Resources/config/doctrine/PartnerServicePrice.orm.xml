@@ -2,9 +2,9 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="PartnerServicePrice" table="partner_service_price">
     <indexes>
-      <index name="region_service_price_fk_idx" columns="region_service_id"/>
+      <index name="region_service_price_fk_idx" columns="partner_service_id"/>
     </indexes>
-    <id name="regionServicePriceId" type="integer" column="region_service_price_id">
+    <id name="partnerServicePriceId" type="integer" column="partner_service_price_id">
       <generator strategy="IDENTITY"/>
     </id>
     <field name="active" type="boolean" column="active" nullable="true"/>
@@ -20,9 +20,9 @@
     </field>
     <field name="amount" type="float" column="amount" precision="10" scale="0" nullable="true"/>
     <field name="discountPercentage" type="float" column="discount_percentage" precision="10" scale="0" nullable="true"/>
-    <many-to-one field="regionService" target-entity="PartnerService" fetch="LAZY">
+    <many-to-one field="partnerService" target-entity="PartnerService" fetch="LAZY">
       <join-columns>
-        <join-column name="region_service_id" referenced-column-name="region_service_id"/>
+        <join-column name="partner_service_id" referenced-column-name="partner_service_id"/>
       </join-columns>
     </many-to-one>
   </entity>

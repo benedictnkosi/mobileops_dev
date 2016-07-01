@@ -1,26 +1,132 @@
 <!DOCTYPE HTML>
+
 <html>
 <head>
-<title>Profile</title>
-<link href="web/css/dropzone-style.css" media="all" rel="stylesheet"
-	type="text/css" />
-
+<title>Manage Services</title>
 <link rel="stylesheet"
 	href="http://necolas.github.io/normalize.css/2.1.3/normalize.css">
 <link rel="stylesheet" href="web/css/jquery.idealforms.css">
+<script src="web/js/events/events_partnerprofile.js"></script>
 
 
-<link
-	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="web/css/star-rating.min.css" media="all" rel="stylesheet"
-	type="text/css" />
+   <style>
+   
+   table td {
+    padding: 0.1em;
+}
 
+label {
+    margin: 0;
+    font-weight: normal;
+}
 
-<script src="web/js/star-rating.min.js" type="text/javascript"></script>
-<script src="web/js/events/events_partnerprofile.js"
-	type="text/javascript"></script>
+   form.idealforms .ideal-radiocheck-label {
+	display: inline !important;
+	padding: .25em 0 !important;
+	cursor: pointer;
+	clear: none !important;
+	float: left;
+}
+   
+   input[type="submit"], input[type="reset"], input[type="button"], .button{
+   	font-weight: 400;
+    height: 2em;
+    line-height: 2em;
+   }
+   
+   td > input[type="text"] {
+    height: 2em;
+    width:8em;
+}
 
+      .disabled-service{
+      	color:red;
+      }
+      input[type="text"]{
+    background: white;
+}
+
+  <style>
+      
+      input[type="text"]{
+    background: white;
+}
+
+    .invoice-box table{
+        width:100%;
+        line-height:inherit;
+        text-align:left;
+    }
+    
+    .invoice-box table td{
+        
+        vertical-align:top;
+    }
+    
+    .invoice-box table tr td:nth-child(2){
+        text-align:right;
+    }
+    
+    .invoice-box table tr.top table td{
+        padding-bottom:20px;
+    }
+    
+    .invoice-box table tr.top table td.title{
+        font-size:45px;
+        line-height:45px;
+        color:#333;
+    }
+    
+    .invoice-box table tr.information table td{
+        padding-bottom:40px;
+    }
+    
+    .invoice-box table tr.heading td{
+        background:#eee;
+        border-bottom:1px solid #ddd;
+        font-weight:bold;
+    }
+    
+    .invoice-box table tr.details td{
+        padding-bottom:20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom:1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td{
+        border-bottom:none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(2){
+        border-top:2px solid #eee;
+        font-weight:bold;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td{
+            width:100%;
+            display:block;
+            text-align:center;
+        }
+        
+        .invoice-box table tr.information table td{
+            width:100%;
+            display:block;
+            text-align:center;
+        }
+    }
+    </style>
+    
+
+   
+    </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ 
+ 
+ 
 <!-- image upload -->
 <script src="/web/js/ajaxupload.js" type="text/javascript"></script>
 
@@ -33,86 +139,45 @@
 <script
 	src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 <script src="web/js/jquery.geocomplete.js"></script>
-
-
-<style>
-form.idealforms .ideal-radiocheck-label {
-	display: inline !important;
-	padding: .25em 0 !important;
-	cursor: pointer;
-	clear: none !important;
-	float: left;
-}
-
-.field.buttons button {
-	margin-right: .5em;
-}
-
-#invalid {
-	display: none;
-	float: left;
-	margin-left: 120px;
-	margin-top: .5em;
-	color: #CC2A18;
-	font-size: 130%;
-	font-weight: bold;
-}
-
-.idealforms.adaptive #invalid {
-	margin-left: 0 !important;
-}
-
-.idealforms.adaptive .field.buttons label {
-	height: 0;
-}
-
-.row.uniform>*>:first-child {
-	width: 100%;
-}
-
-.row.uniform {
-	width: 100%;
-}
-
-#upload-file-container {
-	cursor: pointer;
-	cursor: hand;
-}
-
-#upload-file-container input {
-	filter: alpha(opacity = 0);
-	opacity: 0;
-	height: 150px;
-	cursor: pointer;
-	cursor: hand;
-}
-
-.group {
-	background: transparent !important;
-}
-</style>
-
-
+ 
+ 
+  <script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+  </script>
+  
 </head>
 <body class="landing">
-	<!-- one -->
-	<section id="one" class="wrapper style1">
-		<div class="container">
-			<section>
+
+<!-- Two -->
 
 
-				<h3>Personal Details</h3>
+<section id="one" class="wrapper style1">
+<div class="container"><header class="major">
+<h2>PARTNER PROFILE</h2>
+
+</header> <!-- Form --> <section>
 
 
-				<form class="idealforms" novalidate action="/" method="post">
+<div id="tabs">
+  <ul>
+  <li><a href="#fragment-1">Profile</a></li>
+    <li><a href="#fragment-2">My Services</a></li>
+    <li><a href="#fragment-3">Service Prices</a></li>
+    <li><a href="#fragment-4">New Service</a></li>
+    <li><a href="#fragment-5">Gallery</a></li>
+  </ul>
+  
+  <div id="fragment-1">
+   
+   <form class="idealforms" id="form_partner_profile" novalidate action="/" method="post">
 					<!-- Text -->
-
 
 					<div class="row uniform">
 						<div class="12u">
 							<div id="lbl_address_message"
-								class="alert display-none alert-danger">Address must contains
-								street name and street number</div>
+								class="alert display-none alert-danger"></div>
 						</div>
 					</div>
 
@@ -142,7 +207,7 @@ form.idealforms .ideal-radiocheck-label {
 					<div class="row uniform">
 						<div class="6u 12u(3)">
 							<div class="field">
-								<input type="text" name="savePersonalDetails" value="partner"
+								<input type="text" name="savePartnerPersonalDetails" value="partner"
 									style="display: none;" /> <input type="text" name="firstname"
 									id="firstname" value="" placeholder="First Name" /> <span
 									class="error"></span>
@@ -261,162 +326,167 @@ form.idealforms .ideal-radiocheck-label {
 					<button type="submit" id="cmdSaveDetails">Save Details</button>
 
 				</form>
-			</section>
-		</div>
-	</section>
-	<!-- Two -->
-	<section id="two" class="wrapper style2">
-		<div class="container">
-			<h3>Partner Services</h3>
-			<div id="partnerServicesDiv"></div>
-			<a href="index.php?partnerservices" class="button">Update My Services</a>
-			<a href="index.php?partnerprices" class="button">Update My Prices</a>
-			<a href="index.php?requestservice" class="button">Request A New Service</a>
-		</div>
-	</section>
+
+  </div>
+  
+  
+  <!-------------------------------------------------------------------------------------------------->
+  
+  
+  <div id="fragment-2">
+  
+  <div class="row uniform">
+						<div class="12u">
+							<div id="lbl__myservices_message"
+								class="alert display-none alert-danger"></div>
+						</div>
+					</div>
+					
+					<div id="div_services"></div>		
+				
+
+<div class="12u">
+<ul class="actions">
+	<li><input type="submit" value="SAVE" id="cmd_updateServices" /></li>
+</ul>
+</div>
+  </div>
+  
+  
+  <!-------------------------------------------------------------------------------------------------->
+  <div id="fragment-3">
+    
+    
+  <div class="row uniform">
+						<div class="12u">
+							<div id="lbl__service_prices_message"
+								class="alert display-none alert-danger"></div>
+						</div>
+					</div>
+			
+	<div id="div_prices"></div>				
+
+<div class="12u">
+<ul class="actions">
+	<li><input type="submit" value="SAVE" id="cmd_updateServicePrices" /></li>
+</ul>
+</div>
+  </div>
+  
+  
+  <!-------------------------------------------------------------------------------------------------->
+  
+  
+  <div id="fragment-4">
+<form class="idealforms" id="form_newService"novalidate action="/" method="post">
+
+					<div class="row uniform">
+						<div class="12u">
+							<div id="lbl_message_new_service" class="alert display-none"></div>
+						</div>
+					</div>
+
+					<!-- Text -->
+					<div class="row uniform"></div>
+
+					<div class="row uniform">
+						<div class="6u 12u(1)">
+							<input type="text" name="request_service" value="request_service"
+								style="display: none;" />
+							<div class="select-wrapper">
+								<select name="service_category" id="service_category">
+								</select>
+							</div>
+						</div>
+
+						<div class="6u 12u(1)">
+							<div class="field">
+								<input type="text" name="service_name" id="service_name"
+									value="" placeholder="Service Name" max-length="50" /> <span
+									class="error"></span>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row uniform">
+						<div class="12u">
+							<div class="field">
+								<textarea name="service_description" id="service_description"
+									placeholder="Service Description" rows="6" max-length="500"></textarea>
+								<span class="error"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row uniform">
+						<div class="6u 12u(3)">
+							<div class="field">
+								<button type="submit" id="cmdSubmit">Submit</button>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- Button -->
+
+				</form>
+  
+</div>
 
 
-	<!-- Three -->
-
-	<section id="three" class="wrapper style2">
-		<div class="container">
-			<h3>Partner Gallery Images</h3>
-			<form action="/src/AppBundle/Logic/file_upload.php" class="dropzone"
+ <div id="fragment-5">
+<form action="/src/AppBundle/Logic/file_upload.php" class="dropzone"
 				id="fileUpload_dropzone"></form>
-		</div>
-	</section>
-
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-
-	<script src="web/js/out/jquery.idealforms.js"></script>
-
-
-
-	<script type="text/javascript">
-
-
-      $("#address").geocomplete({ details: "form" }); 
-
-      $("#address").on('input keyup', function(e) {
-              // Reset lat
-        	  $('#input_Latitude').val("");
-          });
-      
-      $('form.idealforms').idealforms({
-          silentLoad: true,
-          rules: {
-            'firstname': 'required',
-            'surname': 'required',
-            'email': 'required email',
-            'mobile_number': 'required number min:10 max:10',
-            'idnumber': 'required',
-            'address': 'required',
-            'txt_personalNote': 'required',
-          },
+  
+</div>
+        
+         
           
-        	onSubmit: function(invalid, e) {
-        	    e.preventDefault();
-        	    $('#lbl_message').addClass( "display-none" );
-        	    if (invalid) {
-        	      
-        	    } else {
-        	    	
-            	    if(!$('input:radio[name=mobility]:checked').val()){
-            	    	$('#lbl_message').text('Please select mobility');
-        	  			$('#lbl_message').removeClass( "display-none alert-success alert-warning" ).addClass( "alert-danger" );
-        	  		
-        	  		$(
-                    "html, body")
-                .animate({
-                        scrollTop: $(
-                                ".container")
-                            .offset().top
-                    },
-                    "slow");
-                    return;
-            	    }
-
-            	    
-        	    	if($('#input_street_name').val().length < 1 && $('#input_street_number').val().length < 1 ){
-        	    		$('#lbl_address_message').show(function() {
-        	    			$(this).fadeOut(6000);}
-        	    		);
-        	    		
-        	    		$("html, body").animate({
-                            scrollTop: $(
-                                    ".container")
-                                .offset().top
-                        },
-                        "slow");
-        	    		return;
-        	    	}
-
-        	    	
-        	    	if($('#input_street_name').val().length > 1 && $('#input_street_number').val().length < 1 ){
-        	    		var streetNumber = prompt("Please enter your street number", "");
-        	    		if (streetNumber != null) {
-            	    		if(!isNaN(streetNumber)){
-            	    			$("#input_street_number").val(streetNumber);
-            	    		}else{
-            	    			$('#lbl_address_message').show(function() {
-                	    			$(this).fadeOut(6000);}
-                	    		);
-                	    		
-                	    		$("html, body").animate({
-                                    scrollTop: $(
-                                            ".container")
-                                        .offset().top
-                                },
-                                "slow");
-                	    		return;
-            	    		}
-        	    		}else{
-        	    			$('#lbl_address_message').show(function() {
-            	    			$(this).fadeOut(6000);}
-            	    		);
-            	    		
-            	    		$("html, body").animate({
-                                scrollTop: $(
-                                        ".container")
-                                    .offset().top
-                            },
-                            "slow");
-            	    		return;
-        	    		}
-        	    	}
-        	      $.post('src/AppBundle/Controller/controller_partner_profile.php', this.$form.serialize(), function(response) {  
-        	    	  var message = response.message;
-        	  		if(message.indexOf("Successfully") > -1){
-        	  			$('#lbl_message').text(message);
-        	  			$('#lbl_message').removeClass( "display-none alert-warning alert-danger" ).addClass( "alert-success" );
-        	  		}else{
-        	  			$('#lbl_message').text(message);
-        	  			$('#lbl_message').removeClass( "display-none alert-success alert-warning" ).addClass( "alert-danger" );
-        	  		}
-        	  		$(
-                    "html, body")
-                .animate({
-                        scrollTop: $(
-                                ".container")
-                            .offset().top
-                    },
-                    "slow");
-        	      }, 'json');
-        	    }    
-        	  }
-        });
-
-        $('form.idealforms').find('input, select, textarea').on('change keyup', function() {
-          $('#invalid').hide();
-        });
+          
+ <div id="newServicePrice_div" class="display-none">
+ <h1>Add New Service Price</h1>
+ 
+ 
+<div class="row uniform">
+<div class="6u 12u(3)">
+<div class="field">  <select name="options" id="dropdownRegionSerivces">
+                
+              </select> <span class="error"></span></div>
+</div>
+<div class="6u 12u(3)">
+<div class="field"><input type="text" name="input_service_price" id="input_service_price" value=""
+                           placeholder="Price" maxlength="5"/> <span
+	class="error"></span></div>
+</div>
+</div>
 
 
-        $('input[type=file]').change(function(e){
-        	 $( "#cmdSubmitProfilePic" ).click();
-        	});
-         
-         
-      </script>
+          <div class="row uniform">
+<div class="6u 12u(3)">
+<div class="field">
+
+             <button class="button display-none" type="submit" id="cmdSaveNewServicePrice" name="cmdSaveNewServicePrice" value="Save" >Save Service Price</button>
+              <span class="error"></span>
+            </div>
+</div>
+</div>
+
+            </div>
+                           
+  </div>
+  
+  
+
+  
+  
+</div>
+
+
+</section> 
+
+
+</section>
+
 </body>
 </html>

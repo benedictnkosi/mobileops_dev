@@ -6,19 +6,14 @@ require_once(__DIR__.'/../../../bootstrap.php');
 
 require_once(__DIR__.'/../../../app/application.php');
 
-
-
-require_once(__DIR__.'/../Entity/RegionService.php');
-
 require_once(__DIR__.'/../Entity/LuService.php');
-
-require_once(__DIR__.'/../Entity/LuRegion.php');
-
-require_once(__DIR__.'/../Entity/RegionServicePrice.php');
-
 require_once(__DIR__.'/../Entity/LuServiceType.php');
-
-
+require_once(__DIR__.'/../Entity/PartnerServicePrice.php');
+require_once(__DIR__.'/../Entity/PartnerService.php');
+require_once (__DIR__ . '/../Entity/UserProfile.php');
+require_once(__DIR__.'/../Entity/Address.php');
+require_once (__DIR__ . '/../Entity/UserMobility.php');
+require_once (__DIR__ . '/../Entity/LuMobility.php');
 
 
 
@@ -34,11 +29,11 @@ if (isset ( $_GET ['getRegions'] )) {
 
 
 
-if (isset ( $_GET ['getServiceCategoriesForRegion'] )) {
+if (isset ( $_GET ['getServiceCategories'] )) {
 
-	if ($_GET ['getServiceCategoriesForRegion']) :
+	if ($_GET ['getServiceCategories']) :
 
-	getServiceCategoriesForRegion($entityManager);
+	getServiceCategories($entityManager);
 
 	endif;
 
@@ -60,95 +55,23 @@ if (isset ( $_GET ['getPricelist'] )) {
 
 
 
-
-
-function getRegions($entityManager){
-
-	try {
-
-		$LuRegion = $entityManager->getRepository('LuRegion')->findBy(array('active'=>1),array('name' => 'ASC'));
-
-		$RegionArray = array ();
-
-		if($LuRegion){
-
-			foreach ($LuRegion as &$value) {
-
-				array_push ( $RegionArray, $value->getName());
-
-			}
-
-			$response['status'] = 1;
-
-			$response['message'] = $RegionArray;
-
-			echo json_encode($response);
-
-		}else{
-
-			$response['status'] = 2;
-
-			$response['message'] = "No regions found, please contact administrator @ " . SYSTEM_EMAIL_ADDRESS;
-
-			echo json_encode($response);
-
-			return;
-
-		}
-
-
-
-	} catch (Exception $e) {
-
-		$response['status'] = 2;
-
-		$response['message'] = $e->getMessage();
-
-		echo json_encode($response);
-
-	}
-
-
-
-}
-
-
-
-
-
-
-
-function getServiceCategoriesForRegion($entityManager){
+function getServiceCategories($entityManager){
 
 	try {
 
 		
 
-		//$LuServiceType = $entityManager->getRepository('LuServiceType')->findBy(array(),array('name' => 'ASC'));
-
-		$dql = "SELECT DISTINCT  st.name FROM RegionService rs JOIN rs.service s JOIN s.serviceTypeName st JOIN rs.region r
-
-		where r.name = '" . $_GET ['getServiceCategoriesForRegion'] . "' and rs.active = 1";
-
-
-
-		$query = $entityManager->createQuery($dql);
-
-		$query->setMaxResults(10);
-
-		$ServiceTypes = $query->getResult();
-
-
+		$LuServiceType = $entityManager->getRepository('LuServiceType')->findBy(array('active'=>1),array('name' => 'ASC'));
 
 		$CategoryArray = array ();
 
-		if($ServiceTypes){
+		if($LuServiceType){
 
-			foreach ($ServiceTypes as $ServiceType) {
+			foreach ($LuServiceType as $ServiceType) {
 
 				//print_r($ServiceType) ;
 
-				array_push ( $CategoryArray, $ServiceType['name']);
+				array_push ( $CategoryArray, $ServiceType->getName());
 
 			}
 
@@ -196,81 +119,78 @@ function getPricelist($entityManager){
 
 	try {
 
-		//$LuRegion = $entityManager->getRepository('LuRegion')->findOneBy(array('name' => $_GET['getPricelist']));
-
-		//$RegionService = $entityManager->getRepository('RegionService')->findOneBy(array('region' => $LuRegion));
-
-
-
-		$dql = "SELECT rsp, rs, r, s, st FROM RegionServicePrice rsp JOIN rsp.regionService rs JOIN rs.region r JOIN rs.service s JOIN s.serviceTypeName st  
-
-		where r.name = '" . $_GET['getPricelist'] . "'
-
-		and st = '" . $_GET['servicetype'] . "' and rsp.active = 1";
-
-
-
-		//echo $dql;
-
-		$query = $entityManager->createQuery($dql);
-
+		$ServiceCategoryArray = json_decode ( stripslashes ( $_GET ['serviceCategories'] ) );
 		
-
-		$RegionServicePrices = $query->getResult();
+		$lowLatitude = floatval ( $_GET ["lat"] ) - RADIUS;
+		$lowLongitude = floatval ( $_GET ["lng"] ) - RADIUS;
+		
+		$highLatitude = floatval ( $_GET ["lat"] ) + RADIUS;
+		$highLongitude = floatval ( $_GET ["lng"] ) + RADIUS;
+		
+		
+		$dql = "SELECT psp, ps, up, a FROM PartnerServicePrice psp JOIN psp.partnerService ps JOIN ps.partnerProfile up JOIN up.address a JOIN ps.service s JOIN s.serviceTypeName st
+		where
+		(a.latitude BETWEEN $lowLatitude AND $highLatitude)
+		and (a.longitude BETWEEN $lowLongitude AND  $highLongitude)
+		and psp.active = 1 
+		and st.name IN (:serviceCategories)
+		ORDER BY st.name,  s.name ";
+	
+		$query = $entityManager->createQuery ( $dql )->setParameters ( array (
+				'serviceCategories' => $ServiceCategoryArray
+		) );
+		
+		$partnerServicePrices = $query->getResult();
 
 		$ServicesNamePriceArray = array ();
 
 		
 
-		if($RegionServicePrices){
+		if($partnerServicePrices){
+			
+			$highestPrice = 0;
+			$lowestPrice = 99999999999999;
+			$ServiceName = "";
+			$i = 0;
+			foreach ($partnerServicePrices as &$value) {
 
-			foreach ($RegionServicePrices as &$value) {
-
-				//echo $value->getRegionService()->getService()->getName();
-
-				$tempArray = array ();
-
-
-
-				$LuService = $value->getRegionService()->getService();
-
-				$ServiceName = $value->getRegionService()->getService()->getName();
-
-
-
-				$LuService2 = $entityManager->getRepository('LuService')->findOneBy(array('name' => $ServiceName));
-
-				$ServiceTypeName = $LuService2->getServiceTypeName()->getName();
-
-
-
-				//only add service prices for the relevent service type
-
-				//need to find a way to filter while selecting from db
-
-				if (strcmp($ServiceTypeName, $_GET['servicetype']) == 0) {
-
-					$ServicePrice = $value->getAmount();
-
-					//array_push ( $tempArray, $ServiceTypeName);
-
-					array_push ( $tempArray, $ServiceName);
-
-					array_push ( $tempArray, "R" . number_format ( $ServicePrice, 2 ) );
-
-					array_push ( $ServicesNamePriceArray, $tempArray);
-
+	
+				$mobility = getPartnerMobility ( $entityManager,  $value->getPartnerService ()->getPartnerProfile());
+					
+				if (! $mobility) {
+					continue;
 				}
+				$LuService = $value->getPartnerService()->getService();
+				
+				$ServicePrice  = $value->getAmount();
 
-
-
+				if ((strcmp ( $ServiceName, $LuService->getName() ) !== 0) && $i !== 0) {
+					$tempArray = array ();
+					array_push ( $tempArray, $LuService->getServiceTypeName()->getName() .  ' - ' . $ServiceName);
+					array_push ( $tempArray, "R" . number_format ( $lowestPrice, 0 ) . ' - ' . "R" . number_format ( $highestPrice, 0 ));
+					array_push ( $ServicesNamePriceArray, $tempArray );
+					
+					$highestPrice = 0;
+					$lowestPrice = 99999999999999;
+				}
+				
+				$ServiceName = $LuService->getName();
+				if($ServicePrice > $highestPrice){
+					$highestPrice = $ServicePrice;
+				}
+				
+				if($ServicePrice < $lowestPrice){
+					$lowestPrice = $ServicePrice;
+				}
+				
+				$i ++;
 			}
 
 		}else{
 
 			$response['status'] = 2;
 
-			$response['message'] = "Sorry, the service for " . $_GET['servicetype']  . " is not available in your area. Please contact administrator @ " . SYSTEM_EMAIL_ADDRESS;
+			$response['message'] = "Sorry, the selected service categories are not available near you. Please contact administrator @ " . SYSTEM_EMAIL_ADDRESS;
 
 			echo json_encode($response);
 
@@ -278,32 +198,20 @@ function getPricelist($entityManager){
 
 		}
 
-
-
 		array_multisort($ServicesNamePriceArray, SORT_ASC);
-
-
-
 		$HeadersArray = array ();
 
+		array_push ( $HeadersArray, "SERVICE NAME");
 
-
-		array_push ( $HeadersArray, "Service Name");
-
-		array_push ( $HeadersArray, "Price");
+		array_push ( $HeadersArray, "PRICE AROUND YOU");
 
 		array_unshift ( $ServicesNamePriceArray, $HeadersArray);
-
-
 
 		$response['status'] = 1;
 
 		$response['message'] = $ServicesNamePriceArray;
 
 		echo json_encode($response);
-
-
-
 
 
 	} catch (Exception $e) {
@@ -321,5 +229,20 @@ function getPricelist($entityManager){
 
 
 
+function getPartnerMobility($entityManager, $userProfile) {
+	try {
 
+		if ($userProfile != NULL)
+			$userMobility = $entityManager->getRepository ( 'UserMobility' )->findOneBy ( array (
+					'userProfile' => $userProfile,
+					'active' => true
+			) );
+
+			return $userMobility;
+	} catch ( Exception $e ) {
+		echo "" . $e->getTraceAsString ();
+	}
+
+	return NULL;
+}
 ?>

@@ -14,9 +14,9 @@
 <meta name="keywords" content="Mobile, Salon, Mobile Salon, Mobile Salon Johhanesburg, Mobile Salon Gauteng, Mobile Nails, Mobile Massage, Mobile Massage Johhanesburg, Mobile Massage Gauteng" />
 
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+	href="web/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+	href="web/css/font-awesome.min.css">
 
 <!--[if lte IE 8]><script src="web/css/ie/html5shiv.js"></script><![endif]-->
 
@@ -76,7 +76,7 @@
 	
 	<li><a href="index.php?mybookings">MY BOOKINGS</a></li>
 
-	<li><a href="index.php?pricelist">PRICES</a></li>
+	<li><a href="index.php?geoprices">PRICES</a></li>
 
 
 	

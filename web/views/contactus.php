@@ -89,6 +89,7 @@ form.idealforms textarea {
 
 
       $('form.idealforms').idealforms({
+    	  iconHtml: false,
           silentLoad: true,
           rules: {
             'firstname': 'required',

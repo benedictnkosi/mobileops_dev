@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\Validator\Constraints\Length;
 require_once (__DIR__ . '/../../../bootstrap.php');
 require_once (__DIR__ . '/../../../app/application.php');
 require_once (__DIR__ . '/../Logic/email_template.php');
@@ -21,8 +22,6 @@ require_once (__DIR__ . '/../Entity/LuService.php');
 require_once (__DIR__ . '/../Entity/LuServiceType.php');
 require_once (__DIR__ . '/../Entity/BookingSummaryView.php');
 require_once (__DIR__ . '/../Entity/BookingComments.php');
-require_once (__DIR__ . '/../Entity/BookingServiceRegion.php');
-require_once (__DIR__ . '/../Entity/RegionService.php');
 require_once (__DIR__ . '/../Entity/BookingUserProfile.php');
 require_once (__DIR__ . '/../Entity/PartnerRating.php');
 require_once (__DIR__ . '/../Entity/BookingPartner.php');
@@ -32,6 +31,7 @@ require_once (__DIR__ . '/../Controller/controller_partner_profile.php');
 
 require_once ('controller_lookup.php');
 require_once ('controller_booking_services.php');
+require_once ('controller_partner_services.php');
 
 // Logger>>>>>>> 27207fc6249eff3b0b7a3068ad36679792289d7b
 // require_once('../logger/php/Logger.php');
@@ -65,6 +65,8 @@ if (isset ( $_GET ['prepdata'] )) {
 	
 	
 	
+	
+	
 
 	endif;
 }
@@ -73,11 +75,13 @@ if (isset ( $_GET ['getBestPartners'] )) {
 	if ($_GET ['getBestPartners']) :
 		
 		try {
-			session_start ();
+			// session_start ();
 		} catch ( Exception $e ) {
 		}
 		
 		getBestPartners ( $entityManager );
+	
+	
 	
 	
 	
@@ -100,29 +104,14 @@ if (isset ( $_GET ['resendEmail'] )) {
 	
 	
 	
+	
+	
 	endif;
 }
 
 if (isset ( $_GET ['getServicePrices'] )) {
 	if ($_GET ['getServicePrices']) :
-		try {
-			session_start ();
-		} catch ( Exception $e ) {
-		}
-		
 		getServicePrices ( $entityManager );
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	endif;
 }
 
@@ -134,6 +123,8 @@ if (isset ( $_GET ['getBookingsInCalender'] )) {
 		}
 		// initializeSession();
 		getBookingsInCalender ( $entityManager );
+	
+	
 	
 	
 	
@@ -162,6 +153,8 @@ if (isset ( $_GET ['completeBooking'] )) {
 	
 	
 	
+	
+	
 
 	endif;
 }
@@ -170,6 +163,8 @@ if (isset ( $_POST ['completeBookingByAdmin'] )) {
 	if ($_POST ['completeBookingByAdmin']) :
 		
 		completeBookingByAdmin ( $entityManager );
+	
+	
 	
 	
 	
@@ -189,6 +184,8 @@ if (isset ( $_POST ['acceptBooking'] )) {
 	
 	
 	
+	
+	
 
 
 
@@ -204,6 +201,8 @@ if (isset ( $_POST ['cancelBooking'] )) {
 	
 	
 	
+	
+	
 
 
 
@@ -214,6 +213,8 @@ if (isset ( $_POST ['cancelBooking'] )) {
 if (isset ( $_GET ['getBookingDetails'] )) {
 	if ($_GET ['getBookingDetails']) :
 		getBookingDetails ( $entityManager );
+	
+	
 	
 	
 	
@@ -238,12 +239,16 @@ if (isset ( $_POST ['updateBooking'] )) {
 	
 	
 	
+	
+	
 	endif;
 }
 
 if (isset ( $_POST ['updateBookingComments'] )) {
 	if ($_POST ['updateBookingComments']) :
 		updateBookingComments ( $entityManager );
+	
+	
 	
 	
 	
@@ -263,6 +268,8 @@ if (isset ( $_GET ['getBookingViewByStatus'] )) {
 	
 	
 	
+	
+	
 	endif;
 }
 
@@ -276,12 +283,16 @@ if (isset ( $_GET ['getBookingStatus'] )) {
 	
 	
 	
+	
+	
 	endif;
 }
 
 if (isset ( $_GET ['getDateChangeReasons'] )) {
 	if ($_GET ['getDateChangeReasons']) :
 		getDateChangeReasons ( $entityManager );
+	
+	
 	
 	
 	
@@ -308,12 +319,16 @@ if (isset ( $_POST ['changeBookingDateTime'] )) {
 	
 	
 	
+	
+	
 	endif;
 }
 
 if (isset ( $_GET ['acceptChanges'] )) {
 	if ($_GET ['acceptChanges']) :
 		acceptChanges ( $entityManager );
+	
+	
 	
 	
 	
@@ -326,6 +341,8 @@ if (isset ( $_GET ['acceptChanges'] )) {
 if (isset ( $_GET ['cancelBookingForRebook'] )) {
 	if ($_GET ['cancelBookingForRebook']) :
 		cancelBookingForRebook ( $entityManager );
+	
+	
 	
 	
 	
@@ -346,12 +363,16 @@ if (isset ( $_GET ['changeBookingPartnerByAdmin'] )) {
 	
 	
 	
+	
+	
 	endif;
 }
 
 if (isset ( $_POST ['changeBookingDateTimeAndPartner'] )) {
 	if ($_POST ['changeBookingDateTimeAndPartner']) :
 		changeBookingDateTimeAndPartner ( $entityManager );
+	
+	
 	
 	
 	
@@ -1042,17 +1063,6 @@ function completeBooking($entityManager) {
 		$date = new DateTime ();
 		
 		$Address = new Address ();
-		$Address->setStreetName ( $street_name );
-		$Address->setStreetNumber ( $street_number );
-		$Address->setCityName ( $city );
-		$Address->setSuburbName ( $suburb );
-		$Address->setProvinceName ( $province );
-		$Address->setLatitude ( $latitude );
-		$Address->setLongitude ( $longitude );
-		$Address->setComplexName ( $complex );
-		$Address->setDateAdded ( $date );
-		
-		$entityManager->persist ( $Address );
 		
 		$entityManager->flush ();
 		
@@ -1099,21 +1109,31 @@ function completeBooking($entityManager) {
 			return;
 		}
 		
-		
-		//set booking address to partners address if appointment is at service provider offices
+		// set booking address to partners address if appointment is at service provider offices
 		if (isset ( $_POST ['preferredlocation'] )) {
-			if (strcmp($_POST ['preferredlocation'], 'walk_in') == 0) {
+			if (strcmp ( $_POST ['preferredlocation'], 'walk_in' ) == 0) {
 				$user = $entityManager->getRepository ( 'User' )->findOneBy ( array (
-						'userId' => $_GET ['partner_id']
+						'userId' => $_GET ['partner_id'] 
 				) );
-					
+				
 				if ($user) {
-					$Address =$user->getUserProfile()->getAddress();
+					$Address = $user->getUserProfile ()->getAddress ();
 				}
 			}
+		} else {
+			// use address on the form
+			$Address->setStreetName ( $street_name );
+			$Address->setStreetNumber ( $street_number );
+			$Address->setCityName ( $city );
+			$Address->setSuburbName ( $suburb );
+			$Address->setProvinceName ( $province );
+			$Address->setLatitude ( $latitude );
+			$Address->setLongitude ( $longitude );
+			$Address->setComplexName ( $complex );
+			$Address->setDateAdded ( $date );
 			
+			$entityManager->persist ( $Address );
 		}
-		
 		
 		$bookingAddress = createBookingAddress ( $entityManager, $booking, $Address );
 		if (! $bookingAddress) {
@@ -1275,6 +1295,7 @@ function writeServicesToDB($entityManager, $bookingObject) {
 		echo json_encode ( $response );
 	}
 }
+
 /*
  * No error checking yet, I am yet to learn. I will put more controlls later.
  *
@@ -1317,6 +1338,8 @@ function getServicePrices($entityManager) {
 		echo json_encode ( $response );
 	}
 }
+
+
 function getBookingsInCalender($entityManager) {
 	$user_bookings = null;
 	$url;
@@ -1531,80 +1554,75 @@ function getBestPartners($entityManager) {
 		$selectedServicesArray = json_decode ( $_GET ['skills_array'] );
 	}
 	
-	$dql = "SELECT u, p, a, ur FROM User u JOIN u.userProfile p JOIN p.address a JOIN u.userUserRole ur
-	where ur.name = 'PARTNER'
-	and (a.latitude BETWEEN $lowLatitude AND $highLatitude) 
-	and (a.longitude BETWEEN $lowLongitude AND  $highLongitude)";
+	$dql = "SELECT psp, ps, up, a FROM PartnerServicePrice psp JOIN psp.partnerService ps JOIN ps.partnerProfile up JOIN up.address a JOIN ps.service s
+			where 
+ 	(a.latitude BETWEEN $lowLatitude AND $highLatitude)
+	and (a.longitude BETWEEN $lowLongitude AND  $highLongitude)
+	and s.name IN (:services)
+	ORDER BY up.userProfileId";
 	
 	// echo $dql;
-	$query = $entityManager->createQuery ( $dql );
-	$query->setMaxResults ( 10 );
-	$partners = $query->getResult ();
-	$partnerFound = false;
+	$query = $entityManager->createQuery ( $dql )->setParameters ( array (
+			'services' => $selectedServicesArray 
+	) );
 	
-	if ($partners) {
-		foreach ( $partners as $partner ) {
-			$ServiceFoundOnPartner = true;
-			$services = $entityManager->getRepository ( 'UserUserService' )->findBy ( array (
-					'userUserServiceProfile' => $partner->getUserProfile () 
+	$query->setMaxResults ( 20 );
+	$partnerServicePrices = $query->getResult ();
+	
+	$partnerFound = false;
+	$partnerTotalPrice = 0;
+	$partnerId = 0;
+	$previousPartner;
+	$i = 0;
+	$bestPartnersArray = array ();
+	if ($partnerServicePrices) {
+		foreach ( $partnerServicePrices as $partnerServicePrice ) {
+			$partner = $entityManager->getRepository ( 'User' )->findOneBy ( array (
+					'userProfile' => $partnerServicePrice->getPartnerService ()->getPartnerProfile () 
 			) );
 			
-			if (! $services) {
+			if ($partnerId != $partner->getUserId () & $i > 0) {
+				$partnerArray = array ();
+				array_push ( $partnerArray, $partnerTotalPrice );
+				array_push ( $partnerArray, distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ));
+				array_push ( $partnerArray, $previousPartner );
+				
+				
+				array_push ( $bestPartnersArray, $partnerArray );
+				$partnerTotalPrice = 0;
+			}
+			
+			$previousPartner = $partner;
+			$partnerId = $partner->getUserId ();
+			$partnerTotalPrice += $partnerServicePrice->getAmount ();
+			
+			// check if partner mobility is set
+			$userMobility = getPartnerMobility ( $entityManager, $partner->getEmailAddress ());
+			if (! $userMobility) {
 				break;
 			}
 			
-			if (isset ( $_GET ['skills_checkbox_item'] )) {
-				$selectedServicesArray = $_GET ["skills_checkbox_item"];
-			} else if (isset ( $_GET ['skills_array'] )) {
-				$selectedServicesArray = json_decode ( $_GET ['skills_array'] );
-			}
-			
-			foreach ( $selectedServicesArray as $selectedService ) {
-				foreach ( $services as $partnerService ) {
-					if (strcmp ( $selectedService, $partnerService->getUserUserServiceName ()->getName () ) !== 0) {
-						$ServiceFoundOnPartner = false;
-					} else {
-						$ServiceFoundOnPartner = true;
-						break;
-					}
-				}
-				
-				if ($ServiceFoundOnPartner == false) {
-					break;
-				}
-			}
-			
-			//check if partner mobility is set
-			$userMobility = getPartnerMobility ( $entityManager, $partner->getEmailAddress () );
-			if(!$userMobility){
-				break;
-			}
-			
-			if ($ServiceFoundOnPartner == true) {
-				$partnerFound = true;
-				// get partner rating
-				
-				$dql = "SELECT pr FROM PartnerRating pr JOIN pr.user u
-				where u.userId = " . $partner->getUserId ();
-				
-				$query = $entityManager->createQuery ( $dql );
-				$query->setMaxResults ( 1000 );
-				$partnerRatings = $query->getResult ();
-				$ratingAvg = 3;
-				
-				if ($partnerRatings) {
-					$ratingAvg = 0;
-					foreach ( $partnerRatings as $partnerRating ) {
-						$ratingAvg = $ratingAvg + $partnerRating->getRating ();
-					}
-					$ratingAvg = $ratingAvg / sizeof ( $partnerRatings );
-				}
-				
-				// output to screen
-				outputPartnerToBrowser ( $partner, $ratingAvg, $entityManager );
-			}
+			$partnerFound = true;
+			$i ++;
 		}
-		if (! $partnerFound) {
+		
+		if ($partnerFound) {
+			$partnerArray = array ();
+			array_push ( $partnerArray, $partnerTotalPrice );
+			array_push ( $partnerArray, distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ));
+			array_push ( $partnerArray, $previousPartner );
+			
+			array_push ( $bestPartnersArray, $partnerArray );
+			
+			array_multisort ( $bestPartnersArray, SORT_ASC );
+			
+			foreach ( $bestPartnersArray as $bestPartnerArray ) {
+				$userMobility = getPartnerMobility ( $entityManager, $bestPartnerArray [2]->getEmailAddress () );
+				if ($userMobility) {
+					outputPartnerToBrowser ( $bestPartnerArray [2], $bestPartnerArray [0],$userMobility, $entityManager );
+				}
+			}
+		} else {
 			if (sizeof ( $selectedServicesArray ) > 1) {
 				echo 'No partners providing the services requested found near the provided address. Please select fewer services';
 			} else {
@@ -1615,55 +1633,46 @@ function getBestPartners($entityManager) {
 		echo 'No partners found near the provided address.';
 	}
 }
-function outputPartnerToBrowser($partner, $ratingAvg, $entityManager) {
-	echo '<div class="partner_preview">';
-		
-	$userMobility = getPartnerMobility ( $entityManager, $partner->getEmailAddress () );
+function outputPartnerToBrowser($partner, $partnerTotalPrice, $partnerMobility, $entityManager) {
 	
-	echo '<ul class="demo-tags">
-  <li><a href="#">R450.00</a></li>
+		echo '<div class="partner_preview">';
+		echo '<ul class="demo-tags">
+  <li><a href="#">' . 'R' . number_format ( $partnerTotalPrice, 2 ) . '</a></li>
 </ul>';
-	
-	if ($userMobility) {
-		$partnerMobility = $userMobility->getUserMobility ();
-		if (strcmp($partnerMobility, 'Both') == 0) {
+		
+		$partnerMobility = $partnerMobility->getUserMobility ();
+		if (strcmp ( $partnerMobility, 'Both' ) == 0) {
 			echo '<div class="container" style="width: 100%;">
 			<h5 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '"><b>' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . ' (Walk-In And Mobile)</b></h5>';
-		}elseif (strcmp($partnerMobility, 'Mobile') == 0) {
+		} elseif (strcmp ( $partnerMobility, 'Mobile' ) == 0) {
 			echo '<div class="container" style="width: 100%;">
 			<h5 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '"><b>' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . ' (Mobile Only)</b></h5>';
-		}elseif (strcmp($partnerMobility, 'Walk-In Only') == 0) {
+		} elseif (strcmp ( $partnerMobility, 'Walk-In Only' ) == 0) {
 			echo '<div class="container" style="width: 100%;">
 			<h5 style="margin-top: 5px;" id="lblpartner' . $partner->getUserId () . '"><b>' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . ' (Walk-In Only)</b></h5>';
 		}
 		
-		
-	}
-	
-	
-	
-	if (isset ( $_SESSION ['user_role'] )) {
-		if (strcmp ( $_SESSION ['user_role'], 'ADMINISTRATOR' ) == 0) {
-			echo '<h3 style="margin-top: 5px;" id="lblpartner_tel' . $partner->getUserId () . '">' . $partner->getUserProfile ()->getPhoneNumber () . '</h3>';
+		if (isset ( $_SESSION ['user_role'] )) {
+			if (strcmp ( $_SESSION ['user_role'], 'ADMINISTRATOR' ) == 0) {
+				echo '<h3 style="margin-top: 5px;" id="lblpartner_tel' . $partner->getUserId () . '">' . $partner->getUserProfile ()->getPhoneNumber () . '</h3>';
+			}
 		}
-	}
+		
+		echo '<p>' . distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ) . ' KM away. <b>' . $partner->getUserProfile ()->getAddress ()->getSuburbName () . ', ' . $partner->getUserProfile ()->getAddress ()->getCityName () . '</b></p>';
+		// echo '<p>' . $partner->getUserProfile ()->getPersonalNote () . '</p>';
+		// echo '<input id="partner_rating" class="rating"
+		// value="' . $ratingAvg . '" data-min="0" data-max="5" data-disabled="true" data-size="xs">';
+		
+		if (strcmp ( $partnerMobility, 'Both' ) == 0) {
+			echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select Mobile</a>';
+			echo '<a href="#" class="button selectPartner_walk_in" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="walkin_partner' . $partner->getUserId () . '">Select Walk In</a>';
+		} else {
+			echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select</a>';
+		}
+		echo '<a href="index.php?aboutpartner=' . $partner->getUserId () . '" target="_blank" class="button">View Gallery</a>';
+		echo ' </div>';
+		echo '</div>';
 	
-	echo '<p>' . distance ( $_GET ["lat"], $_GET ["lng"], $partner->getUserProfile ()->getAddress ()->getLatitude (), $partner->getUserProfile ()->getAddress ()->getLongitude (), "K" ) . ' KM away from you. Service provider in <b>' . $partner->getUserProfile ()->getAddress ()->getSuburbName () . ', ' . $partner->getUserProfile ()->getAddress ()->getCityName () . '</b></p>';
-	//echo '<p>' . $partner->getUserProfile ()->getPersonalNote () . '</p>';
-	// echo '<input id="partner_rating" class="rating"
-	// value="' . $ratingAvg . '" data-min="0" data-max="5" data-disabled="true" data-size="xs">';
-	
-	
-	
-	if (strcmp($partnerMobility, 'Both') == 0) {
-		echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select Mobile</a>';
-		echo '<a href="#" class="button selectPartner_walk_in" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="walkin_partner' . $partner->getUserId () . '">Select Walk In</a>';
-	}else{
-		echo '<a href="#" class="button selectPartner" name ="' . $partner->getUserProfile ()->getFirstName () . ' ' . $partner->getUserProfile ()->getSurname () . '" id="partner' . $partner->getUserId () . '">Select</a>';
-	}
-	echo '<a href="index.php?aboutpartner=' . $partner->getUserId () . '" target="_blank" class="button">View Gallery</a>';
-	echo ' </div>';
-	echo '</div>';
 }
 function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 	// echo $lat1 . ' - ' . $lon1 . ' - ' . $lat2 . ' - ' . $lon2;

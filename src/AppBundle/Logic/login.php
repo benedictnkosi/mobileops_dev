@@ -57,7 +57,11 @@ class Login {
 
 	private function my_session_start($timeout) {
 		ini_set ( 'session.gc_maxlifetime', $timeout );
-		session_start ();
+		
+		if (!isset ( $_SESSION ['user_login_status'] )){
+			session_start ();
+		}
+		
 
 		if (isset ( $_SESSION ['timeout_idle'] ) && $_SESSION ['timeout_idle'] < time ()) {
 			

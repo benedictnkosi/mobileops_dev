@@ -152,4 +152,20 @@ function getClientProfile($entityManager){
 }
 
 
+function getClientProfileById($entityManager,$userProfileId){
+
+	try{
+
+		$clientProfile = $entityManager->getRepository('UserProfile')->findOneBy(array('userProfileId' => $userProfileId));
+		//echo "FOUND ".$clientProfile->getFirstName()." \n";
+
+		return $clientProfile;
+
+	}catch(Exception $e){
+		echo "".$e->getTraceAsString();
+	}
+	return $clientProfile;
+}
+
+
 ?>

@@ -202,6 +202,7 @@ width:100%;
 
       $('form.idealforms').idealforms({
           silentLoad: true,
+          iconHtml: false,
           rules: {
             'firstname': 'required',
             'surname': 'required',

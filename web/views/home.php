@@ -3,6 +3,17 @@
 <title>Mobile Beauty Salon</title>
 <script src="web/js/events/events_home.js"></script>
 <script src="web/js/commons.js"></script>
+<style type="text/css">
+h3{
+    text-align: center;
+    }
+    
+    .row.uniform {
+    width: 90%;
+    margin-left: auto;
+}
+
+    </style>
       </head>
 <html>
 	<body class="landing">
@@ -10,29 +21,45 @@
 			<section id="two" class="wrapper style2">
 				<div class="container">
 				<header class="major">
-						<p> MOBILEOPS provides a wide range of beauty services to the home. <a href="/index.php?booking">Book now</a> for a hassle-free beauty appointment<br />
+						<p> MOBILEOPS provides a price comparison tool and a booking facility for beauty service providers around Gauteng.<a href="/index.php?booking"><b>BOOK NOW</b></a> for a hassle-free beauty appointment<br />
 						</p>
 					</header>
 					<div class="row uniform">
-						<div class="4u 6u(2) 12u$(3)">
+						<div class="2u 6u(2) 12u$(3)">
 							<section class="feature ">
-								<h3>BEAUTY</h3>
-								<p>we offer spa and beauty treatments such as massages,waxing, manis and pedis and makeup services for functions and weddings.</p>
+								<h3>NAILS</h3>
+								
 								<img alt="hair" src="web/images/nails.jpg" class="home_images">
 							</section>
 						</div>
-						<div class="4u 6u$(2) 12u$(3)">
+						<div class="2u 6u$(2) 12u$(3)">
 							<section class="feature ">
 								<h3>HAIR</h3>
-								<p>Our Experienced technicians offer weaving, braiding and styling services in the comfort of your home. We cater for adults and children and for any event.</p>
+								
 								<img alt="hair" src="web/images/hair.jpg" class="home_images">
 							</section>
 						</div>
-						<div class="4u$ 6u(2) 12u$(3)">
+						<div class="2u$ 6u(2) 12u$(3)">
 							<section class="feature ">
 								<h3>MASSAGE</h3>
-								<p>Aromatic Oil Massage, Aromatherapy Thai Massage, Head, Neck and Shoulder Massage, Thai Sports Massage, Thai Traditional What Po Massage,</p>
+								
 								<img alt="hair" src="web/images/massage.jpg" class="home_images">
+							</section>
+						</div>
+						
+						<div class="2u$ 6u(2) 12u$(3)">
+							<section class="feature ">
+								<h3>MAKE-UP</h3>
+								
+								<img alt="hair" src="web/images/makeup.jpg" class="home_images">
+							</section>
+						</div>
+						
+						<div class="2u$ 6u(2) 12u$(3)">
+							<section class="feature ">
+								<h3>WAXING</h3>
+								
+								<img alt="hair" src="web/images/waxing.jpg" class="home_images">
 							</section>
 						</div>
 						

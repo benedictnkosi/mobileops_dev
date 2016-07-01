@@ -150,6 +150,7 @@ width:100%;
   	
 
       $('form.idealforms').idealforms({
+    	  iconHtml: false,
           silentLoad: true,
           rules: {
             

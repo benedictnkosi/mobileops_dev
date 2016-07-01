@@ -110,6 +110,7 @@ width:100%;
 
       $('form.idealforms').idealforms({
           silentLoad: true,
+          iconHtml: false,
           rules: {
             'password': 'required',
             'confirmPassword': 'required equalto:password',

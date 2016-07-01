@@ -90,6 +90,7 @@ form.idealforms textarea {
 
       $('form.idealforms').idealforms({
           silentLoad: true,
+          iconHtml: false,
           rules: {
             'service_name': 'required',
             'service_description': 'required',

@@ -5,7 +5,7 @@
       <index name="service_id_idx" columns="service_id"/>
       <index name="partner_service_region_id_fk_idx" columns="partner_profile_id"/>
     </indexes>
-    <id name="regionServiceId" type="integer" column="region_service_id">
+    <id name="partnerServiceId" type="integer" column="partner_service_id">
       <generator strategy="IDENTITY"/>
     </id>
     <field name="active" type="boolean" column="active" nullable="true"/>

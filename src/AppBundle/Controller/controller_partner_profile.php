@@ -13,16 +13,47 @@ require_once (__DIR__ . '/../Entity/UserUserService.php');
 require_once (__DIR__ . '/../Entity/LuService.php');
 require_once (__DIR__ . '/../Entity/LuServiceType.php');
 require_once (__DIR__ . '/../Entity/PartnerImages.php');
+require_once ('controller_partner_services.php');
 
 require_once ('controller_lookup.php');
+require_once (__DIR__ . '/../Logic/Login.php');
 
-if (isset ( $_POST ['savePersonalDetails'] )) {
-	if ($_POST ['savePersonalDetails']) :
-		savePersonalDetails ( $entityManager );
+$login = new Login ($entityManager);
+$login->isUserLoggedIn ($entityManager);
+
+if (isset ( $_POST ['savePartnerPersonalDetails'] )) {
+	if ($_POST ['savePartnerPersonalDetails']) :
+		savePartnerPersonalDetails ( $entityManager );
 	
    endif;
 }
 
+if (isset ( $_POST ['saveServices'] )) {
+	if ($_POST ['saveServices']) :
+	saveServices ( $entityManager );
+
+	endif;
+}
+
+
+if (isset ( $_POST ['saveServicesPrices'] )) {
+	if ($_POST ['saveServicesPrices']) :
+
+	saveServicesPrices ( $entityManager );
+	endif;
+}
+
+
+
+
+
+
+if (isset ( $_GET ['getServicesWithPrices'] )) {
+	if ($_GET ['getServicesWithPrices']) :
+
+	getServicesWithPrices ( $entityManager );
+	endif;
+}
 
 
 if (isset ( $_GET ['getPartnerAddress'] )) {
@@ -35,7 +66,8 @@ if (isset ( $_GET ['getPartnerAddress'] )) {
 
 if (isset ( $_GET ['getPartnerServices'] )) {
 	if ($_GET ['getPartnerServices']) :
-		getPartnerServices ( $entityManager );
+	
+		getActivePartnerServices ( $entityManager );
 	
    endif;
 }
@@ -113,12 +145,15 @@ function deleteImages($entityManager) {
 		echo json_encode ( $response );
 	}
 }
-function savePersonalDetails($entityManager) {
+
+
+function savePartnerPersonalDetails($entityManager) {
 	try {
-		session_start ();
+		//session_start ();
 	} catch ( Exception $e ) {
 	}
 	try {
+		
 		$name = $_POST ['firstname'];
 		$surname = $_POST ['surname'];
 		$email = $_SESSION ['email_address'];
@@ -162,11 +197,14 @@ function savePersonalDetails($entityManager) {
 			
 			$user->setUserProfile ( $UserProfile );
 			
+			
 			$mobility = getPartnerMobility ( $entityManager, $user->getEmailAddress () );
 			
 			if (! $mobility) {
+				
 				createPartnerMobilityStatus ( $entityManager, $user->getEmailAddress (), $_POST ['mobility'] );
 			} else {
+				
 				updateMobilityStatus ( $entityManager, $mobility->getUserMobilityId (), false );
 				createPartnerMobilityStatus ( $entityManager, $user->getEmailAddress (), $_POST ['mobility'] );
 			}
@@ -190,11 +228,80 @@ function savePersonalDetails($entityManager) {
 		echo json_encode ( $response );
 	}
 }
-function getPartnerServices($entityManager) {
+
+
+function getServicesWithPrices($entityManager) {
+
+
 	try {
-		session_start ();
+		$user = $entityManager->getRepository ( 'User' )->findOneBy ( array (
+				'emailAddress' => $_SESSION ['email_address'] 
+		) );
+		$UserProfile = $user->getUserProfile ();
+		$UserProfileID = $UserProfile->getUserProfileId ();
+		
+		$PartnerServices = getPartnerServicesOrderByServiceType($entityManager,$UserProfileID);
+		
+		$ServicesArray = array ();
+		$allServicesArray = array ();
+		// partner services will be stored on the session as a single dimensional array
+		$ServicesNameArray = array ();
+		$serviceTypeName = "";
+		$i = 0;
+		$j = 0;
+		
+		
+		foreach ( $PartnerServices as &$value ) {
+			$tempArray = array ();
+			$LuService = $entityManager->getRepository ( 'LuService' )->findOneBy ( array (
+					'name' => $value->getService ()->getName () 
+			) );
+			
+			
+			if ((strcmp ( $serviceTypeName, $LuService->getServiceTypeName ()->getName () ) !== 0) && $i !== 0) {
+				array_push ( $allServicesArray, $ServicesArray );
+				$ServicesArray = array ();
+				$j = 0;
+			}
+			
+			$serviceTypeName = $LuService->getServiceTypeName ()->getName ();
+			array_push ( $tempArray, $LuService->getServiceTypeName ()->getName () );
+			array_push ( $tempArray, $value->getService ()->getName () );
+			
+			//get service price
+			$partnerServicePrice = getPartnerServicePriceByPartnerServiceId($entityManager,$value->getPartnerServiceId());
+			if($partnerServicePrice){
+				array_push ( $tempArray, 'R' . number_format ( $partnerServicePrice->getAmount(), 2 ) );
+				
+			}else{
+				array_push ( $tempArray, 'R0.00');
+				
+			}
+			array_push ( $tempArray, $value->getPartnerServiceId() );
+			
+			// multi dimensional array with service name and service type
+			array_push ( $ServicesArray, $tempArray );
+			$i ++;
+			$j ++;
+		}
+		
+		array_push ( $allServicesArray, $ServicesArray );
+			
+		// sort by service type name
+		//array_multisort ( $allServicesArray, SORT_ASC );
+		// print json_encode ( $ServicesArray );
+		
+		$response ['status'] = 1;
+		$response ['message'] = $allServicesArray;
+		echo json_encode ( $response );
 	} catch ( Exception $e ) {
+		$response ['status'] = 2;
+		$response ['message'] = $e->getMessage ();
+		echo json_encode ( $response );
 	}
+}
+
+function getActivePartnerServices($entityManager) {
 	
 	try {
 		$user = $entityManager->getRepository ( 'User' )->findOneBy ( array (
@@ -203,10 +310,7 @@ function getPartnerServices($entityManager) {
 		$UserProfile = $user->getUserProfile ();
 		$UserProfileID = $UserProfile->getUserProfileId ();
 		
-		$PartnerServices = $entityManager->getRepository ( 'UserUserService' )->findBy ( array (
-				'userUserServiceProfile' => $UserProfile,
-				'active' => TRUE 
-		) );
+		$PartnerServices = getPartnerServices($entityManager,$UserProfileID);
 		
 		$ServicesArray = array ();
 		// partner services will be stored on the session as a single dimensional array
@@ -215,12 +319,12 @@ function getPartnerServices($entityManager) {
 		foreach ( $PartnerServices as &$value ) {
 			$tempArray = array ();
 			$LuService = $entityManager->getRepository ( 'LuService' )->findOneBy ( array (
-					'name' => $value->getUserUserServiceName ()->getName () 
+					'name' => $value->getService ()->getName () 
 			) );
 			
 			array_push ( $tempArray, $LuService->getServiceTypeName ()->getName () );
-			array_push ( $tempArray, $value->getUserUserServiceName ()->getName () );
-			array_push ( $ServicesNameArray, $value->getUserUserServiceName ()->getName () );
+			array_push ( $tempArray, $value->getService ()->getName () );
+			array_push ( $ServicesNameArray, $value->getService ()->getName () );
 			// multi dimensional array with service name and service type
 			array_push ( $ServicesArray, $tempArray );
 		}
@@ -238,9 +342,51 @@ function getPartnerServices($entityManager) {
 		echo json_encode ( $response );
 	}
 }
+
+
+function updatepartnerServiceOnSession($entityManager) {
+
+	try {
+		$user = $entityManager->getRepository ( 'User' )->findOneBy ( array (
+				'emailAddress' => $_SESSION ['email_address']
+		) );
+		$UserProfile = $user->getUserProfile ();
+		$UserProfileID = $UserProfile->getUserProfileId ();
+
+		$PartnerServices = getPartnerServices($entityManager,$UserProfileID);
+
+		$ServicesArray = array ();
+		// partner services will be stored on the session as a single dimensional array
+		$ServicesNameArray = array ();
+
+		foreach ( $PartnerServices as &$value ) {
+			$tempArray = array ();
+			$LuService = $entityManager->getRepository ( 'LuService' )->findOneBy ( array (
+					'name' => $value->getService ()->getName ()
+			) );
+				
+			array_push ( $tempArray, $LuService->getServiceTypeName ()->getName () );
+			array_push ( $tempArray, $value->getService ()->getName () );
+			array_push ( $ServicesNameArray, $value->getService ()->getName () );
+			// multi dimensional array with service name and service type
+			array_push ( $ServicesArray, $tempArray );
+		}
+		// sort by service type name
+		array_multisort ( $ServicesArray, SORT_ASC );
+		$_SESSION ['partner_services'] = $ServicesNameArray;
+		// print json_encode ( $ServicesArray );
+
+		return $ServicesArray;
+	} catch ( Exception $e ) {
+		$response ['status'] = 2;
+		$response ['message'] = $e->getMessage ();
+		echo json_encode ( $response );
+	}
+}
+
 function getPartnerProfile($entityManager) {
 	try {
-		session_start ();
+		//session_start ();
 	} catch ( Exception $e ) {
 	}
 	
@@ -304,7 +450,7 @@ function getPartnerProfile($entityManager) {
 }
 function getPartnerAddress($entityManager) {
 	try {
-		session_start ();
+		//session_start ();
 	} catch ( Exception $e ) {
 	}
 	
@@ -341,7 +487,7 @@ function getPartnerAddress($entityManager) {
 }
 function getPartnerPersonalNote($entityManager) {
 	try {
-		session_start ();
+		//session_start ();
 	} catch ( Exception $e ) {
 	}
 	
@@ -372,7 +518,7 @@ function getPartnerPersonalNote($entityManager) {
 }
 function getPartnerImages($entityManager) {
 	try {
-		session_start ();
+		//session_start ();
 	} catch ( Exception $e ) {
 	}
 	
@@ -432,6 +578,7 @@ function getPartnerMobility($entityManager, $emailAddress) {
 	
 	return NULL;
 }
+
 function getPartnerMobilityById($entityManager, $userMobilityId) {
 	try {
 		return $entityManager->getRepository ( 'UserMobility' )->findOneBy ( array (
@@ -442,6 +589,7 @@ function getPartnerMobilityById($entityManager, $userMobilityId) {
 	}
 	return NULL;
 }
+
 function updateMobilityStatus($entityManager, $userMobilityId, $boolStatus) {
 	try {
 		
@@ -483,5 +631,84 @@ function createPartnerMobilityStatus($entityManager, $emailAddress, $userMobilit
 		return NULL;
 	}
 }
+
+
+function saveServices($entityManager) {
+	try {
+		$ServicesArray = array ();
+		$date = new DateTime ();
+		//session_start ();
+		$newServicesArray = json_decode ( stripslashes ( $_POST ['saveServices'] ) );
+		$partner_services = $_SESSION ['partner_services'];
+
+		$AddedServicesArray = array_diff ( $newServicesArray, $partner_services );
+		$RemovedServicesArray = array_diff ( $partner_services, $newServicesArray );
+
+		$user = $entityManager->getRepository ( 'User' )->findOneBy ( array (
+				'emailAddress' => $_SESSION ['email_address']
+		) );
+		$UserProfile = $user->getUserProfile ();
+
+		if (count ( $AddedServicesArray ) > 0) {
+			foreach ( $AddedServicesArray as &$value ) {
+				addPartnerService($entityManager,$value,$UserProfile->getUserProfileId ());
+			}
+			$entityManager->flush ();
+			$ServicesArray = updatepartnerServiceOnSession ( $entityManager );
+		}
+
+		if (count ( $RemovedServicesArray ) > 0) {
+			foreach ( $RemovedServicesArray as &$value ) {
+				changePartnerServiceStatus($entityManager,$partnerServiceId,$newBoolStatus);
+				$LuService = $entityManager->getRepository ( 'LuService' )->findOneBy ( array (
+						'name' => $value
+				) );
+				$UserUserService = $entityManager->getRepository ( 'UserUserService' )->findOneBy ( array (
+						'userUserServiceName' => $LuService
+				) );
+				$UserUserService->setActive ( false );
+				$entityManager->persist ( $UserUserService );
+			}
+			$entityManager->flush ();
+			$ServicesArray = updatepartnerServiceOnSession ( $entityManager );
+		}
+
+		if (count ( $ServicesArray ) < 1) {
+			$response ['status'] = 2;
+			$response ['services'] = $ServicesArray;
+			$response ['message'] = "No changes detected";
+		} else {
+			$response ['status'] = 1;
+			$response ['services'] = $ServicesArray;
+			$response ['message'] = "Services updated successfuliy";
+		}
+
+		echo json_encode ( $response );
+	} catch ( Exception $e ) {
+		$response ['status'] = 2;
+		$response ['message'] = $e->getMessage ();
+		echo json_encode ( $response );
+	}
+}
+
+
+function saveServicesPrices($entityManager) {
+	try {
+		$ServicesPriceArray = $_POST ['saveServicesPrices'];
+		foreach ( $ServicesPriceArray as &$ServicesPrice ) {
+			
+			addPartnerServicePriceByPartnerServiceId($entityManager,$ServicesPrice["price"],$ServicesPrice["id"]);
+		}
+
+		$response ['status'] = 1;
+		$response ['message'] = "Successfully updated service prices";
+		echo json_encode ( $response );
+	} catch ( Exception $e ) {
+		$response ['status'] = 2;
+		$response ['message'] = $e->getMessage ();
+		echo json_encode ( $response );
+	}
+}
+
 
 ?>

@@ -6,7 +6,7 @@
 <link rel="stylesheet"
 	href="http://necolas.github.io/normalize.css/2.1.3/normalize.css">
 <link rel="stylesheet" href="web/css/jquery.idealforms.css">
-<script src="web/js/events/events_partner_services.js"></script>
+<script src="web/js/events/events_service_requests.js"></script>
 
 
  <style>
@@ -118,7 +118,7 @@
   
   <div class="row uniform">
 <div class="12u">
-<div id="lbl_message_prices" class="alert display-none"></div>
+<div id="lbl_message" class="alert display-none"></div>
 </div>
 </div>
 
@@ -126,18 +126,24 @@
 
   <div class="row uniform">
 <div class="6u 12u(1)">
-<div class="field">
+<div class="field" >
 
-               <table id="invoice_table" cellpadding="0" cellspacing="0">
+               <table id="serviceRequests_table" cellpadding="0" cellspacing="0" class="invoice-box">
             <tr class="heading">
                 <td>
-                    Service Type
+                    Date
+                </td>
+                <td>
+                    Service Category
                 </td>
                 <td>
                     Service Name
                 </td>
                 <td>
-                    Accept\Reject
+                    Accept
+                </td>
+                <td>
+                    Reject
                 </td>
             </tr>
         </table>
@@ -148,14 +154,13 @@
 <div id="replacement_service" class="display-none">
 <div class="row uniform">
 <div class="6u 12u(3)">
-<div class="field"><h3>Select replacement service</h3></div>
+<div class="field"><h3>Select service to be used instead of the requested service</h3></div>
 </div>
 </div>
 
 
 <div class="row uniform">
-<div class="6u 12u(3)"><input type="text" name="request_service"
-	value=""request_service"" style="display: none;" />
+<div class="6u 12u(3)">
 <div class="select-wrapper"><select name="service_category"
 	id="service_category">
 </select></div>
@@ -173,7 +178,7 @@
 
 <div class="row uniform">
 <div class="6u 12u(3)">
-<div class="field"><button type="submit" id="cmdSubmit">Submit</button></div>
+<div class="field"><a onclick="rejectServiceRequest(event);return false;" href=""  class="button">Reject Service Request</a></div>
 </div>
 </div>
 
@@ -189,6 +194,7 @@
 
       $('form.idealforms').idealforms({
           silentLoad: true,
+          iconHtml: false,
           rules: {
             'firstname': 'required',
             'surname': 'required'
@@ -210,7 +216,9 @@
     					$('#lbl_message').text(message);
     					$('#lbl_message').removeClass( "display-none alert-success" ).addClass( "alert-danger" );
     				}
-    				$("html, body").animate({ scrollTop: 0 }, "slow");
+    				$("html, body").animate({
+    					scrollTop : $(".container").offset().top
+    				}, "slow");
         	      }, 'json');
       	    }  
           }

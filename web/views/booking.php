@@ -253,8 +253,6 @@
 <div class="idealsteps-wrap"><!-- Step 1 --> <section
 	class="idealsteps-step">
 
-<h4>PERSONAL DETAILS</h4>
-
  <div class="row uniform">
    <div class="12u">
                   <div id="lbl_address_message" class="alert display-none alert-danger"  >Address must contains street name and street number
@@ -372,8 +370,6 @@
 </div>
 </div></div>
 
-
-<h4>DATE & TIME</h4>
 <div class="field"><input id="datetimepicker" type="text"> <span
 	class="error"></span></div>
 	
@@ -390,7 +386,6 @@
 </div>
 </div></div>
 
-<h4>SELECT SERVICES FOR YOUR BOOKING</h4>
 	
 <p>You can only book in the same category</p>
 
@@ -414,7 +409,6 @@
 
 </div></div>
 
-<h4 id="h3_select_partner">SELECT SERVICE PROVIDER</h4>
 
 <div id="bestPartnersDiv"></div>
 

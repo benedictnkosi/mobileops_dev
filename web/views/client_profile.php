@@ -185,6 +185,7 @@
       $("#address").geocomplete({ details: "form" }); 
       
       $('form.idealforms').idealforms({
+    	  iconHtml: false,
           silentLoad: true,
           rules: {
             'firstname': 'required',
