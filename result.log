@@ -1,21 +1,130 @@
-{
-  "totalCount": 0,
-  "items": [
-    {
-      "id": "string",
-      "isSelected": true,
-      "name": "string",
-      "surName": "string",
-      "isActive": true,
-      "dateCreated": "2024-04-23T06:37:26.220Z",
-      "updatedDate": "2024-04-23T06:37:26.220Z",
-      "lastLogin": "2024-04-23T06:37:26.220Z",
-      "roles": [
-        {
-          "id": 0,
-          "name": "string"
-        }
-      ]
+import java.util.List;
+
+public class Data {
+    private int totalCount;
+    private List<Item> items;
+
+    // Getters and setters
+    public int getTotalCount() {
+        return totalCount;
     }
-  ]
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+}
+
+class Item {
+    private String id;
+    private boolean isSelected;
+    private String name;
+    private String surName;
+    private boolean isActive;
+    private String dateCreated;
+    private String updatedDate;
+    private String lastLogin;
+    private List<Role> roles;
+
+    // Getters and setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurName() {
+        return surName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+}
+
+class Role {
+    private int id;
+    private String name;
+
+    // Getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
