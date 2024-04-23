@@ -1,88 +1,21 @@
-
-C:\xampp\htdocs\mobileops>CD src/AppBundle/Entity/ 
-
-C:\xampp\htdocs\mobileops\src\AppBundle\Entity>CD  
-C:\xampp\htdocs\mobileops\src\AppBundle\Entity
-
-C:\xampp\htdocs\mobileops\src\AppBundle\Entity>DEL *.php 
-
-C:\xampp\htdocs\mobileops\src\AppBundle\Entity>CD  
-C:\xampp\htdocs\mobileops\src\AppBundle\Entity
-
-C:\xampp\htdocs\mobileops\src\AppBundle\Entity>CD .. 
-
-C:\xampp\htdocs\mobileops\src\AppBundle>CD  
-C:\xampp\htdocs\mobileops\src\AppBundle
-
-C:\xampp\htdocs\mobileops\src\AppBundle>CD .. 
-
-C:\xampp\htdocs\mobileops\src>CD  
-C:\xampp\htdocs\mobileops\src
-
-C:\xampp\htdocs\mobileops\src>CD .. 
-
-C:\xampp\htdocs\mobileops>CD  
-C:\xampp\htdocs\mobileops
-
-C:\xampp\htdocs\mobileops>php bin/console doctrine:cache:clear-metadata  
-Clearing ALL Metadata cache entries
-Successfully deleted cache entries.
-
-C:\xampp\htdocs\mobileops>php bin/console doctrine:cache:clear-query   
-Clearing ALL Query cache entries
-Successfully deleted cache entries.
-
-C:\xampp\htdocs\mobileops>php bin/console doctrine:cache:clear-result  
-Clearing ALL Result cache entries
-Successfully deleted cache entries.
-
-C:\xampp\htdocs\mobileops>php bin/console doctrine:mapping:import --force AppBundle xml 
-Importing mapping information from "default" entity manager
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/Address.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/Booking.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingAddress.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingBookingStatus.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingComments.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingFees.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingProcessRating.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingServiceRegion.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingSummaryView.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingTime.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/BookingUserProfile.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/Faq.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LogUserActivity.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuAccountStatus.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuBookingStatus.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuFee.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuRegion.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuRemark.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuService.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuServiceRating.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuServiceType.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuUserRight.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/LuUserRole.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/PartnerImages.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/PartnerRating.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/PasswordResetKey.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/RegionService.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/RegionServicePrice.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/RegistrationKey.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/ServiceRemark.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/User.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/UserMessages.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/UserProfile.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/UserUserRight.orm.xml
-  > writing C:\xampp\htdocs\mobileops\src\AppBundle/Resources/config/doctrine/UserUserService.orm.xml
-
-C:\xampp\htdocs\mobileops>php bin/console doctrine:generate:entities AppBundle 
-Generating entities for bundle "AppBundle"
-
-C:\xampp\htdocs\mobileops>cscript.exe doctrine.vbs 
-Microsoft (R) Windows Script Host Version 5.8
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-remove namespace from entity files complete
-remove namespace from config files complete
-
-C:\xampp\htdocs\mobileops>pause
-Press any key to continue . . . 
+{
+  "totalCount": 0,
+  "items": [
+    {
+      "id": "string",
+      "isSelected": true,
+      "name": "string",
+      "surName": "string",
+      "isActive": true,
+      "dateCreated": "2024-04-23T06:37:26.220Z",
+      "updatedDate": "2024-04-23T06:37:26.220Z",
+      "lastLogin": "2024-04-23T06:37:26.220Z",
+      "roles": [
+        {
+          "id": 0,
+          "name": "string"
+        }
+      ]
+    }
+  ]
+}
