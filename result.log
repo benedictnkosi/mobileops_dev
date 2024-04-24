@@ -1,174 +1,32 @@
 {
-  "total": 50345,
-  "approved": 1,
-  "pending": 1,
-  "rejected": 1,
-  "pendingSubmission": 1,
-  "ete": 3,
-  "qa": 8,
-  "prod": 1,
-  "prodReady": 1
+  "totalCount": 0,
+  "items": [
+    {
+      "id": 0,
+      "isSelected": true,
+      "product": "string",
+      "pricePlan": "string",
+      "csid": 0,
+      "feeName": "string",
+      "status": "string",
+      "groupName": "string",
+      "currentFee": 0,
+      "newFee": 0,
+      "capturer": "string",
+      "updatedAt": "2024-04-24T08:00:14.824Z",
+      "reviewer": "string",
+      "reviewedAt": "2024-04-24T08:00:14.824Z",
+      "publishedAt": "string",
+      "testingStatus": "string"
+    }
+  ]
 }
 
 
-[
-  {
-    "id": 1,
-    "name": "FuturePricingReview_Capturer"
-  },
-  {
-    "id": 2,
-    "name": "FuturePricingReview_Reviewer"
-  },
-  {
-    "id": 3,
-    "name": "FuturePricingReview_ReviewerReadOnly"
-  },
-  {
-    "id": 4,
-    "name": "FuturePricingReview_BusinessAdministrator"
-  },
-  {
-    "id": 5,
-    "name": "FuturePricingReview_PLMAdministrator"
-  }
-]
-
-
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-public class Status {
-    @JsonProperty("total")
-    private int total;
-
-    @JsonProperty("approved")
-    private int approved;
-
-    @JsonProperty("pending")
-    private int pending;
-
-    @JsonProperty("rejected")
-    private int rejected;
-
-    @JsonProperty("pendingSubmission")
-    private int pendingSubmission;
-
-    @JsonProperty("ete")
-    private int ete;
-
-    @JsonProperty("qa")
-    private int qa;
-
-    @JsonProperty("prod")
-    private int prod;
-
-    @JsonProperty("prodReady")
-    private int prodReady;
-
-    // Getters and setters for all fields
-    public int getTotal() {
-        return total;
+{
+  "fees": [
+    {
+      "id": 0
     }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public int getApproved() {
-        return approved;
-    }
-
-    public void setApproved(int approved) {
-        this.approved = approved;
-    }
-
-    public int getPending() {
-        return pending;
-    }
-
-    public void setPending(int pending) {
-        this.pending = pending;
-    }
-
-    public int getRejected() {
-        return rejected;
-    }
-
-    public void setRejected(int rejected) {
-        this.rejected = rejected;
-    }
-
-    public int getPendingSubmission() {
-        return pendingSubmission;
-    }
-
-    public void setPendingSubmission(int pendingSubmission) {
-        this.pendingSubmission = pendingSubmission;
-    }
-
-    public int getEte() {
-        return ete;
-    }
-
-    public void setEte(int ete) {
-        this.ete = ete;
-    }
-
-    public int getQa() {
-        return qa;
-    }
-
-    public void setQa(int qa) {
-        this.qa = qa;
-    }
-
-    public int getProd() {
-        return prod;
-    }
-
-    public void setProd(int prod) {
-        this.prod = prod;
-    }
-
-    public int getProdReady() {
-        return prodReady;
-    }
-
-    public void setProdReady(int prodReady) {
-        this.prodReady = prodReady;
-    }
+  ]
 }
-
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-public class Role {
-    @JsonProperty("id")
-    private int id;
-
-    @JsonProperty("name")
-    private String name;
-
-    // Getters and setters for id and name
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
-
-
-
-
