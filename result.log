@@ -23,6 +23,91 @@
 }
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+public class FeeData {
+    @JsonProperty("totalCount")
+    private int totalCount;
+
+    @JsonProperty("items")
+    private List<FeeItem> items;
+
+    // Getters and setters for totalCount and items
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public List<FeeItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<FeeItem> items) {
+        this.items = items;
+    }
+}
+
+class FeeItem {
+    @JsonProperty("id")
+    private int id;
+
+    @JsonProperty("isSelected")
+    private boolean isSelected;
+
+    @JsonProperty("product")
+    private String product;
+
+    @JsonProperty("pricePlan")
+    private String pricePlan;
+
+    @JsonProperty("csid")
+    private int csid;
+
+    @JsonProperty("feeName")
+    private String feeName;
+
+    @JsonProperty("status")
+    private String status;
+
+    @JsonProperty("groupName")
+    private String groupName;
+
+    @JsonProperty("currentFee")
+    private int currentFee;
+
+    @JsonProperty("newFee")
+    private int newFee;
+
+    @JsonProperty("capturer")
+    private String capturer;
+
+    @JsonProperty("updatedAt")
+    private String updatedAt;
+
+    @JsonProperty("reviewer")
+    private String reviewer;
+
+    @JsonProperty("reviewedAt")
+    private String reviewedAt;
+
+    @JsonProperty("publishedAt")
+    private String publishedAt;
+
+    @JsonProperty("testingStatus")
+    private String testingStatus;
+
+    // Getters and setters for all fields
+    // (I'm not including them here for brevity)
+}
+
+
+
+
 {
   "fees": [
     {
@@ -30,3 +115,38 @@
     }
   ]
 }
+
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+public class FeesData {
+    @JsonProperty("fees")
+    private List<FeeItem> fees;
+
+    // Getters and setters for fees
+    public List<FeeItem> getFees() {
+        return fees;
+    }
+
+    public void setFees(List<FeeItem> fees) {
+        this.fees = fees;
+    }
+}
+
+class FeeItem {
+    @JsonProperty("id")
+    private int id;
+
+    // Getter and setter for id
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+}
+
+
