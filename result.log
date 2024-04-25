@@ -1,10 +1,54 @@
-{
-  "id": "2",
-  "name": "Benedict",
-  "surName": "Nkosi",
-  "roles": [
-    {
-      "id": 1
+import java.util.List;
+
+public class User {
+    private String id;
+    private String name;
+    private String surName;
+    private List<Role> roles;
+
+    // Getters and setters
+    public String getId() {
+        return id;
     }
-  ]
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurName() {
+        return surName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+}
+
+public class Role {
+    private int id;
+
+    // Getter and setter
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
