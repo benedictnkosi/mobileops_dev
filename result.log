@@ -1,1 +1,10 @@
-java.lang.NoClassDefFoundError: com/fasterxml/jackson/annotation/JsonKey
+{
+  "id": "2",
+  "name": "Benedict",
+  "surName": "Nkosi",
+  "roles": [
+    {
+      "id": 1
+    }
+  ]
+}
