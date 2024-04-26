@@ -1,25 +1,40 @@
-{
-    "data": null,
-    "metadata": {
-        "page": null,
-        "pageSize": null,
-        "pageCount": null,
-        "validationErrors": [
-            {
-                "field": "Roles",
-                "messages": [
-                    {
-                        "message": "The Roles field is required."
-                    }
-                ]
-            }
-        ],
-        "result": [
-            {
-                "status": "Failure",
-                "code": "IBRVAL",
-                "description": "Validation errors have occurred"
-            }
-        ]
-    }
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+
+public class Response {
+    private Object data;
+    private Metadata metadata;
+
+    // Constructor, getters, and setters
+}
+
+class Metadata {
+    private Integer page;
+    private Integer pageSize;
+    private Integer pageCount;
+    private List<ResponseValidationError> validationErrors;
+    private List<ResponseResult> result;
+
+    // Constructor, getters, and setters
+}
+
+class ResponseValidationError {
+    private String field;
+    private List<ResponseMessage> messages;
+
+    // Constructor, getters, and setters
+}
+
+class ResponseMessage {
+    private String message;
+
+    // Constructor, getters, and setters
+}
+
+class ResponseResult {
+    private String status;
+    private String code;
+    private String description;
+
+    // Constructor, getters, and setters
 }
