@@ -1,40 +1,12 @@
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
-
-public class Response {
-    private Object data;
-    private Metadata metadata;
-
-    // Constructor, getters, and setters
-}
-
-class Metadata {
-    private Integer page;
-    private Integer pageSize;
-    private Integer pageCount;
-    private List<ResponseValidationError> validationErrors;
-    private List<ResponseResult> result;
-
-    // Constructor, getters, and setters
-}
-
-class ResponseValidationError {
-    private String field;
-    private List<ResponseMessage> messages;
-
-    // Constructor, getters, and setters
-}
-
-class ResponseMessage {
-    private String message;
-
-    // Constructor, getters, and setters
-}
-
-class ResponseResult {
-    private String status;
-    private String code;
-    private String description;
-
-    // Constructor, getters, and setters
+{
+  "totalCount": 399,
+  "items": [
+    {
+      "id": 2,
+      "isSelected": false,
+      "csid": "1200004303",
+      "csidDescription": "Cross Currency Deposit ATM",
+      "feeCategory": "ATM Fees"
+    }
+  ]
 }
