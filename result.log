@@ -1,92 +1,41 @@
-import com.google.gson.Gson;
+import io.cucumber.java.en.Then;
+import io.restassured.response.Response;
+import static org.junit.Assert.assertEquals;
 
-class Item {
-    private int id;
-    private boolean isSelected;
-    private String csid;
-    private String csidDescription;
-    private String feeCategory;
+public class ResponseStatusStepDefinitions {
 
-    // Getters and setters
-    public int getId() {
-        return id;
+    private Response response;
+
+    public void setResponse(Response response) {
+        this.response = response;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
-    public String getCsid() {
-        return csid;
-    }
-
-    public void setCsid(String csid) {
-        this.csid = csid;
-    }
-
-    public String getCsidDescription() {
-        return csidDescription;
-    }
-
-    public void setCsidDescription(String csidDescription) {
-        this.csidDescription = csidDescription;
-    }
-
-    public String getFeeCategory() {
-        return feeCategory;
-    }
-
-    public void setFeeCategory(String feeCategory) {
-        this.feeCategory = feeCategory;
+    @Then("I should receive a response with status code {int}")
+    public void iShouldReceiveResponseWithStatusCode(int expectedStatusCode) {
+        int actualStatusCode = response.getStatusCode();
+        assertEquals(expectedStatusCode, actualStatusCode);
     }
 }
 
-class JsonResponse {
-    private int totalCount;
-    private Item[] items;
 
-    // Getters and setters
-    public int getTotalCount() {
-        return totalCount;
+
+import io.cucumber.java.en.*;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class SampleStepDefinitions {
+
+    private Response response;
+    private final ResponseStatusStepDefinitions responseStatusStepDefinitions = new ResponseStatusStepDefinitions();
+
+    @Given("I send a GET request to the endpoint")
+    public void iSendGETRequest() {
+        response = RestAssured.get("your_endpoint_url_here");
+        responseStatusStepDefinitions.setResponse(response);
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-    }
-
-    public Item[] getItems() {
-        return items;
-    }
-
-    public void setItems(Item[] items) {
-        this.items = items;
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        String json = "{\"totalCount\":399,\"items\":[{\"id\":2,\"isSelected\":false,\"csid\":\"1200004303\",\"csidDescription\":\"Cross Currency Deposit ATM\",\"feeCategory\":\"ATM Fees\"}]}";
-
-        Gson gson = new Gson();
-        JsonResponse response = gson.fromJson(json, JsonResponse.class);
-
-        System.out.println("Total Count: " + response.getTotalCount());
-        System.out.println("Items:");
-        for (Item item : response.getItems()) {
-            System.out.println("ID: " + item.getId());
-            System.out.println("Is Selected: " + item.isSelected());
-            System.out.println("CSID: " + item.getCsid());
-            System.out.println("CSID Description: " + item.getCsidDescription());
-            System.out.println("Fee Category: " + item.getFeeCategory());
-            System.out.println();
-        }
+    @Then("I should receive a response with status code {int}")
+    public void iShouldReceiveResponseWithStatusCode(int expectedStatusCode) {
+        responseStatusStepDefinitions.iShouldReceiveResponseWithStatusCode(expectedStatusCode);
     }
 }
