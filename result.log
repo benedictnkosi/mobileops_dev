@@ -18,7 +18,6 @@ public class ResponseStatusStepDefinitions {
 }
 
 
-
 import io.cucumber.java.en.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -39,3 +38,4 @@ public class SampleStepDefinitions {
         responseStatusStepDefinitions.iShouldReceiveResponseWithStatusCode(expectedStatusCode);
     }
 }
+
