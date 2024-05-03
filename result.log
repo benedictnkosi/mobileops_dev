@@ -61,3 +61,34 @@ public class RunCucumberTest implements En {
   ],
   "feeCategoryId": 672
 }
+
+private List<Fee> fees;
+    private int feeCategoryId;
+
+    public List<Fee> getFees() {
+        return fees;
+    }
+
+    public void setFees(List<Fee> fees) {
+        this.fees = fees;
+    }
+
+    public int getFeeCategoryId() {
+        return feeCategoryId;
+    }
+
+    public void setFeeCategoryId(int feeCategoryId) {
+        this.feeCategoryId = feeCategoryId;
+    }
+
+    public static class Fee {
+        private long id;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+    }
