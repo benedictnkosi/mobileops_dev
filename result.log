@@ -1,41 +1,53 @@
-import io.cucumber.java.en.Then;
-import io.restassured.response.Response;
-import static org.junit.Assert.assertEquals;
+import io.cucumber.core.backend.ObjectFactory;
+import org.picocontainer.DefaultPicoContainer;
+import org.picocontainer.MutablePicoContainer;
 
-public class ResponseStatusStepDefinitions {
+public class PicoObjectFactory implements ObjectFactory {
 
-    private Response response;
+    private final MutablePicoContainer container;
 
-    public void setResponse(Response response) {
-        this.response = response;
+    public PicoObjectFactory() {
+        container = new DefaultPicoContainer();
     }
 
-    @Then("I should receive a response with status code {int}")
-    public void iShouldReceiveResponseWithStatusCode(int expectedStatusCode) {
-        int actualStatusCode = response.getStatusCode();
-        assertEquals(expectedStatusCode, actualStatusCode);
-    }
-}
-
-
-import io.cucumber.java.en.*;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-
-public class SampleStepDefinitions {
-
-    private Response response;
-    private final ResponseStatusStepDefinitions responseStatusStepDefinitions = new ResponseStatusStepDefinitions();
-
-    @Given("I send a GET request to the endpoint")
-    public void iSendGETRequest() {
-        response = RestAssured.get("your_endpoint_url_here");
-        responseStatusStepDefinitions.setResponse(response);
+    @Override
+    public void start() {
+        // No-op
     }
 
-    @Then("I should receive a response with status code {int}")
-    public void iShouldReceiveResponseWithStatusCode(int expectedStatusCode) {
-        responseStatusStepDefinitions.iShouldReceiveResponseWithStatusCode(expectedStatusCode);
+    @Override
+    public void stop() {
+        // No-op
+    }
+
+    @Override
+    public boolean addClass(Class<?> aClass) {
+        container.addComponent(aClass);
+        return true;
+    }
+
+    @Override
+    public <T> T getInstance(Class<T> aClass) {
+        return container.getComponent(aClass);
     }
 }
 
+
+import io.cucumber.core.backend.ObjectFactory;
+import io.cucumber.java8.En;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        features = "src/test/resources/features",
+        glue = {"stepdefinitions"},
+        plugin = {"pretty"}
+)
+public class RunCucumberTest implements En {
+
+    static {
+        io.cucumber.core.backend.ObjectFactoryServiceLoader.setObjectFactory(() -> new PicoObjectFactory());
+    }
+}
