@@ -1,94 +1,22 @@
-import io.cucumber.core.backend.ObjectFactory;
-import org.picocontainer.DefaultPicoContainer;
-import org.picocontainer.MutablePicoContainer;
-
-public class PicoObjectFactory implements ObjectFactory {
-
-    private final MutablePicoContainer container;
-
-    public PicoObjectFactory() {
-        container = new DefaultPicoContainer();
-    }
-
-    @Override
-    public void start() {
-        // No-op
-    }
-
-    @Override
-    public void stop() {
-        // No-op
-    }
-
-    @Override
-    public boolean addClass(Class<?> aClass) {
-        container.addComponent(aClass);
-        return true;
-    }
-
-    @Override
-    public <T> T getInstance(Class<T> aClass) {
-        return container.getComponent(aClass);
-    }
-}
-
-
-import io.cucumber.core.backend.ObjectFactory;
-import io.cucumber.java8.En;
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
-
-@RunWith(Cucumber.class)
-@CucumberOptions(
-        features = "src/test/resources/features",
-        glue = {"stepdefinitions"},
-        plugin = {"pretty"}
-)
-public class RunCucumberTest implements En {
-
-    static {
-        io.cucumber.core.backend.ObjectFactoryServiceLoader.setObjectFactory(() -> new PicoObjectFactory());
-    }
-}
-
-#POJO
-{
-  "fees": [
-    {
-      "id": 1200006305
-    }
-  ],
-  "feeCategoryId": 672
-}
-
-private List<Fee> fees;
-    private int feeCategoryId;
-
-    public List<Fee> getFees() {
-        return fees;
-    }
-
-    public void setFees(List<Fee> fees) {
-        this.fees = fees;
-    }
-
-    public int getFeeCategoryId() {
-        return feeCategoryId;
-    }
-
-    public void setFeeCategoryId(int feeCategoryId) {
-        this.feeCategoryId = feeCategoryId;
-    }
-
-    public static class Fee {
-        private long id;
-
-        public long getId() {
-            return id;
-        }
-
-        public void setId(long id) {
-            this.id = id;
-        }
-    }
+[
+  {
+    "id": 176,
+    "total": 0,
+    "name": "3a1b3ec1-3d5f-430f-959a-dab2b951f4af"
+  },
+  {
+    "id": 175,
+    "total": 0,
+    "name": "4802023a-cc67-4f60-81ff-33e3267df4da"
+  },
+  {
+    "id": 174,
+    "total": 0,
+    "name": "75bf9248-2729-40be-a164-ad720cf2eda9"
+  },
+  {
+    "id": 173,
+    "total": 0,
+    "name": "569be11d-1c9d-40de-bb17-709e4ba1a215"
+  }
+]
