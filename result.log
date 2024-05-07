@@ -77,3 +77,6 @@ class ForeignCurrencyAccountItem {
     <version>7.17.0</version>
     <scope>test</scope>
 </dependency>
+
+##Picco Error
+io.cucumber.core.runner.DuplicateStepDefinitionException: Duplicate step definitions in parallel.aprtool.api.MaintenanceSteps.theHTTPMethodIs(java.lang.String) and parallel.aprtool.api.UserMaintenanceSteps.theHTTPMethodIs(java.lang.String)
