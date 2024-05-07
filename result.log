@@ -68,3 +68,12 @@ class ForeignCurrencyAccountItem {
     // Getters and setters
     // toString() method
 }
+
+##### Picco Dependency #####
+
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-picocontainer</artifactId>
+    <version>7.17.0</version>
+    <scope>test</scope>
+</dependency>
