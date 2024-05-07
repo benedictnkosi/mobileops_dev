@@ -1,185 +1,70 @@
-{
-  "totalCount": 40116,
-  "items": [
-    {
-      "isSelected": false,
-      "id": 100691,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1200003302,
-      "csidName": "Cross Currency Deposit Branch",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Cross Currency Deposit Branch",
-      "currentFee": 13,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100692,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1200004303,
-      "csidName": "Cross Currency Deposit ATM",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Cross Currency Deposit ATM",
-      "currentFee": 10,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100693,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1200005304,
-      "csidName": "Cross Currency Withdrawal Branch",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Cross Currency Withdrawal Branch",
-      "currentFee": 1,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100694,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1200006305,
-      "csidName": "Cross Currency Withdrawal ATM",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Cross Currency Withdrawal ATM",
-      "currentFee": 2,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100695,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1300001367,
-      "csidName": "Transfers",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Transfers",
-      "currentFee": 0,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100696,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1351001057,
-      "csidName": "Cash Deposit - Teller",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Deposit Branch",
-      "currentFee": 2,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100697,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1351003003,
-      "csidName": "Cash Deposit Fee At ATM Intelligent Depositer",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Deposit ATM",
-      "currentFee": 2,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100698,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1400001364,
-      "csidName": "Payments",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Payments",
-      "currentFee": 0,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100699,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1400002358,
-      "csidName": "Overdraft Penalty",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "Overdraft Penalty",
-      "currentFee": 15,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
-    },
-    {
-      "isSelected": false,
-      "id": 100700,
-      "product": "Foreign Currency Account (FCA)",
-      "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
-      "csid": 1400003359,
-      "csidName": "SI Cancellation",
-      "feeName": "FLAT_SIMPLE",
-      "status": "Unassigned",
-      "groupName": "SI Cancellation",
-      "currentFee": 13,
-      "newFee": 0,
-      "capturer": null,
-      "updatedAt": null,
-      "reviewer": null,
-      "reviewedAt": null,
-      "publishedAt": ""
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        String json = "{\"totalCount\":40116,\"items\":[{\"isSelected\":false,\"id\":100691,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1200003302,\"csidName\":\"Cross Currency Deposit Branch\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Cross Currency Deposit Branch\",\"currentFee\":13,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100692,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1200004303,\"csidName\":\"Cross Currency Deposit ATM\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Cross Currency Deposit ATM\",\"currentFee\":10,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100693,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1200005304,\"csidName\":\"Cross Currency Withdrawal Branch\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Cross Currency Withdrawal Branch\",\"currentFee\":1,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100694,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1200006305,\"csidName\":\"Cross Currency Withdrawal ATM\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Cross Currency Withdrawal ATM\",\"currentFee\":2,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100695,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1300001367,\"csidName\":\"Transfers\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Transfers\",\"currentFee\":0,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100696,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1351001057,\"csidName\":\"Cash Deposit - Teller\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Deposit Branch\",\"currentFee\":2,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100697,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1351003003,\"csidName\":\"Cash Deposit Fee At ATM Intelligent Depositer\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Deposit ATM\",\"currentFee\":2,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100698,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1400001364,\"csidName\":\"Payments\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Payments\",\"currentFee\":0,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100699,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1400002358,\"csidName\":\"Overdraft Penalty\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"Overdraft Penalty\",\"currentFee\":15,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"},{\"isSelected\":false,\"id\":100700,\"product\":\"Foreign Currency Account (FCA)\",\"pricePlan\":\"1227_Foreign Currency Account (FCA)_AED\",\"csid\":1400003359,\"csidName\":\"SI Cancellation\",\"feeName\":\"FLAT_SIMPLE\",\"status\":\"Unassigned\",\"groupName\":\"SI Cancellation\",\"currentFee\":13,\"newFee\":0,\"capturer\":null,\"updatedAt\":null,\"reviewer\":null,\"reviewedAt\":null,\"publishedAt\":\"\"}]}";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ForeignCurrencyAccountInfo foreignCurrencyAccountInfo = objectMapper.readValue(json, ForeignCurrencyAccountInfo.class);
+            System.out.println("Total Count: " + foreignCurrencyAccountInfo.getTotalCount());
+            System.out.println("Items:");
+            for (ForeignCurrencyAccountItem item : foreignCurrencyAccountInfo.getItems()) {
+                System.out.println(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-  ]
+}
+
+class ForeignCurrencyAccountInfo {
+    @JsonProperty("totalCount")
+    private int totalCount;
+    @JsonProperty("items")
+    private List<ForeignCurrencyAccountItem> items;
+
+    // Getters and setters
+    // toString() method
+}
+
+class ForeignCurrencyAccountItem {
+    @JsonProperty("isSelected")
+    private boolean isSelected;
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("product")
+    private String product;
+    @JsonProperty("pricePlan")
+    private String pricePlan;
+    @JsonProperty("csid")
+    private int csid;
+    @JsonProperty("csidName")
+    private String csidName;
+    @JsonProperty("feeName")
+    private String feeName;
+    @JsonProperty("status")
+    private String status;
+    @JsonProperty("groupName")
+    private String groupName;
+    @JsonProperty("currentFee")
+    private int currentFee;
+    @JsonProperty("newFee")
+    private int newFee;
+    @JsonProperty("capturer")
+    private String capturer;
+    @JsonProperty("updatedAt")
+    private String updatedAt;
+    @JsonProperty("reviewer")
+    private String reviewer;
+    @JsonProperty("reviewedAt")
+    private String reviewedAt;
+    @JsonProperty("publishedAt")
+    private String publishedAt;
+
+    // Getters and setters
+    // toString() method
 }
