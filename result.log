@@ -91,6 +91,39 @@ class ForeignCurrencyAccountItem {
   ]
 }
 
+##### Object Class ####
+
+import java.util.List;
+
+public class MyObject {
+    private int id;
+    private String name;
+    private List<Capturer> capturers;
+    private List<Reviewer> reviewers;
+    private List<PricePlan> pricePlans;
+
+    // Constructors, getters, and setters
+}
+
+class Capturer {
+    private String id;
+
+    // Constructors, getters, and setters
+}
+
+class Reviewer {
+    private String id;
+
+    // Constructors, getters, and setters
+}
+
+class PricePlan {
+    private int id;
+
+    // Constructors, getters, and setters
+}
+
+
 ###### stub Error
 
 com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Request': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
