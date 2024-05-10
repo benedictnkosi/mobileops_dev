@@ -69,14 +69,30 @@ class ForeignCurrencyAccountItem {
     // toString() method
 }
 
-##### Picco Dependency #####
+#### request PricePlanGroup
 
-<dependency>
-    <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-picocontainer</artifactId>
-    <version>7.17.0</version>
-    <scope>test</scope>
-</dependency>
+{
+  "id": 0,
+  "name": "string",
+  "capturers": [
+    {
+      "id": "string"
+    }
+  ],
+  "reviewers": [
+    {
+      "id": "string"
+    }
+  ],
+  "pricePlans": [
+    {
+      "id": 0
+    }
+  ]
+}
 
-##Picco Error
-io.cucumber.core.runner.DuplicateStepDefinitionException: Duplicate step definitions in parallel.aprtool.api.MaintenanceSteps.theHTTPMethodIs(java.lang.String) and parallel.aprtool.api.UserMaintenanceSteps.theHTTPMethodIs(java.lang.String)
+###### stub Error
+
+com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Request': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"
+                                               Request was not matched
