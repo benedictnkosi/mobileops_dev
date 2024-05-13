@@ -69,85 +69,67 @@ class ForeignCurrencyAccountItem {
     // toString() method
 }
 
-#### request PricePlanGroup
+#### response Pojo GetAssigned
 
-{
-  "id": 0,
-  "name": "string",
-  "capturers": [
-    {
-      "id": "string"
+import java.util.List;
+
+public class CapturerAssignment {
+    private List<User> assignedCapturer;
+    private List<User> unassignedCapturer;
+    private List<User> assignedReviewer;
+    private List<User> unassignedReviewer;
+
+    public List<User> getAssignedCapturer() {
+        return assignedCapturer;
     }
-  ],
-  "reviewers": [
-    {
-      "id": "string"
+
+    public void setAssignedCapturer(List<User> assignedCapturer) {
+        this.assignedCapturer = assignedCapturer;
     }
-  ],
-  "pricePlans": [
-    {
-      "id": 0
+
+    public List<User> getUnassignedCapturer() {
+        return unassignedCapturer;
     }
-  ]
+
+    public void setUnassignedCapturer(List<User> unassignedCapturer) {
+        this.unassignedCapturer = unassignedCapturer;
+    }
+
+    public List<User> getAssignedReviewer() {
+        return assignedReviewer;
+    }
+
+    public void setAssignedReviewer(List<User> assignedReviewer) {
+        this.assignedReviewer = assignedReviewer;
+    }
+
+    public List<User> getUnassignedReviewer() {
+        return unassignedReviewer;
+    }
+
+    public void setUnassignedReviewer(List<User> unassignedReviewer) {
+        this.unassignedReviewer = unassignedReviewer;
+    }
 }
 
-##### Object Class ####
+class User {
+    private String id;
+    private String name;
 
-{
-  "assignedCapturer": [
-    {
-      "id": "CC338003  ",
-      "name": "TONY-S"
-    },
-    {
-      "id": "CC338007  ",
-      "name": "GEORGE-P"
+    public String getId() {
+        return id;
     }
-  ],
-  "unassignedCapturer": [
-    {
-      "id": "CC338003  ",
-      "name": "TONY-S"
-    },
-    {
-      "id": "CC338007  ",
-      "name": "GEORGE-P"
-    },
-    {
-      "id": "CC338008  ",
-      "name": "MIYA-M"
-    },
-    {
-      "id": "CC338009  ",
-      "name": "JACK-PHILIPSE"
+
+    public void setId(String id) {
+        this.id = id;
     }
-  ],
-  "assignedReviewer": [
-    {
-      "id": "CC338008  ",
-      "name": "MIYA-M"
-    },
-    {
-      "id": "CC338009  ",
-      "name": "JACK-PHILIPSE"
+
+    public String getName() {
+        return name;
     }
-  ],
-  "unAssignedReviewer": [
-    {
-      "id": "CC338003  ",
-      "name": "TONY-S"
-    },
-    {
-      "id": "CC338007  ",
-      "name": "GEORGE-P"
-    },
-    {
-      "id": "CC338008  ",
-      "name": "MIYA-M"
-    },
-    {
-      "id": "CC338009  ",
-      "name": "JACK-PHILIPSE"
+
+    public void setName(String name) {
+        this.name = name;
     }
-  ]
 }
+
