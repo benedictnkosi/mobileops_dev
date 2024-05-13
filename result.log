@@ -93,39 +93,61 @@ class ForeignCurrencyAccountItem {
 
 ##### Object Class ####
 
-import java.util.List;
-
-public class MyObject {
-    private int id;
-    private String name;
-    private List<Capturer> capturers;
-    private List<Reviewer> reviewers;
-    private List<PricePlan> pricePlans;
-
-    // Constructors, getters, and setters
+{
+  "assignedCapturer": [
+    {
+      "id": "CC338003  ",
+      "name": "TONY-S"
+    },
+    {
+      "id": "CC338007  ",
+      "name": "GEORGE-P"
+    }
+  ],
+  "unassignedCapturer": [
+    {
+      "id": "CC338003  ",
+      "name": "TONY-S"
+    },
+    {
+      "id": "CC338007  ",
+      "name": "GEORGE-P"
+    },
+    {
+      "id": "CC338008  ",
+      "name": "MIYA-M"
+    },
+    {
+      "id": "CC338009  ",
+      "name": "JACK-PHILIPSE"
+    }
+  ],
+  "assignedReviewer": [
+    {
+      "id": "CC338008  ",
+      "name": "MIYA-M"
+    },
+    {
+      "id": "CC338009  ",
+      "name": "JACK-PHILIPSE"
+    }
+  ],
+  "unAssignedReviewer": [
+    {
+      "id": "CC338003  ",
+      "name": "TONY-S"
+    },
+    {
+      "id": "CC338007  ",
+      "name": "GEORGE-P"
+    },
+    {
+      "id": "CC338008  ",
+      "name": "MIYA-M"
+    },
+    {
+      "id": "CC338009  ",
+      "name": "JACK-PHILIPSE"
+    }
+  ]
 }
-
-class Capturer {
-    private String id;
-
-    // Constructors, getters, and setters
-}
-
-class Reviewer {
-    private String id;
-
-    // Constructors, getters, and setters
-}
-
-class PricePlan {
-    private int id;
-
-    // Constructors, getters, and setters
-}
-
-
-###### stub Error
-
-com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Request': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"
-                                               Request was not matched
