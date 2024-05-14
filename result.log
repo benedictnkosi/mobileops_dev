@@ -71,14 +71,12 @@ class ForeignCurrencyAccountItem {
 
 #### response Pojo GetAllStatus
 
-{
-  "total": 40116,
-  "approved": 0,
-  "pending": 0,
-  "rejected": 0,
-  "pendingSubmission": 0,
-  "ete": 0,
-  "qa": 0,
-  "prod": 0,
-  "prodReady": 0
-}
+    private int total;
+    private int approved;
+    private int pending;
+    private int rejected;
+    private int pendingSubmission;
+    private int ete;
+    private int qa;
+    private int prod;
+    private int prodReady;
