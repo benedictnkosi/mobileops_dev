@@ -69,67 +69,16 @@ class ForeignCurrencyAccountItem {
     // toString() method
 }
 
-#### response Pojo GetAssigned
+#### response Pojo GetAllStatus
 
-import java.util.List;
-
-public class CapturerAssignment {
-    private List<User> assignedCapturer;
-    private List<User> unassignedCapturer;
-    private List<User> assignedReviewer;
-    private List<User> unassignedReviewer;
-
-    public List<User> getAssignedCapturer() {
-        return assignedCapturer;
-    }
-
-    public void setAssignedCapturer(List<User> assignedCapturer) {
-        this.assignedCapturer = assignedCapturer;
-    }
-
-    public List<User> getUnassignedCapturer() {
-        return unassignedCapturer;
-    }
-
-    public void setUnassignedCapturer(List<User> unassignedCapturer) {
-        this.unassignedCapturer = unassignedCapturer;
-    }
-
-    public List<User> getAssignedReviewer() {
-        return assignedReviewer;
-    }
-
-    public void setAssignedReviewer(List<User> assignedReviewer) {
-        this.assignedReviewer = assignedReviewer;
-    }
-
-    public List<User> getUnassignedReviewer() {
-        return unassignedReviewer;
-    }
-
-    public void setUnassignedReviewer(List<User> unassignedReviewer) {
-        this.unassignedReviewer = unassignedReviewer;
-    }
+{
+  "total": 40116,
+  "approved": 0,
+  "pending": 0,
+  "rejected": 0,
+  "pendingSubmission": 0,
+  "ete": 0,
+  "qa": 0,
+  "prod": 0,
+  "prodReady": 0
 }
-
-class User {
-    private String id;
-    private String name;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
