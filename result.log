@@ -142,3 +142,112 @@ class ForeignCurrencyAccountItem {
     ]
   }
 ]
+
+###### Java Get All price group ####
+/// Person
+public class Person {
+    private String id;
+    private String name;
+
+    // Getters and Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+/// PricePlan
+public class PricePlan {
+    private int pricePlanId;
+    private String product;
+    private String priceplanName;
+
+    // Getters and Setters
+    public int getPricePlanId() {
+        return pricePlanId;
+    }
+
+    public void setPricePlanId(int pricePlanId) {
+        this.pricePlanId = pricePlanId;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getPriceplanName() {
+        return priceplanName;
+    }
+
+    public void setPriceplanName(String priceplanName) {
+        this.priceplanName = priceplanName;
+    }
+}
+//Group
+import java.util.List;
+
+public class Group {
+    private int id;
+    private String name;
+    private List<Person> capturers;
+    private List<Person> reviewers;
+    private List<PricePlan> pricePlans;
+
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Person> getCapturers() {
+        return capturers;
+    }
+
+    public void setCapturers(List<Person> capturers) {
+        this.capturers = capturers;
+    }
+
+    public List<Person> getReviewers() {
+        return reviewers;
+    }
+
+    public void setReviewers(List<Person> reviewers) {
+        this.reviewers = reviewers;
+    }
+
+    public List<PricePlan> getPricePlans() {
+        return pricePlans;
+    }
+
+    public void setPricePlans(List<PricePlan> pricePlans) {
+        this.pricePlans = pricePlans;
+    }
+}
+
+
