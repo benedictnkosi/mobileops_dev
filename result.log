@@ -80,3 +80,65 @@ class ForeignCurrencyAccountItem {
     private int qa;
     private int prod;
     private int prodReady;
+#### get all price plan group
+
+[
+{
+    "id": 1,
+    "name": "Group 1",
+    "capturers": [
+      {
+        "id": "CC338003  ",
+        "name": "TONY"
+      },
+      {
+        "id": "CC338007  ",
+        "name": "GEORGE"
+      }
+    ],
+    "reviewers": [
+      {
+        "id": "CC338009  ",
+        "name": "JACK"
+      }
+    ],
+    "pricePlans": [
+      {
+        "pricePlanId": 1227002,
+        "product": "Foreign Currency Account (FCA)",
+        "priceplanName": "1227_Foreign Currency Account (FCA)_AUD"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "RichPlan",
+    "capturers": [],
+    "reviewers": [],
+    "pricePlans": [
+      {
+        "pricePlanId": 1227001,
+        "product": "Foreign Currency Account (FCA)",
+        "priceplanName": "1227_Foreign Currency Account (FCA)_AED"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "WeathPlan",
+    "capturers": [],
+    "reviewers": [],
+    "pricePlans": [
+      {
+        "pricePlanId": 1227001,
+        "product": "Foreign Currency Account (FCA)",
+        "priceplanName": "1227_Foreign Currency Account (FCA)_AED"
+      },
+      {
+        "pricePlanId": 1227002,
+        "product": "Foreign Currency Account (FCA)",
+        "priceplanName": "1227_Foreign Currency Account (FCA)_AUD"
+      }
+    ]
+  }
+]
