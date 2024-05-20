@@ -69,185 +69,30 @@ class ForeignCurrencyAccountItem {
     // toString() method
 }
 
-#### response Pojo GetAllStatus
+#### feature file error ####
+May 20, 2024 6:50:27 PM io.cucumber.core.resource.ClasspathScanner safelyLoadClass
+WARNING: Failed to load class 'parallel.aprtool.API.AdminFeeUpdateSteps$1'.
+By default Cucumber scans the entire classpath for step definitions.
+You can restrict this by configuring the glue path.
 
-    private int total;
-    private int approved;
-    private int pending;
-    private int rejected;
-    private int pendingSubmission;
-    private int ete;
-    private int qa;
-    private int prod;
-    private int prodReady;
-#### get all price plan group
+Examples:
+ - @CucumberOptions(glue = "com.example.application")
+ - @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.example.application") - src/test/resources/junit-platform.properties   cucumber.glue=com.example.application
+ - src/test/resources/cucumber.properties         cucumber.glue=com.example.application
 
-[
-{
-    "id": 1,
-    "name": "Group 1",
-    "capturers": [
-      {
-        "id": "CC338003  ",
-        "name": "TONY"
-      },
-      {
-        "id": "CC338007  ",
-        "name": "GEORGE"
-      }
-    ],
-    "reviewers": [
-      {
-        "id": "CC338009  ",
-        "name": "JACK"
-      }
-    ],
-    "pricePlans": [
-      {
-        "pricePlanId": 1227002,
-        "product": "Foreign Currency Account (FCA)",
-        "priceplanName": "1227_Foreign Currency Account (FCA)_AUD"
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "name": "RichPlan",
-    "capturers": [],
-    "reviewers": [],
-    "pricePlans": [
-      {
-        "pricePlanId": 1227001,
-        "product": "Foreign Currency Account (FCA)",
-        "priceplanName": "1227_Foreign Currency Account (FCA)_AED"
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "name": "WeathPlan",
-    "capturers": [],
-    "reviewers": [],
-    "pricePlans": [
-      {
-        "pricePlanId": 1227001,
-        "product": "Foreign Currency Account (FCA)",
-        "priceplanName": "1227_Foreign Currency Account (FCA)_AED"
-      },
-      {
-        "pricePlanId": 1227002,
-        "product": "Foreign Currency Account (FCA)",
-        "priceplanName": "1227_Foreign Currency Account (FCA)_AUD"
-      }
-    ]
-  }
-]
+##### runner class #####
 
-###### Java Get All price group ####
-/// Person
-public class Person {
-    private String id;
-    private String name;
+package parallel;
 
-    // Getters and Setters
-    public String getId() {
-        return id;
-    }
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
-/// PricePlan
-public class PricePlan {
-    private int pricePlanId;
-    private String product;
-    private String priceplanName;
-
-    // Getters and Setters
-    public int getPricePlanId() {
-        return pricePlanId;
-    }
-
-    public void setPricePlanId(int pricePlanId) {
-        this.pricePlanId = pricePlanId;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    public String getPriceplanName() {
-        return priceplanName;
-    }
-
-    public void setPriceplanName(String priceplanName) {
-        this.priceplanName = priceplanName;
-    }
-}
-//Group
-import java.util.List;
-
-public class Group {
-    private int id;
-    private String name;
-    private List<Person> capturers;
-    private List<Person> reviewers;
-    private List<PricePlan> pricePlans;
-
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Person> getCapturers() {
-        return capturers;
-    }
-
-    public void setCapturers(List<Person> capturers) {
-        this.capturers = capturers;
-    }
-
-    public List<Person> getReviewers() {
-        return reviewers;
-    }
-
-    public void setReviewers(List<Person> reviewers) {
-        this.reviewers = reviewers;
-    }
-
-    public List<PricePlan> getPricePlans() {
-        return pricePlans;
-    }
-
-    public void setPricePlans(List<PricePlan> pricePlans) {
-        this.pricePlans = pricePlans;
-    }
+@RunWith(Cucumber.class)
+@CucumberOptions(plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+        "json:target/cucumber-reports/Cucumber.json", "timeline:target/cucumber-reports/timeline"},
+        tags = "@createPricePlanGroup_positive")
+public class RunCucumberIT {
 }
 
 
