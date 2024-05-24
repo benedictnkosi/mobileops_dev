@@ -103,3 +103,153 @@ nullable: true
     }
   ]
 }
+
+###### Admin Report POJO ####
+
+import java.util.List;
+
+public class Response {
+
+    private int totalCount;
+    private List<Item> items;
+
+    // Getters and Setters
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    // Inner class representing the item
+    public static class Item {
+        private int id;
+        private String product;
+        private String pricePlan;
+        private long csid;
+        private String csidName;
+        private String feeName;
+        private String validityStarts;
+        private String groupName;
+        private Double currentFee;
+        private Double newFee;
+        private String capturer;
+        private String reviewer;
+        private String publishedAt;
+
+        // Getters and Setters
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getProduct() {
+            return product;
+        }
+
+        public void setProduct(String product) {
+            this.product = product;
+        }
+
+        public String getPricePlan() {
+            return pricePlan;
+        }
+
+        public void setPricePlan(String pricePlan) {
+            this.pricePlan = pricePlan;
+        }
+
+        public long getCsid() {
+            return csid;
+        }
+
+        public void setCsid(long csid) {
+            this.csid = csid;
+        }
+
+        public String getCsidName() {
+            return csidName;
+        }
+
+        public void setCsidName(String csidName) {
+            this.csidName = csidName;
+        }
+
+        public String getFeeName() {
+            return feeName;
+        }
+
+        public void setFeeName(String feeName) {
+            this.feeName = feeName;
+        }
+
+        public String getValidityStarts() {
+            return validityStarts;
+        }
+
+        public void setValidityStarts(String validityStarts) {
+            this.validityStarts = validityStarts;
+        }
+
+        public String getGroupName() {
+            return groupName;
+        }
+
+        public void setGroupName(String groupName) {
+            this.groupName = groupName;
+        }
+
+        public Double getCurrentFee() {
+            return currentFee;
+        }
+
+        public void setCurrentFee(Double currentFee) {
+            this.currentFee = currentFee;
+        }
+
+        public Double getNewFee() {
+            return newFee;
+        }
+
+        public void setNewFee(Double newFee) {
+            this.newFee = newFee;
+        }
+
+        public String getCapturer() {
+            return capturer;
+        }
+
+        public void setCapturer(String capturer) {
+            this.capturer = capturer;
+        }
+
+        public String getReviewer() {
+            return reviewer;
+        }
+
+        public void setReviewer(String reviewer) {
+            this.reviewer = reviewer;
+        }
+
+        public String getPublishedAt() {
+            return publishedAt;
+        }
+
+        public void setPublishedAt(String publishedAt) {
+            this.publishedAt = publishedAt;
+        }
+    }
+}
+
