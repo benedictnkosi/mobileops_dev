@@ -69,30 +69,37 @@ class ForeignCurrencyAccountItem {
     // toString() method
 }
 
-#### feature file error ####
-May 20, 2024 6:50:27 PM io.cucumber.core.resource.ClasspathScanner safelyLoadClass
-WARNING: Failed to load class 'parallel.aprtool.API.AdminFeeUpdateSteps$1'.
-By default Cucumber scans the entire classpath for step definitions.
-You can restrict this by configuring the glue path.
+#### Admin Report Response ####
 
-Examples:
- - @CucumberOptions(glue = "com.example.application")
- - @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.example.application") - src/test/resources/junit-platform.properties   cucumber.glue=com.example.application
- - src/test/resources/cucumber.properties         cucumber.glue=com.example.application
-
-##### runner class #####
-
-package parallel;
-
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
-
-@RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
-        "json:target/cucumber-reports/Cucumber.json", "timeline:target/cucumber-reports/timeline"},
-        tags = "@createPricePlanGroup_positive")
-public class RunCucumberIT {
+{
+  "totalCount": integer($int32),
+  "items": [
+    {
+     id	integer($int32)
+product	string
+nullable: true
+pricePlan	string
+nullable: true
+csid	integer($int64)
+csidName	string
+nullable: true
+feeName	string
+nullable: true
+validityStarts	string
+nullable: true
+groupName	string
+nullable: true
+currentFee	number($double)
+nullable: true
+newFee	number($double)
+nullable: true
+capturer	string
+nullable: true
+reviewer	string
+nullable: true
+publishedAt	string
+nullable: true
 }
-
-
+    }
+  ]
+}
