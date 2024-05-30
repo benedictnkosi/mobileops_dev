@@ -300,3 +300,25 @@ public class Response {
     }
 }
 
+### time zone error ####
+
+com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Java 8 date/time type `java.time.ZonedDateTime` not supported by default: add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
+ at [Source: (String)"{
+    "totalCount": 0,
+    "items": [
+        {
+            "id": 0,
+            "product": "string",
+            "pricePlan": "string",
+            "csidName": "string",
+            "feeEffectFrom": "2024-05-30T14:28:33.034Z",
+            "feeEffectTo": "2024-05-30T14:28:33.034Z",
+            "feeName": "string",
+            "chargeAlgorithm": "string",
+            "rateType": "string",
+            "tierOrder": 0,
+            "tier": 0,
+            "unit": 0,
+            "min": 0,
+            ""[truncated 289 chars]; line: 9, column: 30] (through reference chain: aprtool.pojos.response.pricingsubmission.PricingSubmissionResponse["items"]->java.util.ArrayList[0]->aprtool.pojos.response.pricingsubmission.Item["feeEffectFrom"])
+
