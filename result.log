@@ -384,3 +384,39 @@ public class Response {
 
 mapper.registerModule(new JavaTimeModule());
 mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+
+### capturer home response #####
+
+{
+  "product": [
+    {
+      "id": 0
+    }
+  ],
+  "pricePlan": [
+    {
+      "id": 0
+    }
+  ],
+  "csid": [
+    {
+      "id": 0
+    }
+  ],
+  "feeCategory": [
+    {
+      "id": 0
+    }
+  ],
+  "chargeName": [
+    {
+      "id": "string"
+    }
+  ],
+  "chargeAlgorithm": [
+    {
+      "id": "string"
+    }
+  ]
+}
