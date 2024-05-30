@@ -415,3 +415,260 @@ mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
   ]
 }
+#### capturer home pojo ###
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+
+public class Response {
+    @JsonProperty("totalCount")
+    private int totalCount;
+    
+    @JsonProperty("items")
+    private List<Item> items;
+
+    // Getters and Setters
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+}
+
+########### ITems ####
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.ZonedDateTime;
+
+public class Item {
+    @JsonProperty("isSelected")
+    private boolean isSelected;
+    
+    @JsonProperty("id")
+    private int id;
+    
+    @JsonProperty("isEdit")
+    private boolean isEdit;
+    
+    @JsonProperty("product")
+    private String product;
+    
+    @JsonProperty("pricePlan")
+    private String pricePlan;
+    
+    @JsonProperty("csidName")
+    private String csidName;
+    
+    @JsonProperty("feeEffectFrom")
+    private ZonedDateTime feeEffectFrom;
+    
+    @JsonProperty("feeEffectTo")
+    private ZonedDateTime feeEffectTo;
+    
+    @JsonProperty("feeName")
+    private String feeName;
+    
+    @JsonProperty("feeCategory")
+    private String feeCategory;
+    
+    @JsonProperty("chargeAlgorithm")
+    private String chargeAlgorithm;
+    
+    @JsonProperty("rateType")
+    private String rateType;
+    
+    @JsonProperty("tierOrder")
+    private int tierOrder;
+    
+    @JsonProperty("tier")
+    private int tier;
+    
+    @JsonProperty("unit")
+    private int unit;
+    
+    @JsonProperty("min")
+    private int min;
+    
+    @JsonProperty("max")
+    private int max;
+    
+    @JsonProperty("currentFee")
+    private int currentFee;
+    
+    @JsonProperty("newFee")
+    private int newFee;
+    
+    @JsonProperty("feeChange")
+    private int feeChange;
+
+    // Getters and Setters
+    public boolean isIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isIsEdit() {
+        return isEdit;
+    }
+
+    public void setIsEdit(boolean isEdit) {
+        this.isEdit = isEdit;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getPricePlan() {
+        return pricePlan;
+    }
+
+    public void setPricePlan(String pricePlan) {
+        this.pricePlan = pricePlan;
+    }
+
+    public String getCsidName() {
+        return csidName;
+    }
+
+    public void setCsidName(String csidName) {
+        this.csidName = csidName;
+    }
+
+    public ZonedDateTime getFeeEffectFrom() {
+        return feeEffectFrom;
+    }
+
+    public void setFeeEffectFrom(ZonedDateTime feeEffectFrom) {
+        this.feeEffectFrom = feeEffectFrom;
+    }
+
+    public ZonedDateTime getFeeEffectTo() {
+        return feeEffectTo;
+    }
+
+    public void setFeeEffectTo(ZonedDateTime feeEffectTo) {
+        this.feeEffectTo = feeEffectTo;
+    }
+
+    public String getFeeName() {
+        return feeName;
+    }
+
+    public void setFeeName(String feeName) {
+        this.feeName = feeName;
+    }
+
+    public String getFeeCategory() {
+        return feeCategory;
+    }
+
+    public void setFeeCategory(String feeCategory) {
+        this.feeCategory = feeCategory;
+    }
+
+    public String getChargeAlgorithm() {
+        return chargeAlgorithm;
+    }
+
+    public void setChargeAlgorithm(String chargeAlgorithm) {
+        this.chargeAlgorithm = chargeAlgorithm;
+    }
+
+    public String getRateType() {
+        return rateType;
+    }
+
+    public void setRateType(String rateType) {
+        this.rateType = rateType;
+    }
+
+    public int getTierOrder() {
+        return tierOrder;
+    }
+
+    public void setTierOrder(int tierOrder) {
+        this.tierOrder = tierOrder;
+    }
+
+    public int getTier() {
+        return tier;
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
+
+    public void setUnit(int unit) {
+        this.unit = unit;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public int getCurrentFee() {
+        return currentFee;
+    }
+
+    public void setCurrentFee(int currentFee) {
+        this.currentFee = currentFee;
+    }
+
+    public int getNewFee() {
+        return newFee;
+    }
+
+    public void setNewFee(int newFee) {
+        this.newFee = newFee;
+    }
+
+    public int getFeeChange() {
+        return feeChange;
+    }
+
+    public void setFeeChange(int feeChange) {
+        this.feeChange = feeChange;
+    }
+}
+
