@@ -389,34 +389,29 @@ mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 ### capturer home response #####
 
 {
-  "product": [
+  "totalCount": 0,
+  "items": [
     {
-      "id": 0
-    }
-  ],
-  "pricePlan": [
-    {
-      "id": 0
-    }
-  ],
-  "csid": [
-    {
-      "id": 0
-    }
-  ],
-  "feeCategory": [
-    {
-      "id": 0
-    }
-  ],
-  "chargeName": [
-    {
-      "id": "string"
-    }
-  ],
-  "chargeAlgorithm": [
-    {
-      "id": "string"
+      "isSelected": true,
+      "id": 0,
+      "isEdit": true,
+      "product": "string",
+      "pricePlan": "string",
+      "csidName": "string",
+      "feeEffectFrom": "2024-05-30T15:51:40.215Z",
+      "feeEffectTo": "2024-05-30T15:51:40.215Z",
+      "feeName": "string",
+      "feeCategory": "string",
+      "chargeAlgorithm": "string",
+      "rateType": "string",
+      "tierOrder": 0,
+      "tier": 0,
+      "unit": 0,
+      "min": 0,
+      "max": 0,
+      "currentFee": 0,
+      "newFee": 0,
+      "feeChange": 0
     }
   ]
 }
