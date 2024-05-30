@@ -103,3 +103,92 @@ class ForeignCurrencyAccountItem {
   ]
 }
 
+##### capturer request pojo ###
+
+import java.util.List;
+
+public class Data {
+    private List<Item> product;
+    private List<Item> pricePlan;
+    private List<Item> csid;
+    private List<Item> feeCategory;
+    private List<NameItem> chargeName;
+    private List<NameItem> chargeAlgorithm;
+
+    // Getters and Setters
+    public List<Item> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Item> product) {
+        this.product = product;
+    }
+
+    public List<Item> getPricePlan() {
+        return pricePlan;
+    }
+
+    public void setPricePlan(List<Item> pricePlan) {
+        this.pricePlan = pricePlan;
+    }
+
+    public List<Item> getCsid() {
+        return csid;
+    }
+
+    public void setCsid(List<Item> csid) {
+        this.csid = csid;
+    }
+
+    public List<Item> getFeeCategory() {
+        return feeCategory;
+    }
+
+    public void setFeeCategory(List<Item> feeCategory) {
+        this.feeCategory = feeCategory;
+    }
+
+    public List<NameItem> getChargeName() {
+        return chargeName;
+    }
+
+    public void setChargeName(List<NameItem> chargeName) {
+        this.chargeName = chargeName;
+    }
+
+    public List<NameItem> getChargeAlgorithm() {
+        return chargeAlgorithm;
+    }
+
+    public void setChargeAlgorithm(List<NameItem> chargeAlgorithm) {
+        this.chargeAlgorithm = chargeAlgorithm;
+    }
+
+    public static class Item {
+        private int id;
+
+        // Getter and Setter
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+    }
+
+    public static class NameItem {
+        private String id;
+
+        // Getter and Setter
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+    }
+}
+
+
