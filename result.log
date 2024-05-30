@@ -71,32 +71,232 @@ class ForeignCurrencyAccountItem {
 
 #### Pricing sub Response ####
 
-{
-  "totalCount": 0,
-  "items": [
-    {
-      "id": 0,
-      "product": "string",
-      "pricePlan": "string",
-      "csidName": "string",
-      "feeEffectFrom": "2024-05-30T13:52:18.712Z",
-      "feeEffectTo": "2024-05-30T13:52:18.712Z",
-      "feeName": "string",
-      "chargeAlgorithm": "string",
-      "rateType": "string",
-      "tierOrder": 0,
-      "tier": 0,
-      "unit": 0,
-      "min": 0,
-      "max": 0,
-      "currentFee": 0,
-      "newFee": 0,
-      "feeChange": 0,
-      "isRejected": true,
-      "isPending": true,
-      "isApproved": true,
-      "isRejectedComments": "string",
-      "isDisputeComments": "string"
+import java.time.ZonedDateTime;
+import java.util.List;
+
+public class Response {
+    private int totalCount;
+    private List<Item> items;
+
+    // Getters and Setters
+
+    public int getTotalCount() {
+        return totalCount;
     }
-  ]
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public static class Item {
+        private int id;
+        private String product;
+        private String pricePlan;
+        private String csidName;
+        private ZonedDateTime feeEffectFrom;
+        private ZonedDateTime feeEffectTo;
+        private String feeName;
+        private String chargeAlgorithm;
+        private String rateType;
+        private int tierOrder;
+        private int tier;
+        private int unit;
+        private int min;
+        private int max;
+        private int currentFee;
+        private int newFee;
+        private int feeChange;
+        private boolean isRejected;
+        private boolean isPending;
+        private boolean isApproved;
+        private String isRejectedComments;
+        private String isDisputeComments;
+
+        // Getters and Setters
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getProduct() {
+            return product;
+        }
+
+        public void setProduct(String product) {
+            this.product = product;
+        }
+
+        public String getPricePlan() {
+            return pricePlan;
+        }
+
+        public void setPricePlan(String pricePlan) {
+            this.pricePlan = pricePlan;
+        }
+
+        public String getCsidName() {
+            return csidName;
+        }
+
+        public void setCsidName(String csidName) {
+            this.csidName = csidName;
+        }
+
+        public ZonedDateTime getFeeEffectFrom() {
+            return feeEffectFrom;
+        }
+
+        public void setFeeEffectFrom(ZonedDateTime feeEffectFrom) {
+            this.feeEffectFrom = feeEffectFrom;
+        }
+
+        public ZonedDateTime getFeeEffectTo() {
+            return feeEffectTo;
+        }
+
+        public void setFeeEffectTo(ZonedDateTime feeEffectTo) {
+            this.feeEffectTo = feeEffectTo;
+        }
+
+        public String getFeeName() {
+            return feeName;
+        }
+
+        public void setFeeName(String feeName) {
+            this.feeName = feeName;
+        }
+
+        public String getChargeAlgorithm() {
+            return chargeAlgorithm;
+        }
+
+        public void setChargeAlgorithm(String chargeAlgorithm) {
+            this.chargeAlgorithm = chargeAlgorithm;
+        }
+
+        public String getRateType() {
+            return rateType;
+        }
+
+        public void setRateType(String rateType) {
+            this.rateType = rateType;
+        }
+
+        public int getTierOrder() {
+            return tierOrder;
+        }
+
+        public void setTierOrder(int tierOrder) {
+            this.tierOrder = tierOrder;
+        }
+
+        public int getTier() {
+            return tier;
+        }
+
+        public void setTier(int tier) {
+            this.tier = tier;
+        }
+
+        public int getUnit() {
+            return unit;
+        }
+
+        public void setUnit(int unit) {
+            this.unit = unit;
+        }
+
+        public int getMin() {
+            return min;
+        }
+
+        public void setMin(int min) {
+            this.min = min;
+        }
+
+        public int getMax() {
+            return max;
+        }
+
+        public void setMax(int max) {
+            this.max = max;
+        }
+
+        public int getCurrentFee() {
+            return currentFee;
+        }
+
+        public void setCurrentFee(int currentFee) {
+            this.currentFee = currentFee;
+        }
+
+        public int getNewFee() {
+            return newFee;
+        }
+
+        public void setNewFee(int newFee) {
+            this.newFee = newFee;
+        }
+
+        public int getFeeChange() {
+            return feeChange;
+        }
+
+        public void setFeeChange(int feeChange) {
+            this.feeChange = feeChange;
+        }
+
+        public boolean isRejected() {
+            return isRejected;
+        }
+
+        public void setRejected(boolean rejected) {
+            isRejected = rejected;
+        }
+
+        public boolean isPending() {
+            return isPending;
+        }
+
+        public void setPending(boolean pending) {
+            isPending = pending;
+        }
+
+        public boolean isApproved() {
+            return isApproved;
+        }
+
+        public void setApproved(boolean approved) {
+            isApproved = approved;
+        }
+
+        public String getIsRejectedComments() {
+            return isRejectedComments;
+        }
+
+        public void setIsRejectedComments(String isRejectedComments) {
+            this.isRejectedComments = isRejectedComments;
+        }
+
+        public String getIsDisputeComments() {
+            return isDisputeComments;
+        }
+
+        public void setIsDisputeComments(String isDisputeComments) {
+            this.isDisputeComments = isDisputeComments;
+        }
+    }
 }
+
