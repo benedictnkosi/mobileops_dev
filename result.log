@@ -321,4 +321,13 @@ com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Java 8 date/time 
             "unit": 0,
             "min": 0,
             ""[truncated 289 chars]; line: 9, column: 30] (through reference chain: aprtool.pojos.response.pricingsubmission.PricingSubmissionResponse["items"]->java.util.ArrayList[0]->aprtool.pojos.response.pricingsubmission.Item["feeEffectFrom"])
+#### pricing submission desiralization solution #####
 
+<dependency>
+    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <artifactId>jackson-datatype-jsr310</artifactId>
+    <version>2.14.0</version> <!-- Use the latest version -->
+</dependency>
+
+mapper.registerModule(new JavaTimeModule());
+mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
