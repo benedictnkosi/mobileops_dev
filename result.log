@@ -69,6 +69,56 @@ class ForeignCurrencyAccountItem {
     // toString() method
 }
 
+#### Price Submission get details ##
+
+{
+  "totalCount": 0,
+  "items": [
+    {
+      "id": 0,
+      "product": "string",
+      "pricePlan": "string",
+      "csidName": "string",
+      "feeEffectFrom": "2024-06-06T07:51:27.164Z",
+      "feeEffectTo": "2024-06-06T07:51:27.164Z",
+      "feeName": "string",
+      "chargeAlgorithm": "string",
+      "rateType": "string",
+      "tierOrder": 0,
+      "tier": 0,
+      "unit": 0,
+      "min": 0,
+      "max": 0,
+      "currentFee": 0,
+      "newFee": 0,
+      "feeChange": 0,
+      "isRejected": true,
+      "isPending": true,
+      "isApproved": true,
+      "isRejectedComments": "string",
+      "isDisputeComments": "string"
+    }
+  ]
+}
+
+### Error Price submission ###
+
+com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.ZonedDateTime` from String "2025-01-01T00:00:00": Failed to deserialize java.time.ZonedDateTime: (java.time.format.DateTimeParseException) Text '2025-01-01T00:00:00' could not be parsed at index 19
+ at [Source: (String)"{
+    "totalCount": 39,
+    "items": [
+        {
+            "id": 226163,
+            "product": "Foreign Currency Account (FCA)",
+            "pricePlan": "1227_Foreign Currency Account (FCA)_AED",
+            "csidName": "Cross Currency Deposit Branch",
+            "feeEffectFrom": "2025-01-01T00:00:00",
+            "feeEffectTo": "9999-12-31T00:00:00",
+            "feeName": "Cross Currency Deposit Branch",
+            "chargeAlgorithm": "FLAT_SIMPLE",
+            "rateType": "FLAT          "[truncated 8307 chars]; line: 9, column: 30] (through reference chain: aprtool.pojos.response.pricingsubmission.GetPricingSubmissionDetailsResponse["items"]->java.util.ArrayList[0]->aprtool.pojos.response.pricingsubmission.Item["feeEffectFrom"])
+
+
 ##### capturer home request body ####
 {
   "product": [
