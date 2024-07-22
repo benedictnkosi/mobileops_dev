@@ -1,6 +1,10 @@
-int elementX = element.getLocation().getX();
-        int elementY = element.getLocation().getY();
+LocalDate currentDate = LocalDate.now();
 
-        // Use Actions class to move to the element and click using the coordinates
-        Actions actions = new Actions(driver);
-        actions.moveByOffset(elementX, elementY).click().perform();
+        // Define the date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        // Format the current date
+        String formattedDate = currentDate.format(formatter);
+
+        // Print the formatted date
+        System.out.println(formattedDate);
